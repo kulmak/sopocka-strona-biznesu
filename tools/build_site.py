@@ -105,6 +105,20 @@ def build() -> None:
     else:
         print(f"  skip  {'municipal replica':28s} (copyright + size; see integrations/NAV-DIFF.md)")
 
+    # The 90-second film, reconciled against the data. It is an optional deliverable, and it is
+    # the one place a juror can SEE the product without reading: 36 MB, re-encoded from the
+    # original 780 MB, with the four unsupportable claims corrected.
+    film = ROOT / "artifacts" / "film" / "sopocka-strona-biznesu-90s.mp4"
+    poster = ROOT / "artifacts" / "film" / "POSTER.jpg"
+    if film.exists():
+        (SITE / "film").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(film, SITE / "film" / "sopocka-strona-biznesu-90s.mp4")
+        if poster.exists():
+            shutil.copy2(poster, SITE / "film" / "POSTER.jpg")
+        print(f"  ok    {'film (90 s, reconciled)':28s} {1:5d} files  {film.stat().st_size/1e6:6.2f} MB")
+    else:
+        print(f"  skip  {'film':28s} (not built)")
+
     # A landing page that works even if the replica was not built.
     (SITE / "index.html").write_text(LANDING, encoding="utf-8")
 
@@ -146,6 +160,8 @@ kartowych (MCC 5812), bez zbierania sprzedaży firmy.</p>
      <span>Działające demo na realnych danych. Bez instalacji, bez nowej aplikacji.</span></a>
   <a class="card" href="deck/deck.pdf"><b>Prezentacja (PDF) →</b>
      <span>10 slajdów: problem, dane, dwa wnioski, model, prywatność.</span></a>
+  <a class="card" href="film/sopocka-strona-biznesu-90s.mp4"><b>Film (90 s) →</b>
+     <span>Miasto i firmy oddychają tym samym rytmem. Bez dźwięku, 36 MB.</span></a>
   <a class="card" href="evidence/"><b>W Karcie Sopockiej →</b>
      <span>Jak panel wygląda jako nowa zakładka serwisu miejskiego (zrzuty ekranu).</span></a>
 </div>
