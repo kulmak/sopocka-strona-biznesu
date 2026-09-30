@@ -53,8 +53,7 @@ of a rule that says „udział” without naming the metric, whose cost §7 meas
 | several at once | `_reason_for` | `test_multi_failure_reports_every_gate` | suppress `multi` |
 | the release path | `assert_released` | `test_release_guard_refuses_orphan_values` | **raise**, never warn |
 
-`gate()` returns `no_data` for an empty relation and `thin_base` below **12** transactions
-(`#thin_base_transactions`) — a **readability** floor, not a privacy gate, so the UI never says „too few
+`gate()` returns `no_data` for an empty relation and `thin_base` below **12** transactions (`#thin_base_transactions`) — a **readability** floor, not a privacy gate, so the UI never says „too few
 cards” when the cause was a thin window. A suppressed record cannot carry a value and a released record cannot carry a reason: the types make both unrepresentable.
 
 ## 5. The cascade
@@ -87,7 +86,8 @@ At the postcode grain, over the **62** cells of the audited universe — 54 Sopo
 |---|---:|---:|---|
 | G1 (≥30 cards) / G2 (≥3 entities) | **54** / **25** | — | `#gate_g1_cards`, `#gate_g2_merchants` |
 | G3 volume only / volume **and** cards | **25** / **24** | — | `#privacy_g3_volume_only`, `#privacy_g3_both_metrics` |
-| all three, volume-only reading | **18** | **90.7%** | `#gate_all_three`, `#gate_volume_share` |
+| all three, **as the shipped artifact applies them** | **17** | **89.95%** | `#released_codes`, `#gate_volume_share` |
+| all three, volume-only reading (not shipped) | 18 | 90.69% | `#privacy_summary_volume_only` |
 | all three, conservative reading | **17** | **89.95%** | `#privacy_all_three_strict`, `#privacy_share_strict` |
 | all four (G1–G4) | **11** | **87.7%** | `#privacy_g4_pass`, `#privacy_share_all_four` |
 

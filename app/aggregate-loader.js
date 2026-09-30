@@ -158,12 +158,17 @@
         let res = null, url = OVERRIDE || ENDPOINT;
         res = await fetch(url, { cache: 'no-cache' });
         tried.push(`${url} → HTTP ${res.status}`);
-        if (!res.ok && !OVERRIDE) {
-          set('loading', 'Wczytywanie danych kartowych… (brak artifacts/aggregate.json, próbuję plik testowy)');
-          url = FIXTURE;
-          res = await fetch(url, { cache: 'no-cache' });
-          tried.push(`${url} → HTTP ${res.status}`);
-        }
+        // NO FIXTURE FALLBACK ON THE SHIPPED PATH.
+        //
+        // This used to fall back to artifacts/aggregate.fixture.json, which paints invented
+        // numbers under a loud "Dane testowe (fixture)" banner. The banner was honest and the
+        // decision was still wrong: the panel is a municipal service, and a service that shows a
+        // restaurateur a number it made up — even labelled — has done the thing this whole
+        // artifact exists to prevent. An adversarial pass demonstrated it by renaming the real
+        // aggregate and watching the panel render a full, confident, fabricated dashboard.
+        //
+        // The fixture remains available for development, but only by asking for it explicitly
+        // with ?agg=…, which is a developer action, not a silent fallback.
         if (!res.ok) throw new Error(`nie można wczytać danych (${tried.join('; ')})`);
         SD.endpoint = url;
         const text = await res.text();

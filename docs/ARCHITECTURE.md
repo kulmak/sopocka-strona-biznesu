@@ -33,7 +33,7 @@ command that prints the number, `audit:` is a reading from `../research/*.md` ma
   └── aggregate.py  stage 9  build the cube ─► [ PRIVACY GATE ] ─► artifacts/aggregate.json
           │                                   G1 ≥30 cards · G2 ≥3 merchants · G3 ≤75 % share · G4
           ▼
-  contracts/         aggregate.schema.json (ver 4) + AGGREGATE.md — validated on write and read
+  contracts/         aggregate.schema.json (ver 5) + AGGREGATE.md — validated on write and read
           ▼
   artifacts/aggregate.json   base64 typed arrays + per-code gate flags · the ONLY data file the app reads
           ▼
@@ -53,7 +53,7 @@ command that prints the number, `audit:` is a reading from `../research/*.md` ma
 | `pipeline/enrich.py` | DST-correct local hour, calendar features, sector geometry, per-code gate inputs. | time and place |
 | `pipeline/baseline.py` | Same-weekday baseline and the walk-forward backtest. | the comparison |
 | `pipeline/aggregate.py` | Build the cube, assert every contract invariant, write the artifact. | **the privacy choke point** |
-| `contracts/` | Fix the released artifact's shape and hold the gates; both writer and reader validate. | `aggregate.json` v4 · `privacy.py` |
+| `contracts/` | Fix the released artifact's shape and hold the gates; both writer and reader validate. | `aggregate.json` v5 · `privacy.py` |
 | `app/` | Render the panel from `aggregate.json` alone, or render an explicit failure. | the merchant-facing UI |
 | `app/data/` | Committed reduced geometry (`sopot-sectors.geojson`, `sopot-codes.json`, `sea-km.json`) and the city-level weather series. | map geometry, offline |
 | `integrations/municipal-site/` | Describe and mock the insertion into the live municipal CMS. | the deployment boundary |
@@ -179,7 +179,7 @@ That last row is the honest exception: the styled map frame and every marker wor
 
 ```
   municipal CMS  ──iframe──►  one page  ──fetch──►  artifacts/aggregate.json
-                              app/ (static)          same origin · ver 4 · privacy-gated · cacheable
+                              app/ (static)          same origin · ver 5 · privacy-gated · cacheable
 ```
 
 Three properties follow, and they are the argument for the design. There is **no server to operate**: the unit is a directory of static files plus one JSON. There is **nothing confidential to host**, because the identifiers were dropped at ingest and the gate ran in the pipeline. And a cold visitor **never sees a number that is not measured** — the old panel showed `Dane przykładowe` for the first 1.4–2.7 s of every load, and that behaviour is deleted rather than hidden.

@@ -1886,5 +1886,15 @@
       "docs/RUN.md",
       "docs/PRIVACY.md"
     ]
+  },
+  {
+    "id": "privacy_summary_volume_only",
+    "value": "90.69",
+    "statement": "The volume-only reading of the 75% rule: what a looser reading would release. Recorded so the choice of the stricter leg is visible.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/privacy-summary.json'));print(d['grain_postcode']['share_all_three_volume_only_pct'])\"",
+    "artifact": "artifacts/privacy-summary.json",
+    "used_in": [
+      "docs/PRIVACY.md"
+    ]
   }
 ]
