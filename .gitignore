@@ -1,0 +1,37 @@
+# ---- Organiser Data: NEVER committed, NEVER published (challenge §7.4) ----
+*.parquet
+*.csv.xz
+uploads/
+raw/
+data/raw/
+data/*.parquet
+sopot_weather_by_postal_code*.csv
+mcc5812_transactions*
+Dictionary_data_Visa.xlsx
+CHALLENGE_DATASPRINT*
+Sopot_GIS_*.zip
+
+# ---- large artifacts: keep the schema, not the payload ----
+*.mp4
+*.mov
+*.wav
+*.zip
+node_modules/
+
+# ---- scratch ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+/tmp/
+*.log
+
+# ---- generated figures are small and wanted; generated data is not ----
+artifacts/aggregate.json
+artifacts/baseline.json
+artifacts/backtest.json
+artifacts/drivers.json
+artifacts/*.bin
+!artifacts/figures/
