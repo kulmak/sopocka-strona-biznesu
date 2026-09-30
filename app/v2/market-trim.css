@@ -1,0 +1,73 @@
+/* market-trim.css — presentation trim for the "Mój rynek" tab.
+ *
+ * The React app is served from a pre-built bundle that cannot be rebuilt here (no npm network),
+ * so this stylesheet is loaded AFTER the app's own CSS and removes the chrome the owner marked
+ * for deletion — the app's own top bar, page heading, banners and secondary helper text — so the
+ * tab reads as one section of the dashboard rather than a second application.
+ *
+ * Every rule is a block-level removal; nothing here hides data, a chart or a control the owner
+ * kept. The same rules are appended to web/src/styles.css so a future rebuild reproduces this.
+ */
+
+/* ── app chrome (screenshot 1) ─────────────────────────────────────────────── */
+.topbar,                    /* Sopot Signal brand + Plan/Eksploruj/Dowody nav + status badges */
+.page-heading h1,           /* "Zaplanuj kolejny dzień" headline */
+.source-banner,             /* "Dane organizatora są syntetyczne…" note + "Zobacz pełną metodę" */
+.archive-badge,             /* "Odtworzenie archiwalne" */
+.mode-switch {              /* Plan/Explore/Evidence control-bar switch */
+  display: none !important;
+}
+
+/* ── section context + outlook card (screenshot 2) ─────────────────────────── */
+.metric-switch,             /* Liczba / Wartość / Średnia */
+.preparation-note,          /* "Punkt wyjścia do przygotowania zmiany" */
+.outlook-source {           /* "Wydane 6 lut · dane do 4 lut" */
+  display: none !important;
+}
+
+/* All three metrics in the outlook summary carry the same visual weight. */
+.outlook-number {
+  font-size: clamp(32px, 3.2vw, 38px) !important;
+  letter-spacing: -1.4px !important;
+}
+.outlook-mini-stats strong {
+  font-size: clamp(32px, 3.2vw, 38px) !important;
+  letter-spacing: -1.4px !important;
+}
+
+/* ── "Rytm Twojej okolicy" chart (screenshot 3) ────────────────────────────── */
+.instrument-panel .panel-heading .eyebrow,   /* "DZIENNE OBSERWACJE · ARCHIWALNE PROGNOZY" */
+.instrument-panel .scope-button,             /* "Poszerz zakres: Sopot" */
+.timeline-legend > small,                    /* trailing metric note on the legend row */
+.instrument-cursor-heading,                  /* "Wspólny kursor…" + "Najedź, aby odczytać…" */
+.instrument-lane-title small,                /* per-lane scope note */
+.instrument-lane-title > span:last-child {   /* per-lane right-hand scale label */
+  display: none !important;
+}
+/* The 28-day window option goes; 7 and 14 stay. */
+.window-segment button:nth-child(3) {
+  display: none !important;
+}
+
+/* ── map panel (screenshot 4) ──────────────────────────────────────────────── */
+.map-context-options > span,   /* "Nie są urzędowymi granicami · beż: słabsze wsparcie…" */
+.map-legend p:last-child,      /* "Wartości powyżej maksimum: pełne nasycenie" */
+.map-footer > span:first-child { /* "Przybliżone punkty, nie granice kodów…" */
+  display: none !important;
+}
+/* Location card keeps only the postcode and the branch. */
+.location-card .eyebrow,
+.location-card > p,
+.location-card .inline-warning,
+.location-card .location-caution,
+.location-card .location-release,
+.location-card .spec-list > div:not(:first-child) {
+  display: none !important;
+}
+
+/* ── explanation block (screenshot 5) ──────────────────────────────────────── */
+.explanation-card,          /* "Dlaczego taka prognoza?" + "Porównywalne obserwacje historyczne" */
+.scope-expansion-notice,    /* "Pokazujemy sopot · 32 kodów w zbiorze, nie kod 81-714…" */
+.site-footer {              /* "Sopot Signal / Sygnał dla lepszych decyzji · Visa Data Hackathon" */
+  display: none !important;
+}

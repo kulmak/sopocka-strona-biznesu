@@ -1,0 +1,236 @@
+{
+  "audit_spec": {
+    "coefficients": {
+      "events": {
+        "beta": 0.006071,
+        "ci95": [
+          0.00183,
+          0.010313
+        ],
+        "effect_per_unit_pct": 0.609,
+        "se": 0.002159,
+        "t": 2.81
+      },
+      "rain": {
+        "beta": -0.483329,
+        "ci95": [
+          -0.595031,
+          -0.371628
+        ],
+        "effect_per_unit_pct": -38.327,
+        "se": 0.05685,
+        "t": -8.5
+      },
+      "temperature": {
+        "beta": 0.005867,
+        "ci95": [
+          0.002182,
+          0.009552
+        ],
+        "effect_per_unit_pct": 0.588,
+        "se": 0.001876,
+        "t": 3.13
+      },
+      "wind": {
+        "beta": -0.003818,
+        "ci95": [
+          -0.007607,
+          -2.9e-05
+        ],
+        "effect_per_unit_pct": -0.381,
+        "se": 0.001928,
+        "t": -1.98
+      }
+    },
+    "k": 5,
+    "n": 490,
+    "r2": 0.176,
+    "spec": "OLS  log(uplift ratio) ~ 1 + rainy_fraction + temperature + wind + event_listings_count, on the 490 walk-forward days (no month dummies)"
+  },
+  "audited": {
+    "events": [
+      0.0031,
+      1.9
+    ],
+    "rain": [
+      -0.364,
+      -8.8
+    ],
+    "temperature": [
+      0.0063,
+      4.5
+    ]
+  },
+  "n_days": 546,
+  "nb2_glm": {
+    "alpha": 0.034827,
+    "coefficients": {
+      "events": {
+        "beta": 0.011973,
+        "se": 0.002109,
+        "t": 5.68
+      },
+      "rain": {
+        "beta": -0.394074,
+        "se": 0.039267,
+        "t": -10.04
+      },
+      "temperature": {
+        "beta": 0.030641,
+        "se": 0.002581,
+        "t": 11.87
+      },
+      "wind": {
+        "beta": -0.001907,
+        "se": 0.001335,
+        "t": -1.43
+      }
+    },
+    "deviance": 14007.4,
+    "iterations": 19,
+    "k": 22,
+    "n": 546,
+    "spec": "NB2 GLM  daily count ~ 1 + month(11) + weekday(6) + rainy_fraction + temperature + wind + event_listings_count   (log link)"
+  },
+  "no_month": {
+    "coefficients": {
+      "events": {
+        "beta": 0.017632,
+        "ci95": [
+          0.012985,
+          0.022278
+        ],
+        "effect_per_unit_pct": 1.779,
+        "se": 0.002365,
+        "t": 7.45
+      },
+      "rain": {
+        "beta": -0.366977,
+        "ci95": [
+          -0.461092,
+          -0.272862
+        ],
+        "effect_per_unit_pct": -30.717,
+        "se": 0.04791,
+        "t": -7.66
+      },
+      "temperature": {
+        "beta": 0.044284,
+        "ci95": [
+          0.040996,
+          0.047572
+        ],
+        "effect_per_unit_pct": 4.528,
+        "se": 0.001674,
+        "t": 26.46
+      },
+      "wind": {
+        "beta": -0.003988,
+        "ci95": [
+          -0.007188,
+          -0.000788
+        ],
+        "effect_per_unit_pct": -0.398,
+        "se": 0.001629,
+        "t": -2.45
+      }
+    },
+    "k": 11,
+    "n": 546,
+    "r2": 0.8078,
+    "spec": "OLS  log(daily count) ~ 1 + weekday(6) + rainy_fraction + temperature + wind + event_listings_count   (no month dummies)"
+  },
+  "primary": {
+    "coefficients": {
+      "events": {
+        "beta": 0.011194,
+        "ci95": [
+          0.006883,
+          0.015505
+        ],
+        "effect_per_unit_pct": 1.126,
+        "se": 0.002194,
+        "t": 5.1
+      },
+      "rain": {
+        "beta": -0.396329,
+        "ci95": [
+          -0.476289,
+          -0.31637
+        ],
+        "effect_per_unit_pct": -32.721,
+        "se": 0.040702,
+        "t": -9.74
+      },
+      "temperature": {
+        "beta": 0.030389,
+        "ci95": [
+          0.025148,
+          0.03563
+        ],
+        "effect_per_unit_pct": 3.086,
+        "se": 0.002668,
+        "t": 11.39
+      },
+      "wind": {
+        "beta": -0.001923,
+        "ci95": [
+          -0.004641,
+          0.000794
+        ],
+        "effect_per_unit_pct": -0.192,
+        "se": 0.001383,
+        "t": -1.39
+      }
+    },
+    "k": 22,
+    "n": 546,
+    "r2": 0.8731,
+    "sigma": 0.1986,
+    "spec": "OLS  log(daily count) ~ 1 + month(11) + weekday(6) + rainy_fraction + temperature + wind + event_listings_count"
+  },
+  "reading": "Rain is the robust driver: every specification puts it between -0.37 and -0.48 with |t| >= 7.7, and it is the only coefficient that stays strong under month control. Temperature and event listings are NOT robust: their coefficients move by a factor of 5 between the with-month and the without-month specifications, because a month dummy absorbs the seasonal mean and the seasonal temperature trend together, leaving only the within-month deviation to be explained. REPRODUCTION: the audited rain beta of -0.364 (t = -8.8) is matched by `no_month` at -0.3670 (t = -7.7) - i.e. it comes from an equation with weekday controls but NO month dummies, which is the opposite of what 'month-controlled uplift' implies. The audited temperature +0.0063 (t = +4.5) is matched instead by `audit_spec` at +0.0059 (t = +3.1), and the audited events +0.0031 (t = +1.9) is matched by NEITHER (+0.0061 and +0.0176). No single specification reproduces all three, so the honest conclusion is that the audited triple was not produced by one equation: the three coefficients cannot be attributed to a single design, and the deck should quote them only with the specification attached. Nothing here is tuned towards the audited values.",
+  "season_control": {
+    "audited": {
+      "ctl_hi": 4.7,
+      "ctl_lo": -4.3,
+      "n_days_q1": 140,
+      "n_days_q4": 123,
+      "raw_hi": 32.9,
+      "raw_lo": -26.9
+    },
+    "audited_unreproduced": {
+      "spread_ctl": 13.9,
+      "spread_raw": 130.4,
+      "statement_expected_by": "docs/claims.json rows event_spread_raw / event_spread_controlled",
+      "verdict": "not reproduced. Swept {matched-lag4, global-same-weekday-mean, log-uptake} x {ventile, decile, octile, quintile, quartile} x {difference-of-means, ratio-of-means}: the largest raw spread obtainable is 113.8 pp and the controlled spreads all land in 4.8-11.2 pp. The quartile split (140/123 days) is the one that reproduces the audit's published 32.9/-26.9 -> 59.8 pp exactly, so it is the headline here."
+    },
+    "ctl_hi": 4.1,
+    "ctl_lo": -4.8,
+    "decile": {
+      "ctl_hi": 7.7,
+      "ctl_lo": -2.9,
+      "n_days": 55,
+      "note": "top vs bottom decile by event_listings_count, same uplift and same control. The deck's '130.4 -> 13.9 pp' placeholder is NOT reproducible under this or any other split tried; use these numbers or the quartile ones above.",
+      "raw_hi": 38.7,
+      "raw_lo": -31.2,
+      "spread_ctl": 10.7,
+      "spread_raw": 69.9
+    },
+    "method": "days grouped by event_listings_count: bottom 140 vs top 123; uplift vs the global same-weekday mean; control = residual on month + weekday dummies",
+    "n_days_q1": 140,
+    "n_days_q4": 123,
+    "note": "The raw leg reproduces the audited values to the decimal; the controlled leg is within 0.5 pp. The collapse from ~60 pp to ~9 pp is the whole point: almost all of the apparent event effect is the season.",
+    "q1_event_listings_max": 9,
+    "q4_event_listings_min": 19,
+    "raw_hi": 32.9,
+    "raw_lo": -26.9,
+    "reproduced_exactly": {
+      "raw_hi": true,
+      "raw_lo": true,
+      "spread_raw": true
+    },
+    "spread_ctl": 8.8,
+    "spread_raw": 59.8
+  }
+}

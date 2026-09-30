@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Portal Mieszkańca wraz z Panelem Mieszkańca">
+        <meta name="author" content="qb.com.pl">
+        <meta name="keywords" content="Karta Mieszkańca">
+        <title>Moje serce to jest muzyk</title>
+        <link rel="shortcut icon" href="../../../cmsImages/favicon.png" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="../../../cmsImages/favicon.png">
+        <script>
+    if (window.location.hostname.indexOf("www") == 0) {
+        window.location = window.location.href.replace("www.", "");
+    }
+</script>
+        <link href="../../../assets/mock/montserrat.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../assets/n/css/fontello/css/icon_set_1.css">
+        <link href="../../../cmsCSS/style-migracja.css" rel="stylesheet">
+        <link href="../../../assets/n/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../assets/visit/css/meanmenu.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/animate.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/swiper-bundle.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/backtotop.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/magnific-popup.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/font-awesome-pro.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/spacing.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/main.css">
+        <link href="../../../assets/n/css/icheck.css" rel="stylesheet">
+        <link href="../../../cmsCSS/jquery_fancybox.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../assets/n/css/jquery.justified.css"/>
+        <link rel="stylesheet" href="../../../assets/n/css/colorbox.css"/>
+        <link href="../../../assets/n/css/lightbox2.css" rel="stylesheet">
+        <link href="../../../cmsCSS/chosen.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../css/opentip.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../cmsCSS/custom.css?v=1.5" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../../../cmsCSS/v-custom.css">
+        <link rel="stylesheet" href="../../../cmsCSS/artykuly.css">
+        <link rel="stylesheet" href="../../../vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.css"/>
+        <link rel="stylesheet" href="../../../css/site-inline.css">
+        <link rel="stylesheet" href="../../../assets/mock/mock.css">
+        <script src="../../../assets/n/js/jquery-2.2.4.min.js"></script>
+        <script src="../../../vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.js"></script>
+        <script src="../../../js/opentip-jquery.js"></script>
+        <script src="../../../cmsJS/chosen.js"></script>
+        <script src="../../../cmsJS/jquery_fancybox.js"></script>
+        <script src="../../../vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+        <script src="../../../assets/n/js/icheck.min.js"></script>
+        <script src="../../../assets/n/js/poczekalnia.js"></script>
+            <link rel="stylesheet" href="../../../assets/mock/datasprint.css">
+    </head>
+
+<body>
+
+<header>
+    <div class="skip-link-container">
+        <button style="font-weight: bold; font-size: large" onclick="skipToFirstFocusableElementInside('main');">
+            Pomiń menu główne
+        </button><br/>
+    </div>
+
+
+
+    <div class="row align-items-center d-none d-lg-flex">
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5">
+        </div>
+
+            <div class="col-xxl-7 col-xl-7 col-lg-6 d-none d-lg-block">
+                <div style="width: 450px;margin: 0 auto;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+            </div>
+
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-7" style="margin-left: auto;">
+            <div class="col-12" style="margin-left: auto;">
+                <div class="d-flex wyroznioneMenuGlowne">
+                    <ul class="top_links" title="menu media społecznościowe">
+                        <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                        </div>
+                    </ul>
+                    <!-- End top line-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bd-header__section bd-header__transparent">
+        <div class="bd-header__main" id="header-sticky">
+            <div id="mainMenu" class="cmsContainer">
+	<div id="module_865"  >
+
+
+<script>
+    /* wykrycie braku miejsca z prawej strony dla paneli 4. poziomu */
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.main-menu li.submenu-glebiej-parent').forEach(function (li) {
+            li.addEventListener('mouseenter', function () {
+                var panel = li.querySelector('ul.submenu-glebiej');
+                if (!panel) return;
+                li.classList.remove('otwierajWLewo');
+                var r = li.getBoundingClientRect();
+                if (r.right + panel.offsetWidth + 10 > window.innerWidth) {
+                    li.classList.add('otwierajWLewo');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<div class="row" style="align-items: stretch;height: 100%">
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5"
+         style="padding-right: 0; ">
+        <div class="logo">
+            <a tabindex="-1" href="../../../pl/home" title="powrót do strony głównej">
+                <img 
+                     src="../../../cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+            </a>
+        </div>
+    </div>
+
+        <div class="col-lg-8 d-none d-lg-block">
+            <div class="d-flex justify-content-center" style="align-items:center;height: 100%">
+                <div class="main-menu">
+                    <nav id="mobile-menu" aria-label="Menu główne" style="text-align: center;">
+                            <!-- ==== POZYCJE MENU GŁÓWNEGO ==========================================
+     Dodaj nową zakładkę jako kolejne <li> w tym <ul>. Wzoruj się na
+     istniejących pozycjach poniżej; href podawaj względem katalogu głównego
+     serwisu (np. pl/aktualnosci), tak jak one.
+
+     Aby zakładka podświetlała się na swojej stronie, dopisz jej trasę i id do
+     MENU_SECTIONS w tools/build_site.py i przebuduj strony
+     (python3 tools/build_site.py). Szczegóły: NOTES.md
+     ====================================================================== -->
+                        <ul>
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_590">
+                                <a 
+                                   href="../../../pl/aktualnosci">Aktualności
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_402">
+                                <a 
+                                   href="../../../pl/wydarzenia">Wydarzenia
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_407">
+                                <a 
+                                   href="../../../pl/partnerzy">Partnerzy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_5318689">
+                                <a 
+                                   href="../../../konkurs-punktowy">Konkurs punktowy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_427">
+                                <a 
+                                   href="../../../pl/projekty">Pakiety
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_417">
+                                <a 
+                                   href="../../../pl/punkty-obslugi">Punkt obsługi
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_392">
+                                <a 
+                                   href="../../../pl/rejestracja">Załóż konto
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+
+                            </li>
+                                                    <!-- Nowa zakładka: DataSprint (dodatek do makiety) -->
+                            <li class="menu-datasprint" data-section="datasprint" id="menuItem_datasprint">
+                                <span class="ds-frame" aria-hidden="true"></span>
+                                <span class="ds-spark ds-spark-1" aria-hidden="true">🎆</span>
+                                <a href="../../../v2/index.html" target="_blank" rel="noopener" title="DataSprint — panel w nowym oknie">
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-label">DataSprint</span>
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-badge" aria-hidden="true">NOWE</span>
+                                </a>
+                                <span class="ds-spark ds-spark-2" aria-hidden="true">🎇</span>
+                            </li>
+</ul>
+                            <!-- ==== KONIEC POZYCJI MENU GŁÓWNEGO ==== -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-7" style="margin-left: auto;padding: 0;position: absolute;right: 0;bottom: 0;top: 0;">
+        <div class="d-flex justify-content-end wyroznioneMenuGlowne primary-bg" style="align-items: center">
+            <div class="bd-header__main-right d-flex justify-content-end align-items-center" style="margin-left: 0;min-width: 120px;">
+                <div style="position: relative;">
+
+                                <div class="bd-border-btn d-none wyroznionyPrzyciskMenu" style="padding: 15px 0;text-align: right;display: inline !important;border:none;margin-right: 0">
+                                    <a
+                                    href='../../../pl/login'
+                                    class="bd-header__search-btn" style="padding: 5px 15px;">
+                                        <span class="fa-solid fa-user"></span> Login/Rejestracja
+                                    </a>
+                                </div>
+
+
+                        
+                        <div class="offcanvas__social d-none d-lg-inline-block" style="display: inline-block;">
+                            <ul>
+                                <li>
+                                    <div class="dropdown">
+                                        <a title="Dostępność" class="social_odwrocony dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                            <i class="fa-sharp fa-solid fa-eye"></i></a>
+                                        <ul class="dropdown-menu"
+                                            style="min-width: 4em; text-align: center; border-radius: 3rem;border: none;box-shadow: 5px 5px 10px #AAA"
+                                            aria-labelledby="navbarDropdown">
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 25px;margin-top: 10px; margin-left: 10px;" class="normalnaCzcionka">
+                                                <a title="Ustaw normalną wielkość czcionki" href='javascript:void(0)'>
+                                                    T-</a></li>
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="duzaCzcionka">
+                                                <a title="Ustaw powiększoną czcionkę" href='javascript:void(0)'>
+                                                    T+</a></li>
+                                            <li style="font-weight: bold; font-size: 0.7em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="resetujZoom">
+                                                <a title="Ustaw wartość początkową" href='javascript:void(0)'>
+                                                    100%</a></li>
+                                                <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-bottom: 10px; margin-top: 10px" class="wysokiKontrast">
+                                                    <a title="Przełącz na wysoki kontrast" href='../../../?wysoki-kontrast'>
+                                                        <i class="fa-solid fa-circle-half-stroke"></i></a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    <div class="bd-header__hamburger">
+                        <button type="button" class="hamburger-btn offcanvas-open-btn" style="position: absolute;top: 0;right: 15px;">
+                            <span><span class="sr-only">Otwórz / zamknij menu</span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+<script>
+    $('a[href*="rejestracja"]').addClass('wyroznione');
+    $('a[href*="rejestracja"]').parent().addClass('wyroznioneWrapper');
+
+
+
+</script>
+
+	</div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header area end -->
+
+
+
+
+
+
+<!-- offcanvas area start -->
+<div class="offcanvas__area">
+    <div class="offcanvas__wrapper">
+        <div class="offcanvas__content">
+            <div class="offcanvas__top mb-20 d-flex justify-content-between align-items-center">
+                <div class="offcanvas__logo logo">
+                    <a href="../../../pl/home?">
+                        <img style="height: 70px;padding: 0;" src="../../../cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+                    </a>
+                </div>
+                <div class="offcanvas__close">
+                    <button class="offcanvas__close-btn offcanvas-close-btn">
+                        <span class="fal fa-times"><span class="sr-only">Ładowanie</span></span>
+                    </button>
+                </div>
+            </div>
+
+                <div style="margin-bottom: 20px;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+
+
+
+
+            <div class="mobile-menu fix mb-20">
+            </div>
+
+
+                <div class="offcanvas__contact mt-30 mb-20">
+                    <p style="font-size: var(--bd-fz-h5); font-weight: 600; margin: 0 0 8px; color: var(--bd-heading-primary);">Pobierz aplikację</p>
+                    <div>
+                        <div class="linkoDoAplikacji">
+                            <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="../../../assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                            <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="../../../assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                </div>
+
+        </div>
+    </div>
+</div>
+<div class="body-overlay"></div>
+<!-- offcanvas area end -->
+
+
+<div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+</div>
+
+<main>
+    <div id="position">
+        <div class="container">
+            <ul>
+                <li><a href="../../../pl/home">Home</a>
+                </li>
+                <li><a href="../../../pl/wydarzenia">Wydarzenia</a>
+                </li>
+                <li>Moje serce to jest muzyk</li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Position -->
+
+    <div class="container mt-30">
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <article class="postbox__item format-image mb-30 transition-3">
+
+
+                <div class="postbox__thumb m-img">
+                            <img src="https://kalendarz.sopot.pl/wp-content/uploads/2026/04/4291321.webp" alt="" role="presentation">
+                </div>
+                <div class="postbox__content">
+
+                    <div class="postbox__meta no-padding row">
+                        <div class="col-6">
+                        </div>
+
+                        <div class="col-6">
+                            <div class="float-end">
+                                <span>
+                                    <a aria-label="udostępnij na Facebook" title="Udostępnij na FB" href="javascript:void(0)" class="tooltip_flip tooltip-effect-1" id="adresFB" target="_blank">
+                                        <span class="fa-brands fa-facebook-f"></span>
+                                    </a>
+                                </span>
+
+                                <a aria-label="polub wydarzenie Moje serce to jest muzyk" title="polub wydarzenie Moje serce to jest muzyk" href="javascript:void(0)" class="ulubione-div tooltip_flip tooltip-effect-1" >
+                                    <span id="ulubione-div-content-13261251" class="fa-heart fa-regular"></span>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <h3 class="postbox__title mt-15">
+                        Moje serce to jest muzyk
+                    </h3>
+
+
+                    <div class="postbox__text">
+                        <p><strong>Moje serce to jest muzyk to koncert, który zaprasza na wyjątkowy wieczór z polską piosenką w eleganckim, koncertowym wydaniu. </strong></p>
+<p>W programie znajdą się utwory autorstwa Agnieszki Osieckiej, Seweryna Krajewskiego i Wojciecha Młynarskiego, twórców, którzy nadali polskiej piosence niepowtarzalny charakter i wrażliwość. Ich kompozycje, pełne emocji i literackiej subtelności, zabrzmią w nowych aranżacjach, odsłaniając świeże brzmienie i nową interpretacyjną przestrzeń.<br />
+Na scenie wystąpi Iza Połońska wraz z zespołem w składzie Michał Kobojek na saksofonie, Leszek Kołodziejski na fortepianie i akordeonie, Michał Grott na gitarze basowej oraz Mateusz Krawczyk na perkusji. Artystom towarzyszyć będzie Polska Filharmonia Kameralna Sopot pod dyrekcją Szymona Morusa.</p>
+<p>To spotkanie orkiestry i zespołu tworzy wyjątkową jakość, w której znane utwory nabierają nowej głębi i wyrazistości.</p>
+<p>Koncert dla tych, którzy chcą usłyszeć dobrze znaną muzykę w nowym, koncertowym wymiarze.</p>
+<p>Iza Połońska_wokal<br />
+Michał Kobojek_saksofon<br />
+Leszek Kołodziejski_fortepian, akordeon<br />
+Michał Grott_gitara basowa<br />
+Mateusz Krawczyk_perkusja<br />
+Polska Filharmonia Kameralna Sopot<br />
+Szymon Morus_dyrygent</p>
+<p><strong>W programie:</strong><br />
+Utworu z repertuaru Agnieszki Osieckiej, Seweryna Krajewskiego i Wojciecha Młynarskiego.</p>
+<p>Posiadacze Karty Sopockiej mogą liczyć na specjalną zniżkę.<br />
+Organizatorzy: Miasto Sopot, Polska Filharmonia Kameralna Sopot, Samorząd Województwa Pomorskiego, Bałtycka Agencja Artystyczna BART, Mamuszki 14<br />
+Partnerzy: PGE, Interbis KIA, Oceanic, Villa Ozone<br />
+Patroni medialni: Portal trojmiasto.pl, Radio Gdańsk, Magazyn Prestiż<br />
+Partner medilany: Ruch Muzyczny</p>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+
+
+        <aside class="col-lg-4">
+
+            <div class="sidebar__wrapper wow fadeInUp">
+                <div class="sidebar__widget mb-30">
+                    <h3 class="sidebar__widget-title" style="margin: 0">Wstęp Płatny</h3>
+                    <div class="sidebar__widget-content">
+                        <div class="sidebar__widget-content mt-20 wow fadeInUp">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar__wrapper wow fadeInUp">
+                <div class="sidebar__widget mb-30">
+                    <h3 class="sidebar__widget-title">Data wydarzenia</h3>
+                    <div class="sidebar__widget-content pl-15">
+
+                        <p>
+                            <span class="fa-solid fa-calendar-days"></span>
+                                    3 października 2026, godz. 20:00
+                                    <br/>
+                                    do: 4 października 2026, godz. 01:59
+
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar__wrapper wow fadeInUp">
+                <div class="sidebar__widget mb-30 mt-30">
+                    <div class="sidebar__widget-content pl-15">
+                            <p>
+                                Organizator:<br>
+                                    <a class="linkZwykly" href="www.pfksopot.pl">
+                                         Polska Filharmonia Kameralna Sopot
+                                    </a>
+                            </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar__wrapper wow fadeInUp">
+                <div class="sidebar__widget mb-30 mt-30">
+                    <h3 class="sidebar__widget-title">Lokalizacja</h3>
+                    <div class="sidebar__widget-content pl-15 pb-20">
+                            <p>
+                                <a class="linkZwykly" target="_blank" href="https://www.google.pl/maps/search/Mamuszki%2014">
+                                    <span class="fa-solid fa-location-dot ikona-kontaktu"></span> Mamuszki 14
+                                    <br>
+                                </a>
+                            </p>
+
+                                <a id="pokazMape_13 261 251" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#mapa_13 261 251" class="d-none d-lg-inline-block bd-border-btn btn-kontra mt-10">
+                                    <span class="fas fa-map"></span> Zobacz na mapie
+                                </a>
+                                <script>
+                                    $('#pokazMape_13 261 251').click(function () {
+                                        if (googlemap) {
+                                            googlemap = null;
+                                        }
+                                        googleMapsInit({
+                                            containerId: 'map_13 261 251',
+                                            dodajMarkery: true,
+                                            directionsRendererPanelId: 'map-directions-panel',
+                                            lokalizacjaLat: 54.341646,
+                                            lokalizacjaLng: 18.5187288
+                                        });
+                                    });
+
+                                    // Listen for Bootstrap modal events to properly resize map when modal becomes visible
+                                    $('#mapa_13 261 251').on('shown.bs.modal', function () {
+                                        // Invalidate map size after modal animation is complete
+                                        if (typeof invalidateMapSize === 'function') {
+                                            invalidateMapSize();
+                                        }
+                                    });
+                                </script>
+                                <div class="modal fade" id="mapa_13 261 251" tabindex="-1" aria-labelledby="mapa_13 261 251_label" aria-hidden="true">
+                                    <div class="modal-dialog" style="margin-top: 100px;max-width: 80%;margin-left: 10%;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 id="mapa_13 261 251_label" class="modal-title">Moje serce to jest muzyk</h5>
+
+                                            </div>
+                                            <div class="modal-body" id="mapa_13 261 251_wrapper">
+                                                <div style="height: 500px;" id="map_13 261 251" class="map"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="gadres" data-id="13261251">
+                                <a href="javascript:void(0)" style="text-align: left;padding-left: 20px;"
+                                   class="google-go bd-border-btn mt-10" title="Nawiguj z Google">
+                                    <span class="fas fa-directions"></span> Nawiguj z Google
+                                </a>
+                                <script>
+                                    $(".google-go").click(function () {
+                                        navigator.geolocation.getCurrentPosition(function (location) {
+                                            let lat = location.coords.latitude;
+                                            let long = location.coords.longitude;
+                                            let id = $('#gadres').data("id");
+	
+	
+	;
+	trigger = $(this);
+
+			try
+				{
+				tmp = function() {
+
+    window.ajaxFired = true;
+        try {
+        var liczbaDropZones = Dropzone.instances.length;
+        for (i = liczbaDropZones; i >= 0; i--) {
+        	Dropzone.instances[i].destroy();
+			}
+		}
+        catch (e) {}
+
+    $('#gadres').find("*").addBack().off();
+
+    var aktualnyScrollContentu = 0;
+    if ($('.content-area')) {
+    aktualnyScrollContentu = $('.content-area').scrollTop();
+    }
+
+	$.post( '/pl/wydarzenia/moje-serce-to-jest-muzyk-13261251?ajax&actionPerformedDajLinkaNawigacyjnego&wydarzenieId='+id+'&latOd='+lat+'&longOd='+long+'&scrollTop='+aktualnyScrollContentu
+		
+		).done(function( data )
+			{
+    		window.ajaxFired = false;
+            posExc = data.indexOf('Ups... stało się coś nieoczekiwanego... wystąpił błąd');
+            pos = data.indexOf('<!--login-->');
+            if (pos >= 0 && pos < 10) {
+                $('body').append(data);
+            }
+            else if (posExc != -1 && posExc < 200) {
+                swal.fire('Błąd','Podczas wykonywanej operacji wystąpił błąd','error');
+                $('#stackDiv').remove();
+                $('#gadres').prepend("<div id='stackDiv' style='padding: 20px; height: 200px; overflow: scroll; background-color: white; border: 2px solid red'>"+data+"</div>");
+            }
+			else
+				{
+				$('#gadres').html(data).attr('data-ajax-link', '/pl/wydarzenia/moje-serce-to-jest-muzyk-13261251?ajax&actionPerformedDajLinkaNawigacyjnego&wydarzenieId='+id+'&latOd='+lat+'&longOd='+long+'').addClass('ajaxLoaded');
+				try { rebindAjaxHrefs(); } catch (e){}
+    			$('.tooltip.top').tooltip('hide');
+				// na koncu zeby mozna bylo dorzucic swoje onClick
+				odpalNawi();
+				}
+			}
+		).fail(function(){
+    		window.ajaxFired = false;
+			;
+		});
+				}
+
+				if (typeof formChanged !== undefined && formChanged) {
+					swal.fire({
+						title: "Uwaga",
+						text: "Dokonano zmian w formularzu. Kontynuować?",
+						icon: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "Tak, zapomnij o nich!",
+						cancelButtonText: "Nie, poczekaj!",
+						}).then((result) => {
+							if ( result.isConfirmed ) {
+								formChanged = false;
+								tmp();
+							} else {
+								return;
+								}
+							}
+					);
+				} else tmp();
+        } catch (e) { tmp(); }
+		                                        }, function (error) {
+                                            alert("Nie udało się pobrać lokalizacji: \"" + error.message + "\"")
+                                            let lat = 54.448;
+                                            let long = 18.57;
+                                            let id = $('#gadres').data("id");
+	
+	
+	;
+	trigger = $(this);
+
+			try
+				{
+				tmp = function() {
+
+    window.ajaxFired = true;
+        try {
+        var liczbaDropZones = Dropzone.instances.length;
+        for (i = liczbaDropZones; i >= 0; i--) {
+        	Dropzone.instances[i].destroy();
+			}
+		}
+        catch (e) {}
+
+    $('#gadres').find("*").addBack().off();
+
+    var aktualnyScrollContentu = 0;
+    if ($('.content-area')) {
+    aktualnyScrollContentu = $('.content-area').scrollTop();
+    }
+
+	$.post( '/pl/wydarzenia/moje-serce-to-jest-muzyk-13261251?ajax&actionPerformedDajLinkaNawigacyjnego&wydarzenieId='+id+'&latOd='+lat+'&longOd='+long+'&scrollTop='+aktualnyScrollContentu
+		
+		).done(function( data )
+			{
+    		window.ajaxFired = false;
+            posExc = data.indexOf('Ups... stało się coś nieoczekiwanego... wystąpił błąd');
+            pos = data.indexOf('<!--login-->');
+            if (pos >= 0 && pos < 10) {
+                $('body').append(data);
+            }
+            else if (posExc != -1 && posExc < 200) {
+                swal.fire('Błąd','Podczas wykonywanej operacji wystąpił błąd','error');
+                $('#stackDiv').remove();
+                $('#gadres').prepend("<div id='stackDiv' style='padding: 20px; height: 200px; overflow: scroll; background-color: white; border: 2px solid red'>"+data+"</div>");
+            }
+			else
+				{
+				$('#gadres').html(data).attr('data-ajax-link', '/pl/wydarzenia/moje-serce-to-jest-muzyk-13261251?ajax&actionPerformedDajLinkaNawigacyjnego&wydarzenieId='+id+'&latOd='+lat+'&longOd='+long+'').addClass('ajaxLoaded');
+				try { rebindAjaxHrefs(); } catch (e){}
+    			$('.tooltip.top').tooltip('hide');
+				// na koncu zeby mozna bylo dorzucic swoje onClick
+				odpalNawi();
+				}
+			}
+		).fail(function(){
+    		window.ajaxFired = false;
+			;
+		});
+				}
+
+				if (typeof formChanged !== undefined && formChanged) {
+					swal.fire({
+						title: "Uwaga",
+						text: "Dokonano zmian w formularzu. Kontynuować?",
+						icon: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "Tak, zapomnij o nich!",
+						cancelButtonText: "Nie, poczekaj!",
+						}).then((result) => {
+							if ( result.isConfirmed ) {
+								formChanged = false;
+								tmp();
+							} else {
+								return;
+								}
+							}
+					);
+				} else tmp();
+        } catch (e) { tmp(); }
+		                                        });
+                                    });
+
+                                    function odpalNawi() {
+                                        let adres = $('#gadres').text();
+                                        console.log(adres);
+                                        window.open(adres, 'Nawigacja');
+                                    }
+
+                                </script>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="sidebar__widget mb-40">
+                <h3 class="sidebar__widget-title">Ostatnio dodane wydarzenia</h3>
+                <div class="sidebar__widget-content">
+                    <div class="sidebar__post rc__post">
+                                <div class="rc__post mb-20 d-flex align-items-center">
+                                    <div class="rc__post-thumb mr-20">
+                                        <a aria-label="Poetki i poeci polskiej piosenki - Jonasz Kofta, kiedy? 14 czerwca 2026"  href="../../../pl/wydarzenia/poetki-i-poeci-polskiej-piosenki---jonasz-kofta-13397402" title="Poetki i poeci polskiej piosenki - Jonasz Kofta, kiedy? 14 czerwca 2026">
+                                                <img src="https://kalendarz.sopot.pl/wp-content/uploads/2026/06/4331745-scaled.webp" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="rc__post-content">
+                                        <div class="rc__meta">
+                                            <span>14 czerwca 2026</span>
+                                        </div>
+                                        <h3 class="rc__post-title">
+                                            <a class="linkZwykly" aria-label="Poetki i poeci polskiej piosenki - Jonasz Kofta, kiedy? 14 czerwca 2026"  href="../../../pl/wydarzenia/poetki-i-poeci-polskiej-piosenki---jonasz-kofta-13397402" title="Poetki i poeci polskiej piosenki - Jonasz Kofta, kiedy? 14 czerwca 2026">
+                                                Poetki i poeci polskiej piosenki - Jonasz Kofta
+                                            </a>
+
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="rc__post mb-20 d-flex align-items-center">
+                                    <div class="rc__post-thumb mr-20">
+                                        <a aria-label="Spotkanie autorskie Małgorzatą Sobczak, kiedy? 22 czerwca 2026"  href="../../../pl/wydarzenia/spotkanie-autorskie-malgorzata-sobczak-13397399" title="Spotkanie autorskie Małgorzatą Sobczak, kiedy? 22 czerwca 2026">
+                                                <img src="https://kalendarz.sopot.pl/wp-content/uploads/2026/06/4343591.webp" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="rc__post-content">
+                                        <div class="rc__meta">
+                                            <span>22 czerwca 2026</span>
+                                        </div>
+                                        <h3 class="rc__post-title">
+                                            <a class="linkZwykly" aria-label="Spotkanie autorskie Małgorzatą Sobczak, kiedy? 22 czerwca 2026"  href="../../../pl/wydarzenia/spotkanie-autorskie-malgorzata-sobczak-13397399" title="Spotkanie autorskie Małgorzatą Sobczak, kiedy? 22 czerwca 2026">
+                                                Spotkanie autorskie Małgorzatą Sobczak
+                                            </a>
+
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="rc__post mb-20 d-flex align-items-center">
+                                    <div class="rc__post-thumb mr-20">
+                                        <a aria-label="XXVIII Grand Prix Sopotu im. Janusza Sidły, kiedy? 14 czerwca 2026"  href="../../../pl/wydarzenia/xxviii-grand-prix-sopotu-im.-janusza-sidly-13397393" title="XXVIII Grand Prix Sopotu im. Janusza Sidły, kiedy? 14 czerwca 2026">
+                                                <img src="https://kalendarz.sopot.pl/wp-content/uploads/2026/06/4332941.webp" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="rc__post-content">
+                                        <div class="rc__meta">
+                                            <span>14 czerwca 2026</span>
+                                        </div>
+                                        <h3 class="rc__post-title">
+                                            <a class="linkZwykly" aria-label="XXVIII Grand Prix Sopotu im. Janusza Sidły, kiedy? 14 czerwca 2026"  href="../../../pl/wydarzenia/xxviii-grand-prix-sopotu-im.-janusza-sidly-13397393" title="XXVIII Grand Prix Sopotu im. Janusza Sidły, kiedy? 14 czerwca 2026">
+                                                XXVIII Grand Prix Sopotu im. Janusza Sidły
+                                            </a>
+
+                                        </h3>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+</div>
+
+</main>
+
+<!-- footer -->
+<footer class="mt-50" style='background: #000000'>
+    <div class="bd-footer__section" style="position: relative;background: url('../../../cmsImages/tlo1.jpg') center no-repeat; background-size: cover;">
+        <div class="container pt-60" style="position: relative;z-index: 5;">
+            <div class="bd-footer__main pb-20">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2" style="padding-left: 0px;padding-right: 10px;">
+                                <div class="bd-footer-widget__title" style="margin-bottom: 0px;">
+                                    <img style="width: 80%;margin-bottom: 20px;" class="filter-white" src='../../../cmsImages/logo_kontra.png' alt="logotyp projektu">
+                                </div>
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        
+                                        
+                                        <li><a href="tel:%2B48%20791%20778%20477"><i class="fa-solid fa-phone"></i> +48 791 778 477</a></li>
+                                        
+                                        <li><a href='mailto:kartasopocka%40visit.sopot.pl'><i class="fa-solid fa-envelope"></i> kartasopocka@visit.sopot.pl</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                            <li><a href='../../../faq-pytania-ogolne'>Pomoc / FAQ</a></li>
+                                            <li><a href='../../../dokumenty'>Dokumenty do pobrania</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        <li><a href="../../../mapa-strony">Mapa strony</a></li>
+                                            <li><a href='../../../pl/jak-zostac-partnerem'>Jak zostać partnerem karty</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-3">
+                                <div class="bd-footer-widget__content">
+                                    <div class="bd-footer-widget__menu">
+                                        <ul>
+                                                <li><a href='../../../pl/regulamin'>Regulamin</a></li>
+                                                <li><a href='../../../pl/polityka-prywatnosci'>Polityka prywatności</a></li>
+                                                <li><a href='../../../res/9410/41896/Deklaracja dostępności.pdf'>Deklaracja dostępności</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="offcanvas__contact mt-30 mb-20">
+                            <div>
+                                <div class="linkoDoAplikacji" style="text-align: center;">
+                                    <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="../../../assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                                    <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="../../../assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+            </div>
+
+            <div class="bd-footer__copyright pb-40 row">
+                    <div class="offcanvas__social" style="text-align: center;">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                    </div>
+
+                <div class="col-lg-12" style="display: flex;justify-content: center;margin-top: 30px">
+                    <p style="text-align: center;color: #FFF">
+                    Copyright © 2021 - 2026  - Wszystkie prawa zastrzeżone<br>
+                    <a style="color: #FFF;text-transform: none;font-weight: normal;font-size: 11px;" title="link do firmy tworzącej system" target="_blank" href="https://qb.com.pl">Build with <span class="fa-solid fa-heart"></span> by qb</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer end -->
+
+
+
+
+
+
+
+        <button id="cookieConsentButton" class="floating-button" aria-label="Akceptuj ciasteczka"><i class="fa fa-cookie-bite"></i></button>
+
+    <!-- Cookie Consent Modal -->
+    <div id="cookieConsentModal" class="modal">
+        <div class="modal-content new-modal-content" style="display: flex; flex-direction: column">
+            <span class="close">&times;</span>
+            <div style = "flex: 0 0 auto;" >
+                <h4>Zgoda na Ciasteczka</h4>
+            </div>
+
+            <div id="scrollableContent">
+                <div class="gradient-top hidden" id="gradient-top"></div>
+                <div class="gradient-bottom hidden" id="gradient-bottom"></div>
+                <div>
+                    <p class="stylZgody dostosujWybor" id="cookieTrescZgody" tabindex="-1"><strong>Szanowny Użytkowniku</strong><br />
+<br />
+Uprzejmie informujemy, że tworząc i administrując strony internetowe Sopockiej Organizacji Turystycznej z siedzibą w Sopocie, używamy technologii służących do zbierania i przetwarzania danych osobowych w celu analizowania ruchu na stronach i w Internecie. Sopocka Organizacja Turystyczna nie personalizuje wyświetlanych treści. Realizując rozporządzenie Parlamentu Europejskiego i Rady Unii Europejskiej 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (tzw. &bdquo;RODO&rdquo;) uprzejmie informujemy, że do przetwarzania wykorzystywane będą następujące dane: adres IP twojego urządzenia, adres URL żądania, nazwa domeny, identyfikator urządzenia, typ przeglądarki, język przeglądarki, liczba kliknięć, ilość czasu spędzonego na poszczególnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczość ekranu, dane zbierane w dziennikach serwera, a także inne podobne informacje.<br />
+<br />
+Administratorem danych jest Sopocka Organizacja Turystyczna, Plac Zdrojowy 2, 81-720 Sopot</p>
+                    <p class="stylZgody dostosujWybor" style="margin-top:6px;"><a href="../../../polityka-prywatnosci" target="_blank" rel="noopener" style="color:#5a6575; text-decoration:underline;">Szczegółowe informacje o plikach cookies znajdziesz w Polityce prywatności</a></p>
+                    <div class="dostosujWybor"  style="display:none;">
+                        <p class="stylZgody" id="cookieWybierzKategorie" tabindex="-1">Wybierz kategorie ciasteczek, na które wyrażasz zgodę:</p>
+                        <div id="cookieConsentForm" style="display: flex">
+                            <div style="margin-right: auto; margin-left: auto;">
+                                <div id="niezbedneDiv">
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" disabled checked value="necessary">
+                                        Niezbędne do działania systemu
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-necessary" tabindex="0" role="button" aria-expanded="false" aria-controls="details-necessary" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-necessary" class="details"><span>- JSESSIONID &mdash; utrzymanie sesji; usuwane po zamknięciu przeglądarki</span><br><span>- cookieConsent &mdash; zapamiętanie Twojej decyzji o zgodach (pamięć lokalna przeglądarki)</span><br><span>- kontrastyOn, bodyZoom &mdash; ustawienia dostępności: kontrast i rozmiar czcionki (pamięć lokalna)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="preferencjeDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="preferences">
+                                        Personalizacja
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-preferences" tabindex="0" role="button" aria-expanded="false" aria-controls="details-preferences" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-preferences" class="details"><span>- _fbp, fr &mdash; personalizacja Facebook (do 90 dni)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="marketingDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="marketing">
+                                        Marketing
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-marketing" tabindex="0" role="button" aria-expanded="false" aria-controls="details-marketing" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-marketing" class="details"><span>- _fbp, fr &mdash; Facebook Pixel (do 90 dni)</span><br></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="przyciskiZgod" style="flex: 0 0 auto;">
+                <div class="dostosujWybor" style="display:none;">
+                    <button type="button" class="cc-btn cc-btn-wybrane naSrodku przycisk-zgody" id="saveConsent">Zgoda na wybrane</button>
+                    <a class="cc-btn cc-btn-link naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieTrescZgody').focus();return false;">Pokaż treść zgody</a>
+                </div>
+                <a class="cc-btn cc-btn-glowny naSrodku btnZgodaNaWszystko przycisk-zgody" href="javascript:zgodaNaWszystko();">Zgadzam się na wszystkie ciasteczka</a>
+                <button type="button" class="cc-btn cc-btn-drugi naSrodku przycisk-zgody" id="odrzucOpcjonalne">Odrzuć wszystkie opcjonalne</button>
+                <a class="cc-btn cc-btn-link dostosujWybor naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieWybierzKategorie').focus();return false;">Dostosuj wybór</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="../../../assets/visit/js/vendor/waypoints.js"></script>
+    <script src="../../../assets/visit/js/bootstrap-bundle.js"></script>
+    <script src="../../../assets/visit/js/meanmenu.js"></script>
+    <script src="../../../assets/visit/js/swiper-bundle.js"></script>
+    <script src="../../../assets/visit/js/magnific-popup.js"></script>
+    <script src="../../../assets/visit/js/backtotop.js"></script>
+    <script src="../../../assets/visit/js/counterup.js"></script>
+    <script src="../../../assets/visit/js/wow.js"></script>
+    <script src="../../../assets/visit/js/isotope-pkgd.js"></script>
+    <script src="../../../assets/visit/js/imagesloaded-pkgd.js"></script>
+    <script src="../../../assets/visit/js/ajax-form.js"></script>
+    <script src="../../../cmsJS/main.js"></script>
+    <script src="../../../assets/n/js/popper.min.js"></script>
+    <script src="../../../assets/n/js/tippy.umd.min.js"></script>
+    <script src="../../../assets/mock/stub-forms.js"></script>
+    <script src="../../../assets/mock/mock.js"></script>
+    <script src="../../../assets/mock/datasprint.js"></script>
+</body>
+</html>

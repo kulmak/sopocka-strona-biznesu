@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Portal Mieszkańca wraz z Panelem Mieszkańca">
+        <meta name="author" content="qb.com.pl">
+        <meta name="keywords" content="Karta Mieszkańca">
+        <title>FAQ  - Karta Mieszkańca</title>
+        <link rel="shortcut icon" href="../cmsImages/favicon.png" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="../cmsImages/favicon.png">
+        <script>
+    if (window.location.hostname.indexOf("www") == 0) {
+        window.location = window.location.href.replace("www.", "");
+    }
+</script>
+        <link href="../assets/mock/montserrat.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/n/css/fontello/css/icon_set_1.css">
+        <link href="../cmsCSS/style-migracja.css" rel="stylesheet">
+        <link href="../assets/n/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/visit/css/meanmenu.css">
+        <link rel="stylesheet" href="../assets/visit/css/animate.css">
+        <link rel="stylesheet" href="../assets/visit/css/swiper-bundle.css">
+        <link rel="stylesheet" href="../assets/visit/css/backtotop.css">
+        <link rel="stylesheet" href="../assets/visit/css/magnific-popup.css">
+        <link rel="stylesheet" href="../assets/visit/css/font-awesome-pro.css">
+        <link rel="stylesheet" href="../assets/visit/css/spacing.css">
+        <link rel="stylesheet" href="../assets/visit/css/main.css">
+        <link href="../assets/n/css/icheck.css" rel="stylesheet">
+        <link href="../cmsCSS/jquery_fancybox.css" rel="stylesheet" type="text/css"/>
+        <link href="../vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/n/css/jquery.justified.css"/>
+        <link rel="stylesheet" href="../assets/n/css/colorbox.css"/>
+        <link href="../assets/n/css/lightbox2.css" rel="stylesheet">
+        <link href="../cmsCSS/chosen.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/opentip.css" rel="stylesheet" type="text/css"/>
+        <link href="../cmsCSS/custom.css?v=1.5" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../cmsCSS/v-custom.css">
+        <link rel="stylesheet" href="../cmsCSS/artykuly.css">
+        <link rel="stylesheet" href="../vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.css"/>
+        <link rel="stylesheet" href="../css/site-inline.css">
+        <link rel="stylesheet" href="../assets/mock/mock.css">
+        <script src="../assets/n/js/jquery-2.2.4.min.js"></script>
+        <script src="../vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.js"></script>
+        <script src="../js/opentip-jquery.js"></script>
+        <script src="../cmsJS/chosen.js"></script>
+        <script src="../cmsJS/jquery_fancybox.js"></script>
+        <script src="../vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+        <script src="../assets/n/js/icheck.min.js"></script>
+        <script src="../assets/n/js/poczekalnia.js"></script>
+            <link rel="stylesheet" href="../assets/mock/datasprint.css">
+    </head>
+
+<body>
+
+<header>
+    <div class="skip-link-container">
+        <button style="font-weight: bold; font-size: large" onclick="skipToFirstFocusableElementInside('main');">
+            Pomiń menu główne
+        </button><br/>
+    </div>
+
+
+
+    <div class="row align-items-center d-none d-lg-flex">
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5">
+        </div>
+
+            <div class="col-xxl-7 col-xl-7 col-lg-6 d-none d-lg-block">
+                <div style="width: 450px;margin: 0 auto;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+            </div>
+
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-7" style="margin-left: auto;">
+            <div class="col-12" style="margin-left: auto;">
+                <div class="d-flex wyroznioneMenuGlowne">
+                    <ul class="top_links" title="menu media społecznościowe">
+                        <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                        </div>
+                    </ul>
+                    <!-- End top line-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bd-header__section bd-header__transparent">
+        <div class="bd-header__main" id="header-sticky">
+            <div id="mainMenu" class="cmsContainer">
+	<div id="module_865"  >
+
+
+<script>
+    /* wykrycie braku miejsca z prawej strony dla paneli 4. poziomu */
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.main-menu li.submenu-glebiej-parent').forEach(function (li) {
+            li.addEventListener('mouseenter', function () {
+                var panel = li.querySelector('ul.submenu-glebiej');
+                if (!panel) return;
+                li.classList.remove('otwierajWLewo');
+                var r = li.getBoundingClientRect();
+                if (r.right + panel.offsetWidth + 10 > window.innerWidth) {
+                    li.classList.add('otwierajWLewo');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<div class="row" style="align-items: stretch;height: 100%">
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5"
+         style="padding-right: 0; ">
+        <div class="logo">
+            <a tabindex="-1" href="../pl/home" title="powrót do strony głównej">
+                <img 
+                     src="../cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+            </a>
+        </div>
+    </div>
+
+        <div class="col-lg-8 d-none d-lg-block">
+            <div class="d-flex justify-content-center" style="align-items:center;height: 100%">
+                <div class="main-menu">
+                    <nav id="mobile-menu" aria-label="Menu główne" style="text-align: center;">
+                            <!-- ==== POZYCJE MENU GŁÓWNEGO ==========================================
+     Dodaj nową zakładkę jako kolejne <li> w tym <ul>. Wzoruj się na
+     istniejących pozycjach poniżej; href podawaj względem katalogu głównego
+     serwisu (np. pl/aktualnosci), tak jak one.
+
+     Aby zakładka podświetlała się na swojej stronie, dopisz jej trasę i id do
+     MENU_SECTIONS w tools/build_site.py i przebuduj strony
+     (python3 tools/build_site.py). Szczegóły: NOTES.md
+     ====================================================================== -->
+                        <ul>
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_590">
+                                <a 
+                                   href="../pl/aktualnosci">Aktualności
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_402">
+                                <a 
+                                   href="../pl/wydarzenia">Wydarzenia
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_407">
+                                <a 
+                                   href="../pl/partnerzy">Partnerzy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_5318689">
+                                <a 
+                                   href="../konkurs-punktowy">Konkurs punktowy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_427">
+                                <a 
+                                   href="../pl/projekty">Pakiety
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_417">
+                                <a 
+                                   href="../pl/punkty-obslugi">Punkt obsługi
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_392">
+                                <a 
+                                   href="../pl/rejestracja">Załóż konto
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+
+                            </li>
+                                                    <!-- Nowa zakładka: DataSprint (dodatek do makiety) -->
+                            <li class="menu-datasprint" data-section="datasprint" id="menuItem_datasprint">
+                                <span class="ds-frame" aria-hidden="true"></span>
+                                <span class="ds-spark ds-spark-1" aria-hidden="true">🎆</span>
+                                <a href="../v2/index.html" target="_blank" rel="noopener" title="DataSprint — panel w nowym oknie">
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-label">DataSprint</span>
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-badge" aria-hidden="true">NOWE</span>
+                                </a>
+                                <span class="ds-spark ds-spark-2" aria-hidden="true">🎇</span>
+                            </li>
+</ul>
+                            <!-- ==== KONIEC POZYCJI MENU GŁÓWNEGO ==== -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-7" style="margin-left: auto;padding: 0;position: absolute;right: 0;bottom: 0;top: 0;">
+        <div class="d-flex justify-content-end wyroznioneMenuGlowne primary-bg" style="align-items: center">
+            <div class="bd-header__main-right d-flex justify-content-end align-items-center" style="margin-left: 0;min-width: 120px;">
+                <div style="position: relative;">
+
+                                <div class="bd-border-btn d-none wyroznionyPrzyciskMenu" style="padding: 15px 0;text-align: right;display: inline !important;border:none;margin-right: 0">
+                                    <a
+                                    href='../pl/login'
+                                    class="bd-header__search-btn" style="padding: 5px 15px;">
+                                        <span class="fa-solid fa-user"></span> Login/Rejestracja
+                                    </a>
+                                </div>
+
+
+                        
+                        <div class="offcanvas__social d-none d-lg-inline-block" style="display: inline-block;">
+                            <ul>
+                                <li>
+                                    <div class="dropdown">
+                                        <a title="Dostępność" class="social_odwrocony dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                            <i class="fa-sharp fa-solid fa-eye"></i></a>
+                                        <ul class="dropdown-menu"
+                                            style="min-width: 4em; text-align: center; border-radius: 3rem;border: none;box-shadow: 5px 5px 10px #AAA"
+                                            aria-labelledby="navbarDropdown">
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 25px;margin-top: 10px; margin-left: 10px;" class="normalnaCzcionka">
+                                                <a title="Ustaw normalną wielkość czcionki" href='javascript:void(0)'>
+                                                    T-</a></li>
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="duzaCzcionka">
+                                                <a title="Ustaw powiększoną czcionkę" href='javascript:void(0)'>
+                                                    T+</a></li>
+                                            <li style="font-weight: bold; font-size: 0.7em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="resetujZoom">
+                                                <a title="Ustaw wartość początkową" href='javascript:void(0)'>
+                                                    100%</a></li>
+                                                <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-bottom: 10px; margin-top: 10px" class="wysokiKontrast">
+                                                    <a title="Przełącz na wysoki kontrast" href='../?wysoki-kontrast'>
+                                                        <i class="fa-solid fa-circle-half-stroke"></i></a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    <div class="bd-header__hamburger">
+                        <button type="button" class="hamburger-btn offcanvas-open-btn" style="position: absolute;top: 0;right: 15px;">
+                            <span><span class="sr-only">Otwórz / zamknij menu</span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+<script>
+    $('a[href*="rejestracja"]').addClass('wyroznione');
+    $('a[href*="rejestracja"]').parent().addClass('wyroznioneWrapper');
+
+
+
+</script>
+
+	</div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header area end -->
+
+
+
+
+
+
+<!-- offcanvas area start -->
+<div class="offcanvas__area">
+    <div class="offcanvas__wrapper">
+        <div class="offcanvas__content">
+            <div class="offcanvas__top mb-20 d-flex justify-content-between align-items-center">
+                <div class="offcanvas__logo logo">
+                    <a href="../pl/home?">
+                        <img style="height: 70px;padding: 0;" src="../cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+                    </a>
+                </div>
+                <div class="offcanvas__close">
+                    <button class="offcanvas__close-btn offcanvas-close-btn">
+                        <span class="fal fa-times"><span class="sr-only">Ładowanie</span></span>
+                    </button>
+                </div>
+            </div>
+
+                <div style="margin-bottom: 20px;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+
+
+
+
+            <div class="mobile-menu fix mb-20">
+            </div>
+
+
+                <div class="offcanvas__contact mt-30 mb-20">
+                    <p style="font-size: var(--bd-fz-h5); font-weight: 600; margin: 0 0 8px; color: var(--bd-heading-primary);">Pobierz aplikację</p>
+                    <div>
+                        <div class="linkoDoAplikacji">
+                            <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="../assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                            <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="../assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                </div>
+
+        </div>
+    </div>
+</div>
+<div class="body-overlay"></div>
+<!-- offcanvas area end -->
+
+
+<div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+</div>
+
+<main>
+
+    <div id="position">
+        <div class="container">
+            <ul>
+                <li><a href="../pl/home">Home</a></li>
+                <li>Popularne pytania</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Position -->
+
+
+    <div class="container mt-30">
+
+
+
+        <div class="row">
+            <aside class="col-lg-3" id="sidebar">
+                <div class="theiaStickySidebar">
+                        <div class="box_style_cat cmsContainer" id="faq_box">
+	<div id="module_1228"  >
+<ul id="cat_nav">
+
+    <li class="aktualnosciManuWybrane active">
+        <a href="../pl/faq-pytania-ogolne"><i class="icon_set_1_icon-95"></i> Pytania ogólne</a>
+    </li>
+                <li class="">
+                    <a id="menuItem_454" href="../pl/faq-zakladanie-konta"><i class="icon_set_1_icon-95"></i> Zakładanie konta</a>
+                </li>
+</ul>
+	</div>
+                        </div>
+                    <div class="faq-up">
+
+    <div class="sidebar__wrapper">
+        <div class="sidebar__widget mt-30 mb-40">
+            <div class="sidebar__widget-content" style="text-align:center">
+                <span style="font-size: 60px;" class="fa-solid fa-headset mb-30"></span>
+                <h4>Potrzebujesz pomocy?</h4>
+<a class="email" href="mailto:kartasopocka@visit.sopot.pl" title="adres email">kartasopocka@visit.sopot.pl</a><br />
+<br />
+<a aria-label="numer telefonu czynny od poniedziałku do piątku od dziesiątej trzydzieście do piętnastej" href="tel:+48 791 778 477">+48 791 778 477</a>
+            </div>
+        </div>
+    </div>
+                    </div>
+
+                </div>
+                <!--End sticky -->
+            </aside>
+            <!--End aside -->
+
+            <div class="col-lg-9 cmsContainer " id="faq">
+	<div id="module_1276"  >
+
+<div >
+    <h3 class="bd-section__title bd-section__title-lg mt-30 mb-40">
+            Pytania ogólne
+    </h3>
+
+    <div id="modul_1276" class="accordion_styled">
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_0'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_0_1276" aria-expanded="false" aria-controls="collapse_0_1276">
+                            <span style="font-weight: 500;text-align: left;">Chcę otrzymywać newsletter Katy Sopockiej – jak wyrazić zgodę?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_0_1276" class="accordion-collapse collapse" aria-labelledby="h4_0" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:black">Aby co dwa tygodnie mailowo otrzymywać informacje dotyczące Karty Sopociej, jej funkcjonalności oraz bieżących wydarzeń w mieście, konieczne jest wyrażenie przez Ciebie zgody na wysyłkę newslettera. Zgodę możesz wyrazić po zalogowaniu się do swojego konta w zakładce Profil, w sekcji Zainteresowania przesuwając suwak przy komunikacie Wyrażam zgodę na przesyłanie newslettera (suwak powinien zmienić kolor na zielony). Na koniec kliknij Zapisz zainteresowania - od tej pory będziesz otrzymywał newsletter Karty Sopockiej.</span></span></span><br />
+<span style="border:none; font-family:&quot;Calibri&quot;,sans-serif"><span style="color:black"><span style="background:white">W każdej chwili możesz usunąć zgodę na otrzymywanie newslettera - w tym celu napisz do nas na adres </span></span></span><a href="mailto:kartasopocka@visit.sopot.pl" style="text-decoration:underline"><span lang="PL" style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:black">kartasopocka@visit.sopot.pl</span></span></span></a></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_1'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_1_1276" aria-expanded="false" aria-controls="collapse_1_1276">
+                            <span style="font-weight: 500;text-align: left;">Co zrobić, jeśli zgubię Kartę Sopocką?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_1_1276" class="accordion-collapse collapse" aria-labelledby="h4_1" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span style="border:none; background:white"><span calibri="" style="font-family:"><span style="color:black">W przypadku utraty Karty Sopockiej należy zalogować się na swoje konto, zablokować zgubioną kartę i złożyć wniosek o wydanie duplikatu. Następnie należy udać się do punktu Informacji Turystycznej przy ul. Dworcowej 4&nbsp;w celu odebrania duplikatu. Wydanie duplikatu kosztuje 20 zł.</span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_2'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_2_1276" aria-expanded="false" aria-controls="collapse_2_1276">
+                            <span style="font-weight: 500;text-align: left;">Czemu warto wyrobić Kartę Sopocką?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_2_1276" class="accordion-collapse collapse" aria-labelledby="h4_2" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span style="font-family:&quot;Helvetica Neue&quot;"><span style="color:black"><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif">Dzięki Karcie Sopockiej otrzymasz dostęp do przygotowanych przez Partnerów Karty ofert, zawierających zestawy specjalnych zniżek, promocji i ulg. Oferty pogrupowane są w dwa pakiety &ndash; Pakiet Mieszkańca i Pakiet Studenta. Sprawdź który jest da Ciebie!</span></span></span></span></span></span></span><br />
+<span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span style="font-family:&quot;Helvetica Neue&quot;"><span style="color:black"><span style="background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:#222222">Pełną listę Partnerów wraz ofertami znajdziesz </span></span></span><span style="background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:#0079bf">tutaj</span></span></span><span style="background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:#222222">.</span></span></span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_3'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_3_1276" aria-expanded="false" aria-controls="collapse_3_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy jedna osoba może odebrać karty dla całej rodziny?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_3_1276" class="accordion-collapse collapse" aria-labelledby="h4_3" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:black">Tak,​ jedna osoba może odebrać karty dla całej rodziny:</span></span></span></span></span>
+<div style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:black">✅jeśli została wybrana weryfikacja online i wniosek każdego z członków rodziny został już zweryfikowany pozytywnie,<br />
+✅jeśli składa&nbsp;</span></span></span></span></span><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:black">w punkcie IT niezbędne dokumenty potwierdzające uprawnienia poszczególnych członków rodziny do otrzymania Karty Sopockiej.</span></span></span></span></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_4'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_4_1276" aria-expanded="false" aria-controls="collapse_4_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy mogę jednocześnie mieć Kartę Sopocką w formie aplikacji i plastikowej karty?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_4_1276" class="accordion-collapse collapse" aria-labelledby="h4_4" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="font-family:&quot;Helvetica Neue&quot;"><span style="color:black"><span style="background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:#222222">Tak. </span></span></span><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif">Możesz zdecydować, czy chcesz używać tylko tradycyjnej Karty, tylko aplikacji czy obu naraz.</span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_5'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_5_1276" aria-expanded="false" aria-controls="collapse_5_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy mogę mieć dostęp do obu pakietów - Studenta i Mieszkańca</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_5_1276" class="accordion-collapse collapse" aria-labelledby="h4_5" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span helvetica="" neue="" style="font-family:"><span style="color:black"><span style="background:white"><span calibri="" style="font-family:"><span style="color:#222222">Jeżeli spełniasz warunki umożliwiające ich aktywację, to tak. Pamiętaj jednak, że zniżki wynikające z obu pakietów nie sumują się. Za każdym razem korzystając z karty, będziesz mieć możliwość wyboru tej zniżki, która jest korzystniejsza.</span></span></span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_6'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_6_1276" aria-expanded="false" aria-controls="collapse_6_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy mogę się nadal posługiwać Kartą Mieszkańca wyrobioną w ubiegłym roku?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_6_1276" class="accordion-collapse collapse" aria-labelledby="h4_6" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span helvetica="" neue="" style="font-family:"><span style="color:black"><span style="background:white"><span calibri="" style="font-family:"><span style="color:#222222">Nowe, spersonalizowane Karty Sopockie zaczynają obowiązywać od 21 marca 2022 r. Karty wydane wcześniej będą honorowane do zmieszczonej na nich daty ważności. W tym czasie możesz posługiwać się starą kartą lub dokonać nieodpłatnie wymiany starej karty na nową. Informacje na temat zasad wyrobienia nowej karty znajdziesz </span></span></span><span style="background:white"><span calibri="" style="font-family:"><span style="color:#0079bf">tutaj</span></span></span><span style="background:white"><span calibri="" style="font-family:"><span style="color:#222222">.</span></span></span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_7'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_7_1276" aria-expanded="false" aria-controls="collapse_7_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy mogę złożyć wniosek w imieniu osoby pełnoletniej?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_7_1276" class="accordion-collapse collapse" aria-labelledby="h4_7" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Tak, możesz złożyć wniosek w imieniu innych osób pełnoletnich, z którymi mieszkasz, a także z którymi nie mieszkasz pod tym samym adresem pod warunkiem, że:</span></span></span></span>
+<ul>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">zostałeś przez nich do tego upoważniony,</span></span></span></span></span></li>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">poinformowałeś ich o zakresie, do którego zostaną wykorzystane ich dane osobowe,</span></span></span></span></span></li>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">jesteś osobą Uprawnioną do korzystania z Karty Sopockiej,</span></span></span></span></span></li>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">każda z tych osób jest osobą Uprawnioną do korzystania z Karty Sopockiej (aby aktywowa</span></span></span></span><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">ć</span></span></span><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black"> Kartę Sopocką każda osoba dorosła musi indywidualnie przedstawi</span></span></span></span><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">ć</span></span></span><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black"> swój Dokument Potwierdzający).</span></span></span></span></span></li>
+</ul>
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><b><span calibri="" style="border:none; font-family:"><span style="color:black">Uwaga!</span></span></b><span calibri="" style="border:none; font-family:"><span style="color:black">​ ​Jeżeli składasz wniosek w imieniu innej osoby pełnoletniej,&nbsp;<b>​z którą nie zamieszkujesz</b>​ pod tym samym adresem, upewnij się, że po założeniu Konta Rodzinnego&nbsp;<b>zmienisz poprzez panel zarzadzania jej adres zamieszkania na właściwy </b>zanim wygenerujesz Potwierdzenia Zamówienia. Każda osoba pełnoletnia musi zweryfikować się indywidualnie Dokumentem Potwierdzającym Uprawnienia, gdzie adres musi być zgodny z tym, który został podany na Potwierdzeniu Zamówienia.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Dla każdej osoby pełnoletniej, w imieniu której wnioskujesz o wydanie Karty Sopockiej, wymagany jest indywidualny adres e-mail tej osoby.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Na podany w procesie rejestracji konta innej osoby pełnoletniej adres e-mail zostanie wysłany aktywny link potwierdzenia założenia konta oraz potwierdzenia wyrażenia zgody na zarzadzanie kontem w ramach konta rodzinnego, administrowanego przez Ciebie.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Jeżeli link nie zostanie kliknięty, umowa nie zostanie zawarta, konto innej osoby pełnoletniej będzie nieaktywne i zostanie usunięte z systemu w ciągu 7 dni od dnia przesłania linka potwierdzającego.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Jeżeli osoba kliknie &bdquo;nie&rdquo; w mailu weryfikacyjnym - jej dane zostaną natychmiast usunięte z bazy.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Jeżeli osoba kliknie &bdquo;tak&rdquo; w mailu weryfikacyjnym - wasze konta będą połączone w ramach Konta Rodzinnego, którego Ty będziesz administratorem.</span></span></span></span><br />
+<br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><b><span calibri="" style="border:none; font-family:"><span style="color:black">Co to oznacza w praktyce?</span></span></b></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Będziesz miał wgląd w wykorzystane rabaty i darmowe wejścia innej osoby pełnoletniej, będziesz mógł edytować jej dane osobowe (w tym adres zamieszkania), zainteresowania, wyrażać i cofać zgody na wysyłkę newslettera.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span style="border: none; font-family: Calibri, sans-serif;"><span style="color: black;"><b>W każdej chwili możesz odłączyć</b></span></span><b><span calibri="" style="border:none; font-family:"><span style="color:black">&nbsp;konto innej osoby pełnoletniej od swojego konta&nbsp;</span></span></b><span calibri="" style="border:none; font-family:"><span style="color:black">poprzez zalogowanie się na swoje Konto Użytkownika w Systemie Karty Sopockiej poprzez stronę&nbsp;</span></span></span></span><span style="border:none; font-size:12.0pt"><span calibri="" style="font-family:"><span style="color:black">www.kartasopocka.pl </span></span></span> i&nbsp;<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">przejście do zakładki Rodzina i kliknięcie w przycisk odłącz osobę na adres e-mail innej osoby pełnoletniej zostanie wysłany link z informacją na temat odłączenie konta.</span></span></span></span><br />
+<span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">Inna osoba pełnoletnia może w każdej chwili samodzielnie odłączyć swoje Konto Użytkownika od Konta Rodzinnego. Może tego dokonać poprzez:</span></span></span></span>
+
+<ul>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">zalogowanie si</span></span></span></span><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">ę</span></span></span><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black"> na swoje Konto Użytkownika w Systemie Karty Sopockiej poprzez stron</span></span></span></span><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">ę</span></span></span><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black"> www.karta.sopot.pl</span></span></span></span></span></li>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">przejście do zakładki Rodzina i klikni</span></span></span></span><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">ę</span></span></span><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">cie w przycisk Odłącz konto od Rodziny,</span></span></span></span></span></li>
+	<li style="border:none; margin-left:32px"><span style="font-size:12pt"><span style="tab-stops:list 54.0pt"><span new="" roman="" style="font-family:" times=""><span calibri="" style="border:none; font-family:"><span style="color:black">na adres e-mail innej osoby pełnoletniej oraz Administratora Konta Rodzinnego zostanie wysłany link z informacją na temat odłączenia konta.</span></span></span></span></span></li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_8'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_8_1276" aria-expanded="false" aria-controls="collapse_8_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy moje dzieci mogą korzystać z mojej Karty Sopockiej, czy muszą mieć własną?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_8_1276" class="accordion-collapse collapse" aria-labelledby="h4_8" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="font-family:&quot;Helvetica Neue&quot;"><span style="color:black"><span style="background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif"><span style="color:#222222">Karta Sopocka jest kartą imienną i nie może z niej korzystać nikt poza właścicielem. Jeżeli chcesz, aby Twoje dzieci korzystały ze zniżek zawartych na karcie, n</span></span></span><span style="border:none; background:white"><span style="font-family:&quot;Calibri&quot;,sans-serif">a etapie zakładania konta możesz zdecydować, że założysz je nie tylko dla siebie, ale dla całej rodziny.</span></span><br />
+<span style="border:none; font-family:&quot;Calibri&quot;,sans-serif"><span style="background:white">Zakładając konto w imieniu osoby nieletniej, stajesz się administratorem konta przynależnego do tej osoby. Oznacza to, że możesz zarządzać wszystkimi danymi na tym koncie.</span> <span style="background:white">Podczas rejestracji dziecko nie musi posiadać własnego adresu e-mail. Indywidualny adres e-mail dziecka będzie potrzebny, jeśli chcesz, żeby Twój podopieczny miał dostęp do swojego profilu w aplikacji mobilnej i mógł wprowadzać w nim zmiany.</span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_9'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_9_1276" aria-expanded="false" aria-controls="collapse_9_1276">
+                            <span style="font-weight: 500;text-align: left;">Czy wystarczy ściągnąć aplikację Karta Sopocka lub odebrać Kartę Sopocką w punkcie IT, czy należy ją jeszcze aktywować?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_9_1276" class="accordion-collapse collapse" aria-labelledby="h4_9" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span helvetica="" neue="" style="font-family:"><span style="color:black"><span style="border:none; background:white"><span calibri="" style="font-family:">Karta Sopocka, zarówno w postaci plastikowej karty, jak i aplikacji mobilnej, jest tylko nośnikiem. Sama w sobie nie jest aktywna, nie uprawnia też do zniżek. To aktywacja Pakietu Mieszkańca lub Pakietu Studenta aktywuje Kartę.</span></span></span></span></span></span></span><br />
+<span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span helvetica="" neue="" style="font-family:"><span style="color:black"><span style="border:none; background:white"><span calibri="" style="font-family:">To uprawnienia do Pakietu Mieszkańca lub Studenta należy potwierdzić, przedstawiając jeden z dokumentów niezbędnych do weryfikacji. Informację o dokumentach niezbędnych do weryfikacji uprawnień znajdziesz </span></span><span style="border:none; background:white"><span calibri="" style="font-family:"><span style="color:#0079bf">tutaj</span></span></span><span style="border:none; background:white"><span calibri="" style="font-family:">.</span></span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_10'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_10_1276" aria-expanded="false" aria-controls="collapse_10_1276">
+                            <span style="font-weight: 500;text-align: left;">Ile kosztuje wyrobienie Karty Sopockiej?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_10_1276" class="accordion-collapse collapse" aria-labelledby="h4_10" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="border:none; font-family:&quot;Calibri&quot;,sans-serif">Nic. Karta Sopocka, zarówno w formie plastikowej, jak i aplikacji mobilnej jest dostępna bezpłatnie. Również aktywacja pakietów następuje bezkosztowo. </span></span></span><br />
+<span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="border:none; font-family:&quot;Calibri&quot;,sans-serif">Wydanie duplikatu karty, w przypadku zgubienia oryginalnej Karty Sopockiej w formie plastikowej wymagania dokonania opłaty w wysokości 20 zł.</span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_11'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_11_1276" aria-expanded="false" aria-controls="collapse_11_1276">
+                            <span style="font-weight: 500;text-align: left;">Jakie dokumenty muszę przygotować, by wyrobić Pakiet Mieszkańca?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_11_1276" class="accordion-collapse collapse" aria-labelledby="h4_11" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:14px;"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><b>Osoby pracujące</b>: PIT lub UPO za ubiegły rok ze wskazanym Urzędem Skarbowym w Sopocie jako adresem składania zeznania podatkowego<br />
+<b>Dzieci: od 7 do 18 r.ż</b>.: ważna legitymacja szkolna lub inny dokument tożsamości (dzieci do 6 r.ż. korzystają z ulg i zniżek przypisanych do rodzica)<br />
+<b>Studenci do 26 r.ż</b>.: ważna legitymacja studencka + aktualna fotografia jak do dokumentu tożsamości<br />
+<b>Emeryci/renciści</b>: PIT otrzymany z ZUS za ubiegły rok lub oświadczenie o meldunku na pobyt stały lub czasowy od min. 12 miesięcy<br />
+<b>Osoby powyżej 18 r.ż. zameldowane na pobyt stały lub czasowy od min. 12 miesięcy, które nie rozliczają podatku dochodowego ani w Polsce, ani za granicą:</b> oświadczenie o zameldowaniu<br />
+<b>Osoby na urlopie wychowawczym</b>: oświadczenie o zameldowaniu<br />
+<b>Osoby zameldowane w Sopocie, nierozliczające podatku dochodowego w US w Sopocie, których mąż/żona/partner/partnerka rozlicza podatek w US w Sopocie:</b> oświadczenie o wspólnym zameldowaniu.</span></span><br />
+<br />
+<span style="line-height:107%"><span style="font-family:Calibri,sans-serif">W celu dodania do Pakietu Mieszkańca&nbsp;<b>Pakietu Parkingowego</b>&nbsp;konieczne jest okazanie&nbsp;<b>dowodu rejestracyjnego pojazdu</b>, w którym imiennie figuruje się jako jego&nbsp;<b>właściciel lub współwłaściciel</b>&nbsp;lub&nbsp;<b>umowy leasingu/kredytu</b>, w którym jest się bezpośrednio wskazanym jako&nbsp;<b>Korzystający&nbsp;</b>z pojazdu.</span></span><br />
+<br />
+<span style="line-height:107%"><span calibri="">W przypadku osób, które nie mają swojej aktualnej fotografii oferujemy możliwość wykonania&nbsp;<b>za darmo zdjęcia</b> na miejscu.</span></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_12'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_12_1276" aria-expanded="false" aria-controls="collapse_12_1276">
+                            <span style="font-weight: 500;text-align: left;">Jak korzystać z Pakietu Parkingowego w parkometrze?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_12_1276" class="accordion-collapse collapse" aria-labelledby="h4_12" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <ul style="list-style-type:circle">
+	<li><span style="font-family:Arial,Helvetica,sans-serif;"><span style="font-size:14px;"><span style="background:white"><span style="color:#202020"><span style="line-height:normal"><span style="letter-spacing:.3pt">naciśnij przycisk TARYFA;</span></span></span></span></span></span></li>
+	<li><span style="font-family:Arial,Helvetica,sans-serif;"><span style="font-size:14px;"><span style="background:white"><span style="color:#202020"><span style="line-height:normal"><span style="letter-spacing:.3pt">wybierz z menu KARTA SOPOCKA naciskając przycisk AKCEPTUJ;</span></span></span></span></span></span></li>
+	<li><span style="font-family:Arial,Helvetica,sans-serif;"><span style="font-size:14px;"><span style="background:white"><span style="color:#202020"><span style="line-height:normal"><span style="letter-spacing:.3pt">zbliż kartę do czytnika Karty Sopockiej/ zeskanuj kod QR lub kreskowy / wpisz przypisany do karty numer rejestracyjny pojazdu i naciśnij przyciski AKCEPTUJ;<br />
+	zakup bilet postępując zgodnie z informacjami wyświetlanymi na wyświetlaczu.</span></span></span></span></span></span></li>
+	<li><span style="font-family:Arial,Helvetica,sans-serif;"><span style="font-size:14px;"><span style="background:white"><span style="color:#202020"><span style="line-height:normal"><span style="letter-spacing:.3pt">Dodatkowo Karta Sopocka działa już w aplikacjach <em><strong>ePark </strong></em>oraz <em><strong>moBILET. </strong></em>Aplikacja sama sprawdza, czy numer rejestracyjny jest w Bazie Karty i automatycznie nalicza zniżkę.</span></span></span></span></span></span><br />
+	&nbsp;</li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_13'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_13_1276" aria-expanded="false" aria-controls="collapse_13_1276">
+                            <span style="font-weight: 500;text-align: left;">Jak mogę uzyskać Kartę Sopocką, jeśli przeprowadziłam/em się właśnie do Sopotu i ostatni PIT złożyłam/em w innym mieście?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_13_1276" class="accordion-collapse collapse" aria-labelledby="h4_13" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span style="border:none; font-size:11.5pt"><span style="background:white"><span arial="" style="font-family:"><span style="color:black">Osoby, które zamieszkały w Sopocie w trakcie roku rozliczeniowego, mogą ubiegać się o wydanie Karty Sopockiej na podstawie formularza ZAP-3, w którym deklarują, że ich miejscem zamieszkania oraz rozliczania podatku od osób fizycznych jest Sopot.</span></span></span></span><br />
+<span style="border:none; font-size:11.5pt"><span arial="" style="font-family:"><span style="color:black"><span style="background:white">Formularz ZAP-3 (Zgłoszenie aktualizacyjne osoby fizycznej będącej podatnikiem) możesz złożyć w Urzędzie Skarbowym właściwym dla Twojego miejsca zamieszkania.</span><br />
+<span style="background:white">Instrukcje jak złożyć formularz elektronicznie znajdziesz pod tym adresem:&nbsp;https://www.podatki.gov.pl/abc-podatkow/e-deklaracje-rejestracja</span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_14'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_14_1276" aria-expanded="false" aria-controls="collapse_14_1276">
+                            <span style="font-weight: 500;text-align: left;">Jak uzyskać Kartę Sopocką, jeśli założyłam/em działalność gospodarczą w Sopocie w roku 2022?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_14_1276" class="accordion-collapse collapse" aria-labelledby="h4_14" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span new="" roman="" style="font-family:" times=""><span style="border:none; background:white"><span calibri="" style="font-family:"><span style="color:black">Osoby, które założyły działalność gospodarczą w Sopocie w 2022 roku, mogą zweryfikować swoje uprawnienia na podstawie wniosku o wpis do</span></span></span><b><span calibri="" style="border:none; font-family:"><span style="color:black">&nbsp;</span></span></b><span calibri="" style="border:none; font-family:"><span style="color:black">Centralnej Ewidencji Informacji o Działalności Gospodarczej</span></span><span style="border:none; background:white"><span calibri="" style="font-family:"><span style="color:black">, w którym wskazany jest Naczelnik sopockiego oddziału Urzędu Skarbowego.</span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_15'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_15_1276" aria-expanded="false" aria-controls="collapse_15_1276">
+                            <span style="font-weight: 500;text-align: left;">Kto może otrzymać Kartę Sopocką?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_15_1276" class="accordion-collapse collapse" aria-labelledby="h4_15" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Pakiet Mieszkańca:</span></span></span>
+<ul>
+	<li style="margin-left:8px"><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">osoba rozliczająca podatek dochodowy w Urzędzie Skarbowym w Sopocie oraz dzieci znajdujące się pod jej opieką,</span></span></span></li>
+	<li style="margin-left:8px"><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">osoba zameldowana w Sopocie, która nie rozlicza podatku dochodowego ani w Polsce, ani za granicą,</span></span></span></li>
+	<li style="margin-bottom:11px; margin-left:8px"><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">emeryci, renciści zameldowani w Sopocie.</span></span></span></li>
+</ul>
+<span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Pakiet Studenta:</span></span></span>
+
+<ul>
+	<li style="margin-bottom:11px; margin-left:8px"><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">studenci uczelni wyższych będących członkami Sopockiej Organizacji Turystycznej.</span></span></span></li>
+</ul>
+<span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Pakiet Wsparcia Ukrainy:</span></span></span>
+
+<ul>
+	<li style="margin-bottom:11px; margin-left:8px"><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">osoba zarejestrowana w Centrum Wsparcia Ukrainy.</span></span></span></li>
+</ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_16'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_16_1276" aria-expanded="false" aria-controls="collapse_16_1276">
+                            <span style="font-weight: 500;text-align: left;">Muszę przychodzić do stacjonarnego punktu obsługi, czy mogę wyrobić Kartę Sopocką online?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_16_1276" class="accordion-collapse collapse" aria-labelledby="h4_16" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            Można zawnioskować o przyznanie pakietu internetowo. Wystarczy założyć konto na naszej stronie (niebieski przycisk w górnym menu), wybrać odpowiedni dla siebie wariant. Po złożeniu wniosku punkt obsługi ma 10 dni na jego przetworzenie. Otrzymasz wówczas powiadomienie email i od tego momentu możesz posługiwać się identyfikatorem w formie aplikacji mobilnej lub udać się po również odbiór karty plastikowej.&nbsp;<br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Instrukcja samodzielnego <b>przedłużenia/ aktywowania</b> <b><i>Karty Sopockiej</i></b> na Państwa koncie na stronie <a href="http://karta.sopot.pl" style="color:blue; text-decoration:underline">karta.sopot.pl</a>, bądź w aplikacji mobilnej <b><i>Karta Sopocka.</i></b></span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Loginem jest numer telefonu, bądź mail, jeśli był podany.</span></span><br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Hasło zostaje wysłane automatycznie, tuż przy zakładaniu konta i ważne jest 24godziny, jeśli wygasło, wystarczy napisać sms&rsquo;a z prośbą o hasło (wyślemy nowe hasło).</span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Po udanym logowaniu w zakładce <b><i>Karta i Pakiety</i></b>, w głównym <b><i>MENU</i></b> klikamy:</span></span><br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><b><i>+Dodaj nowe Pakiety</i></b></span></span><br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><b><i>Dodaj</i></b> / <b><i>Wybrany</i></b> <i>Pakiet Mieszkańca 2024 (Pamiętaj! Wymagany PIT za 2023 rok)</i></span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Wybieramy <b><i>wariant</i></b> z listy</span></span><br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">(Klikamy w białe pole, gdzie rozwija się lista możliwych wariantów do wyboru)</span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Zaznaczamy&nbsp;<i>Pakiet Parkingowy 2024</i> (jeśli Państwo go kontynuują, <b>nie jest</b> już wymagane zdjęcie dowody rejestracyjnego) *(WAŻNE- jeśli wyskakuje informacja, że numery rejestracyjne są już w systemie, wystarczy dopisać/uzupełnić numer rejestracyjny w zakładce <em><strong>IDENTYFIKATOR</strong></em>)</span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Dodajemy niezbędne dokumenty.</span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">W miejscu okienka, z napisem <b><i>dodaj zdjęcie</i></b> - Wklejamy PIT za rok 2023, jeśli dodajemy numery rejestracyjnego, mamy również okienko do wklejenia <b><i>zdjęcia dowodu rejestracyjnego</i></b>.</span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">Jeśli konto nie posiada zdjęcia &ndash; pojawi się również miejsce na wklejenie zdjęcia.</span></span><br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><b><i>Wysyłamy wniosek/Dodajemy wybrane Pakiety</i></b></span></span><br />
+<br />
+<br />
+<span style="font-size:11pt"><span style="font-family:Calibri,sans-serif">W momencie zaakceptowania wniosku &ndash; Pakiet Mieszkańca 2024 i Pakiet Parkingowy 2024 pojawi się na liście POSIADANYCH PAKIETÓW.</span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item postbox__comment-form" style="padding: 0">
+                    <h5 class="accordion-header panel-title" id='h4_17'>
+                        <button style="width: 100%;padding: 30px" id='' class="d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_17_1276" aria-expanded="false" aria-controls="collapse_17_1276">
+                            <span style="font-weight: 500;text-align: left;">Płacę podatki w Sopocie, ale nie mieszkam tutaj (nie mam meldunku w Sopocie). Czy mogę otrzymać Kartę Sopocką?</span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-up'></span>
+                            <span style="margin-left: auto" class='fa-solid fa-angles-down'></span>
+                        </button>
+                    </h5>
+                    <div id="collapse_17_1276" class="accordion-collapse collapse" aria-labelledby="h4_17" data-bs-parent="#modul_1276">
+                        <div class="accordion-body" style="padding: 0 30px 30px">
+                            <span style="font-size:12pt"><span style="text-justify:inter-ideograph"><span style="line-height:115%"><span helvetica="" neue="" style="font-family:"><span style="color:black"><span style="border:none; background:white"><span calibri="" style="font-family:">Tak, z karty mogą korzystać wszyscy, którzy rozliczają podatek PIT w Sopocie. Zameldowanie nie jest konieczne.</span></span></span></span></span></span></span><br />
+&nbsp;
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+	</div>
+            </div>
+
+        </div>
+
+        <div class="faq-bottom">
+
+    <div class="sidebar__wrapper">
+        <div class="sidebar__widget mt-30 mb-40">
+            <div class="sidebar__widget-content" style="text-align:center">
+                <span style="font-size: 60px;" class="fa-solid fa-headset mb-30"></span>
+                <h4>Potrzebujesz pomocy?</h4>
+<a class="email" href="mailto:kartasopocka@visit.sopot.pl" title="adres email">kartasopocka@visit.sopot.pl</a><br />
+<br />
+<a aria-label="numer telefonu czynny od poniedziałku do piątku od dziesiątej trzydzieście do piętnastej" href="tel:+48 791 778 477">+48 791 778 477</a>
+            </div>
+        </div>
+    </div>
+        </div>
+
+
+    </div>
+
+</main>
+
+<!-- footer -->
+<footer class="mt-50" style='background: #000000'>
+    <div class="bd-footer__section" style="position: relative;background: url('../cmsImages/tlo1.jpg') center no-repeat; background-size: cover;">
+        <div class="container pt-60" style="position: relative;z-index: 5;">
+            <div class="bd-footer__main pb-20">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2" style="padding-left: 0px;padding-right: 10px;">
+                                <div class="bd-footer-widget__title" style="margin-bottom: 0px;">
+                                    <img style="width: 80%;margin-bottom: 20px;" class="filter-white" src='../cmsImages/logo_kontra.png' alt="logotyp projektu">
+                                </div>
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        
+                                        
+                                        <li><a href="tel:%2B48%20791%20778%20477"><i class="fa-solid fa-phone"></i> +48 791 778 477</a></li>
+                                        
+                                        <li><a href='mailto:kartasopocka%40visit.sopot.pl'><i class="fa-solid fa-envelope"></i> kartasopocka@visit.sopot.pl</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                            <li><a href='../faq-pytania-ogolne'>Pomoc / FAQ</a></li>
+                                            <li><a href='../dokumenty'>Dokumenty do pobrania</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        <li><a href="../mapa-strony">Mapa strony</a></li>
+                                            <li><a href='../pl/jak-zostac-partnerem'>Jak zostać partnerem karty</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-3">
+                                <div class="bd-footer-widget__content">
+                                    <div class="bd-footer-widget__menu">
+                                        <ul>
+                                                <li><a href='../pl/regulamin'>Regulamin</a></li>
+                                                <li><a href='../pl/polityka-prywatnosci'>Polityka prywatności</a></li>
+                                                <li><a href='../res/9410/41896/Deklaracja dostępności.pdf'>Deklaracja dostępności</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="offcanvas__contact mt-30 mb-20">
+                            <div>
+                                <div class="linkoDoAplikacji" style="text-align: center;">
+                                    <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="../assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                                    <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="../assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+            </div>
+
+            <div class="bd-footer__copyright pb-40 row">
+                    <div class="offcanvas__social" style="text-align: center;">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                    </div>
+
+                <div class="col-lg-12" style="display: flex;justify-content: center;margin-top: 30px">
+                    <p style="text-align: center;color: #FFF">
+                    Copyright © 2021 - 2026  - Wszystkie prawa zastrzeżone<br>
+                    <a style="color: #FFF;text-transform: none;font-weight: normal;font-size: 11px;" title="link do firmy tworzącej system" target="_blank" href="https://qb.com.pl">Build with <span class="fa-solid fa-heart"></span> by qb</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer end -->
+
+
+
+
+
+
+
+        <button id="cookieConsentButton" class="floating-button" aria-label="Akceptuj ciasteczka"><i class="fa fa-cookie-bite"></i></button>
+
+    <!-- Cookie Consent Modal -->
+    <div id="cookieConsentModal" class="modal">
+        <div class="modal-content new-modal-content" style="display: flex; flex-direction: column">
+            <span class="close">&times;</span>
+            <div style = "flex: 0 0 auto;" >
+                <h4>Zgoda na Ciasteczka</h4>
+            </div>
+
+            <div id="scrollableContent">
+                <div class="gradient-top hidden" id="gradient-top"></div>
+                <div class="gradient-bottom hidden" id="gradient-bottom"></div>
+                <div>
+                    <p class="stylZgody dostosujWybor" id="cookieTrescZgody" tabindex="-1"><strong>Szanowny Użytkowniku</strong><br />
+<br />
+Uprzejmie informujemy, że tworząc i administrując strony internetowe Sopockiej Organizacji Turystycznej z siedzibą w Sopocie, używamy technologii służących do zbierania i przetwarzania danych osobowych w celu analizowania ruchu na stronach i w Internecie. Sopocka Organizacja Turystyczna nie personalizuje wyświetlanych treści. Realizując rozporządzenie Parlamentu Europejskiego i Rady Unii Europejskiej 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (tzw. &bdquo;RODO&rdquo;) uprzejmie informujemy, że do przetwarzania wykorzystywane będą następujące dane: adres IP twojego urządzenia, adres URL żądania, nazwa domeny, identyfikator urządzenia, typ przeglądarki, język przeglądarki, liczba kliknięć, ilość czasu spędzonego na poszczególnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczość ekranu, dane zbierane w dziennikach serwera, a także inne podobne informacje.<br />
+<br />
+Administratorem danych jest Sopocka Organizacja Turystyczna, Plac Zdrojowy 2, 81-720 Sopot</p>
+                    <p class="stylZgody dostosujWybor" style="margin-top:6px;"><a href="../polityka-prywatnosci" target="_blank" rel="noopener" style="color:#5a6575; text-decoration:underline;">Szczegółowe informacje o plikach cookies znajdziesz w Polityce prywatności</a></p>
+                    <div class="dostosujWybor"  style="display:none;">
+                        <p class="stylZgody" id="cookieWybierzKategorie" tabindex="-1">Wybierz kategorie ciasteczek, na które wyrażasz zgodę:</p>
+                        <div id="cookieConsentForm" style="display: flex">
+                            <div style="margin-right: auto; margin-left: auto;">
+                                <div id="niezbedneDiv">
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" disabled checked value="necessary">
+                                        Niezbędne do działania systemu
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-necessary" tabindex="0" role="button" aria-expanded="false" aria-controls="details-necessary" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-necessary" class="details"><span>- JSESSIONID &mdash; utrzymanie sesji; usuwane po zamknięciu przeglądarki</span><br><span>- cookieConsent &mdash; zapamiętanie Twojej decyzji o zgodach (pamięć lokalna przeglądarki)</span><br><span>- kontrastyOn, bodyZoom &mdash; ustawienia dostępności: kontrast i rozmiar czcionki (pamięć lokalna)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="preferencjeDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="preferences">
+                                        Personalizacja
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-preferences" tabindex="0" role="button" aria-expanded="false" aria-controls="details-preferences" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-preferences" class="details"><span>- _fbp, fr &mdash; personalizacja Facebook (do 90 dni)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="marketingDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="marketing">
+                                        Marketing
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-marketing" tabindex="0" role="button" aria-expanded="false" aria-controls="details-marketing" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-marketing" class="details"><span>- _fbp, fr &mdash; Facebook Pixel (do 90 dni)</span><br></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="przyciskiZgod" style="flex: 0 0 auto;">
+                <div class="dostosujWybor" style="display:none;">
+                    <button type="button" class="cc-btn cc-btn-wybrane naSrodku przycisk-zgody" id="saveConsent">Zgoda na wybrane</button>
+                    <a class="cc-btn cc-btn-link naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieTrescZgody').focus();return false;">Pokaż treść zgody</a>
+                </div>
+                <a class="cc-btn cc-btn-glowny naSrodku btnZgodaNaWszystko przycisk-zgody" href="javascript:zgodaNaWszystko();">Zgadzam się na wszystkie ciasteczka</a>
+                <button type="button" class="cc-btn cc-btn-drugi naSrodku przycisk-zgody" id="odrzucOpcjonalne">Odrzuć wszystkie opcjonalne</button>
+                <a class="cc-btn cc-btn-link dostosujWybor naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieWybierzKategorie').focus();return false;">Dostosuj wybór</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="../assets/visit/js/vendor/waypoints.js"></script>
+    <script src="../assets/visit/js/bootstrap-bundle.js"></script>
+    <script src="../assets/visit/js/meanmenu.js"></script>
+    <script src="../assets/visit/js/swiper-bundle.js"></script>
+    <script src="../assets/visit/js/magnific-popup.js"></script>
+    <script src="../assets/visit/js/backtotop.js"></script>
+    <script src="../assets/visit/js/counterup.js"></script>
+    <script src="../assets/visit/js/wow.js"></script>
+    <script src="../assets/visit/js/isotope-pkgd.js"></script>
+    <script src="../assets/visit/js/imagesloaded-pkgd.js"></script>
+    <script src="../assets/visit/js/ajax-form.js"></script>
+    <script src="../cmsJS/main.js"></script>
+    <script src="../assets/n/js/popper.min.js"></script>
+    <script src="../assets/n/js/tippy.umd.min.js"></script>
+    <script src="../assets/mock/stub-forms.js"></script>
+    <script src="../assets/mock/mock.js"></script>
+    <script src="../assets/mock/datasprint.js"></script>
+</body>
+</html>

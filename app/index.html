@@ -1,115 +1,1763 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="data:,">
-<title>Sopocka Strona Biznesu — Panel przedsiębiorcy</title>
-<link rel="stylesheet" href="vendor/fonts/fonts.css">
-<link rel="stylesheet" href="styles/tokens.css">
-<style>
-  body { background: var(--color-bg); }
-  .karta-bar { background: #123b3d; color: #d7e9e2; font-size: 12px; letter-spacing: .02em; }
-  .karta-bar .in { max-width: 1280px; margin: 0 auto; padding: 7px 24px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
-  .karta-bar a { color: #d7e9e2; text-decoration: none; }
-  .karta-bar a[aria-current] { color: #ffffff; font-weight: 600; border-bottom: 2px solid #21C7B7; padding-bottom: 2px; }
-  .hero { max-width: 1280px; margin: 0 auto; padding: 26px 24px 8px; }
-  .hero h1 { font-family: var(--font-heading); font-size: 44px; text-transform: uppercase; letter-spacing: .02em; margin: 0 0 6px; color: #0b3f3a; }
-  .hero p { max-width: 74ch; font-size: 14px; color: #243a40; margin: 0 0 4px; }
-  .wrap { max-width: 1280px; margin: 0 auto; padding: 8px 24px 40px; }
-  .panel-frame { display: block; width: 100%; border: 1px solid var(--color-divider); background: #f2f0e7; }
-  .states { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 18px; }
-  .states a { display: inline-flex; flex-direction: column; gap: 2px; padding: 8px 12px; border: 1px solid var(--color-divider); background: #e7f0ed; color: #0b3f3a; text-decoration: none; font-size: 13px; }
-  .states a:hover { border-color: var(--color-accent); background: #d7e9e2; }
-  .states a b { font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; letter-spacing: .03em; }
-  .states a span { font-size: 11px; color: #334c51; }
-  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 18px; }
-  .split > div { border: 1px solid var(--color-divider); padding: 12px 14px; background: #e7f0ed; }
-  .split h3 { font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 6px; color: #11685f; }
-  .split p { font-size: 12.5px; margin: 0; color: #243a40; }
-</style>
-</head>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Portal Mieszkańca wraz z Panelem Mieszkańca">
+        <meta name="author" content="qb.com.pl">
+        <meta name="keywords" content="Karta Mieszkańca">
+        <title>Karta Mieszkańca</title>
+        <link rel="shortcut icon" href="./cmsImages/favicon.png" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="./cmsImages/favicon.png">
+        <script>
+    if (window.location.hostname.indexOf("www") == 0) {
+        window.location = window.location.href.replace("www.", "");
+    }
+</script>
+        <link href="./assets/mock/montserrat.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/n/css/fontello/css/icon_set_1.css">
+        <link href="./cmsCSS/style-migracja.css" rel="stylesheet">
+        <link href="./assets/n/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/visit/css/meanmenu.css">
+        <link rel="stylesheet" href="./assets/visit/css/animate.css">
+        <link rel="stylesheet" href="./assets/visit/css/swiper-bundle.css">
+        <link rel="stylesheet" href="./assets/visit/css/backtotop.css">
+        <link rel="stylesheet" href="./assets/visit/css/magnific-popup.css">
+        <link rel="stylesheet" href="./assets/visit/css/font-awesome-pro.css">
+        <link rel="stylesheet" href="./assets/visit/css/spacing.css">
+        <link rel="stylesheet" href="./assets/visit/css/main.css">
+        <link href="./assets/n/css/icheck.css" rel="stylesheet">
+        <link href="./cmsCSS/jquery_fancybox.css" rel="stylesheet" type="text/css"/>
+        <link href="./vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/n/css/jquery.justified.css"/>
+        <link rel="stylesheet" href="./assets/n/css/colorbox.css"/>
+        <link href="./assets/n/css/lightbox2.css" rel="stylesheet">
+        <link href="./cmsCSS/chosen.css" rel="stylesheet" type="text/css"/>
+        <link href="./css/opentip.css" rel="stylesheet" type="text/css"/>
+        <link href="./cmsCSS/custom.css?v=1.5" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="./cmsCSS/v-custom.css">
+        <link rel="stylesheet" href="./cmsCSS/artykuly.css">
+        <link rel="stylesheet" href="./vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.css"/>
+        <link rel="stylesheet" href="./css/site-inline.css">
+        <link rel="stylesheet" href="./assets/mock/mock.css">
+        <script src="./assets/n/js/jquery-2.2.4.min.js"></script>
+        <script src="./vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.js"></script>
+        <script src="./js/opentip-jquery.js"></script>
+        <script src="./cmsJS/chosen.js"></script>
+        <script src="./cmsJS/jquery_fancybox.js"></script>
+        <script src="./vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+        <script src="./assets/n/js/icheck.min.js"></script>
+        <script src="./assets/n/js/poczekalnia.js"></script>
+            <link rel="stylesheet" href="assets/mock/datasprint.css">
+    </head>
+
 <body>
-  <div class="karta-bar">
-    <div class="in">
-      <a href="#">karta.sopot.pl</a>
-      <a href="#">Mieszkańcy</a>
-      <a href="#">Turystyka</a>
-      <a href="#" aria-current="page">Strona Biznesu</a>
-      <a href="#">Kontakt</a>
-      <span style="margin-left:auto;opacity:.75">Sopot · dane kartowe MCC 5812 · 2025-01-01 → 2026-06-30</span>
+
+<header>
+    <div class="skip-link-container">
+        <button style="font-weight: bold; font-size: large" onclick="skipToFirstFocusableElementInside('main');">
+            Pomiń menu główne
+        </button><br/>
     </div>
-  </div>
 
-  <header class="hero">
-    <h1>Panel przedsiębiorcy</h1>
-    <p>Nowa zakładka w Sopockiej Karcie Mieszkańca dla lokali gastronomicznych. Pokazuje, co jest
-      <b>normalne</b> dla Twojej ulicy o tej godzinie i w tym dniu tygodnia, jak bardzo odbiega od tego
-      dzisiejszy dzień i które wydarzenie w mieście niesie sygnał.</p>
-    <p style="color:#334c51">Panel czyta <b>jeden</b> wstępnie policzony plik
-      (<code>artifacts/aggregate.json</code>, kontrakt v4) i działa bez internetu. Nie ma trybu
-      zastępczego: dopóki plik się nie wczyta, na ekranie nie ma ani jednej liczby.</p>
-  </header>
 
-  <div class="wrap">
-    <div class="states" id="states"></div>
-    <iframe id="panel" class="panel-frame" title="Panel przedsiębiorcy · Sopot" src="panel.html" height="1500"></iframe>
 
-    <div class="split">
-      <div>
-        <h3>Trzy bramki prywatności</h3>
-        <p>Min. 3 podmioty · min. 30 kart · żaden podmiot powyżej 75% udziału — liczone dla każdego
-          obszaru osobno. Obszar poniżej progu pokazuje wartość większego obszaru albo pozostaje
-          niewybarwiony. Bramki są zaimplementowane raz, w <code>contracts/privacy.py</code>,
-          i odzwierciedlone w aplikacji.</p>
-      </div>
-      <div>
-        <h3>Dzień tygodnia, nie średnia</h3>
-        <p>„Zwykle” to średnia z 4 poprzednich tygodni dla <b>tego samego dnia tygodnia</b>
-          i tej samej godziny. Bez tego dopasowania sobota bez żadnego wydarzenia czytała +75%.</p>
-      </div>
-      <div>
-        <h3>Bez znacznika czasu</h3>
-        <p>10,2% wierszy ma czas <code>000000</code>. Nie wchodzą do żadnej krzywej godzinowej ani do
-          żadnej średniej — panel pokazuje ich udział wprost nad wykresem.</p>
-      </div>
-      <div>
-        <h3>Nigdy nie rysujemy i nie ukrywamy</h3>
-        <p>Gdy w oknie 3 godzin jest za mało transakcji, odczyt eskaluje do większego obszaru,
-          a w ostateczności do całego miasta — i jest drukowany z przedziałem 95%. Nie ma stanu,
-          w którym krzywa jest narysowana, a liczby nie ma.</p>
-      </div>
+    <div class="row align-items-center d-none d-lg-flex">
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5">
+        </div>
+
+            <div class="col-xxl-7 col-xl-7 col-lg-6 d-none d-lg-block">
+                <div style="width: 450px;margin: 0 auto;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>                </div>
+            </div>
+
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-7" style="margin-left: auto;">
+            <div class="col-12" style="margin-left: auto;">
+                <div class="d-flex wyroznioneMenuGlowne">
+                    <ul class="top_links" title="menu media społecznościowe">
+                        <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                        </div>
+                    </ul>
+                    <!-- End top line-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bd-header__section bd-header__transparent">
+        <div class="bd-header__main" id="header-sticky">
+            <div id="mainMenu" class="cmsContainer">
+	<div id="module_865"  >
+
 
 <script>
-  // The state buttons are generated from app/states/*.json so the entry page and the URL-addressable
-  // demo states can never drift apart. Each link opens the same panel with a shareable query string.
-  (async function () {
-    const box = document.getElementById('states');
-    const frame = document.getElementById('panel');
-    const INDEX = ['molo', 'monciak', 'przystan'];
-    let states = [];
-    try {
-      states = await Promise.all(INDEX.map(async (id) => {
-        const r = await fetch(`states/${id}.json`, { cache: 'no-cache' });
-        if (!r.ok) throw new Error(`states/${id}.json → HTTP ${r.status}`);
-        return r.json();
-      }));
-    } catch (e) {
-      box.innerHTML = `<span style="font-size:12px;color:#5a1c18">Nie udało się wczytać stanów demonstracyjnych: ${e.message}</span>`;
-      return;
-    }
-    box.innerHTML = states.map(s =>
-      `<a href="panel.html?${s.query}" data-state="${s.id}"><b>${s.title}</b><span>${s.subtitle}</span></a>`
-    ).join('');
-    // keep the embedded panel in step with the query string of the entry page
-    const q = location.search.replace(/^\?/, '');
-    if (q) frame.src = `panel.html?${q}`;
-    const fit = () => { try { const d = frame.contentDocument; if (d && d.body) frame.height = Math.max(1200, d.body.scrollHeight + 40); } catch (e) { } };
-    frame.addEventListener('load', fit);
-    setInterval(fit, 1500);
-  })();
+    /* wykrycie braku miejsca z prawej strony dla paneli 4. poziomu */
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.main-menu li.submenu-glebiej-parent').forEach(function (li) {
+            li.addEventListener('mouseenter', function () {
+                var panel = li.querySelector('ul.submenu-glebiej');
+                if (!panel) return;
+                li.classList.remove('otwierajWLewo');
+                var r = li.getBoundingClientRect();
+                if (r.right + panel.offsetWidth + 10 > window.innerWidth) {
+                    li.classList.add('otwierajWLewo');
+                }
+            });
+        });
+    });
 </script>
+
+
+
+<div class="row" style="align-items: stretch;height: 100%">
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5"
+         style="padding-right: 0; ">
+        <div class="logo">
+            <a tabindex="-1" href="pl/home" title="powrót do strony głównej">
+                <img 
+                     src="cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+            </a>
+        </div>
+    </div>
+
+        <div class="col-lg-8 d-none d-lg-block">
+            <div class="d-flex justify-content-center" style="align-items:center;height: 100%">
+                <div class="main-menu">
+                    <nav id="mobile-menu" aria-label="Menu główne" style="text-align: center;">
+                            <!-- ==== POZYCJE MENU GŁÓWNEGO ==========================================
+     Dodaj nową zakładkę jako kolejne <li> w tym <ul>. Wzoruj się na
+     istniejących pozycjach poniżej; href podawaj względem katalogu głównego
+     serwisu (np. pl/aktualnosci), tak jak one.
+
+     Aby zakładka podświetlała się na swojej stronie, dopisz jej trasę i id do
+     MENU_SECTIONS w tools/build_site.py i przebuduj strony
+     (python3 tools/build_site.py). Szczegóły: NOTES.md
+     ====================================================================== -->
+                        <ul>
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_590">
+                                <a 
+                                   href="pl/aktualnosci">Aktualności
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_402">
+                                <a 
+                                   href="pl/wydarzenia">Wydarzenia
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_407">
+                                <a 
+                                   href="pl/partnerzy">Partnerzy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_5318689">
+                                <a 
+                                   href="konkurs-punktowy">Konkurs punktowy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_427">
+                                <a 
+                                   href="pl/projekty">Pakiety
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_417">
+                                <a 
+                                   href="pl/punkty-obslugi">Punkt obsługi
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_392">
+                                <a 
+                                   href="pl/rejestracja">Załóż konto
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+
+                            </li>
+                                                    <!-- Nowa zakładka: DataSprint (dodatek do makiety) -->
+                            <li class="menu-datasprint" data-section="datasprint" id="menuItem_datasprint">
+                                <span class="ds-frame" aria-hidden="true"></span>
+                                <span class="ds-spark ds-spark-1" aria-hidden="true">🎆</span>
+                                <a href="v2/index.html" target="_blank" rel="noopener" title="DataSprint — panel w nowym oknie">
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-label">DataSprint</span>
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-badge" aria-hidden="true">NOWE</span>
+                                </a>
+                                <span class="ds-spark ds-spark-2" aria-hidden="true">🎇</span>
+                            </li>
+</ul>
+                            <!-- ==== KONIEC POZYCJI MENU GŁÓWNEGO ==== -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-7" style="margin-left: auto;padding: 0;position: absolute;right: 0;bottom: 0;top: 0;">
+        <div class="d-flex justify-content-end wyroznioneMenuGlowne primary-bg" style="align-items: center">
+            <div class="bd-header__main-right d-flex justify-content-end align-items-center" style="margin-left: 0;min-width: 120px;">
+                <div style="position: relative;">
+
+                                <div class="bd-border-btn d-none wyroznionyPrzyciskMenu" style="padding: 15px 0;text-align: right;display: inline !important;border:none;margin-right: 0">
+                                    <a
+                                    href='pl/login'
+                                    class="bd-header__search-btn" style="padding: 5px 15px;">
+                                        <span class="fa-solid fa-user"></span> Login/Rejestracja
+                                    </a>
+                                </div>
+
+
+                        
+                        <div class="offcanvas__social d-none d-lg-inline-block" style="display: inline-block;">
+                            <ul>
+                                <li>
+                                    <div class="dropdown">
+                                        <a title="Dostępność" class="social_odwrocony dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                            <i class="fa-sharp fa-solid fa-eye"></i></a>
+                                        <ul class="dropdown-menu"
+                                            style="min-width: 4em; text-align: center; border-radius: 3rem;border: none;box-shadow: 5px 5px 10px #AAA"
+                                            aria-labelledby="navbarDropdown">
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 25px;margin-top: 10px; margin-left: 10px;" class="normalnaCzcionka">
+                                                <a title="Ustaw normalną wielkość czcionki" href='javascript:void(0)'>
+                                                    T-</a></li>
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="duzaCzcionka">
+                                                <a title="Ustaw powiększoną czcionkę" href='javascript:void(0)'>
+                                                    T+</a></li>
+                                            <li style="font-weight: bold; font-size: 0.7em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="resetujZoom">
+                                                <a title="Ustaw wartość początkową" href='javascript:void(0)'>
+                                                    100%</a></li>
+                                                <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-bottom: 10px; margin-top: 10px" class="wysokiKontrast">
+                                                    <a title="Przełącz na wysoki kontrast" href='?wysoki-kontrast'>
+                                                        <i class="fa-solid fa-circle-half-stroke"></i></a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    <div class="bd-header__hamburger">
+                        <button type="button" class="hamburger-btn offcanvas-open-btn" style="position: absolute;top: 0;right: 15px;">
+                            <span><span class="sr-only">Otwórz / zamknij menu</span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+<script>
+    $('a[href*="rejestracja"]').addClass('wyroznione');
+    $('a[href*="rejestracja"]').parent().addClass('wyroznioneWrapper');
+
+
+
+</script>
+
+	</div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header area end -->
+
+
+
+
+
+
+<!-- offcanvas area start -->
+<div class="offcanvas__area">
+    <div class="offcanvas__wrapper">
+        <div class="offcanvas__content">
+            <div class="offcanvas__top mb-20 d-flex justify-content-between align-items-center">
+                <div class="offcanvas__logo logo">
+                    <a href="pl/home?">
+                        <img style="height: 70px;padding: 0;" src="cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+                    </a>
+                </div>
+                <div class="offcanvas__close">
+                    <button class="offcanvas__close-btn offcanvas-close-btn">
+                        <span class="fal fa-times"><span class="sr-only">Ładowanie</span></span>
+                    </button>
+                </div>
+            </div>
+
+                <div style="margin-bottom: 20px;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+
+
+
+
+            <div class="mobile-menu fix mb-20">
+            </div>
+
+
+                <div class="offcanvas__contact mt-30 mb-20">
+                    <p style="font-size: var(--bd-fz-h5); font-weight: 600; margin: 0 0 8px; color: var(--bd-heading-primary);">Pobierz aplikację</p>
+                    <div>
+                        <div class="linkoDoAplikacji">
+                            <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                            <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                </div>
+
+        </div>
+    </div>
+</div>
+<div class="body-overlay"></div>
+<!-- offcanvas area end -->
+
+
+<div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+</div>
+
+<main>
+
+    <div class="align-items-center bd-services__area">
+        <div class="container">
+
+        </div>
+    </div>
+
+    <div class="cmsContainer" id="kontenerGlowny">
+	<div id="module_10698090"  >
+        <!-- slider area start -->
+        <div class="bd-slider__section">
+            <div class="bd-slider__active bd-slider__wrapper swiper-container">
+                <div class="swiper-wrapper">
+                            <div class="swiper-slide bd-slider__item bd-slider__height include-bg d-flex align-items-center"
+                                 data-background='res/688/13302283/Sopot_skwer_kuracyjny_poziom_Fot._Marcin_Czechowicz__9b81b38e.jpg'>
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12">
+                                            <div class="bd-slider__content">
+                                                        <h3 style="" class="bd-slider__title" data-animation="fadeInUp" data-delay=".5s">Karta Sopocka</h3>
+                                                        <div class="bd-slider__btn" data-animation="fadeInUp" data-delay=".9s">
+                                                            <a data-article-id="696" href="pl/aktualnosci/karta-sopocka-696" title="Karta Sopocka" class="btn btn-kontra">Więcej<span>
+                                            <i class="fa-regular fa-angle-right"></i></span></a>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+
+                    <div class="swiper-pagination"></div>
+
+                    <div class="swiper-scrollbar"></div>
+
+            </div>
+        </div>
+        <!-- slider area end -->
+
+	</div>
+	<div id="module_10698107"  >
+
+
+	</div>
+	<div id="module_10698117"  >
+
+<div class="bd-testimonial__area pt-60">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bd-section__title-wrapper text-center mb-60 wow fadeInUp">
+                    <h3 class="bd-section__title bd-title-border">Artykuły</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row small-gutters categories_grid">
+
+
+                        <div class="col-md-8 col-12 news_pierwszy">
+                            <a class="articleShowMore" data-article-id="13514478"
+                               href="                                        /pl/aktualnosci/sopot-z-kawa-w-reku-13514478
+                                    "
+                               title="szczegóły aktualności Sopot z kawą w ręku">
+                                <div class="img-container">
+                                    <img src="res/688/13514480/94m0K5R4K0Q0h1F7Y9y0l3i2O3b3n3y5__424c630d.png" alt="aktualność: Sopot z kawą w ręku" class="img-fluid">
+                                </div>
+                                <div class="czytaj-wiecej-blenda">
+                                    <p>Czytaj więcej<br><i class="fa-light fa-arrow-right"></i></p>
+                                </div>
+                                <div class="wrapper">
+                                    <h4>Sopot z kawą w ręku</h4>
+                                </div>
+                            </a>
+                        </div>
+
+            <div class="col-md-4 col-12" style="padding-bottom: 10px">
+                <div class="row small-gutters mt-md-0 mt-sm-2">
+
+
+                            <div class="col-12 news">
+                                <a class="articleShowMore" data-article-id="13504169"
+                                   href="                                            /pl/aktualnosci/emerytura-pelna-mozliwosci-targi-dla-seniorow-po-raz-osmy-w-gdansku-13504169
+                                        "
+                                   title="szczegóły aktualności Emerytura pełna możliwości. Targi dla seniorów po raz ósmy w Gdańsku!">
+                                    <div class="img-container">
+                                 <img src="res/688/13504173/zrfzutg__8896af29.png" alt="aktualność: Emerytura pełna możliwości. Targi dla seniorów po raz ósmy w Gdańsku!" class="img-fluid">
+                                    </div>
+                                    <div class="czytaj-wiecej-blenda">
+                                        <p>Czytaj więcej<br><i class="fa-light fa-arrow-right"></i></p>
+                                    </div>
+                                    <div class="wrapper">
+                                        <h4>Emerytura pełna możliwości. Targi dla seniorów po raz ósmy w Gdańsku!</h4>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="mt-sm-2 col-12 news">
+                                <a class="articleShowMore" data-article-id="13500294"
+                                   href="                                            /pl/aktualnosci/rozpoczynamy-sezon-2026-2027-13500294
+                                        "
+                                   title="szczegóły aktualności Rozpoczynamy sezon 2026/2027!">
+                                    <div class="img-container">
+                                 <img src="res/688/13500296/1080x1080_1___bd3ad159.jpg" alt="aktualność: Rozpoczynamy sezon 2026/2027!" class="img-fluid">
+                                    </div>
+                                    <div class="czytaj-wiecej-blenda">
+                                        <p>Czytaj więcej<br><i class="fa-light fa-arrow-right"></i></p>
+                                    </div>
+                                    <div class="wrapper">
+                                        <h4>Rozpoczynamy sezon 2026/2027!</h4>
+                                    </div>
+
+                                </a>
+                            </div>
+
+
+
+                </div>
+            </div>
+
+                    <div class="col-sm-4 news">
+                        <a class="articleShowMore" data-article-id="12807627"
+                           href="                                    /pl/aktualnosci/informacja-o-dostepnosci-wydruku-kart-12807627
+                                "
+                           title="szczegóły aktualności Informacja o dostępności wydruku Kart">
+                            <div class="img-container">
+                                <img src="res/688/12807629/Informacja_Dla_Mieszkancow__cb1d03e1.png" alt="aktualność: Informacja o dostępności wydruku Kart" class="img-fluid">
+                            </div>
+                            <div class="czytaj-wiecej-blenda">
+                                <p>Czytaj więcej<br><i class="fa-light fa-arrow-right"></i></p>
+                            </div>
+                            <div class="wrapper">
+                                <h4>Informacja o dostępności wydruku Kart</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 news">
+                        <a class="articleShowMore" data-article-id="12622358"
+                           href="                                    /pl/aktualnosci/toalety-miejskie-z-karta-sopocka-gratis-12622358
+                                "
+                           title="szczegóły aktualności Toalety miejskie z Kartą Sopocką gratis">
+                            <div class="img-container">
+                                <img src="res/688/12622360/toaleta__fa8219f4.png" alt="aktualność: Toalety miejskie z Kartą Sopocką gratis" class="img-fluid">
+                            </div>
+                            <div class="czytaj-wiecej-blenda">
+                                <p>Czytaj więcej<br><i class="fa-light fa-arrow-right"></i></p>
+                            </div>
+                            <div class="wrapper">
+                                <h4>Toalety miejskie z Kartą Sopocką gratis</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 news">
+                        <a class="articleShowMore" data-article-id="10987484"
+                           href="                                    /pl/aktualnosci/gra-turystyczna-z-mewa-sopocianka-10987484
+                                "
+                           title="szczegóły aktualności Gra turystyczna z Mewą Sopocianką!">
+                            <div class="img-container">
+                                <img src="res/688/10987486/mewa_sopocianka__7c028ea7.png" alt="aktualność: Gra turystyczna z Mewą Sopocianką!" class="img-fluid">
+                            </div>
+                            <div class="czytaj-wiecej-blenda">
+                                <p>Czytaj więcej<br><i class="fa-light fa-arrow-right"></i></p>
+                            </div>
+                            <div class="wrapper">
+                                <h4>Gra turystyczna z Mewą Sopocianką!</h4>
+                            </div>
+                        </a>
+                    </div>
+                       <div style="height: 10px;width: 100%;"></div>
+        </div>
+
+        <div class="col-12">
+            <p class="text-center" style="margin-top: 30px;">
+                <a href="pl/aktualnosci" class="bd-btn">Zobacz wszystkie</a>
+
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+	</div>
+	<div id="module_10698127"  >
+
+<section style="background-color: var(--bd-grey-1)">
+
+    <div class="container">
+
+        <div class="bd-services__area pt-60 naglowekZOpisem">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bd-section__title-wrapper text-center mb-30 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                            <h2 class="bd-section__title">Partnerzy</h2>
+                            <p class="mb-5"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bd-services__area pt-30 menuZdjeciaOpis" id='partnerzy_top10'>
+            <div class="container">
+                <div class="row">
+
+
+
+
+                        <div class="p-relative">
+                            <div class="swiper-container bd-testimonial-1">
+                                <div class="swiper-wrapper">
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/12891673/13145960/logo-SL__956b44f6.pdf')">
+                                                <a aria-hidden="true" href="pl/partnerzy/fundacja-klub-sportowy-swimlite-12891677">
+                                                    <span class="sr-only">
+                                                        Fundacja Klub Sportowy Swimlite
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/fundacja-klub-sportowy-swimlite-12891677">
+                                                    Fundacja Klub Sportowy Swimlite
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/3272/11853/logo__aa8991fb.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/hotel-opera-3274">
+                                                    <span class="sr-only">
+                                                        Hotel Opera
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/hotel-opera-3274">
+                                                    Hotel Opera
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/13728/13738/logo-zdiz__04fdf530.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/zarzad-drog-i-zieleni-w-sopocie-13730">
+                                                    <span class="sr-only">
+                                                        Zarząd Dróg i Zieleni w Sopocie
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/zarzad-drog-i-zieleni-w-sopocie-13730">
+                                                    Zarząd Dróg i Zieleni w Sopocie
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/18306/21504/34 art białe logo__002d61fc.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/​​​​​​​impresariat-34art.pl-18308">
+                                                    <span class="sr-only">
+                                                        ​​​​​​​Impresariat 34art.pl
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="5% zniżki na bilety na wydarzenia organizowane przez Impresariat 34art do wykorzystania raz w miesiącu" title="5% zniżki na bilety na wydarzenia organizowane przez Impresariat 34art do wykorzystania raz w miesiącu"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 5%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/​​​​​​​impresariat-34art.pl-18308">
+                                                    ​​​​​​​Impresariat 34art.pl
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/17156/17174/kolejowy logo__eae3031f.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/kolejowy-odjazd-sopot-17158">
+                                                    <span class="sr-only">
+                                                        Kolejowy Odjazd Sopot
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="10% zniżki" title="10% zniżki"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 10%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/kolejowy-odjazd-sopot-17158">
+                                                    Kolejowy Odjazd Sopot
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/11701/11727/Sopot loves you__7bc84c0f.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/sopot-loves-you-11703">
+                                                    <span class="sr-only">
+                                                        Sopot loves You
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="5% zniżki" title="5% zniżki"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 5%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/sopot-loves-you-11703">
+                                                    Sopot loves You
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/3834/27704/Visit-Sopot-sopocka_organizacja_turystyczna_sot_logo_400x200__319febec.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/informacja-turystyczna---plac-zdrojowy-2-3836">
+                                                    <span class="sr-only">
+                                                        Informacja Turystyczna - Plac Zdrojowy 2
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/informacja-turystyczna---plac-zdrojowy-2-3836">
+                                                    Informacja Turystyczna - Plac Zdrojowy 2
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/11942/11959/Visit-Sopot-tapas__cd31c467.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/restauracja-tapas-de-rucola-11944">
+                                                    <span class="sr-only">
+                                                        Restauracja Tapas De Rucola
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="10% zniżki na całe menu, z wyłączeniem alkoholu" title="10% zniżki na całe menu, z wyłączeniem alkoholu"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 10%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/restauracja-tapas-de-rucola-11944">
+                                                    Restauracja Tapas De Rucola
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/156235/160448/Newmedical_logo-01__a1b5d0c6.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/newmedical-156237">
+                                                    <span class="sr-only">
+                                                        Newmedical
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="10% zniżki na badania rezonansem magnetycznym" title="10% zniżki na badania rezonansem magnetycznym"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 10%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/newmedical-156237">
+                                                    Newmedical
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/8872839/8872849/teatr_4_miasto_duze_logo__3895d88c.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/teatr-czwarte-miasto-8872841">
+                                                    <span class="sr-only">
+                                                        Teatr Czwarte Miasto
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/teatr-czwarte-miasto-8872841">
+                                                    Teatr Czwarte Miasto
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/4659/14863/logo AoT-20y-pl__4ac3612c.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/art-of-translation-4661">
+                                                    <span class="sr-only">
+                                                        Art of Translation
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="10% zniżki na tłumaczenia przysięgłe i zwykłe z i na wszystkie języki" title="10% zniżki na tłumaczenia przysięgłe i zwykłe z i na wszystkie języki"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 10%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/art-of-translation-4661">
+                                                    Art of Translation
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/10891901/10891920/301800005_1059790028164945_7514727850471829945_n__93b476c9.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/restauracja-fisherman-finest-food---wine-10891905">
+                                                    <span class="sr-only">
+                                                        Restauracja FISHERMAN finest food & wine
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="15% zniżki na podstawową kartę menu oraz menu dziecięce. Do zniżki nie wliczają się napoje alkoholowe" title="15% zniżki na podstawową kartę menu oraz menu dziecięce. Do zniżki nie wliczają się napoje alkoholowe"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 15%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/restauracja-fisherman-finest-food---wine-10891905">
+                                                    Restauracja FISHERMAN finest food & wine
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/3482/3508/MUZEUM-SOPOTU_KONTRA_RGB__9c00b05d.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/muzeum-sopotu-3484">
+                                                    <span class="sr-only">
+                                                        Muzeum Sopotu
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/muzeum-sopotu-3484">
+                                                    Muzeum Sopotu
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/153668/175349/Wyższa-Szkoła-Zdrowia-Gdańsk-logo1__4fb09d0a.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/wyzsza-szkola-zdrowia-w-gdansku-153670">
+                                                    <span class="sr-only">
+                                                        Wyższa Szkoła Zdrowia w Gdańsku
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/wyzsza-szkola-zdrowia-w-gdansku-153670">
+                                                    Wyższa Szkoła Zdrowia w Gdańsku
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/268318/268394/LOGO_okrąg3__bfb4729b.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/tuz-za-rogiem-268320">
+                                                    <span class="sr-only">
+                                                        Tuż za Rogiem
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/tuz-za-rogiem-268320">
+                                                    Tuż za Rogiem
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/14208/14225/MSWiA__71fd5256.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/spzoz-sanatorium-uzdrowiskowe-mswia-w-sopocie-14210">
+                                                    <span class="sr-only">
+                                                        SPZOZ Sanatorium Uzdrowiskowe MSWiA w Sopocie
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/spzoz-sanatorium-uzdrowiskowe-mswia-w-sopocie-14210">
+                                                    SPZOZ Sanatorium Uzdrowiskowe MSWiA w Sopocie
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/1710/12633/LOGO Polskie Smaki ORG-02__82a09ba7.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/restauracja-polskie-smaki.-hotel-sheraton-sopot-1712">
+                                                    <span class="sr-only">
+                                                        Restauracja Polskie Smaki. Hotel Sheraton Sopot
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/restauracja-polskie-smaki.-hotel-sheraton-sopot-1712">
+                                                    Restauracja Polskie Smaki. Hotel Sheraton Sopot
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/11655/26418/klub atelier 500x500__593ba0b8.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/klub-atelier-11657">
+                                                    <span class="sr-only">
+                                                        Klub Atelier
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                            <span class="glownaZnizka" style="font-size: 25px;font-weight: bold;"
+                                                                  data-tippy-content="10% zniżki" title="10% zniżki"
+                                                                  style="margin-top: 4px;" role="presentation">
+                                                             - 10%
+                                                                                                                    </span>
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/klub-atelier-11657">
+                                                    Klub Atelier
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/3629/439784/logo_pelne__f1529c9e.png')">
+                                                <a aria-hidden="true" href="pl/partnerzy/teatr-atelier-3631">
+                                                    <span class="sr-only">
+                                                        Teatr Atelier
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/teatr-atelier-3631">
+                                                    Teatr Atelier
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="swiper-slide">
+
+
+                                        <div >
+                                            <div class="bd-services-2__item text-center mb-30 wow fadeInUp"
+                                                 style="
+                                                 height: 276px;
+
+                                                 background-image:url('res/3518/7811/PGS logo__ad857a8e.jpg')">
+                                                <a aria-hidden="true" href="pl/partnerzy/panstwowa-galeria-sztuki-3520">
+                                                    <span class="sr-only">
+                                                        Państwowa Galeria Sztuki
+                                                    </span>
+                                                </a>
+
+
+
+                                                    <div class="glownaZnizkaModulWrapper">
+                                                    </div>
+
+                                            </div>
+
+
+                                            <h3 class="bd-services-2__title">
+                                                <a href="pl/partnerzy/panstwowa-galeria-sztuki-3520">
+                                                    Państwowa Galeria Sztuki
+                                                </a>
+                                            </h3>
+
+
+                                        </div>
+
+                                            </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="bd-testimonial__nav mb-25">
+                                <div class="container-fluid">
+                                    <div class="bd-testimonial__nav-wrapper d-flex justify-content-center">
+                                        <div class="testimonial-slider-button-prev">
+                                            <span><i class="fa-thin fa-angle-left"></i></span>
+                                        </div>
+                                        <div class="testimonial-slider-button-next">
+                                            <span><i class="fa-thin fa-angle-right"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</section>
+
+	</div>
+</div>
+
+    <div class="cmsContainer pt-30" id="kontenerDolny"></div>
+
+
+    
+
+
+
+</main>
+
+<!-- footer -->
+<footer class="mt-50" style='background: #000000'>
+    <div class="bd-footer__section" style="position: relative;background: url('cmsImages/tlo1.jpg') center no-repeat; background-size: cover;">
+        <div class="container pt-60" style="position: relative;z-index: 5;">
+            <div class="bd-footer__main pb-20">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2" style="padding-left: 0px;padding-right: 10px;">
+                                <div class="bd-footer-widget__title" style="margin-bottom: 0px;">
+                                    <img style="width: 80%;margin-bottom: 20px;" class="filter-white" src='cmsImages/logo_kontra.png' alt="logotyp projektu">
+                                </div>
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        
+                                        
+                                        <li><a href="tel:%2B48%20791%20778%20477"><i class="fa-solid fa-phone"></i> +48 791 778 477</a></li>
+                                        
+                                        <li><a href='mailto:kartasopocka%40visit.sopot.pl'><i class="fa-solid fa-envelope"></i> kartasopocka@visit.sopot.pl</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                            <li><a href='faq-pytania-ogolne'>Pomoc / FAQ</a></li>
+                                            <li><a href='dokumenty'>Dokumenty do pobrania</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        <li><a href="mapa-strony">Mapa strony</a></li>
+                                            <li><a href='pl/jak-zostac-partnerem'>Jak zostać partnerem karty</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-3">
+                                <div class="bd-footer-widget__content">
+                                    <div class="bd-footer-widget__menu">
+                                        <ul>
+                                                <li><a href='pl/regulamin'>Regulamin</a></li>
+                                                <li><a href='pl/polityka-prywatnosci'>Polityka prywatności</a></li>
+                                                <li><a href='res/9410/41896/Deklaracja dostępności.pdf'>Deklaracja dostępności</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="offcanvas__contact mt-30 mb-20">
+                            <div>
+                                <div class="linkoDoAplikacji" style="text-align: center;">
+                                    <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                                    <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+            </div>
+
+            <div class="bd-footer__copyright pb-40 row">
+                    <div class="offcanvas__social" style="text-align: center;">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                    </div>
+
+                <div class="col-lg-12" style="display: flex;justify-content: center;margin-top: 30px">
+                    <p style="text-align: center;color: #FFF">
+                    Copyright © 2021 - 2026  - Wszystkie prawa zastrzeżone<br>
+                    <a style="color: #FFF;text-transform: none;font-weight: normal;font-size: 11px;" title="link do firmy tworzącej system" target="_blank" href="https://qb.com.pl">Build with <span class="fa-solid fa-heart"></span> by qb</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer end -->
+
+
+
+
+
+
+
+        <button id="cookieConsentButton" class="floating-button" aria-label="Akceptuj ciasteczka"><i class="fa fa-cookie-bite"></i></button>
+
+    <!-- Cookie Consent Modal -->
+    <div id="cookieConsentModal" class="modal">
+        <div class="modal-content new-modal-content" style="display: flex; flex-direction: column">
+            <span class="close">&times;</span>
+            <div style = "flex: 0 0 auto;" >
+                <h4>Zgoda na Ciasteczka</h4>
+            </div>
+
+            <div id="scrollableContent">
+                <div class="gradient-top hidden" id="gradient-top"></div>
+                <div class="gradient-bottom hidden" id="gradient-bottom"></div>
+                <div>
+                    <p class="stylZgody dostosujWybor" id="cookieTrescZgody" tabindex="-1"><strong>Szanowny Użytkowniku</strong><br />
+<br />
+Uprzejmie informujemy, że tworząc i administrując strony internetowe Sopockiej Organizacji Turystycznej z siedzibą w Sopocie, używamy technologii służących do zbierania i przetwarzania danych osobowych w celu analizowania ruchu na stronach i w Internecie. Sopocka Organizacja Turystyczna nie personalizuje wyświetlanych treści. Realizując rozporządzenie Parlamentu Europejskiego i Rady Unii Europejskiej 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (tzw. &bdquo;RODO&rdquo;) uprzejmie informujemy, że do przetwarzania wykorzystywane będą następujące dane: adres IP twojego urządzenia, adres URL żądania, nazwa domeny, identyfikator urządzenia, typ przeglądarki, język przeglądarki, liczba kliknięć, ilość czasu spędzonego na poszczególnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczość ekranu, dane zbierane w dziennikach serwera, a także inne podobne informacje.<br />
+<br />
+Administratorem danych jest Sopocka Organizacja Turystyczna, Plac Zdrojowy 2, 81-720 Sopot</p>
+                    <p class="stylZgody dostosujWybor" style="margin-top:6px;"><a href="polityka-prywatnosci" target="_blank" rel="noopener" style="color:#5a6575; text-decoration:underline;">Szczegółowe informacje o plikach cookies znajdziesz w Polityce prywatności</a></p>
+                    <div class="dostosujWybor"  style="display:none;">
+                        <p class="stylZgody" id="cookieWybierzKategorie" tabindex="-1">Wybierz kategorie ciasteczek, na które wyrażasz zgodę:</p>
+                        <div id="cookieConsentForm" style="display: flex">
+                            <div style="margin-right: auto; margin-left: auto;">
+                                <div id="niezbedneDiv">
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" disabled checked value="necessary">
+                                        Niezbędne do działania systemu
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-necessary" tabindex="0" role="button" aria-expanded="false" aria-controls="details-necessary" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-necessary" class="details"><span>- JSESSIONID &mdash; utrzymanie sesji; usuwane po zamknięciu przeglądarki</span><br><span>- cookieConsent &mdash; zapamiętanie Twojej decyzji o zgodach (pamięć lokalna przeglądarki)</span><br><span>- kontrastyOn, bodyZoom &mdash; ustawienia dostępności: kontrast i rozmiar czcionki (pamięć lokalna)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="preferencjeDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="preferences">
+                                        Personalizacja
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-preferences" tabindex="0" role="button" aria-expanded="false" aria-controls="details-preferences" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-preferences" class="details"><span>- _fbp, fr &mdash; personalizacja Facebook (do 90 dni)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="marketingDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="marketing">
+                                        Marketing
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-marketing" tabindex="0" role="button" aria-expanded="false" aria-controls="details-marketing" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-marketing" class="details"><span>- _fbp, fr &mdash; Facebook Pixel (do 90 dni)</span><br></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="przyciskiZgod" style="flex: 0 0 auto;">
+                <div class="dostosujWybor" style="display:none;">
+                    <button type="button" class="cc-btn cc-btn-wybrane naSrodku przycisk-zgody" id="saveConsent">Zgoda na wybrane</button>
+                    <a class="cc-btn cc-btn-link naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieTrescZgody').focus();return false;">Pokaż treść zgody</a>
+                </div>
+                <a class="cc-btn cc-btn-glowny naSrodku btnZgodaNaWszystko przycisk-zgody" href="javascript:zgodaNaWszystko();">Zgadzam się na wszystkie ciasteczka</a>
+                <button type="button" class="cc-btn cc-btn-drugi naSrodku przycisk-zgody" id="odrzucOpcjonalne">Odrzuć wszystkie opcjonalne</button>
+                <a class="cc-btn cc-btn-link dostosujWybor naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieWybierzKategorie').focus();return false;">Dostosuj wybór</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="./assets/visit/js/vendor/waypoints.js"></script>
+    <script src="./assets/visit/js/bootstrap-bundle.js"></script>
+    <script src="./assets/visit/js/meanmenu.js"></script>
+    <script src="./assets/visit/js/swiper-bundle.js"></script>
+    <script src="./assets/visit/js/magnific-popup.js"></script>
+    <script src="./assets/visit/js/backtotop.js"></script>
+    <script src="./assets/visit/js/counterup.js"></script>
+    <script src="./assets/visit/js/wow.js"></script>
+    <script src="./assets/visit/js/isotope-pkgd.js"></script>
+    <script src="./assets/visit/js/imagesloaded-pkgd.js"></script>
+    <script src="./assets/visit/js/ajax-form.js"></script>
+    <script src="./cmsJS/main.js"></script>
+    <script src="./assets/n/js/popper.min.js"></script>
+    <script src="./assets/n/js/tippy.umd.min.js"></script>
+    <script src="./assets/mock/stub-forms.js"></script>
+    <script src="./assets/mock/mock.js"></script>
+    <script src="assets/mock/datasprint.js"></script>
 </body>
 </html>

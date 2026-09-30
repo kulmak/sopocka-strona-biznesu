@@ -1,0 +1,1476 @@
+/* Inline <style> blocks lifted verbatim from the captured pages,
+
+   de-duplicated and served as one stylesheet. */
+
+html.wow-czeka .wow:not(.wow-pokazany) { visibility: hidden !important; }
+
+:root {
+
+                --kolorTekstuJasny: #878787;
+                --kolorTekstuCiemny: #282828;
+                --kolorIkon: #6C6D6F;
+
+
+                --kolorOzdobnyGlowny: #178fd3;
+                --kolorOzdobnyGlownyPol: #178fd320; <!-- 12.5% opacity -->
+                --kolorOzdobnyGlownyGradient: ;
+                --kolorOzdobnyDodatkowy: #fe5e0b;
+                --kolorOzdobnyDodatkowyPol: #fe5e0b20;  <!-- 12.5% opacity -->
+                --kolorOzdobnyDodatkowyGradient: ;
+                --kolorAktywnychElementowMenu: #178fd3;
+                --kolorPrzyciskuDoZaluj: #000000;
+
+                --kolorTlaPodPrzyciski: #F2F2F2;
+                --kolorPrzyciskowSocial: #000000;
+
+                /*Nadpisanie głównych zmiennych*/
+                --swiper-theme-color: #178fd3;
+                --bd-theme-primary: #178fd3;
+                --bd-theme-primary-translucent: #178fd395;
+                --bd-grey-1: #fcfcfc;
+                --kolorInfo: #14A0EF;
+                --kolorWarning: #ea9800;
+                --kolorDanger: #d20014;
+                --kolorSukces: #13a500;
+                --kolorDisabled: #cbcbcb;
+
+                --maxSzerokoscLogo: 200px;
+                --paddingLogo: 0 0 0 20px;
+                --paddingLogoMobilne: 0 0 0 20px;
+                --bd-ff-heading: 'Montserrat', sans-serif;
+                --bd-ff-body: 'Montserrat', sans-serif;
+                --bd-ff-p: 'Montserrat', sans-serif;
+                --bd-text-body: #000;
+                --bd-fz-b: 12px;
+                --bd-fz-p: 16px;
+                --bd-fz-h1: 50px;
+                --bd-fz-h2: 40px;
+                --bd-fz-h3: 29px;
+                --bd-fz-h5: 18px;
+            }
+            /* DEV-1170 pkt 10: przycisk potwierdzenia w oknach swal w kolorze wiodacym wdrozenia, nie domyslnym niebieskim */
+            .swal2-styled.swal2-confirm { background-color: var(--kolorOzdobnyGlowny) !important; }
+
+.tour_list_desc h3 a {
+        color: #000000;
+    }
+
+    #mojPanel {
+        background-color: var(--kolorOzdobnyGlowny);
+
+    }
+    .ofertaCyfra {
+        color: var(--kolorOzdobnyGlowny);
+    }
+    .price_list {
+        color: var(--kolorOzdobnyGlowny);
+    }
+    .ribbon_3.popular span {
+        background: linear-gradient(var(--kolorOzdobnyGlowny) 0%, var(--kolorOzdobnyGlownyGradient) 100%);
+    }
+
+    .ribbon_3.popular span::before, .ribbon_3.popular span::after {
+        border-left: 3px solid var(--kolorOzdobnyGlowny);
+        border-right: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid var(--kolorOzdobnyGlowny);
+    }
+
+    .ribbon_3.polecane span {
+        background: linear-gradient(var(--kolorOzdobnyDodatkowy) 0%, var(--kolorOzdobnyDodatkowyGradient) 100%);
+    }
+
+    a.box_news:hover h4 {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    a.box_news figure figcaption {
+        background-color: var(--kolorOzdobnyDodatkowy);
+    }
+
+    .irs-from, .irs-single, .irs-to {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    #carousel-home .owl-carousel .owl-slide {
+        height: 650px;
+    }
+
+    .aktualnosciManuWybrane a {
+        color: var(--kolorAktywnychElementowMenu);
+        padding-left: 10px !important;
+        font-weight: bold;
+    }
+
+    .aktualnosciManuWybrane a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    .pelneSerce:before {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+
+    .wyroznionyPrzycisk {
+        background: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .btn-pokaz-wiecej {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    /*Typography and buttons*/
+    h2 span, h3 span, h4 span, h5 span, h6 span {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    a.button_intro, .button_intro {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    a.button_intro:hover, .button_intro:hover {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    a.button_intro:hover, .button_intro:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    a.button_drop, .button_drop {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    a.button_drop.outilne, .button_drop.outline {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    a.btn_1, .btn_1, .input-group button {
+        background: var(--kolorOzdobnyDodatkowy);
+    }
+
+    a.btn_1.white, .btn_1.white {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    a.btn_1.outline:hover, .btn_1.outiline:hover, input .btn_1.outiline:hover {
+        background: var(--kolorOzdobnyGlowny);
+        border: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    a.btn_1:hover, .btn_1:hover, a.btn_1.white:hover, .btn_1.white a:hover {
+        background-color: var(--kolorOzdobnyDodatkowy);
+        color: #FFFFFF;
+    }
+
+    .filter_type h6 i {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    #iCzasParkowania {
+        background: var(--kolorOzdobnyDodatkowy);
+    }
+
+    button.btn_map, a.btn_map {
+        background: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    #map-directions-panel {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto', 'sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        height: 70%;
+        width: 20%;
+        min-width: 19em;
+        max-width: 30em;
+        overflow-y: scroll;
+    }
+
+
+    #search .btn_1.green {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    /* Header */
+    header#colored.sticky {
+        background-color: var(--kolorOzdobnyGlowny);
+        border-bottom: 2px solidvar(--kolorOzdobnyGlowny)
+    }
+
+    .dropdown-cart .dropdown-menu {
+        border-top: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    .dropdown-cart .dropdown-menu:before {
+        border-bottom-color: var(--kolorOzdobnyGlowny);
+    }
+
+    ul#cart_items li strong > a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+
+
+
+
+    ul#top_links a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    ul.top_links a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    ul#top_tools a {
+        color: #fff;
+    }
+
+    ul#top_tools a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    .dropdown-mini .dropdown-menu {
+        border-top: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    .dropdown-mini .dropdown-menu:before {
+        border-bottom-color: var(--kolorOzdobnyGlowny);
+    }
+
+    .dropdown-mini .dropdown-menu ul#lang_menu li a {
+        color: #555 !important;
+    }
+
+    .dropdown-mini .dropdown-menu ul#lang_menu li a:hover {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    a.cart_bt strong {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    /* Content and common */
+
+
+    #search .nav-tabs > li.active > a,
+    #search .nav-tabs > li.active > a:hover,
+    #search .nav-tabs > li.active > a:focus {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    .cbp_tmtimeline:before {
+        background: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .cbp_tmtimeline > li .cbp_tmicon {
+        color: var(--kolorOzdobnyGlowny) !important;
+        box-shadow: 0 0 0 3px var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .input-group button:hover, .input-group button:focus {
+        /*background-color: var(--kolorOzdobnyGlowny);*/
+        /*border-color: var(--kolorOzdobnyGlowny)*/
+    }
+
+    .other_tours ul li a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    .bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    .form_title h3 strong {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    .features-content {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    #Img_carousel .sp-selected-thumbnail {
+        border-bottom: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+
+    #directions {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    ul.list_ok li:before {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    ul.list_order li span {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    .tooltip-back {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    .tooltip-content-flip .tooltip-front::after, .tooltip-content-flip .tooltip-back::after {
+        border-top: 10px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    .banner h4 {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    .banner.colored {
+        background: var(--kolorOzdobnyGlowny);
+        margin-bottom: 0;
+    }
+
+    /* Menu */
+    /*First level styles */
+    .main-menu > ul > li:hover > a {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    .main-menu ul ul:before {
+        border-bottom-color: var(--kolorOzdobnyGlowny);
+    }
+
+    /* Submenu */
+    .main-menu ul ul,
+    .main-menu ul .menu-wrapper {
+        border-top: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    .main-menu ul ul li:hover > a {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+
+    #plain .main-menu > div > ul > li > a:hover, #colored .main-menu > div > ul > li > a:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+    #top_tools:hover li a {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .search-overlay-menu .search-overlay-close:hover, .search-overlay-menu form button:hover {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    @media only screen and (max-width: 991px) {
+        /* Menu */
+        .main-menu ul li a:hover,
+        a.show-submenu:hover,
+        a.show-submenu:focus,
+        a.show-submenu-mega:hover,
+        a.show-submenu-mega:focus {
+            color: var(--kolorOzdobnyGlowny) !important;
+        }
+
+        .main-menu ul ul,
+        .main-menu ul .menu-wrapper {
+            border-top: none;
+        }
+    }
+
+    @media only screen and (min-width: 992px) {
+        .main-menu ul ul, .main-menu ul li .menu-wrapper {
+            border-top: 2px solid var(--kolorOzdobnyGlowny);
+        }
+    }
+
+
+    /*-------- Date dropper/Time dropper --------*/
+    div.datedropper.primary:before,
+    div.datedropper.primary .pick-submit,
+    div.datedropper.primary .pick-lg-b .pick-sl:before,
+    div.datedropper.primary .pick-m,
+    div.datedropper.primary .pick-lg-h {
+        background-color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    div.datedropper.primary .pick-y.pick-jump,
+    div.datedropper.primary .pick li span,
+    div.datedropper.primary .pick-lg-b .pick-wke,
+    div.datedropper.primary .pick-btn {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    #td-clock-0 .td-clock .td-time span.on {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    #td-clock-0 .td-lancette {
+        color: var(--kolorOzdobnyGlowny) !important;
+        border: 2px solid var(--kolorOzdobnyGlowny) !important;
+    }
+
+    #td-clock-0 .td-clock {
+        box-shadow: 0 0 0 1px var(--kolorOzdobnyGlowny), 0 0 0 8px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    #td-clock-0 .td-clock:before {
+        border-color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .td-select svg {
+        stroke: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    partnerzy-map-toggle
+    #td-clock-0 .td-lancette div:after {
+        background: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    #td-clock-0 .td-select:after {
+        box-shadow: 0 0 0 1px var(--kolorOzdobnyGlowny) !important;
+    }
+
+    /*-------- Map --------*/
+    .btn_infobox_get_directions, a.btn_infobox_phone {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    a.btn_infobox, .btn_infobox {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    .view_on_map:before {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    #map_filter ul li a:hover,
+    #map_filter ul li a.active {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    /*-------- Shop --------*/
+    .shop-item .image-box .item-options .btn_shop:hover {
+        background: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .prod-tabs .tab-btns .tab-btn.active-btn {
+        color: var(--kolorOzdobnyGlowny) !important;;
+    }
+
+    .btn_cart_outine:hover {
+        background: var(--kolorOzdobnyGlowny);
+        border: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    .card-header a .indicator {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    .highlighted span, .highlighted span:before, .highlighted span:after {
+        background-color: var(--kolorOzdobnyGlowny);
+    }
+
+    .strip_booking .date .month {
+        background-color: var(--kolorOzdobnyDodatkowy);
+    }
+
+    .strip_booking .date .day strong {
+        color: var(--kolorOzdobnyDodatkowy);
+    }
+
+    .strip_booking h3.hotel_booking:before, .strip_booking h3.tours_booking:before, .strip_booking h3.transfers_booking:before {
+        color: var(--kolorOzdobnyDodatkowy);
+    }
+
+    #fWniosekBiletowy .form_title h3 strong {
+        background-color: var(--kolorOzdobnyDodatkowy);
+    }
+
+    .normalnaCzcionka a {
+        /*color: var(--kolorOzdobnyGlowny) !important;*/
+    }
+
+    .DF .duzaCzcionka a {
+        /*color: var(--kolorOzdobnyGlowny) !important;*/
+    }
+
+    .WK .normalnaCzcionka a {
+        /*color: var(--kolorOzdobnyGlowny) !important;*/
+    }
+
+    .DF .normalnaCzcionka a {
+        color: inherit !important;
+    }
+
+    .WK .kontrast a {
+        /*color: var(--kolorOzdobnyGlowny) !important;*/
+    }
+
+    .WK .content a, .WK .cmsContainer a  {
+        /*color: var(--kolorOzdobnyGlowny);*/
+    }
+
+    .WK .cmsContainer span  {
+        /*color: var(--kolorOzdobnyGlowny) !important;*/
+    }
+
+    .WK .content a.btn_map {
+        color: #FFF !important;
+    }
+
+
+
+
+    .maCosDoZrobienia:after {
+        background: var(--kolorOzdobnyDodatkowy);
+    }
+
+    .btn_full_outline {
+        border: 2px solid var(--kolorOzdobnyGlowny) !important;
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .btn_full_outline:hover, .btn_full_outline.wybrany {
+        color: #FFF !important;
+        background: var(--kolorOzdobnyGlowny);
+        border: 2px solidvar(--kolorOzdobnyGlowny);
+    }
+
+    #price_single_main span {
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .wyroznionyBilet, .btn_full_outline.wyroznionyBilet {
+        border: 2px solidvar(--kolorOzdobnyGlowny);
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .wyroznionyBilet:hover, .wyroznionyBilet.wybrany {
+        border: 2px solid var(--kolorOzdobnyGlowny) !important;
+        background: var(--kolorOzdobnyGlowny) !important;
+        color: #FFF !important;
+    }
+
+    .wyroznionyBilet:after {
+        content: '★';
+        position: absolute;
+        top: -12px;
+        right: 4px;
+        font-size: 2em;
+        color: var(--kolorOzdobnyGlowny) !important;
+    }
+
+    .btn_full_outline.wybrany:hover {
+        background: #333 !important;
+        border: 2px solid #333 !important;
+    }
+
+    /*LOGO*/
+    header.sticky #logo_home h1 a, header.sticky #logo_home h2 a {
+        background-image: url(../cmsImages/logo_sticky.png);
+        background-size: contain;
+    }
+
+    #logo_home h1 a, header#colored #logo_home h1 a, #logo_home h2 a, header#colored #logo_home h2 a {
+        width: 160px;
+        height: 34px;
+        display: block;
+        background-image: url(../cmsImages/logo.png);
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-size: auto 34px;
+        text-indent: -9999px;
+    }
+
+    header.sticky #logo_home h1 a, header#plain #logo_home h1 a, header.sticky #logo_home h2 a, header#plain #logo_home h2 a {
+        width: 160px;
+        height: 34px;
+        display: block;
+        background-image: url(../cmsImages/logo_sticky_2x.png);
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-size: auto 34px;
+        text-indent: -9999px;
+    }
+
+
+    body {
+        color: #000000;
+    }
+
+    .switch-ios.switch-light, .card-header a, ul#cat_nav li a, .strip_all_tour_list, #filters_col label, h1, h2, h3, h4, h5, h6,
+    a#filters_col_bt, #plain .main-menu > div > ul > li > a, #colored .main-menu > div > ul > li > a,
+    .tabs nav a, .post_info, .post_info a, .form-control, a.box_news, #profil h6, .table, ul.info_booking li strong, .strip_booking h3,
+    .strip_booking h3 span, ul.info_booking, .box_style_1, .wishlist:before, .polub, .card-header h4 a span,
+    .sticky .main-menu > div > ul > li > a {
+        color: #000000;
+    }
+
+
+
+
+    main.plain {
+        margin-top: 98px
+    }
+
+    header>.container>.row {
+        height: auto;
+    }
+
+    .sweet-alert button {
+        background-color: 00A0E3 !important;
+    }
+
+    .wybranyPunkt h6 {
+        background: var(--kolorOzdobnyGlowny);
+    }
+
+    @media not all, not all, only screen and (-webkit-min-device-pixel-ratio: 2), not all {
+        header#colored #logo_home h1 a, header#colored #logo_home h2 a {
+            background-image: url(../cmsImages/logo_sticky_2x.png);
+        }
+
+        #logo_home h1 a, #logo_home h2 a {
+            background-image: url(../cmsImages/logo_2x.png);
+            background-size: contain;
+        }
+
+        header.sticky #logo_home h1 a, header#plain #logo_home h1 a, header.sticky #logo_home h2 a, header#plain #logo_home h2 a {
+            background-image: url(../cmsImages/logo_sticky_2x.png);
+            background-size: contain;
+        }
+
+
+        header.sticky#colored #logo_home h1 a, header.sticky#colored #logo_home h2 a {
+            background-image: url(../cmsImages/logo_sticky_2x.png);
+            background-size: contain;
+        }
+
+    }
+
+    @media not all, not all, only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), not all {
+        header#colored #logo_home h1 a, header#colored #logo_home h2 a {
+            background-image: url(../cmsImages/logo_sticky_2x.png);
+            background-size: contain;
+            max-width: 150px;
+        }
+
+        #logo_home h1 a, #logo_home h2 a {
+            background-image: url(../cmsImages/logo_2x.png);
+            background-size: contain;
+            max-width: 150px;
+        }
+
+        header.sticky #logo_home h1 a, header#plain #logo_home h1 a, header.sticky #logo_home h2 a, header#plain #logo_home h2 a {
+            background-image: url(../cmsImages/logo_sticky_2x.png);
+            background-size: auto 34px;
+            max-width: 150px;
+        }
+
+
+        #search_bar_container {
+            background-color: var(--kolorOzdobnyGlowny);
+        }
+
+        #nav-search-in {
+            background: var(--kolorOzdobnyDodatkowy);
+        }
+        #nav-search-in-content{
+            background: var(--kolorOzdobnyDodatkowy) !important;
+        }
+
+        .progress {
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            background-color: var(--kolorOzdobnyGlowny);
+        }
+
+        #listaAktualnosciWrapper .cbp_tmlabel p {
+            color: var(--kolorTekstuCiemny);
+        }
+
+        #carousel-home .owl-carousel .owl-slide {
+            height: 720px;
+        }
+        /*a.btn_1, .btn_1 {*/
+        /*    font-size: 0.7em;*/
+        /*}*/
+    }
+    .wyroznione, #mojPanel {
+        background: var(--kolorAktywnychElementowMenu);
+    }
+
+    .clockpicker-popover {
+        margin-left: -120px;
+        margin-top: -320px;
+    }
+    .box_style_2 a.phone, .box_style_4 a.phone {
+        color: var(--kolorOzdobnyGlowny);
+    }
+
+    body.WK header #logo_home h1 a {
+        background-image: url('../cmsImages/logo.png') !important;
+    }
+
+
+    /*UKRYCIE ELEMENTÓW DLA JĘZYKA UKRAIŃSKIEGO*/
+
+    /*UŻYCIE ZMIENNYCH DLA WIDOKU*/
+
+
+    /** Style dla formularzy */
+    .required {
+        font-size: 20px;
+        color: red;
+        vertical-align: text-top;
+        position: absolute;
+        right: -10px;
+        top: 4px;
+    }
+    label {
+        position: relative;
+    }
+    .poleZBledem {
+        border: 1px solid #f00;
+    }
+    .opisBledu {
+        color: red !important;
+        text-align: right;
+        display: block;
+        font-size: 12px;
+        line-height: 16px !important;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
+    }
+    .opisBledu.visible {
+        max-height: 100px;
+        opacity: 1;
+    }
+    .opisBledu ul {
+        list-style-position: inside;
+        margin-top: 5px;
+    }
+
+.menu_dodatkowe {
+    display: none !important;
+}
+
+/* =====================================================================
+       WCAG 2.4.7 (Widoczność fokusa) + 1.4.11 + tryb wymuszonych kolorów.
+       Globalny, spójny wskaźnik fokusa dla całej strony mieszkańca.
+       Dołączany w n-head.ftl jako OSTATNI arkusz — przy równej specyficzności
+       wygrywa w kaskadzie z wcześniejszymi regułami motywu.
+
+       ZASADA:
+       - MYSZ = BEZ ZMIAN: przy interakcji myszą ŻADNA reguła fokusa z tego
+         pliku nie działa — element pokazuje swój natywny/motywowy fokus,
+         dokładnie jak w całym systemie przed pracami WCAG.
+       - KLAWIATURA = mocny ring, DWOMA mechanizmami (sekcja 1):
+         (A) linki/przyciski/kafle (natywnie fokusowalne) → `:focus-visible`
+             — CZYSTY CSS, bez JS: przeglądarka sama nie odpala :focus-visible
+             na kliknięciu myszą tych elementów. Nie wolno tego uzależniać od
+             JS-a (było: linki bez ringu, gdy klasa się nie dodała).
+         (B) pola/contenteditable/chosen/iCheck/switch (gdzie :focus-visible
+             odpala się TAKŻE myszą, albo są class-driven) → klasa
+             `body.nawigacja-klawiatura` (JS dodaje po Tab, zdejmuje przy myszy).
+       - Ring = przezroczysty outline (widoczny w Windows HCM) + dwutonowe halo
+         box-shadow: ciemny kontur (#0b0c0c) + żółte obrzeże (#ffdd00). Kolory
+         STAŁE, ≥3:1 na jasnym i ciemnym tle; wariant body.WK odwraca barwy.
+       - Spec.: `X:focus-visible:focus-visible` oraz `body.nawigacja-klawiatura
+         X:focus` = (0,2,2) — przebija szarą poświatę #6f6f6f !important
+         (custom.css:2734, 0,2,2 / iCheck 0,3,1) i :focus{outline:none} (2878).
+         Dla #wybierak-rodziny (ID, 1,1,1) override :focus-visible (1,1,2), sekcja 6.
+       ===================================================================== */
+
+    /* 1. RING. Dwie grupy selektorów, jedno halo:
+          (A) Elementy natywnie fokusowalne (linki, przyciski, kafle role/tabindex)
+              → `:focus-visible:focus-visible`. CZYSTY CSS, bez JS: przeglądarka
+              sama NIE odpala :focus-visible na kliknięciu myszą tych elementów,
+              więc ring jest tylko przy klawiaturze. Podwojona pseudoklasa daje
+              spec. (0,2,2) — bije szarą poświatę #6f6f6f !important (2734).
+          (B) Pola i widgety, gdzie :focus-visible odpala się TAKŻE przy myszy
+              (input/select/textarea/contenteditable/chosen) lub które są
+              class-driven (iCheck, switch) → bramkowane klasą
+              `body.nawigacja-klawiatura` (JS: dodawana tylko po Tab). Przy
+              myszy pokazują swój natywny/motywowy fokus. */
+    body a:focus-visible:focus-visible,
+    body button:focus-visible:focus-visible,
+    body summary:focus-visible:focus-visible,
+    body [tabindex]:focus-visible:focus-visible,
+    body [role="button"]:focus-visible:focus-visible,
+    body [role="tab"]:focus-visible:focus-visible,
+    body [role="link"]:focus-visible:focus-visible,
+    body [role="menuitem"]:focus-visible:focus-visible,
+    body.nawigacja-klawiatura input:focus,
+    body.nawigacja-klawiatura select:focus,
+    body.nawigacja-klawiatura textarea:focus,
+    body.nawigacja-klawiatura .form-control:focus,
+    body.nawigacja-klawiatura .form-select:focus,
+    body.nawigacja-klawiatura [contenteditable]:focus,               /* CKEditor / edytory */
+    body.nawigacja-klawiatura .chosen-container-active .chosen-single,/* dropdown chosen */
+    body.nawigacja-klawiatura [class*="icheckbox"].focus,            /* iCheck checkbox */
+    body.nawigacja-klawiatura [class*="iradio"].focus,               /* iCheck radio */
+    body.nawigacja-klawiatura label.switch-light:focus-within {      /* przełącznik iOS */
+        outline: 3px solid transparent !important;   /* widoczny w Windows HCM */
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 2px #0b0c0c, 0 0 0 5px #ffdd00 !important;
+    }
+
+    /* 2. Tryb wysokiego kontrastu (body.WK) — odwrócona kolejność barw halo */
+    body.WK a:focus-visible:focus-visible,
+    body.WK button:focus-visible:focus-visible,
+    body.WK summary:focus-visible:focus-visible,
+    body.WK [tabindex]:focus-visible:focus-visible,
+    body.WK [role="button"]:focus-visible:focus-visible,
+    body.WK [role="tab"]:focus-visible:focus-visible,
+    body.WK [role="link"]:focus-visible:focus-visible,
+    body.WK [role="menuitem"]:focus-visible:focus-visible,
+    body.WK.nawigacja-klawiatura input:focus,
+    body.WK.nawigacja-klawiatura select:focus,
+    body.WK.nawigacja-klawiatura textarea:focus,
+    body.WK.nawigacja-klawiatura .form-control:focus,
+    body.WK.nawigacja-klawiatura .form-select:focus,
+    body.WK.nawigacja-klawiatura [contenteditable]:focus,
+    body.WK.nawigacja-klawiatura .chosen-container-active .chosen-single,
+    body.WK.nawigacja-klawiatura [class*="icheckbox"].focus,
+    body.WK.nawigacja-klawiatura [class*="iradio"].focus,
+    body.WK.nawigacja-klawiatura label.switch-light:focus-within {
+        box-shadow: 0 0 0 2px #ffdd00, 0 0 0 5px #0b0c0c !important;
+    }
+
+    /* 3. Wymuszone kolory systemowe (Windows HCM) — polegamy na outline */
+    @media (forced-colors: active) {
+        body a:focus-visible:focus-visible,
+        body button:focus-visible:focus-visible,
+        body summary:focus-visible:focus-visible,
+        body [tabindex]:focus-visible:focus-visible,
+        body [role="button"]:focus-visible:focus-visible,
+        body [role="tab"]:focus-visible:focus-visible,
+        body [role="link"]:focus-visible:focus-visible,
+        body [role="menuitem"]:focus-visible:focus-visible,
+        body.nawigacja-klawiatura input:focus,
+        body.nawigacja-klawiatura select:focus,
+        body.nawigacja-klawiatura textarea:focus,
+        body.nawigacja-klawiatura .form-control:focus,
+        body.nawigacja-klawiatura .form-select:focus,
+        body.nawigacja-klawiatura [contenteditable]:focus,
+        body.nawigacja-klawiatura .chosen-container-active .chosen-single,
+        body.nawigacja-klawiatura [class*="icheckbox"].focus,
+        body.nawigacja-klawiatura [class*="iradio"].focus,
+        body.nawigacja-klawiatura label.switch-light:focus-within {
+            outline: 3px solid Highlight !important;
+            outline-offset: 2px !important;
+            box-shadow: none !important;
+        }
+    }
+
+    /* 5. WCAG/VoiceOver: zamknięty offcanvas (menu mobilne, n-szybkiKontakt.ftl)
+          jest tylko przesunięty poza ekran (position:fixed; right:-490px), więc
+          czytnik ekranu czyta całą jego zawartość, a Tab wchodzi w niewidoczne
+          linki. visibility:hidden usuwa go z drzewa dostępności i tab-ordera.
+          Dajemy ją na .offcanvas__wrapper (NIE na .offcanvas__area), żeby nie
+          nadpisać animacji wysuwania (transition na area); opóźnienie chowa
+          wrapper dopiero po zakończeniu animacji zamykania. Stan otwarty =
+          klasa offcanvas-opened (na area lub przodku — oba warianty). */
+    .offcanvas__area .offcanvas__wrapper {
+        visibility: hidden;
+        transition: visibility 0s linear .6s;
+    }
+    .offcanvas__area.offcanvas-opened .offcanvas__wrapper,
+    .offcanvas-opened .offcanvas__area .offcanvas__wrapper {
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    /* 5b. SweetAlert2 (modale swal.fire, np. „Pobranie kodu"): biblioteka po
+          otwarciu SAMA ustawia fokus na przycisku potwierdzenia (focusConfirm
+          domyślnie true). Programowy focus() odpala :focus-visible TAKŻE gdy
+          modal otwarto myszą — w przycisk nikt nie kliknął, więc przeglądarka
+          nie ma podstaw uznać fokusa za „mysi". Efekt: żółty ring pojawiał się
+          po zwykłym kliknięciu, wbrew zasadzie „MYSZ = BEZ ZMIAN" z nagłówka.
+          Bramkujemy więc ring w modalu klasą nawigacja-klawiatura (JS niżej:
+          dodawana po Tab, zdejmowana przy mousedown/touchstart) — po Tabie
+          wewnątrz modala ring wraca, więc SC 2.4.7 zostaje spełnione.
+          Przy myszy NIE zerujemy fokusa, tylko odtwarzamy stan sprzed prac
+          WCAG: szara poświata z custom.css:2734 (z bazy, /cmsCSS/). Kaskada
+          nie umie „przepuścić" niżej mimo !important, więc wartość musi być
+          powtórzona; border/border-radius/display nadal daje custom.css:2734,
+          bo ich tu nie nadpisujemy. `:not(:hover)` — jak w tamtej regule.
+          Spec. (0,4,2) — bije regułę z sekcji 1 (0,2,2). */
+    body:not(.nawigacja-klawiatura) .swal2-container button:focus-visible:not(:hover),
+    body:not(.nawigacja-klawiatura) .swal2-container [tabindex]:focus-visible:not(:hover),
+    body:not(.nawigacja-klawiatura) .swal2-container [role="button"]:focus-visible:not(:hover) {
+        outline: none !important;
+        box-shadow: 0 0 4px 3px #6f6f6f !important;   /* = custom.css:2740 */
+    }
+
+    /* Kursor NA przycisku (np. modal otwarty klikiem w ten sam obszar):
+       custom.css:2734 ma :not(:hover), więc oryginalnie poświaty nie było. */
+    body:not(.nawigacja-klawiatura) .swal2-container button:focus-visible:hover,
+    body:not(.nawigacja-klawiatura) .swal2-container [tabindex]:focus-visible:hover,
+    body:not(.nawigacja-klawiatura) .swal2-container [role="button"]:focus-visible:hover {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 6. Wybierak rodziny: /cmsCSS/v-custom.css (z bazy) ma
+          "#wybierak-rodziny button:focus { box-shadow:none !important }" —
+          ID (1,1,1) bije ring z sekcji 1 (0,2,2). Override z ID + :focus-visible
+          (1,1,2): przy klawiaturze ring wraca; przy myszy :focus-visible nie
+          pasuje (przycisk) → działa reguła z bazy → mysz bez zmian. */
+    #wybierak-rodziny button:focus-visible {
+        box-shadow: 0 0 0 2px #0b0c0c, 0 0 0 5px #ffdd00 !important;
+    }
+    body.WK #wybierak-rodziny button:focus-visible {
+        box-shadow: 0 0 0 2px #ffdd00, 0 0 0 5px #0b0c0c !important;
+    }
+    @media (forced-colors: active) {
+        #wybierak-rodziny button:focus-visible {
+            box-shadow: none !important;
+        }
+    }
+
+    /* 7. custom.css:2734 (z bazy, /cmsCSS/) wymusza display:inline-block
+          !important na a:focus/button:focus — element chowany JS-em (inline
+          display:none) W TRAKCIE fokusa nie znika, dopóki fokus nie ucieknie
+          (zgłoszone: „Dostosuj wybór" w modalu cookies zostawał po Enterze).
+          Celujemy dokładnie w stan „ukryty inline'owo" — remis specyficzności
+          (0,2,2) z 2734, wygrana późniejszą pozycją w kaskadzie. */
+    body a[style*="display: none"]:focus,
+    body a[style*="display:none"]:focus,
+    body button[style*="display: none"]:focus,
+    body button[style*="display:none"]:focus {
+        display: none !important;
+    }
+
+wyżej). Tab → tryb klawiatury (mocny czarno-żółty ring);
+           klik/dotyk → tryb myszy (subtelny niebieski). Przeglądarka sama tego
+           nie odróżnia dla pól tekstowych, więc robimy to klasą na <body>. */
+        $(document).on('keydown', function (e) {
+            if (e.key === 'Tab' || e.which === 9) {
+                document.body.classList.add('nawigacja-klawiatura');
+            }
+        });
+        $(document).on('mousedown pointerdown touchstart', function () {
+            document.body.classList.remove('nawigacja-klawiatura');
+        });
+
+        /* Przycisk „Pomoc" (#startTour) uruchamia turę intro.js budowaną
+           z elementów [data-intro]. Na stronach, gdzie żaden taki element
+           się nie wyrenderował (np. moja-rodzina, albo kroki wycięte
+           konfiguracją miasta), tura ma zero kroków i klik nie daje ŻADNEGO
+           efektu — użytkownik myśli, że przycisk jest zepsuty. Chowamy go
+           wtedy w całości. */
+        var przyciskTury = document.getElementById('startTour');
+        if (przyciskTury && document.querySelectorAll('[data-intro]').length === 0) {
+            przyciskTury.style.display = 'none';
+        }
+
+        var focusableElementsInFooter = $('footer').children().find('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElementsInFooter.length > 0) {
+            focusableElementsInFooter[0].addEventListener('focusin', function () {
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        }
+
+        var focusableElementsInMainMenu = $('body>header').children().find('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if ( focusableElementsInMainMenu.length > 0 ) {
+            focusableElementsInMainMenu[focusableElementsInMainMenu.length - 1].addEventListener('focusin', function () {
+                window.scrollTo(0, 0);
+            });
+        }
+
+        /* WCAG 2.2 SC 2.4.11 (Fokus nieprzesłonięty): pływające paski
+           (sticky/fixed nagłówek, dolne belki typu koszyk) potrafią przesłonić
+           sfokusowany element — zwłaszcza przy Shift+Tab, gdy przeglądarka
+           dosuwa element do samej górnej krawędzi okna, oraz gdy element już
+           jest w viewporcie (wtedy przeglądarka nie scrolluje wcale, więc
+           scroll-padding-top by nie pomógł). Po KAŻDEJ zmianie fokusa mierzymy
+           realne nakładki przyklejone do góry/dołu okna i doscrollowujemy tak,
+           by element był w całości widoczny. Zastępuje wcześniejszy handler
+           działający tylko dla Shift+Tab i tylko dla 'header.sticky'. */
+        function korygujScrollPodNakladkami(e) {
+            var el = e.target;
+            if (!el || el === document.body || !el.getBoundingClientRect) { return; }
+            // warstwy z własnym zarządzaniem widokiem/fokusem — nie ruszamy
+            if (el.closest && el.closest('.introjs-tooltip, .modal, .offcanvas__area, .swal2-container')) { return; }
+
+            // po ewentualnym natywnym doscrollowaniu przeglądarki do fokusa
+            requestAnimationFrame(function () {
+                var rect = el.getBoundingClientRect();
+                if (rect.height === 0) { return; }
+                var margines = 8;
+                var gora = 0, dol = 0;
+                var kandydaci = document.querySelectorAll('header, nav, [class*="sticky"], [class*="Sticky"], [class*="floating"]');
+                for (var i = 0; i < kandydaci.length; ++i) {
+                    var pasek = kandydaci[i];
+                    if (pasek.contains(el)) { continue; } // fokus WEWNĄTRZ paska — pasek nie przesłania sam siebie
+                    var styl = window.getComputedStyle(pasek);
+                    if (styl.position !== 'fixed' && styl.position !== 'sticky') { continue; }
+                    var r = pasek.getBoundingClientRect();
+                    if (r.height === 0 || r.width < window.innerWidth * 0.5) { continue; } // pomijaj małe pływające przyciski
+                    if (r.top <= 1) { gora = Math.max(gora, r.bottom); }
+                    else if (r.bottom >= window.innerHeight - 1) { dol = Math.max(dol, window.innerHeight - r.top); }
+                }
+                if (gora && rect.top < gora + margines) {
+                    window.scrollBy(0, rect.top - gora - margines);
+                } else if (dol && rect.bottom > window.innerHeight - dol - margines) {
+                    window.scrollBy(0, rect.bottom - (window.innerHeight - dol) + margines);
+                }
+            });
+        }
+
+        document.addEventListener('focusin', korygujScrollPodNakladkami);
+    });
+</script>
+<style>
+    .skip-link-container:focus-within {
+        transform: translateY(0%);
+    }
+
+    .skip-link-container {
+        z-index: 9999;
+        background: #000000;
+        border: #FFFFFF solid 1px;
+        /*height: 30px;*/
+        left: 12%;
+        padding: 8px;
+        position: absolute;
+        transform: translateY(-400%);
+        /*transition: transform 0.3s;*/
+    }
+    .skip-link-container>a {
+        color: #FFFFFF;
+    }
+
+.offcanvas__social ul li a.link-urzedowy {
+        width: auto !important;
+        height: 30px !important;
+        background: #fff !important;
+        border: 1px solid #1f1f1f !important;
+        border-radius: 5px !important;
+        line-height: normal !important;
+        padding: 5px !important;
+        box-shadow: none !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .offcanvas__social ul li a.link-urzedowy img {
+        max-width: 120px !important;
+        width: auto !important;
+        height: auto !important;
+        max-height: 100% !important;
+        object-fit: contain;
+        padding: 0 !important;
+        filter: none !important;
+    }
+    .offcanvas__social ul li a.link-urzedowy:hover {
+        background: #fff !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .15) !important;
+    }
+
+/* 4. poziom menu głównego (menuItem4) — panel wysuwany w prawo od pozycji 3. poziomu */
+    .main-menu li.submenu-glebiej-parent { position: relative; }
+    .main-menu ul.submenu-glebiej {
+        display: none;
+        position: absolute;
+        top: -6px;
+        left: 100%;
+        min-width: 240px;
+        margin: 0;
+        padding: 6px 0;
+        list-style: none;
+        background: #fff;
+        border-radius: 0 8px 8px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+        z-index: 30;
+    }
+    .main-menu li.submenu-glebiej-parent:hover > ul.submenu-glebiej,
+    .main-menu li.submenu-glebiej-parent:focus-within > ul.submenu-glebiej {
+        display: block;
+    }
+    .main-menu ul.submenu-glebiej li { margin: 0; }
+    .main-menu ul.submenu-glebiej li a {
+        display: flex;
+        align-items: center;
+        padding: 9px 18px;
+        font-size: 0.95em;
+        line-height: 1.4;
+        white-space: normal;
+        text-align: left;
+    }
+    .main-menu ul.submenu-glebiej li a:hover {
+        color: var(--bd-theme-primary, #0563c1);
+    }
+    /* gdy panel nie mieści się z prawej — otwieramy w lewo */
+    .main-menu li.submenu-glebiej-parent.otwierajWLewo > ul.submenu-glebiej {
+        left: auto;
+        right: 100%;
+        border-radius: 8px 0 0 8px;
+    }
+
+    /* Menu glowne: pozycje nie lamia sie w polowie nazwy, a odstepy sa ciasniejsze,
+       zeby wszystkie punkty (z "Obszar Metropolitalny" wlacznie) miescily sie w jednej linii */
+    .main-menu nav > ul > li > a { white-space: nowrap; }
+    @media (min-width: 1500px) {
+        .main-menu nav > ul > li { margin-right: 20px !important; }
+    }
+    @media (min-width: 992px) and (max-width: 1499px) {
+        .main-menu nav > ul > li { margin-right: 12px !important; }
+        .main-menu nav > ul > li > a { font-size: 14px; }
+    }
+    .main-menu nav > ul > li:last-child { margin-right: 0 !important; }
+
+.social_odwrocony::before {
+                                display: none !important;
+                            }
+                            .social_odwrocony::after {
+                                display: none !important;
+                            }
+                            .dropdown-menu.show {
+                                transform: translate(-14px, 37px) !important;
+                            }
+
+/* karta jak artykuł nad modułem: ten sam wewnętrzny margines i zaokrąglenie */
+    .lp-sekcja {
+        margin: 0 0 50px;
+        padding: 34px 50px 40px;
+        background: #fff;
+        border: 1px solid #ececec;
+        border-radius: 14px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, .04);
+    }
+    @media (max-width: 767px) {
+        .lp-sekcja { padding: 22px 18px 26px; margin-bottom: 30px; }
+    }
+    .lp-sekcja .mediateka-pliki__naglowek {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin: 0 0 16px !important;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .12));
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .lp-licznik {
+        font-size: 12px;
+        font-weight: 600;
+        color: #8a8a8a;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .lp-sekcja .mediateka-plik__ikona {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .06));
+    }
+    .lp-sekcja .mediateka-plik__ikona img { width: 30px; height: 30px; }
+    .lp-sekcja .mediateka-plik__meta { flex-wrap: wrap; gap: 6px 12px; }
+    .lp-sekcja .mediateka-plik__meta > span + span::before {
+        content: "·";
+        margin-right: 12px;
+        color: #ccc;
+    }
+    .lp-sekcja .mediateka-plik__meta > .mediateka-plik__ext + span::before { content: none; }
+    .lp-pusto {
+        padding: 18px 20px;
+        border: 1px dashed #ddd;
+        border-radius: 12px;
+        color: #888;
+        font-size: 14px;
+        text-align: center;
+    }
+
+/* Floating button styles */
+        .floating-button {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            background-color: var(--kolorOzdobnyGlowny, #4CAF50);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 12px;
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 1000;
+            line-height: 1 !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            transition: filter .15s ease;
+        }
+        .floating-button:hover {
+            filter: brightness(0.9);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 20, 30, 0.55);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+
+        .new-modal-content {
+            background-color: #ffffff;
+            margin: 5% auto;
+            padding: 26px 30px 24px;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+            width: 90vw;
+            max-height: 85vh; /* Default maximum height */
+            max-width: 560px;
+            position: relative;
+            animation: ccPojawienie .25s ease-out;
+        }
+        @keyframes ccPojawienie {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        #cookieConsentModal h4 {
+            font-family: "Montserrat", Arial, sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            margin: 0 0 12px;
+            color: #1c2430;
+        }
+
+        /* Kategorie zgód jako karty */
+        #cookieConsentForm br { display: none; }
+        #niezbedneDiv, #preferencjeDiv, #statystykiDiv, #marketingDiv {
+            background: #f5f7fa;
+            border: 1px solid #e6eaf0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+        }
+        #niezbedneDiv label, #preferencjeDiv label, #statystykiDiv label, #marketingDiv label {
+            font-family: "Montserrat", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1c2430;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* Przyciski zgód */
+        .przyciskiZgod {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .przyciskiZgod .dostosujWybor {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .cc-btn {
+            display: block;
+            border: 0; /* reset dla <button> */
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: "Montserrat", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color .15s ease, filter .15s ease, border-color .15s ease;
+            line-height: 1.3;
+        }
+        .cc-btn-glowny {
+            background: var(--kolorOzdobnyGlowny, #2e7d32);
+            color: #ffffff !important;
+        }
+        .cc-btn-glowny:hover, .cc-btn-glowny:focus {
+            filter: brightness(0.9);
+            color: #ffffff !important;
+            text-decoration: none;
+        }
+        .cc-btn-drugi, .cc-btn-wybrane {
+            background: #ffffff;
+            color: #2b3442 !important;
+            border: 1.5px solid #c8cfda;
+        }
+        .cc-btn-drugi:hover, .cc-btn-drugi:focus,
+        .cc-btn-wybrane:hover, .cc-btn-wybrane:focus {
+            background: #f1f4f8;
+            border-color: #9aa5b5;
+            color: #2b3442 !important;
+            text-decoration: none;
+        }
+        .cc-btn-link {
+            background: none;
+            color: #5a6575 !important;
+            font-weight: 500;
+            padding: 6px 10px;
+            text-decoration: underline;
+        }
+        .cc-btn-link:hover, .cc-btn-link:focus {
+            color: #1c2430 !important;
+        }
+
+
+        .close {
+            color: #7a8494;
+            font-size: 22px;
+            font-weight: bold;
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color .15s ease, color .15s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #1c2430;
+            background-color: #eef1f5;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .details {
+            display: none;
+            margin-left: 21px;
+            padding-top: 7px;
+            padding-bottom: 10px;
+            font-weight: lighter;
+        }
+        .toggle-icon {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .stylZgody{
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: "Montserrat", Arial, sans-serif;
+        }
+
+        .naSrodku{
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 270px;
+            width: 70%;
+            max-width: 360px;
+        }
+        .gradient-top, .gradient-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height:20px;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 1;
+        }
+
+        .gradient-top {
+            top: 0;
+            background: linear-gradient(to bottom, rgb(198 196 196 / 80%), rgba(255, 255, 255, 0));
+        }
+
+        .gradient-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, rgb(198 196 196 / 80%), rgba(255, 255, 255, 0));
+        }
+        .hidden {
+            display: none;
+        }
+
+        #scrollableContent{
+            flex: 1 1 auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            /*border-radius: 5px;*/
+            /*border-style: solid;*/
+
+        }
+
+        .topBottomBorder{
+            border-bottom: solid;
+            border-top: solid;
+            padding: 13px;
+            border-color: lightgrey;
+            border-width: 1px;
+        }
+
+@media only screen and (min-width: 992px) {
+        .faq-bottom {
+            display: none !important;
+        }
+    }
+    @media only screen and (max-width: 991px) {
+        .faq-up {
+            display: none !important;
+        }
+    }
+
+/* Dark theme styling for OpenStreetMap tiles */
+    .dark-tiles {
+        filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(1.2);
+    }
+
+.belka-ograniczenia {
+        /*height:70px;*/
+        /*padding: 2px 5px 5px 20px;*/
+        /*margin-bottom:10px; margin-top: 0px;*/
+        /*background-color: #0075A7*/
+        height: 170px;
+        padding: 40px 40px 40px 40px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        background-color: #f44336;
+        animation: blink 2s linear infinite;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 0.8;
+            background-color: #892e13;
+        }
+        50% {
+            background-color: #f44336;
+            opacity: 1;
+        }
+        100% {
+            opacity: 0.8;
+            background-color: #892e13;
+        }
+    }
+
+    @media only screen and (max-width: 790px) {
+        .belka-ograniczenia {
+            height: 170px;
+            padding: 2px 5px 5px 20px;
+            margin-bottom: 5px;
+            margin-top: 0px;
+            background-color: #f44336;
+            animation: blink 2s linear infinite;
+
+        }
+    }
+
+.vertical-image-lwydarzen {
+        left: 20% !important;
+    }

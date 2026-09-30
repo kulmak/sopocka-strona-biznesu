@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sopot · Panel przedsiębiorcy</title>
+  <meta name="theme-color" content="#153548" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Nawigacja panelu">
+    <div class="brand">
+      <span class="signal-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 14.5a8.5 8.5 0 0 1 3.5-6.8" />
+          <path d="M8 18a5 5 0 0 1 2-4" />
+          <path d="M12.5 18.5a2 2 0 0 1 1-1.7" />
+          <circle cx="17" cy="17" r="1.1" fill="currentColor" stroke="none" />
+        </svg>
+      </span>
+      <span class="brand-word">
+        Sopot <span class="brand-light">· Panel</span>
+        <small>Strona Biznesu · MCC 5812</small>
+      </span>
+    </div>
+
+    <nav class="side-nav" role="tablist" aria-label="Sekcje">
+      <button type="button" class="side-nav-item is-active" role="tab" aria-selected="true" data-section="calendar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>
+        <span>Wydarzenia i biznes</span>
+      </button>
+      <button type="button" class="side-nav-item" role="tab" aria-selected="false" data-section="market">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3.5-4 3 2.5 3.5-5"/></svg>
+        <span>Mój rynek</span>
+      </button>
+      <button type="button" class="side-nav-item" role="tab" aria-selected="false" data-section="sprawy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8.5 13h7"/><path d="M8.5 17h5"/></svg>
+        <span>Moje Sprawy</span>
+      </button>
+    </nav>
+
+  </aside>
+
+  <main class="content">
+    <header class="content-head">
+      <div>
+        <span class="eyebrow" id="section-eyebrow">WYDARZENIA I BIZNES</span>
+        <h1 id="section-title">Wydarzenia i biznes</h1>
+      </div>
+    </header>
+
+    <section class="view is-active" id="view-calendar" role="tabpanel" aria-label="Wydarzenia i biznes">
+      <iframe class="app-frame" src="sopocka-strona-biznesu/app/panel.html" title="Panel przedsiębiorcy — wpływ wydarzeń na płatności kartą"></iframe>
+    </section>
+
+    <section class="view" id="view-market" role="tabpanel" aria-label="Mój rynek" hidden>
+      <iframe class="app-frame" src="market.html?dataset=synthetic" title="Sopot Signal — prognozy dzienne dla restauratora"></iframe>
+    </section>
+
+    <section class="view" id="view-sprawy" role="tabpanel" aria-label="Moje Sprawy" hidden>
+      <div class="sprawy">
+        <div class="sprawy-hero">
+          <div class="eyebrow">SPRAWY</div>
+          <h2>Wszystko, co firma ma w urzędzie</h2>
+        </div>
+
+        <div class="summary-row" aria-label="Podsumowanie spraw">
+          <article class="summary-card">
+            <div class="summary-label">Wszystkie sprawy</div>
+            <div class="summary-value">5</div>
+            <div class="summary-meta">w widoku firmy</div>
+          </article>
+          <article class="summary-card">
+            <div class="summary-label">Wymagają uwagi</div>
+            <div class="summary-value accent-warn">2</div>
+            <div class="summary-meta">w toku · uzupełnienie</div>
+          </article>
+          <article class="summary-card is-dark">
+            <div class="summary-label">Aktualne / przyjęte</div>
+            <div class="summary-value">3</div>
+            <div class="summary-meta">ważne lub złożone</div>
+          </article>
+        </div>
+
+        <div class="section-label">Lista spraw</div>
+
+        <ul class="case-list">
+          <li class="case-card">
+            <div class="case-body">
+              <h3 class="case-title">Zezwolenie na sprzedaż napojów alkoholowych (kat. A)</h3>
+              <p class="case-meta">Wydział Spraw Obywatelskich · Odnowienie: wniosek do 30.11.2026</p>
+              <div class="progress" style="--fill: 75%"><span class="progress-track"><span class="progress-fill"></span></span></div>
+            </div>
+            <div class="case-status status-ok"><span class="status-dot"></span>Ważne do 31.12.2026</div>
+          </li>
+          <li class="case-card">
+            <div class="case-body">
+              <h3 class="case-title">Zajęcie pasa drogowego — ogródek sezonowy</h3>
+              <p class="case-meta">Zarząd Dróg i Zieleni · Wpłynęło 02.09.2026, termin ustawowy 30 dni</p>
+              <div class="progress" style="--fill: 50%"><span class="progress-track"><span class="progress-fill"></span></span></div>
+            </div>
+            <div class="case-status status-warn"><span class="status-dot"></span>W trakcie rozpatrywania</div>
+          </li>
+          <li class="case-card">
+            <div class="case-body">
+              <h3 class="case-title">Podatek od nieruchomości — rata IV</h3>
+              <p class="case-meta">Wydział Podatków i Opłat · Kwota do zapłaty wg decyzji z 14.01.2026</p>
+              <div class="progress" style="--fill: 38%"><span class="progress-track"><span class="progress-fill"></span></span></div>
+            </div>
+            <div class="case-status status-info"><span class="status-dot"></span>Termin 15.11.2026</div>
+          </li>
+          <li class="case-card">
+            <div class="case-body">
+              <h3 class="case-title">Zgłoszenie reklamy w pasie drogowym</h3>
+              <p class="case-meta">Zarząd Dróg i Zieleni · Brak rzutu z wymiarami nośnika. Termin uzupełnienia: 02.10.2026</p>
+              <div class="progress" style="--fill: 25%"><span class="progress-track"><span class="progress-fill"></span></span></div>
+            </div>
+            <div class="case-status status-danger"><span class="status-dot"></span>Wymaga uzupełnienia</div>
+          </li>
+          <li class="case-card">
+            <div class="case-body">
+              <h3 class="case-title">Opłata za gospodarowanie odpadami — deklaracja</h3>
+              <p class="case-meta">Wydział Gospodarki Odpadami · Aktualna deklaracja z 11.02.2026</p>
+              <div class="progress" style="--fill: 100%"><span class="progress-track"><span class="progress-fill"></span></span></div>
+            </div>
+            <div class="case-status status-ok"><span class="status-dot"></span>Złożona i przyjęta</div>
+          </li>
+        </ul>
+
+        <aside class="tip-banner">
+          <div class="tip-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
+          </div>
+          <div>
+            <div class="tip-title">Źródło statusów</div>
+            <p class="tip-text">Statusy pochodziłyby z systemów dziedzinowych urzędu przez warstwę integracyjną. W makiecie pochodzą z bazy.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

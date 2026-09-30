@@ -1,0 +1,41 @@
+{
+  "status": "downloaded_public_osm_context",
+  "generatedAtUtc": "2026-09-29T21:44:09.473507+00:00",
+  "sources": [
+    {
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A30%5D%3B%28way%5B%22highway%22~%22%5E%28primary%7Csecondary%7Ctertiary%7Cresidential%7Cpedestrian%7Cfootway%7Ccycleway%7Cliving_street%7Cunclassified%7Cservice%7Csteps%7Cpath%29%24%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bway%5B%22railway%22%3D%22rail%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bway%5B%22natural%22%3D%22coastline%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bway%5B%22natural%22%3D%22water%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bway%5B%22leisure%22~%22%5E%28park%7Cgarden%29%24%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bway%5B%22landuse%22%3D%22forest%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bway%5B%22man_made%22%3D%22pier%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3Bnode%5B%22place%22~%22%5E%28city%7Csuburb%7Cneighbourhood%29%24%22%5D%2854.414%2C18.515%2C54.477%2C18.62%29%3B%29%3Bout+tags+geom%3B",
+      "sha256": "6ffe682fa40471fea11c4e195fbea1c9ea2a3d020fd6a0a34044cafb993075e5",
+      "archive": "basemap.source-1.json.gz",
+      "bytes": 7096310,
+      "osmBaseTimestamp": "2026-09-29T21:30:51Z"
+    }
+  ],
+  "outputSha256": "135d0007c1ba0bd41f9718858dec3877893705607374513887a87a8f84d16cec",
+  "outputBytes": 3925266,
+  "bounds": [
+    18.515,
+    54.414,
+    18.62,
+    54.477
+  ],
+  "attribution": "© OpenStreetMap contributors · ODbL 1.0",
+  "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "copyrightUrl": "https://www.openstreetmap.org/copyright",
+  "featureCount": 12485,
+  "source": "OpenStreetMap",
+  "license": "ODbL 1.0",
+  "simplificationMeters": 2.0,
+  "skippedInvalidGeometries": 0,
+  "featureCountByLayer": {
+    "coastline": 4,
+    "label": 19,
+    "major_road": 500,
+    "park": 83,
+    "rail": 94,
+    "road": 11704,
+    "water": 81
+  },
+  "notPostalGeography": true,
+  "limitations": "Context extract; no ocean polygon inferred from coastlines; relations omitted.",
+  "reproduction": "Pass the archived public source files (gzip is supported) to sopot_mvp.geography.export_osm_basemap with this manifest's source URLs, bounds and simplificationMeters. No transactions or postcode assignments are inputs."
+}

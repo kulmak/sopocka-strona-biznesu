@@ -1,0 +1,225 @@
+{
+  "audited_values": {
+    "a_mean4sw": {
+      "mae": 169.9,
+      "mape": 24.1
+    },
+    "b_median4sw": {
+      "mae": 270.0,
+      "mape": 35.4,
+      "note": "audited row is 'median of recent Fridays'"
+    },
+    "d_snaive": {
+      "mae": 188.5,
+      "mape": 26.4
+    },
+    "drivers": {
+      "events": [
+        0.0031,
+        1.9
+      ],
+      "rain": [
+        -0.364,
+        -8.8
+      ],
+      "temperature": [
+        0.0063,
+        4.5
+      ]
+    },
+    "season_control": {
+      "ctl_hi": 4.7,
+      "ctl_lo": -4.3,
+      "n_days_q1": 140,
+      "n_days_q4": 123,
+      "raw_hi": 32.9,
+      "raw_lo": -26.9
+    },
+    "snaive_weather": {
+      "mae": 206.9,
+      "mape": 29.2
+    },
+    "snaive_weather_events": {
+      "mae": 210.6,
+      "mape": 29.5
+    }
+  },
+  "best_candidate": "b_median4sw",
+  "candidates": {
+    "a_mean4sw": {
+      "audited": {
+        "mae": 169.9,
+        "mape": 24.1
+      },
+      "label": "średnia z 4 ostatnich takich samych dni tygodnia",
+      "metrics": {
+        "MAE": 169.9,
+        "MAPE": 24.07,
+        "MASE": 0.888,
+        "MASE_std": 0.901,
+        "MPIW": 0.6935,
+        "PICP80": 0.7816,
+        "WAPE": 23.61,
+        "bias": -0.0291,
+        "n_days": 490
+      }
+    },
+    "b_median4sw": {
+      "audited": {
+        "mae": 270.0,
+        "mape": 35.4,
+        "note": "audited row is 'median of recent Fridays'"
+      },
+      "label": "mediana z 4 ostatnich takich samych dni tygodnia",
+      "metrics": {
+        "MAE": 166.3,
+        "MAPE": 22.8,
+        "MASE": 0.869,
+        "MASE_std": 0.882,
+        "MPIW": 0.6787,
+        "PICP80": 0.7857,
+        "WAPE": 23.11,
+        "bias": -0.0552,
+        "n_days": 490
+      }
+    },
+    "c_mean7": {
+      "audited": {},
+      "label": "średnia z ostatnich 7 dni",
+      "metrics": {
+        "MAE": 232.9,
+        "MAPE": 36.91,
+        "MASE": 1.218,
+        "MASE_std": 1.235,
+        "MPIW": 1.0799,
+        "PICP80": 0.7959,
+        "WAPE": 32.36,
+        "bias": -0.0086,
+        "n_days": 490
+      }
+    },
+    "d_snaive": {
+      "audited": {
+        "mae": 188.5,
+        "mape": 26.4
+      },
+      "label": "ta sama doba tygodnia tydzień temu (seasonal naive)",
+      "metrics": {
+        "MAE": 188.5,
+        "MAPE": 26.4,
+        "MASE": 0.986,
+        "MASE_std": 1.0,
+        "MPIW": 0.8556,
+        "PICP80": 0.7959,
+        "WAPE": 26.2,
+        "bias": -0.015,
+        "n_days": 490
+      }
+    }
+  },
+  "protocol": {
+    "design": "walk-forward, expanding window, past-only",
+    "first_forecast_day": "2025-02-26",
+    "forecast_days": 490,
+    "interval": "10th-90th percentile of the expanding past distribution of y/f ratios",
+    "last_forecast_day": "2026-06-30",
+    "reconciliation": {
+      "agg_rows": 378212,
+      "cube_daily_total": 331160,
+      "cube_rows": 331160,
+      "daily_total": 378212
+    },
+    "seasonal_period_for_mase": 7,
+    "target": "total MCC 5812 transactions per calendar day, all 62 postcodes",
+    "weather_assumption": "weather and event listings are known at the origin, as a forecast would be; the panel ships a weather file covering the same period"
+  },
+  "reproduced": {
+    "a_mean4sw_MAPE_MAE": [
+      24.07,
+      169.9
+    ],
+    "audited_a_mean4sw": [
+      24.1,
+      169.9
+    ],
+    "audited_snaive": [
+      26.4,
+      188.5
+    ],
+    "d_snaive_MAPE_MAE": [
+      26.4,
+      188.5
+    ]
+  },
+  "ver": 1,
+  "weather_events_experiment": {
+    "drivers_on_mean4sw_weather": {
+      "MAE": 151.1,
+      "MAPE": 20.86,
+      "MASE": 0.79,
+      "MASE_std": 0.801,
+      "PICP80": 0.7918,
+      "WAPE": 21.0,
+      "bias": -0.0817,
+      "n_days": 490
+    },
+    "drivers_on_mean4sw_weather_events": {
+      "MAE": 145.2,
+      "MAPE": 20.51,
+      "MASE": 0.759,
+      "MASE_std": 0.77,
+      "PICP80": 0.8061,
+      "WAPE": 20.18,
+      "bias": -0.0344,
+      "n_days": 490
+    },
+    "drivers_on_snaive_weather": {
+      "MAE": 177.7,
+      "MAPE": 24.66,
+      "MASE": 0.929,
+      "MASE_std": 0.943,
+      "PICP80": 0.8041,
+      "WAPE": 24.7,
+      "bias": -0.025,
+      "n_days": 490
+    },
+    "drivers_on_snaive_weather_events": {
+      "MAE": 181.9,
+      "MAPE": 25.39,
+      "MASE": 0.951,
+      "MASE_std": 0.965,
+      "PICP80": 0.8082,
+      "WAPE": 25.28,
+      "bias": 0.0211,
+      "n_days": 490
+    },
+    "ols_logcount_no_weather": {
+      "MAE": 156.0,
+      "MAPE": 21.46,
+      "MASE": 0.816,
+      "MASE_std": 0.828,
+      "WAPE": 21.68,
+      "bias": -0.0221
+    },
+    "ols_logcount_weather": {
+      "MAE": 119.9,
+      "MAPE": 16.44,
+      "MASE": 0.627,
+      "MASE_std": 0.636,
+      "PICP80": 0.8327,
+      "WAPE": 16.66,
+      "bias": -0.0106,
+      "n_days": 490
+    },
+    "ols_logcount_weather_events": {
+      "MAE": 115.7,
+      "MAPE": 16.13,
+      "MASE": 0.605,
+      "MASE_std": 0.614,
+      "PICP80": 0.8204,
+      "WAPE": 16.08,
+      "bias": -0.0028,
+      "n_days": 490
+    }
+  }
+}

@@ -1,0 +1,1984 @@
+/* ==========================================================================
+   artykuly.css — style dla treści artykułów CMS
+   Ładowany globalnie (n-head.ftl) oraz w CKEditorze (contentsCss).
+   Selektory oparte o istniejącą strukturę: article, .postbox__text
+   Selektory .cke_editable — podgląd w edytorze CKEditor (iframe)
+   ========================================================================== */
+
+/* ==========================================================================
+   Zmienne motywu dla CKEditora
+   --------------------------------------------------------------------------
+   Na froncie zmienne --bd-* / --kolor* są ustawiane dynamicznie per-miasto
+   w :root (n-head.ftl, z konfiguracji wdrożenia). W iframe CKEditora tego
+   :root NIE MA, więc reguły oparte o var(--...) nie rozwiązywały się i podgląd
+   różnił się od frontu.
+
+   Poniższy blok wstrzykuje te zmienne TYLKO do kontekstu edytora
+   (.cke_editable = <body> iframe'a CKE). Dzięki temu CKEditor bierze style z
+   tych samych zmiennych co front. Wartości to neutralne domyślne — na froncie
+   realne kolory/czcionki nadpisuje :root z motywu (więc front jest nietknięty).
+
+   UWAGA: nie używać tu :root — ten plik ładuje się też globalnie na froncie
+   i :root nadpisałby dynamiczne wartości motywu.
+   ========================================================================== */
+
+.cke_editable {
+    /* Kolory pomocnicze */
+    --kolorTekstuJasny: #878787;
+    --kolorTekstuCiemny: #282828;
+    --kolorIkon: #6C6D6F;
+    --kolorInfo: #14A0EF;
+    --kolorWarning: #ea9800;
+    --kolorDanger: #d20014;
+    --kolorSukces: #13a500;
+    --kolorDisabled: #cbcbcb;
+
+    /* Kolory motywu (per-miasto nadpisywane na froncie — tu domyślne) */
+    --kolorOzdobnyGlowny: #0563c1;
+    --kolorOzdobnyGlownyPol: #0563c120;
+    --kolorOzdobnyDodatkowy: #034a8a;
+    --kolorAktywnychElementowMenu: #0563c1;
+    --bd-theme-primary: #0563c1;
+    --bd-theme-secondary: #034a8a;
+
+    /* Typografia (mapowane z :root motywu) */
+    --bd-ff-heading: 'Montserrat', sans-serif;
+    --bd-ff-body: 'Montserrat', sans-serif;
+    --bd-ff-p: 'Montserrat', sans-serif;
+    --bd-text-body: #000;
+    --bd-fw-normal: 400;
+    --bd-fz-b: 12px;
+    --bd-fz-p: 16px;
+    --bd-fz-h1: 50px;
+    --bd-fz-h2: 40px;
+    --bd-fz-h3: 29px;
+    --bd-fz-h4: 24px;
+    --bd-fz-h5: 18px;
+    --bd-fz-h6: 16px;
+}
+
+
+/* ==========================================================================
+   Typografia nagłówków w treści artykułu
+   --------------------------------------------------------------------------
+   Motyw nie nadaje spójnych rozmiarów/wag nagłówkom h4–h6 w treści (a na
+   froncie w :root brak nawet --bd-fz-h4), przez co podsekcje wyglądały jak
+   zwykły tekst. Poniżej jednolita hierarchia, zakresowana do treści artykułu
+   (.postbox__text) i podglądu CKEditora (.cke_editable). NIE dotyka tytułu
+   artykułu (article .postbox__title), bo ten jest poza .postbox__text.
+   ========================================================================== */
+
+.postbox__text h2, .cke_editable h2,
+.postbox__text h3, .cke_editable h3,
+.postbox__text h4, .cke_editable h4,
+.postbox__text h5, .cke_editable h5,
+.postbox__text h6, .cke_editable h6 {
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    color: #1f1f1f;
+    line-height: 1.3;
+    margin: 1.6em 0 .55em;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.postbox__text h2, .cke_editable h2 { font-size: 32px; font-weight: 700; }
+.postbox__text h3, .cke_editable h3 { font-size: 27px; font-weight: 700; }
+.postbox__text h4, .cke_editable h4 { font-size: 21px; font-weight: 600; }
+.postbox__text h5, .cke_editable h5 { font-size: 18px; font-weight: 600; }
+.postbox__text h6, .cke_editable h6 { font-size: 16px; font-weight: 600; }
+
+/* mniejszy odstęp gdy nagłówek następuje bezpośrednio po nagłówku */
+.postbox__text h2 + h3, .cke_editable h2 + h3,
+.postbox__text h3 + h4, .cke_editable h3 + h4,
+.postbox__text h4 + h5, .cke_editable h4 + h5 {
+    margin-top: .6em;
+}
+
+/* pierwszy element treści bez zbędnego odstępu u góry */
+.postbox__text > :first-child,
+.cke_editable > :first-child {
+    margin-top: 0;
+}
+
+/* --- Zabezpieczenie na zbyt duże zdjęcia i iframe --- */
+
+article .postbox__title {
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+}
+
+
+
+article iframe, article img {
+    max-width: 100% !important;
+}
+
+hr {
+    border-top: 2px dashed #DDD;
+    margin: 30px 0;
+}
+
+@media (max-width: 575px) {
+    .postbox__meta span {
+        display: inline-block;
+    }
+}
+
+
+/* ==========================================================================
+   Sekcja poniżej: style formatujące treść z CKEditora
+   Działają wewnątrz .postbox__text (moduły artykułowe),
+   wewnątrz article (strony aktualności, wydarzenia)
+   oraz wewnątrz .cke_editable (podgląd WYSIWYG w CKEditorze)
+   ========================================================================== */
+
+/* --- Tabele (treść z CKEditora / Word) --- */
+
+article table,
+.postbox__text table,
+.cke_editable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 20px;
+    font-size: 14px;
+    background: #fff;
+}
+
+article table th,
+article table td,
+.postbox__text table th,
+.postbox__text table td,
+.cke_editable table th,
+.cke_editable table td {
+    border: 1px solid #dee2e6;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+article table th,
+.postbox__text table th,
+.cke_editable table th {
+    background-color: #e7e6e6;
+    font-weight: 700;
+    color: #222;
+}
+
+article table thead th,
+.postbox__text table thead th,
+.cke_editable table thead th {
+    background-color: #e7e6e6;
+    font-weight: 700;
+}
+
+article table tbody tr:nth-child(even),
+.postbox__text table tbody tr:nth-child(even),
+.cke_editable table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+article table tbody tr:hover,
+.postbox__text table tbody tr:hover,
+.cke_editable table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Responsywność tabel */
+@media (max-width: 768px) {
+    article table,
+    .postbox__text table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+
+/* --- Cytaty (blockquote) --- */
+
+article blockquote,
+.postbox__text blockquote,
+.cke_editable blockquote {
+    border-left: 4px solid var(--bd-theme-primary, #0563c1);
+    margin: 15px 0 20px;
+    padding: 12px 20px;
+    background-color: #f8f9fa;
+    font-style: italic;
+    color: #555;
+}
+
+article blockquote p,
+.postbox__text blockquote p,
+.cke_editable blockquote p {
+    margin-bottom: 0;
+}
+
+
+/* --- Linki w treści --- */
+
+article .postbox__text a,
+.postbox__text a {
+    color: var(--bd-theme-primary, #0563c1);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+article .postbox__text a:hover,
+.postbox__text a:hover {
+    color: var(--bd-theme-secondary, #034a8a);
+}
+
+
+/* --- Obrazki wewnątrz treści --- */
+
+article .postbox__text img,
+.postbox__text img,
+.cke_editable img {
+    max-width: 100%;
+    height: auto;
+}
+
+article figure,
+.postbox__text figure,
+.cke_editable figure {
+    margin: 15px 0 20px;
+    text-align: center;
+}
+
+article figcaption,
+.postbox__text figcaption,
+.cke_editable figcaption {
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+
+/* --- Kod (pre/code) --- */
+
+article pre,
+.postbox__text pre,
+.cke_editable pre {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+article code,
+.postbox__text code,
+.cke_editable code {
+    background-color: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+}
+
+
+/* --- Czyszczenie styli z Worda (MsoNormal, MsoNormalTable itp.) --- */
+
+article .MsoNormal,
+article .MsoNormalTable,
+.postbox__text .MsoNormal,
+.postbox__text .MsoNormalTable,
+.cke_editable .MsoNormal,
+.cke_editable .MsoNormalTable {
+    margin: 0;
+    padding: 0;
+}
+
+article .MsoNormalTable,
+.postbox__text .MsoNormalTable,
+.cke_editable .MsoNormalTable {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+article [class*="Mso"],
+.postbox__text [class*="Mso"],
+.cke_editable [class*="Mso"] {
+    font-family: inherit !important;
+    line-height: inherit !important;
+}
+
+
+/* ==========================================================================
+   Karty osób (władze gminy, zespół itp.)
+   Wrapper: .wladze-karty
+   ========================================================================== */
+
+.wladze-karty {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.wladze-karty .osoba-karta {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wladze-karty .osoba-karta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.wladze-karty .osoba-karta .osoba-foto {
+    width: 280px;
+    min-height: 280px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+}
+
+.wladze-karty .osoba-karta .osoba-info {
+    padding: 30px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wladze-karty .osoba-karta .osoba-stanowisko {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--bd-theme-primary, #0d6efd);
+    background: rgba(13, 110, 253, 0.08);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    align-self: flex-start;
+}
+
+.wladze-karty .osoba-karta .osoba-imie {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 12px;
+    letter-spacing: 0.5px;
+}
+
+.wladze-karty .osoba-karta .osoba-opis {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .wladze-karty .osoba-karta {
+        flex-direction: column;
+    }
+
+    .wladze-karty .osoba-karta .osoba-foto {
+        width: 100%;
+        min-height: 220px;
+        aspect-ratio: 4 / 3;
+    }
+
+    .wladze-karty .osoba-karta .osoba-info {
+        padding: 20px;
+    }
+}
+
+/* Wersja dla CKEditora */
+.cke_editable .wladze-karty {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.cke_editable .wladze-karty .osoba-karta {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.cke_editable .wladze-karty .osoba-karta .osoba-foto {
+    width: 280px;
+    min-height: 280px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+}
+
+.cke_editable .wladze-karty .osoba-karta .osoba-info {
+    padding: 30px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cke_editable .wladze-karty .osoba-karta .osoba-stanowisko {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0d6efd;
+    background: rgba(13, 110, 253, 0.08);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    align-self: flex-start;
+}
+
+.cke_editable .wladze-karty .osoba-karta .osoba-imie {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 12px;
+}
+
+.cke_editable .wladze-karty .osoba-karta .osoba-opis {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+}
+
+
+/* ==========================================================================
+   Mediateka — szablon LISTA_DO_POBRANIA (nowoczesna lista plików)
+   Markup: n-media-teka-macro.ftl (case "LISTA_DO_POBRANIA")
+   ========================================================================== */
+
+.mediateka-pliki {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0 25px;
+}
+
+.mediateka-pliki__naglowek {
+    margin: 0 0 5px;
+}
+
+.mediateka-plik {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border: 1px solid #e7e7e7;
+    border-radius: 12px;
+    background: #fff;
+    text-decoration: none !important;
+    color: inherit;
+    transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.mediateka-plik:hover {
+    border-color: var(--bd-theme-primary, #0563c1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    transform: translateY(-2px);
+}
+
+.mediateka-plik__ikona {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mediateka-plik__ikona img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+.mediateka-plik__info {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.mediateka-plik__nazwa {
+    font-weight: 600;
+    color: #222;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.mediateka-plik__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #777;
+}
+
+.mediateka-plik__ext {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: var(--bd-theme-primary, #0563c1);
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.mediateka-plik__pobierz {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: var(--bd-theme-primary, #0563c1);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background .2s ease;
+}
+
+.mediateka-plik:hover .mediateka-plik__pobierz {
+    background: var(--bd-theme-secondary, #034a8a);
+}
+
+@media (max-width: 575px) {
+    .mediateka-plik {
+        flex-wrap: wrap;
+    }
+
+    .mediateka-plik__pobierz {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* ==========================================================================
+   Karta informacyjna urzędu (dane teleadresowe, godziny pracy, dane do faktur)
+   Wrapper: .urzad-info
+   Zwykle wstawiana na końcu artykułu (np. pod .wladze-karty).
+   Reguły nie są scope'owane do .postbox__text — działają też w .cke_editable
+   (zmienne motywu są tam zdefiniowane na górze pliku).
+   ========================================================================== */
+
+.urzad-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin: 40px 0 30px;
+    padding: 32px 34px;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 14px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
+    font-family: var(--bd-ff-body, 'Montserrat', sans-serif);
+}
+
+/* pasek akcentu na górze karty */
+.urzad-info::before {
+    content: "";
+    grid-column: 1 / -1;
+    height: 4px;
+    margin: -32px -34px 4px;
+    border-radius: 14px 14px 0 0;
+    background: linear-gradient(90deg,
+        var(--bd-theme-primary, #0563c1),
+        var(--bd-theme-secondary, #034a8a));
+}
+
+.urzad-info__blok {
+    min-width: 0;
+}
+
+.urzad-info__blok--pelny {
+    grid-column: 1 / -1;
+}
+
+.urzad-info__tytul {
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 20px !important;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin: 0 0 4px !important;
+    line-height: 1.3;
+}
+
+.urzad-info__naglowek {
+    font-size: 12px !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: var(--bd-theme-primary, #0563c1);
+    margin: 0 0 14px !important;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ececec;
+    line-height: 1.4;
+}
+
+/* --- Dane teleadresowe --- */
+
+.urzad-dane {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.urzad-dane li {
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+    list-style: none !important;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.urzad-dane__etykieta {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8a8a8a;
+}
+
+.urzad-dane__wartosc {
+    color: #222;
+}
+
+.urzad-dane a {
+    color: var(--bd-theme-primary, #0563c1);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.urzad-dane a:hover {
+    text-decoration: underline;
+    color: var(--bd-theme-secondary, #034a8a);
+}
+
+/* --- Godziny pracy --- */
+
+.urzad-godziny {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.urzad-godziny li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0;
+    padding: 9px 12px;
+    list-style: none !important;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.urzad-godziny li:nth-child(odd) {
+    background: #f7f8fa;
+}
+
+.urzad-godziny__dzien {
+    font-weight: 600;
+    color: #222;
+}
+
+.urzad-godziny__czas {
+    font-variant-numeric: tabular-nums;
+    color: #444;
+    white-space: nowrap;
+}
+
+.urzad-godziny li.urzad-godziny--wewnetrzny {
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    box-shadow: inset 3px 0 0 var(--bd-theme-primary, #0563c1);
+}
+
+.urzad-godziny li.urzad-godziny--wewnetrzny .urzad-godziny__czas {
+    font-weight: 700;
+    color: var(--bd-theme-secondary, #034a8a);
+    white-space: normal;
+}
+
+.urzad-godziny__uwaga {
+    margin: 12px 0 0 !important;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #6a6a6a;
+}
+
+/* --- Dane do faktur --- */
+
+.urzad-faktury {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.urzad-faktury__box {
+    padding: 20px 22px;
+    background: #f7f8fa;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+}
+
+.urzad-faktury__rola {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: var(--bd-theme-primary, #0563c1);
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    padding: 4px 13px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.urzad-faktury__nazwa {
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin: 0 0 4px !important;
+    line-height: 1.4;
+}
+
+.urzad-faktury__adres {
+    font-size: 15px !important;
+    color: #444;
+    margin: 0 0 12px !important;
+    line-height: 1.6;
+}
+
+.urzad-faktury__nip {
+    margin: 0 !important;
+    padding-top: 12px;
+    border-top: 1px dashed #dcdcdc;
+    font-size: 14px !important;
+    color: #6a6a6a;
+    line-height: 1.5;
+}
+
+.urzad-faktury__nip strong {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f1f1f;
+    letter-spacing: .5px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Responsywność --- */
+
+@media (max-width: 991px) {
+    .urzad-info {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+        padding: 26px 22px;
+    }
+
+    .urzad-info::before {
+        margin: -26px -22px 0;
+    }
+
+    .urzad-faktury {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 575px) {
+    .urzad-dane li {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2px;
+    }
+
+    .urzad-godziny li {
+        padding: 8px 10px;
+    }
+}
+
+/* --- Rachunki bankowe (tabela w stylu kart) --- */
+
+.urzad-konta,
+.urzad-tabela {
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.urzad-konta table,
+.urzad-tabela table {
+    width: 100%;
+    margin: 0 !important;
+    border: none !important;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.urzad-konta table th,
+.urzad-konta table td,
+.urzad-tabela table th,
+.urzad-tabela table td {
+    border: none !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+    padding: 14px 18px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.urzad-konta table th,
+.urzad-konta table thead th,
+.urzad-tabela table th,
+.urzad-tabela table thead th {
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08)) !important;
+    color: var(--bd-theme-secondary, #034a8a);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.urzad-konta table tbody tr:last-child td,
+.urzad-tabela table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.urzad-konta table td,
+.urzad-tabela table td {
+    color: #444;
+    line-height: 1.6;
+}
+
+.urzad-konta__rodzaj {
+    font-weight: 600;
+    color: #222;
+}
+
+.urzad-konta__numer {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f1f1f;
+    letter-spacing: .5px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.urzad-konta__dopisek {
+    display: block;
+    font-size: 13px;
+    color: #777;
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+.urzad-konta__posiadacz {
+    font-size: 15px !important;
+    color: #444;
+    line-height: 1.6;
+    margin: 0 0 14px !important;
+}
+
+.urzad-konta__posiadacz strong {
+    color: #1f1f1f;
+}
+
+.urzad-skargi__tekst {
+    font-size: 15px !important;
+    color: #333;
+    line-height: 1.6;
+    margin: 0 0 12px !important;
+}
+
+@media (max-width: 575px) {
+    .urzad-konta__numer {
+        white-space: normal;
+        word-break: break-word;
+    }
+}
+
+/* --- Sołectwa: lista kotwic (pigułki) + pozycjonowanie nagłówków --- */
+
+.solectwa-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0 10px !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.solectwa-nav li {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+.solectwa-nav a {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    color: var(--bd-theme-primary, #0563c1) !important;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none !important;
+    transition: background .2s ease, color .2s ease;
+}
+
+.solectwa-nav a:hover {
+    background: var(--bd-theme-primary, #0563c1);
+    color: #fff !important;
+}
+
+/* nagłówek sekcji sołectwa */
+.solectwo-tytul {
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .12));
+}
+
+/* kotwica nie chowa się pod stałym nagłówkiem strony */
+[id^="solectwo-"] {
+    scroll-margin-top: 130px;
+}
+
+/* --- Pasek faktów o gminie (strona "Nasza gmina") --- */
+
+.gmina-fakty {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin: 25px 0 30px !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.gmina-fakty li {
+    list-style: none !important;
+    margin: 0;
+    background: #f7f8fa;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+}
+
+.gmina-fakty__liczba {
+    display: block;
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--bd-theme-primary, #0563c1);
+    font-variant-numeric: tabular-nums;
+}
+
+.gmina-fakty__opis {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #777;
+}
+
+/* wiersz podsumowania w tabelach .urzad-tabela */
+.urzad-tabela table tr.wiersz-suma td {
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08)) !important;
+    font-weight: 700;
+    color: #1f1f1f;
+}
+
+/* --- Karty znaków gminy (herb, logo — identyfikacja wizualna) --- */
+
+.znaki-gminy {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 25px 0 30px;
+}
+
+.znak-karta {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.znak-karta__obraz {
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f8fa;
+    border-right: 1px solid #ececec;
+    padding: 35px;
+}
+
+.znak-karta__obraz img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.znak-karta__tresc {
+    padding: 30px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.znak-karta__tresc p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 14px !important;
+}
+
+.znak-karta__tresc p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.znak-karta__tresc p strong {
+    color: #1f1f1f;
+}
+
+.znak-karta__nota {
+    margin-top: 4px !important;
+    padding-top: 14px;
+    border-top: 1px dashed #dcdcdc;
+    font-size: 13px !important;
+    color: #6a6a6a !important;
+}
+
+@media (max-width: 768px) {
+    .znak-karta {
+        flex-direction: column;
+    }
+
+    .znak-karta__obraz {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ececec;
+        padding: 25px;
+    }
+
+    .znak-karta__obraz img {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
+    .znak-karta__tresc {
+        padding: 20px;
+    }
+}
+
+/* --- Honorowi obywatele / kroki postępowania: lista kart z numeracją --- */
+
+.honorowi,
+.kroki {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 25px 0 30px;
+}
+
+.honorowy-karta,
+.krok-karta {
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 26px 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+}
+
+.honorowy-karta__numer,
+.krok-karta__numer {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    color: var(--bd-theme-primary, #0563c1);
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.honorowy-karta__tresc,
+.krok-karta__tresc {
+    min-width: 0;
+}
+
+.honorowy-karta__imie,
+.krok-karta__tytul {
+    font-size: 19px !important;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin: 8px 0 4px !important;
+    line-height: 1.3;
+}
+
+.honorowy-karta__meta,
+.krok-karta__meta {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--bd-theme-primary, #0563c1);
+    margin-bottom: 10px;
+}
+
+.honorowy-karta__opis,
+.krok-karta__opis {
+    font-size: 14px !important;
+    color: #666;
+    line-height: 1.7;
+    margin: 0 !important;
+}
+
+@media (max-width: 575px) {
+    .honorowy-karta,
+    .krok-karta {
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px;
+    }
+}
+
+/* link telefoniczny w tabelach i treści */
+.tel-link {
+    white-space: nowrap;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Rada Gminy: siatka radnych --- */
+
+.radni {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 25px 0 30px;
+}
+
+.radny-karta {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.radny-karta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.radny-karta__foto {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    background: #f0f2f4;
+}
+
+.radny-karta__info {
+    padding: 14px 12px 18px;
+}
+
+.radny-karta__imie {
+    font-size: 15px !important;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin: 0 0 3px !important;
+    line-height: 1.35;
+}
+
+.radny-karta__miejscowosc {
+    display: block;
+    font-size: 12px;
+    color: #8a8a8a;
+}
+
+.radny-karta__funkcja {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--bd-theme-primary, #0563c1);
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+/* --- Przycisk-link (np. do BIP) --- */
+
+.przycisk-bip {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 26px;
+    border-radius: 8px;
+    background: var(--bd-theme-primary, #0563c1);
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none !important;
+    transition: background .2s ease;
+}
+
+.przycisk-bip:hover {
+    background: var(--bd-theme-secondary, #034a8a);
+    color: #fff !important;
+}
+
+/* --- Sołtysi: siatka kart z danymi kontaktowymi --- */
+
+.soltysi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 25px 0 30px;
+}
+
+.soltys-karta {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.soltys-karta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.soltys-karta__foto {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    background: #f0f2f4;
+}
+
+.soltys-karta__info {
+    padding: 16px 18px 20px;
+}
+
+.soltys-karta__solectwo {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--bd-theme-primary, #0563c1);
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    padding: 4px 12px;
+    border-radius: 14px;
+}
+
+.soltys-karta__wsie {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.soltys-karta__imie {
+    font-size: 17px !important;
+    font-weight: 700;
+    color: #222;
+    margin: 10px 0 12px !important;
+    line-height: 1.3;
+}
+
+.soltys-kontakt {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.soltys-kontakt__wiersz {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.soltys-kontakt__wiersz svg {
+    flex-shrink: 0;
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+    stroke: var(--bd-theme-primary, #0563c1);
+}
+
+.soltys-kontakt__wiersz a {
+    color: var(--bd-theme-primary, #0563c1);
+    font-weight: 600;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.soltys-kontakt__wiersz a:hover {
+    text-decoration: underline;
+    color: var(--bd-theme-secondary, #034a8a);
+}
+
+/* zdjęcie domu sołeckiego wewnątrz karty sołtysa */
+.soltys-karta__dom {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.soltys-karta__dom-etykieta {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #999;
+    margin-bottom: 7px;
+}
+
+.soltys-karta__dom img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    background: #f0f2f4;
+}
+
+/* wariant ostrzegawczy kart „kroki" (alerty i komunikaty) */
+.krok-karta--alert {
+    border-left: 4px solid var(--kolorWarning, #ea9800);
+}
+
+.krok-karta--alert .krok-karta__numer {
+    background: rgba(234, 152, 0, .13);
+    color: #c97f00;
+}
+
+.krok-karta--alert .krok-karta__meta {
+    color: #c97f00;
+}
+
+/* --- Karta osoby bez zdjęcia: placeholder z inicjałami (.osoba-foto--brak) --- */
+/* Markup: <div class="osoba-foto osoba-foto--brak"><span>JS</span></div> zamiast <img class="osoba-foto"> */
+.wladze-karty .osoba-karta .osoba-foto--brak,
+.cke_editable .wladze-karty .osoba-karta .osoba-foto--brak {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+        var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .10)),
+        rgba(0, 0, 0, .04));
+}
+
+.wladze-karty .osoba-karta .osoba-foto--brak span,
+.cke_editable .wladze-karty .osoba-karta .osoba-foto--brak span {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bd-theme-primary, #0563c1);
+    color: #fff;
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+    .wladze-karty .osoba-karta .osoba-foto--brak {
+        min-height: 180px;
+        aspect-ratio: auto;
+    }
+}
+
+/* --- Podgląd PDF w treści (ulotka, broszura): .ulotka-podglad > iframe --- */
+.ulotka-podglad {
+    margin: 20px 0 12px;
+    border: 1px solid #e7e7e7;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f7f8fa;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
+}
+
+.ulotka-podglad iframe {
+    display: block;
+    width: 100%;
+    height: 780px;
+    border: 0;
+}
+
+/* w CKEditorze iframe PDF może się nie renderować — widoczna ramka z podpisem */
+.cke_editable .ulotka-podglad {
+    min-height: 120px;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .ulotka-podglad iframe {
+        height: 520px;
+    }
+}
+
+/* --- Numery alarmowe (duże kafle 998 / 112) wewnątrz .urzad-info --- */
+.alarm-numery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.alarm-numer {
+    flex: 1 1 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px;
+    border-radius: 12px;
+    background: #c62828;
+    color: #fff !important;
+    text-decoration: none !important;
+    text-align: center;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.alarm-numer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(198, 40, 40, .3);
+}
+
+.alarm-numer__cyfry {
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.alarm-numer__opis {
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    opacity: .9;
+}
+
+/* --- Jednostki OSP: siatka kart ze zdjęciem remizy, kontaktem (.soltys-kontakt) i zarządem --- */
+.osp-jednostki {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin: 25px 0 30px;
+}
+
+.osp-karta {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.osp-karta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.osp-karta__foto {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    background: #f0f2f4;
+}
+
+.osp-karta__info {
+    padding: 18px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.osp-karta__miejscowosc {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #c62828;
+    background: rgba(198, 40, 40, .08);
+    padding: 4px 12px;
+    border-radius: 14px;
+}
+
+.osp-karta__nazwa {
+    font-size: 17px !important;
+    font-weight: 700;
+    color: #222;
+    margin: 10px 0 12px !important;
+    line-height: 1.3;
+}
+
+.osp-karta__zarzad {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.osp-karta__zarzad-etykieta {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #999;
+    margin-bottom: 8px;
+}
+
+.osp-karta__zarzad ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.osp-karta__zarzad li {
+    list-style: none !important;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 6px 0;
+    margin: 0;
+    border-bottom: 1px dashed #f0f0f0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #222;
+    font-weight: 600;
+    text-align: right;
+}
+
+.osp-karta__zarzad li:last-child {
+    border-bottom: 0;
+}
+
+.osp-karta__zarzad li span {
+    text-align: left;
+    font-weight: 500;
+    color: #777;
+}
+
+/* zdjęcia remiz mają wtopioną granatową ramkę — kadrujemy ją lekkim powiększeniem */
+.osp-karta__foto-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #f0f2f4;
+}
+
+.osp-karta__foto-wrap .osp-karta__foto {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.12);
+    transform-origin: center;
+}
+
+/* --- Tablica informacyjna urzędu: budynki A/B/C z listą pokoi (strona "Struktura urzędu") --- */
+/* Markup: .tablica-ug > .budynek (.budynek--a | --b1 | --b2 | --c) > .budynek__naglowek + .budynek__tresc > .pokoje */
+.tablica-ug {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+        "a b1"
+        "a b2"
+        "a c";
+    gap: 24px;
+    align-items: start;
+    margin: 25px 0 30px;
+}
+
+.budynek--a  { grid-area: a; }
+.budynek--b1 { grid-area: b1; }
+.budynek--b2 { grid-area: b2; }
+.budynek--c  { grid-area: c; }
+
+.budynek {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
+}
+
+.budynek__naglowek {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    background: linear-gradient(120deg,
+        var(--bd-theme-primary, #0563c1),
+        var(--bd-theme-secondary, #034a8a));
+    color: #fff;
+}
+
+.budynek__litera {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, .6);
+    border-radius: 12px;
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.budynek__adres {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.budynek__adres strong {
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.budynek__etykieta {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    opacity: .85;
+}
+
+.budynek__tresc {
+    padding: 6px 22px 18px;
+}
+
+.budynek__kondygnacja {
+    font-size: 12px !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: var(--bd-theme-primary, #0563c1);
+    margin: 16px 0 6px !important;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ececec;
+}
+
+.pokoje {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.pokoje li {
+    list-style: none !important;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    margin: 0;
+    padding: 9px 0;
+    border-bottom: 1px dashed #f0f0f0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #222;
+}
+
+.pokoje li:last-child {
+    border-bottom: 0;
+}
+
+.pokoje__nr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    color: var(--bd-theme-primary, #0563c1);
+    font-family: var(--bd-ff-heading, 'Montserrat', sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.pokoje--bez-nr li {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 14px;
+    border-left: 3px solid var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .2));
+    border-bottom: 0;
+    margin-bottom: 8px;
+    border-radius: 0 6px 6px 0;
+}
+
+@media (max-width: 768px) {
+    .tablica-ug {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "a" "b1" "b2" "c";
+    }
+}
+
+/* --- Galeria zdjęć w treści (siatka figure z zaokrągleniem): .foto-galeria --- */
+.foto-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 20px 0 30px;
+}
+
+.foto-galeria figure {
+    margin: 0 !important;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f0f2f4;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+}
+
+.foto-galeria figure img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+    transition: transform .3s ease;
+}
+
+.foto-galeria figure:hover img {
+    transform: scale(1.04);
+}
+
+.foto-galeria figcaption {
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+}
+
+/* --- Katalog organizacji (stowarzyszenia, KGW, fundacje): .org-karty / .org-karta --- */
+.org-karty {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 22px 0 34px;
+}
+
+.org-karta {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.org-karta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+}
+
+.org-karta__miejscowosc {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--bd-theme-primary, #0563c1);
+    background: var(--kolorOzdobnyGlownyPol, rgba(5, 99, 193, .08));
+    padding: 3px 12px;
+    border-radius: 14px;
+}
+
+.org-karta__nazwa {
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #222;
+    margin: 10px 0 12px !important;
+    line-height: 1.35;
+}
+
+.org-karta .soltys-kontakt {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.org-karta__meta {
+    list-style: none !important;
+    margin: 14px 0 0 !important;
+    padding: 12px 0 0 !important;
+    border-top: 1px solid #f0f0f0;
+}
+
+.org-karta__meta li {
+    list-style: none !important;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+    padding: 3px 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #333;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.org-karta__meta li span {
+    flex-shrink: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: .8px;
+    color: #999;
+    text-align: left;
+    padding-top: 2px;
+}
+
+.org-karta__uwaga {
+    margin: 10px 0 0 !important;
+    font-size: 12px !important;
+    font-style: italic;
+    color: #8a8a8a;
+    line-height: 1.5;
+}
+
+/* wiersz-nagłówek działu w tabelach .urzad-tabela (np. klauzula RODO: sekcje zadań) */
+.urzad-tabela tr.urzad-tabela__dzial td,
+.urzad-konta tr.urzad-tabela__dzial td {
+    background: var(--bd-theme-primary, #0563c1) !important;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* meta w karcie honorowego obywatela jako link do uchwały (PDF) */
+a.honorowy-karta__meta {
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+a.honorowy-karta__meta:hover {
+    color: var(--bd-theme-secondary, #034a8a);
+    text-decoration: underline;
+}
+
+a.honorowy-karta__meta i {
+    margin-left: 5px;
+    font-size: 0.9em;
+    opacity: .7;
+}
+
+/* --- Przycisk-link do Facebooka (np. profile sołectw): .przycisk-facebook --- */
+.przycisk-facebook {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 18px;
+    border-radius: 22px;
+    background: #1877f2;
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none !important;
+    line-height: 1.4;
+    box-shadow: 0 2px 8px rgba(24, 119, 242, .35);
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.przycisk-facebook:hover {
+    background: #0e5fcb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(24, 119, 242, .4);
+}
+
+.przycisk-facebook i {
+    font-size: 15px;
+}
+
+/* wariant przy nagłówku sołectwa — lekko mniejszy, odsunięty od tytułu */
+.solectwo-tytul + .przycisk-facebook-wiersz {
+    margin: -6px 0 14px !important;
+}

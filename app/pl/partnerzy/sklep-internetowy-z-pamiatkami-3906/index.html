@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Portal Mieszkańca wraz z Panelem Mieszkańca">
+        <meta name="author" content="qb.com.pl">
+        <meta name="keywords" content="Karta Mieszkańca">
+        <title>Szczegóły partnera Sklep internetowy z pamiątkami</title>
+        <link rel="shortcut icon" href="../../../cmsImages/favicon.png" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="../../../cmsImages/favicon.png">
+        <script>
+    if (window.location.hostname.indexOf("www") == 0) {
+        window.location = window.location.href.replace("www.", "");
+    }
+</script>
+        <link href="../../../assets/mock/montserrat.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../assets/n/css/fontello/css/icon_set_1.css">
+        <link href="../../../cmsCSS/style-migracja.css" rel="stylesheet">
+        <link href="../../../assets/n/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../assets/visit/css/meanmenu.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/animate.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/swiper-bundle.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/backtotop.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/magnific-popup.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/font-awesome-pro.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/spacing.css">
+        <link rel="stylesheet" href="../../../assets/visit/css/main.css">
+        <link href="../../../assets/n/css/icheck.css" rel="stylesheet">
+        <link href="../../../cmsCSS/jquery_fancybox.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../assets/n/css/jquery.justified.css"/>
+        <link rel="stylesheet" href="../../../assets/n/css/colorbox.css"/>
+        <link href="../../../assets/n/css/lightbox2.css" rel="stylesheet">
+        <link href="../../../cmsCSS/chosen.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../css/opentip.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../cmsCSS/custom.css?v=1.5" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../../../cmsCSS/v-custom.css">
+        <link rel="stylesheet" href="../../../cmsCSS/artykuly.css">
+        <link rel="stylesheet" href="../../../vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.css"/>
+        <link rel="stylesheet" href="../../../css/site-inline.css">
+        <link rel="stylesheet" href="../../../assets/mock/mock.css">
+        <script src="../../../assets/n/js/jquery-2.2.4.min.js"></script>
+        <script src="../../../vendor/cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.10.0/sweetalert2.min.js"></script>
+        <script src="../../../js/opentip-jquery.js"></script>
+        <script src="../../../cmsJS/chosen.js"></script>
+        <script src="../../../cmsJS/jquery_fancybox.js"></script>
+        <script src="../../../vendor/unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+        <script src="../../../assets/n/js/icheck.min.js"></script>
+        <script src="../../../assets/n/js/poczekalnia.js"></script>
+            <link rel="stylesheet" href="../../../assets/mock/datasprint.css">
+    </head>
+
+<body>
+
+<header>
+    <div class="skip-link-container">
+        <button style="font-weight: bold; font-size: large" onclick="skipToFirstFocusableElementInside('main');">
+            Pomiń menu główne
+        </button><br/>
+    </div>
+
+
+
+    <div class="row align-items-center d-none d-lg-flex">
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5">
+        </div>
+
+            <div class="col-xxl-7 col-xl-7 col-lg-6 d-none d-lg-block">
+                <div style="width: 450px;margin: 0 auto;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+            </div>
+
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-7" style="margin-left: auto;">
+            <div class="col-12" style="margin-left: auto;">
+                <div class="d-flex wyroznioneMenuGlowne">
+                    <ul class="top_links" title="menu media społecznościowe">
+                        <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                        </div>
+                    </ul>
+                    <!-- End top line-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bd-header__section bd-header__transparent">
+        <div class="bd-header__main" id="header-sticky">
+            <div id="mainMenu" class="cmsContainer">
+	<div id="module_865"  >
+
+
+<script>
+    /* wykrycie braku miejsca z prawej strony dla paneli 4. poziomu */
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.main-menu li.submenu-glebiej-parent').forEach(function (li) {
+            li.addEventListener('mouseenter', function () {
+                var panel = li.querySelector('ul.submenu-glebiej');
+                if (!panel) return;
+                li.classList.remove('otwierajWLewo');
+                var r = li.getBoundingClientRect();
+                if (r.right + panel.offsetWidth + 10 > window.innerWidth) {
+                    li.classList.add('otwierajWLewo');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<div class="row" style="align-items: stretch;height: 100%">
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-5"
+         style="padding-right: 0; ">
+        <div class="logo">
+            <a tabindex="-1" href="../../../pl/home" title="powrót do strony głównej">
+                <img 
+                     src="../../../cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+            </a>
+        </div>
+    </div>
+
+        <div class="col-lg-8 d-none d-lg-block">
+            <div class="d-flex justify-content-center" style="align-items:center;height: 100%">
+                <div class="main-menu">
+                    <nav id="mobile-menu" aria-label="Menu główne" style="text-align: center;">
+                            <!-- ==== POZYCJE MENU GŁÓWNEGO ==========================================
+     Dodaj nową zakładkę jako kolejne <li> w tym <ul>. Wzoruj się na
+     istniejących pozycjach poniżej; href podawaj względem katalogu głównego
+     serwisu (np. pl/aktualnosci), tak jak one.
+
+     Aby zakładka podświetlała się na swojej stronie, dopisz jej trasę i id do
+     MENU_SECTIONS w tools/build_site.py i przebuduj strony
+     (python3 tools/build_site.py). Szczegóły: NOTES.md
+     ====================================================================== -->
+                        <ul>
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_590">
+                                <a 
+                                   href="../../../pl/aktualnosci">Aktualności
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_402">
+                                <a 
+                                   href="../../../pl/wydarzenia">Wydarzenia
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_407">
+                                <a 
+                                   href="../../../pl/partnerzy">Partnerzy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_5318689">
+                                <a 
+                                   href="../../../konkurs-punktowy">Konkurs punktowy
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_427">
+                                <a 
+                                   href="../../../pl/projekty">Pakiety
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_417">
+                                <a 
+                                   href="../../../pl/punkty-obslugi">Punkt obsługi
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+                            <li  class=" " id="menuItem_392">
+                                <a 
+                                   href="../../../pl/rejestracja">Załóż konto
+                                </a>
+
+
+                                        </li>
+
+
+
+
+
+
+
+
+
+
+                            </li>
+                                                    <!-- Nowa zakładka: DataSprint (dodatek do makiety) -->
+                            <li class="menu-datasprint" data-section="datasprint" id="menuItem_datasprint">
+                                <span class="ds-frame" aria-hidden="true"></span>
+                                <span class="ds-spark ds-spark-1" aria-hidden="true">🎆</span>
+                                <a href="../../../v2/index.html" target="_blank" rel="noopener" title="DataSprint — panel w nowym oknie">
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-label">DataSprint</span>
+                                    <span class="ds-fire" aria-hidden="true">🔥</span>
+                                    <span class="ds-badge" aria-hidden="true">NOWE</span>
+                                </a>
+                                <span class="ds-spark ds-spark-2" aria-hidden="true">🎇</span>
+                            </li>
+</ul>
+                            <!-- ==== KONIEC POZYCJI MENU GŁÓWNEGO ==== -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-7" style="margin-left: auto;padding: 0;position: absolute;right: 0;bottom: 0;top: 0;">
+        <div class="d-flex justify-content-end wyroznioneMenuGlowne primary-bg" style="align-items: center">
+            <div class="bd-header__main-right d-flex justify-content-end align-items-center" style="margin-left: 0;min-width: 120px;">
+                <div style="position: relative;">
+
+                                <div class="bd-border-btn d-none wyroznionyPrzyciskMenu" style="padding: 15px 0;text-align: right;display: inline !important;border:none;margin-right: 0">
+                                    <a
+                                    href='../../../pl/login'
+                                    class="bd-header__search-btn" style="padding: 5px 15px;">
+                                        <span class="fa-solid fa-user"></span> Login/Rejestracja
+                                    </a>
+                                </div>
+
+
+                        
+                        <div class="offcanvas__social d-none d-lg-inline-block" style="display: inline-block;">
+                            <ul>
+                                <li>
+                                    <div class="dropdown">
+                                        <a title="Dostępność" class="social_odwrocony dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                            <i class="fa-sharp fa-solid fa-eye"></i></a>
+                                        <ul class="dropdown-menu"
+                                            style="min-width: 4em; text-align: center; border-radius: 3rem;border: none;box-shadow: 5px 5px 10px #AAA"
+                                            aria-labelledby="navbarDropdown">
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 25px;margin-top: 10px; margin-left: 10px;" class="normalnaCzcionka">
+                                                <a title="Ustaw normalną wielkość czcionki" href='javascript:void(0)'>
+                                                    T-</a></li>
+                                            <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="duzaCzcionka">
+                                                <a title="Ustaw powiększoną czcionkę" href='javascript:void(0)'>
+                                                    T+</a></li>
+                                            <li style="font-weight: bold; font-size: 0.7em;line-height: 1.2;min-width: 50px;margin-left: 10px; margin-top: 10px" class="resetujZoom">
+                                                <a title="Ustaw wartość początkową" href='javascript:void(0)'>
+                                                    100%</a></li>
+                                                <li style="font-weight: bold; font-size: 1em;line-height: 1.2;min-width: 50px;margin-bottom: 10px; margin-top: 10px" class="wysokiKontrast">
+                                                    <a title="Przełącz na wysoki kontrast" href='../../../?wysoki-kontrast'>
+                                                        <i class="fa-solid fa-circle-half-stroke"></i></a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    <div class="bd-header__hamburger">
+                        <button type="button" class="hamburger-btn offcanvas-open-btn" style="position: absolute;top: 0;right: 15px;">
+                            <span><span class="sr-only">Otwórz / zamknij menu</span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+<script>
+    $('a[href*="rejestracja"]').addClass('wyroznione');
+    $('a[href*="rejestracja"]').parent().addClass('wyroznioneWrapper');
+
+
+
+</script>
+
+	</div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header area end -->
+
+
+
+
+
+
+<!-- offcanvas area start -->
+<div class="offcanvas__area">
+    <div class="offcanvas__wrapper">
+        <div class="offcanvas__content">
+            <div class="offcanvas__top mb-20 d-flex justify-content-between align-items-center">
+                <div class="offcanvas__logo logo">
+                    <a href="../../../pl/home?">
+                        <img style="height: 70px;padding: 0;" src="../../../cmsImages/logo.png" alt="Logo Karty Mieszkańca Sopot">
+                    </a>
+                </div>
+                <div class="offcanvas__close">
+                    <button class="offcanvas__close-btn offcanvas-close-btn">
+                        <span class="fal fa-times"><span class="sr-only">Ładowanie</span></span>
+                    </button>
+                </div>
+            </div>
+
+                <div style="margin-bottom: 20px;">
+
+<div class="align-items-center bd-services__area d-lg-flex">
+    <div class="container">
+        <div class="col-12 d-lg-block">
+            <div class="bd-about__section">
+                <div class="">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <form id="formSzukania"action="#" data-mock-action="/pl/home" data-mock-form="1">
+                                <input type="hidden" name="szukajPoFrazie"/>
+                                <div class="search_bar" style="width: 100%;display: flex">
+                                    <select title="Search in" class="searchSelect" id="searchDropdownBox" name="iKategoria">
+                                        <option value="Wszędzie" title="Wszędzie">Wszędzie</option>
+                                        <option value="Artykuły" title="Artykuły">Artykuły</option>
+                                        <option value="Strony" title="Strony">Strony</option>
+                                        <option value="Inwestycje" title="Inwestycje">Inwestycje</option>
+                                        <option value="Wydarzenia" title="Wydarzenia">Wydarzenia</option>
+                                        <option value="Partnerzy" title="Partnerzy">Partnerzy</option>
+                                    </select>
+                                    <div class="" style="flex-grow: 1;">
+                                        <label style="display: none;" for="twotabsearchtextbox">Wpisz frazę do wyszukania</label>
+                                        <input style="height: 100%;" type="text" autocomplete="off" name="iName"
+                                               placeholder="Szukaj" id="twotabsearchtextbox" >
+                                    </div>
+                                    <div class="bSzukaj" id="bSzukaj">
+                                        <button type="submit" title="Cerca" class="" value="Search">
+                                            <i class="fa-regular fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                </div>
+
+
+
+
+            <div class="mobile-menu fix mb-20">
+            </div>
+
+
+                <div class="offcanvas__contact mt-30 mb-20">
+                    <p style="font-size: var(--bd-fz-h5); font-weight: 600; margin: 0 0 8px; color: var(--bd-heading-primary);">Pobierz aplikację</p>
+                    <div>
+                        <div class="linkoDoAplikacji">
+                            <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="../../../assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                            <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="../../../assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="offcanvas__social">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                </div>
+
+        </div>
+    </div>
+</div>
+<div class="body-overlay"></div>
+<!-- offcanvas area end -->
+
+
+<div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+</div>
+
+<main>
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb__section include-bg mt-10" style="height: 470px !important; padding-top:130px;"
+         data-background="../../../res/3902/6351/1__f0351729.png">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                        <div class="col-md-2 col-3">
+                            <div style='margin-bottom: 10px; opacity: 0; border-radius: 5px;width: 170px;display: flex;justify-content: center;align-items: center;background: #FFFFFF;max-width: 100%;aspect-ratio: 1 / 1;'>
+                                <img alt="" style="max-width: 90%;max-height: 90%;" src=''/>
+                            </div>
+                            </div>
+
+
+                        <div class="breadcrumb__content d-md-flex justify-content-between align-items-center">
+                            <h3 class="breadcrumb__title" style="">Sklep internetowy z pamiątkami</h3>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb area end -->
+
+    <div id="position">
+        <div class="container">
+            <ul>
+                <li><a href="../../../pl/home">Home</a>
+                </li>
+                <li><a href="../../../pl/partnerzy">Oferty</a>
+                </li>
+                <li>Sklep internetowy z pamiątkami</li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Position -->
+
+    <div class="collapse" id="collapseMap" style="position: relative;">
+        <div id="map-directions-panel">
+        </div>
+        <div id="map" class="map"></div>
+            <div style="background-color: #fff; padding: 15px 10px 15px 15px; border: 1px solid #ddd; width: 100%">
+                Czerwona <img src="https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi3.png" alt="pin na mapie" style="height: 2em"/>
+                oznacza Twoją lokalizację. Kliknij prawym przyciskiem na mapie, aby ją zmienić.
+            </div>
+
+    </div>
+    <!-- End Map -->
+
+    <div class="postbox__area mt-10" id="partner">
+        <div class="container">
+
+            <div id="tabs" class="tabs">
+
+
+
+
+
+                <div class="mt-30 content">
+
+    <section id="zakladka_0" class="content-current">
+
+
+
+
+        <div class="row">
+            <div class="col-lg-8 opis-partnera" id="single_tour_desc">
+                    <div class="d-lg-none pt-30 pb-20">
+                                        <a style="width: 100%" href="https://sopockiepamiatki.pl/"
+                   class="bd-btn przycisk-kupna-partnera" aria-expanded="false"
+                   target="_blank"
+                   data-nazwa-partnera="Sklep internetowy z pamiątkami"
+                   data-id-partnera="3906"
+                   data-rodzaj-linku="zwykly"
+                   data-id-klienta="">
+                        🎫 Sklep
+                </a>
+
+                                            <a style="text-align: center;width:100%"
+                       href="javascript:pokazWarunkiSprzedazy()" class="link-btn-2 mb-30" aria-expanded="false">
+                        Regulamin i warunki
+                    </a>
+                    <script>
+                        pokazWarunkiSprzedazy = function () {
+                            swal.fire({
+                                title: 'Regulamin i warunki',
+                                html: '<p><span style=\"font-size:12px;\"><span style=\"font-family:Arial,Helvetica,sans-serif;\"><span helvetica=\"\" neue=\"\"><span style=\"color:#000000\"><span style=\"font-style:normal\"><span style=\"font-weight:normal\"><span style=\"white-space:normal\"><span style=\"text-decoration:none\"><span style=\"line-height:18.399999618530273px\"><span style=\"color:#222222\"><span style=\"background-color:white\">Z regulaminem sklepu internetowego i warunkami sprzedaży można się zapoznać wchodząc w poniższy link.<\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><br />\r\n<span helvetica=\"\" neue=\"\"><span style=\"color:#000000\"><span style=\"font-style:normal\"><span style=\"font-weight:normal\"><span style=\"white-space:normal\"><span style=\"text-decoration:none\"><span style=\"line-height:18.399999618530273px\"><a href=\"https://sopockiepamiatki.pl/regulamin-sklepu-internetowego/\" style=\"text-decoration:underline; color:fuchsia\"><span style=\"background-color:white\">REGULAMIN - LINK<\/span><\/a><\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><br />\r\n&nbsp;<\/p>',
+                                showCancelButton: true,
+                                cancelButtonText: 'Anuluj',
+                                confirmButtonText: 'OK',
+                                animation: "slide-from-top",
+                            }).then((result) => {
+                                if (result.isDismissed)
+                                    return false;
+                            });
+                            $('.swal2-container').css("z-index", '9999999');
+                            $('.swal2-content').css("text-align", 'left');
+                        }
+                    </script>
+
+                    </div>
+
+                <div class="d-lg-none">
+                    <div class="sidebar__wrapper mb-30">
+                        
+                        <div class="sidebar__widget-content">
+
+
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <div class="dl wow fadeInUp">
+                                                    <div style="background: var(--kolorOzdobnyDodatkowy); "
+                                                         class="discount">
+                                                            10%
+
+                                                        <div class="type">
+                                                                Zniżki
+
+                                                        </div>
+                                                        <div class="dynks"
+                                                             style="border-top: 20px solid var(--kolorOzdobnyDodatkowy);"></div>
+                                                    </div>
+
+                                                    <div class="descr">
+                                                        10% zniżki na pamiątki z Kolekcji Sopockiej
+                                                    </div>
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            if (typeof gtag === 'function') {
+                                                                // Inicjalizacja tablicy śledzących wysłane eventy (jeśli nie istnieje)
+                                                                if (typeof window.wyslanePromocjeGA === 'undefined') {
+                                                                    window.wyslanePromocjeGA = [];
+                                                                }
+
+                                                                var idZnizki = 'znizka_3914';
+
+                                                                // Sprawdź czy event dla tej zniżki nie został już wysłany
+                                                                if (window.wyslanePromocjeGA.indexOf(idZnizki) === -1) {
+
+                                                                    wyslijZdarzenieGTag('view_promotion', {
+                                                                        promotion_name: '10% zniżki na pamiątki z Kolekcji Sopockiej',
+                                                                        items: [
+                                                                            {
+                                                                                item_id: idZnizki,
+                                                                                item_name: 'Sklep internetowy z pamiątkami (10% zniżki na pamiątki z Kolekcji Sopockiej)',
+                                                                                affiliation: window.location.hostname,
+                                                                                creative_name: 'Rabat',
+                                                                                creative_slot: 'Rabat',
+                                                                                discount: 10,
+                                                                                item_brand: window.location.hostname,
+                                                                                item_category: 'Zniżka',
+                                                                                item_list_id: 'Rabat',
+                                                                                item_list_name: 'Rabaty',
+                                                                                item_variant: 'Zniżka procentowa',
+                                                                                promotion_name: '10% zniżki na pamiątki z Kolekcji Sopockiej',
+                                                                                quantity: 1
+                                                                            }
+                                                                        ]
+                                                                    });
+
+                                                                    // Dodaj ID zniżki do tablicy wysłanych
+                                                                    window.wyslanePromocjeGA.push(idZnizki);
+
+                                                                    console.log('Wysłano event view_promotion do Google Analytics dla zniżki: 10% zniżki na pamiątki z Kolekcji Sopockiej');
+                                                                } else {
+                                                                    console.log('Pominięto duplikat eventu view_promotion dla zniżki: 10% zniżki na pamiątki z Kolekcji Sopockiej');
+                                                                }
+                                                            }
+                                                        });
+                                                    </script>
+                                                        <div class="coupon midnight-blue">
+                                                                <a class="btn_1 pobranie-kodu"
+                                                                   href="javascript:void(0)"
+                                                                   data-id="3914"
+                                                                   data-klasa="Znizka">Pobierz kod rabatowy</a>
+                                                        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="bd-section__title-wrapper mb-30 wow fadeInUp"
+                     style="visibility: visible; animation-name: fadeInUp;">
+
+
+
+                    <span style="font-size:14px;"><span style="font-family:Arial,Helvetica,sans-serif;"><span new="" roman="" times=""><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><a name="_Hlk88490995"><span style="color:#000000;"><span style="background-color:white"><strong>Sopockiepamiatki.pl </strong>to sklep internetowy, w którym można kupić nietuzinkowe i wyjątkowe pamiątki znad Bałtyku.<br />
+Miejsce to powstało z miłości do Sopotu. Oryginalne sopockie skarpetki z motywem mewy, torby, worki czy czapki, to tylko niektóre z nich. W&nbsp;ofercie&nbsp;sklepu&nbsp;znajdują&nbsp;się&nbsp;także&nbsp;książki i publikacje związane z Sopotem oraz odzież i inne gadżety związane z naszym kurortem. Wszystkie proponowane przez nas wyroby charakteryzują się wysoką estetyką, ciekawym&nbsp;designem i lokalnym patriotyzmem. Wszystko stworzone z myślą o turystach, mieszkańcach i wszystkich osobach kochających Sopot.<br />
+<br />
+Oferta sklepu będzie stale poszerzana o nowe, autorskie produkty stworzone przez Sopocką Organizację Turystyczną i lokalnych artystów.</span></span></a></span></span></span></span></span></span></span>
+                </div>
+
+
+                    <div class="bd-section__title-wrapper pb-30 wow fadeInUp"
+                         style="visibility: visible; animation-name: fadeInUp;">
+                        <h2 class="bd-section__title">Regulamin i warunki</h2>
+                        <p><span style="font-size:12px;"><span style="font-family:Arial,Helvetica,sans-serif;"><span helvetica="" neue=""><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="line-height:18.399999618530273px"><span style="color:#222222"><span style="background-color:white">Z regulaminem sklepu internetowego i warunkami sprzedaży można się zapoznać wchodząc w poniższy link.</span></span></span></span></span></span></span></span></span><br />
+<span helvetica="" neue=""><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="line-height:18.399999618530273px"><a href="https://sopockiepamiatki.pl/regulamin-sklepu-internetowego/" style="text-decoration:underline; color:fuchsia"><span style="background-color:white">REGULAMIN - LINK</span></a></span></span></span></span></span></span></span></span></span><br />
+&nbsp;</p>
+                    </div>
+
+
+                    <div class="bd-portfolio-2__section pt-15 wow fadeInUp">
+                        <div class="row partner-galeria">
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6354/2__6b5238c0.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6354/2__6b5238c0.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6357/3__b2dbe5d2.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6357/3__b2dbe5d2.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6360/4__513fb4a6.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6360/4__513fb4a6.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6363/5__0abbb374.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6363/5__0abbb374.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6366/6__8b9baef6.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6366/6__8b9baef6.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6373/7__bac1c47b.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6373/7__bac1c47b.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6376/8__39c93c7c.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6376/8__39c93c7c.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 grid-item">
+                                    <div class="bd-portfolio-2__wrapper mb-30">
+                                        <div class="bd-portfolio-2__thumb  w-img">
+                                            <img src="../../../res/3902/6383/9__f194ec6b.png" alt="">
+                                        </div>
+                                        <div class="bd-portfolio-2__content">
+                                            <span>
+                                                <a href="../../../res/3902/6383/9__f194ec6b.png"
+                                                   class="popup-image">
+                                                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                                                    <span class="sr-only">Powiększ zdjęcie</span>
+
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <h2 id="opis_dostosowania_dla_niepelnosprawnych"
+                        class="bd-section__title">Informacje dla osób z niepełnosprawnościami</h2>
+                    <p><span style="font-size:12px;"><span style="font-family:Arial,Helvetica,sans-serif;"><span helvetica="" neue=""><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="line-height:18.399999618530273px"><span style="color:#222222"><span style="background-color:white">- możliwość zakupu on-line w dowolnym miejscu i o dowolnej porze</span></span></span></span></span></span></span></span></span><br />
+<span helvetica="" neue=""><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="line-height:18.399999618530273px"><span style="color:#222222"><span style="background-color:white">- pamiątki można również kupić stacjonarnie w punktach Informacji Turystycznej na ul. Dworcowej 4 (w pełni punkt jest dostępny dla osób z niepełnosprawnością &ndash; jest do dyspozycji podjazd dla wózka) i na Placu Zdrojowym 2 (wjazd windą na II piętro)</span></span></span></span></span></span></span></span></span><br />
+<span helvetica="" neue=""><span style="color:#000000"><span style="font-style:normal"><span style="font-weight:normal"><span style="white-space:normal"><span style="text-decoration:none"><span style="line-height:18.399999618530273px"><span style="color:#222222"><span style="background-color:white">- w przyszłym roku planujemy wdrożenie zakładki &bdquo;dostępność dla osób z niepełnosprawnościami&rdquo; w celu dostosowania strony dla osób z niepełnosprawnością.</span></span></span></span></span></span></span></span></span></span></span></p>
+
+            </div>
+
+            <aside class="col-lg-4">
+                    <div class="sidebar__widget-content mt-20 pl-15 pr-15 d-none d-lg-block wow fadeInUp">
+                                        <a style="width: 100%" href="https://sopockiepamiatki.pl/"
+                   class="bd-btn przycisk-kupna-partnera" aria-expanded="false"
+                   target="_blank"
+                   data-nazwa-partnera="Sklep internetowy z pamiątkami"
+                   data-id-partnera="3906"
+                   data-rodzaj-linku="zwykly"
+                   data-id-klienta="">
+                        🎫 Sklep
+                </a>
+
+                                            <a style="text-align: center;width:100%"
+                       href="javascript:pokazWarunkiSprzedazy()" class="link-btn-2 mb-30" aria-expanded="false">
+                        Regulamin i warunki
+                    </a>
+                    <script>
+                        pokazWarunkiSprzedazy = function () {
+                            swal.fire({
+                                title: 'Regulamin i warunki',
+                                html: '<p><span style=\"font-size:12px;\"><span style=\"font-family:Arial,Helvetica,sans-serif;\"><span helvetica=\"\" neue=\"\"><span style=\"color:#000000\"><span style=\"font-style:normal\"><span style=\"font-weight:normal\"><span style=\"white-space:normal\"><span style=\"text-decoration:none\"><span style=\"line-height:18.399999618530273px\"><span style=\"color:#222222\"><span style=\"background-color:white\">Z regulaminem sklepu internetowego i warunkami sprzedaży można się zapoznać wchodząc w poniższy link.<\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><br />\r\n<span helvetica=\"\" neue=\"\"><span style=\"color:#000000\"><span style=\"font-style:normal\"><span style=\"font-weight:normal\"><span style=\"white-space:normal\"><span style=\"text-decoration:none\"><span style=\"line-height:18.399999618530273px\"><a href=\"https://sopockiepamiatki.pl/regulamin-sklepu-internetowego/\" style=\"text-decoration:underline; color:fuchsia\"><span style=\"background-color:white\">REGULAMIN - LINK<\/span><\/a><\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><\/span><br />\r\n&nbsp;<\/p>',
+                                showCancelButton: true,
+                                cancelButtonText: 'Anuluj',
+                                confirmButtonText: 'OK',
+                                animation: "slide-from-top",
+                            }).then((result) => {
+                                if (result.isDismissed)
+                                    return false;
+                            });
+                            $('.swal2-container').css("z-index", '9999999');
+                            $('.swal2-content').css("text-align", 'left');
+                        }
+                    </script>
+
+                    </div>
+
+                <div class="d-none d-lg-block wow fadeInUp">
+                    <div class="sidebar__wrapper">
+                        <div class="mb-30">
+                            
+                        <div class="sidebar__widget-content">
+
+
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <div class="dl wow fadeInUp">
+                                                    <div style="background: var(--kolorOzdobnyDodatkowy); "
+                                                         class="discount">
+                                                            10%
+
+                                                        <div class="type">
+                                                                Zniżki
+
+                                                        </div>
+                                                        <div class="dynks"
+                                                             style="border-top: 20px solid var(--kolorOzdobnyDodatkowy);"></div>
+                                                    </div>
+
+                                                    <div class="descr">
+                                                        10% zniżki na pamiątki z Kolekcji Sopockiej
+                                                    </div>
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            if (typeof gtag === 'function') {
+                                                                // Inicjalizacja tablicy śledzących wysłane eventy (jeśli nie istnieje)
+                                                                if (typeof window.wyslanePromocjeGA === 'undefined') {
+                                                                    window.wyslanePromocjeGA = [];
+                                                                }
+
+                                                                var idZnizki = 'znizka_3914';
+
+                                                                // Sprawdź czy event dla tej zniżki nie został już wysłany
+                                                                if (window.wyslanePromocjeGA.indexOf(idZnizki) === -1) {
+
+                                                                    wyslijZdarzenieGTag('view_promotion', {
+                                                                        promotion_name: '10% zniżki na pamiątki z Kolekcji Sopockiej',
+                                                                        items: [
+                                                                            {
+                                                                                item_id: idZnizki,
+                                                                                item_name: 'Sklep internetowy z pamiątkami (10% zniżki na pamiątki z Kolekcji Sopockiej)',
+                                                                                affiliation: window.location.hostname,
+                                                                                creative_name: 'Rabat',
+                                                                                creative_slot: 'Rabat',
+                                                                                discount: 10,
+                                                                                item_brand: window.location.hostname,
+                                                                                item_category: 'Zniżka',
+                                                                                item_list_id: 'Rabat',
+                                                                                item_list_name: 'Rabaty',
+                                                                                item_variant: 'Zniżka procentowa',
+                                                                                promotion_name: '10% zniżki na pamiątki z Kolekcji Sopockiej',
+                                                                                quantity: 1
+                                                                            }
+                                                                        ]
+                                                                    });
+
+                                                                    // Dodaj ID zniżki do tablicy wysłanych
+                                                                    window.wyslanePromocjeGA.push(idZnizki);
+
+                                                                    console.log('Wysłano event view_promotion do Google Analytics dla zniżki: 10% zniżki na pamiątki z Kolekcji Sopockiej');
+                                                                } else {
+                                                                    console.log('Pominięto duplikat eventu view_promotion dla zniżki: 10% zniżki na pamiątki z Kolekcji Sopockiej');
+                                                                }
+                                                            }
+                                                        });
+                                                    </script>
+                                                        <div class="coupon midnight-blue">
+                                                                <a class="btn_1 pobranie-kodu"
+                                                                   href="javascript:void(0)"
+                                                                   data-id="3914"
+                                                                   data-klasa="Znizka">Pobierz kod rabatowy</a>
+                                                        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                    <div class="sidebar__wrapper wow fadeInUp">
+                        <div class="sidebar__widget mb-30">
+                            <h3 class="sidebar__widget-title">Kontakt</h3>
+                            <div class="sidebar__widget-content pl-15">
+                                <p>
+                                                <a 
+                                                   aria-label="telefon: ☎️+48 501 590 773"
+                                                   href="tel:☎️+48501590773"
+                                                   class="phone">
+                                                    <span class="ikona-kontaktu fa-solid fa-phone"></span> ☎️+48 501 590 773
+                                                </a><br>
+
+
+                                        <a aria-label="adres email: sklep@sopockiepamiatki.pl" style="color:#333"
+                                           href="mailto:sklep@sopockiepamiatki.pl"
+                                           taget="_blank"><span
+                                                    class="fa-regular fa-envelope ikona-kontaktu"></span> sklep@sopockiepamiatki.pl
+                                        </a><br>
+
+
+
+                                        <a style="color:#333" href="https://sopockiepamiatki.pl"
+                                           target="_blank"><span
+                                                    class="fa-solid fa-globe ikona-kontaktu"></span> 🌐sopockiepamiatki.pl
+                                        </a><br>
+
+                                        <a style="color:#333" href="https://www.instagram.com/visit.sopot.pl/"
+                                           target="_blank"><span
+                                                    class="fab fa-instagram ikona-kontaktu"></span> /visit.sopot.pl/
+                                        </a><br>
+
+
+                                        <a style="color:#333" href="https://www.facebook.com/SopockaOrganizacjaTurystyczna/"
+                                           target="_blank"><span
+                                                    class="fab fa-facebook-square ikona-kontaktu"></span> /SopockaOrganizacjaTurystyczna/
+                                        </a><br>
+
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                <div class="d-lg-none"></div>
+
+            </aside>
+
+        </div>
+
+        <div class="modal fade" id="mapa_3906" tabindex="-1" aria-labelledby="mapa_3906_label"
+             aria-hidden="true">
+            <div class="modal-dialog" style="margin-top: 100px;max-width: 80%;margin-left: 10%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="mapa_3906_label" class="modal-title">Sklep internetowy z pamiątkami</h5>
+                    </div>
+
+                    <div class="modal-body" id="mapa_3906_wrapper">
+                        <div style="height: 500px;" id="map_3906" class="map"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).off('click.przejscieAfiliacji').on('click.przejscieAfiliacji', '.przejscie-do-afiliacji', function (e) {
+                e.preventDefault();
+                var idZnizki = $(this).data('id');
+                var klasa = $(this).data('klasa');
+
+                // Użytkownik niezalogowany - pokaż modal
+                swal.fire('Przejście do oferty partnera', 'Aby przejść do oferty partnera, musisz zalogować się do Twojego konta', 'warning');
+            });
+        </script>
+    </section>
+    <script>
+
+        function utworzGalerie() {
+            $('.partner-galeria').imagesLoaded(function () {
+                // init Isotope
+                var $grid = $('.partner-galeria').isotope({
+                    itemSelector: '.grid-item',
+                    percentPosition: true,
+                    masonry: {
+                        // use outer width of grid-sizer for columnWidth
+                        columnWidth: 1,
+                    }
+                });
+
+                // filter items on button click
+                $('.bd-portfolio-2__menu').on('click', 'button', function () {
+                    var filterValue = $(this).attr('data-filter');
+                    $grid.isotope({filter: filterValue});
+                });
+
+                //for menu active class
+                $('.bd-portfolio-2__menu button').on('click', function (event) {
+                    $(this).siblings('.active').removeClass('active');
+                    $(this).addClass('active');
+                    event.preventDefault();
+                });
+
+            });
+        }
+
+        $(document).ready(function () {
+            utworzGalerie();
+        });
+
+        $('#idZakladki_0').click(function () {
+
+            utworzGalerie();
+
+            var noweMarkery = [];
+            var jsonMarker = {};
+
+            jsonMarker = {
+                nazwa: 'Sklep internetowy z pamiątkami',
+                lokalizacja: {
+                    lat: 54.44270240,
+                    lng: 18.56267530
+                } 
+            };
+            noweMarkery.push(jsonMarker);
+
+            googleMapsResetMarkers(noweMarkery);
+
+        })
+    </script>
+                </div>
+            </div>
+
+
+        </div>
+        <!--End container -->
+    </div>
+
+</main>
+
+<!-- footer -->
+<footer class="mt-50" style='background: #000000'>
+    <div class="bd-footer__section" style="position: relative;background: url('../../../cmsImages/tlo1.jpg') center no-repeat; background-size: cover;">
+        <div class="container pt-60" style="position: relative;z-index: 5;">
+            <div class="bd-footer__main pb-20">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2" style="padding-left: 0px;padding-right: 10px;">
+                                <div class="bd-footer-widget__title" style="margin-bottom: 0px;">
+                                    <img style="width: 80%;margin-bottom: 20px;" class="filter-white" src='../../../cmsImages/logo_kontra.png' alt="logotyp projektu">
+                                </div>
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        
+                                        
+                                        <li><a href="tel:%2B48%20791%20778%20477"><i class="fa-solid fa-phone"></i> +48 791 778 477</a></li>
+                                        
+                                        <li><a href='mailto:kartasopocka%40visit.sopot.pl'><i class="fa-solid fa-envelope"></i> kartasopocka@visit.sopot.pl</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                            <li><a href='../../../faq-pytania-ogolne'>Pomoc / FAQ</a></li>
+                                            <li><a href='../../../dokumenty'>Dokumenty do pobrania</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-2">
+                                <div class="bd-footer-widget__menu">
+                                    <ul>
+                                        <li><a href="../../../mapa-strony">Mapa strony</a></li>
+                                            <li><a href='../../../pl/jak-zostac-partnerem'>Jak zostać partnerem karty</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="bd-footer-widget footer-col-3">
+                                <div class="bd-footer-widget__content">
+                                    <div class="bd-footer-widget__menu">
+                                        <ul>
+                                                <li><a href='../../../pl/regulamin'>Regulamin</a></li>
+                                                <li><a href='../../../pl/polityka-prywatnosci'>Polityka prywatności</a></li>
+                                                <li><a href='../../../res/9410/41896/Deklaracja dostępności.pdf'>Deklaracja dostępności</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="offcanvas__contact mt-30 mb-20">
+                            <div>
+                                <div class="linkoDoAplikacji" style="text-align: center;">
+                                    <a target="_blank" href='https://apps.apple.com/pl/app/karta-sopocka/id1617840608' style="margin-bottom: 5px;"><img src="../../../assets/n/img/btn_appstrore.png" style="display: inline;width: 120px;" alt="apple app store"/></a>
+                                    <a target="_blank" href='https://play.google.com/store/apps/details?id=com.qbmobile.karty.sopot' style="margin-bottom: 5px;"><img style="display: inline; width:120px" src="../../../assets/n/img/btn_google_play.png" alt="google play store"/></a>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+            </div>
+
+            <div class="bd-footer__copyright pb-40 row">
+                    <div class="offcanvas__social" style="text-align: center;">
+
+
+<ul>
+
+        <li><a target="_blank" href='https://www.facebook.com/profile.php?id=100090465643643'><span class="fab fa-facebook-f"></span><span class="sr-only">Facebook</span></a></li>
+        <li><a target="_blank" href='https://www.instagram.com/kartasopocka/'><span class="fab fa-instagram"></span><span class="sr-only">Instagram</span></a></li>
+        
+        <li><a target="_blank" href='https://www.youtube.com/c/SopotSpaFullOfLife'><span class="fab fa-youtube"></span><span class="sr-only">Youtube</span></a></li>
+        
+        
+
+</ul>                    </div>
+
+                <div class="col-lg-12" style="display: flex;justify-content: center;margin-top: 30px">
+                    <p style="text-align: center;color: #FFF">
+                    Copyright © 2021 - 2026  - Wszystkie prawa zastrzeżone<br>
+                    <a style="color: #FFF;text-transform: none;font-weight: normal;font-size: 11px;" title="link do firmy tworzącej system" target="_blank" href="https://qb.com.pl">Build with <span class="fa-solid fa-heart"></span> by qb</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer end -->
+
+
+
+
+
+
+
+        <button id="cookieConsentButton" class="floating-button" aria-label="Akceptuj ciasteczka"><i class="fa fa-cookie-bite"></i></button>
+
+    <!-- Cookie Consent Modal -->
+    <div id="cookieConsentModal" class="modal">
+        <div class="modal-content new-modal-content" style="display: flex; flex-direction: column">
+            <span class="close">&times;</span>
+            <div style = "flex: 0 0 auto;" >
+                <h4>Zgoda na Ciasteczka</h4>
+            </div>
+
+            <div id="scrollableContent">
+                <div class="gradient-top hidden" id="gradient-top"></div>
+                <div class="gradient-bottom hidden" id="gradient-bottom"></div>
+                <div>
+                    <p class="stylZgody dostosujWybor" id="cookieTrescZgody" tabindex="-1"><strong>Szanowny Użytkowniku</strong><br />
+<br />
+Uprzejmie informujemy, że tworząc i administrując strony internetowe Sopockiej Organizacji Turystycznej z siedzibą w Sopocie, używamy technologii służących do zbierania i przetwarzania danych osobowych w celu analizowania ruchu na stronach i w Internecie. Sopocka Organizacja Turystyczna nie personalizuje wyświetlanych treści. Realizując rozporządzenie Parlamentu Europejskiego i Rady Unii Europejskiej 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (tzw. &bdquo;RODO&rdquo;) uprzejmie informujemy, że do przetwarzania wykorzystywane będą następujące dane: adres IP twojego urządzenia, adres URL żądania, nazwa domeny, identyfikator urządzenia, typ przeglądarki, język przeglądarki, liczba kliknięć, ilość czasu spędzonego na poszczególnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczość ekranu, dane zbierane w dziennikach serwera, a także inne podobne informacje.<br />
+<br />
+Administratorem danych jest Sopocka Organizacja Turystyczna, Plac Zdrojowy 2, 81-720 Sopot</p>
+                    <p class="stylZgody dostosujWybor" style="margin-top:6px;"><a href="../../../polityka-prywatnosci" target="_blank" rel="noopener" style="color:#5a6575; text-decoration:underline;">Szczegółowe informacje o plikach cookies znajdziesz w Polityce prywatności</a></p>
+                    <div class="dostosujWybor"  style="display:none;">
+                        <p class="stylZgody" id="cookieWybierzKategorie" tabindex="-1">Wybierz kategorie ciasteczek, na które wyrażasz zgodę:</p>
+                        <div id="cookieConsentForm" style="display: flex">
+                            <div style="margin-right: auto; margin-left: auto;">
+                                <div id="niezbedneDiv">
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" disabled checked value="necessary">
+                                        Niezbędne do działania systemu
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-necessary" tabindex="0" role="button" aria-expanded="false" aria-controls="details-necessary" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-necessary" class="details"><span>- JSESSIONID &mdash; utrzymanie sesji; usuwane po zamknięciu przeglądarki</span><br><span>- cookieConsent &mdash; zapamiętanie Twojej decyzji o zgodach (pamięć lokalna przeglądarki)</span><br><span>- kontrastyOn, bodyZoom &mdash; ustawienia dostępności: kontrast i rozmiar czcionki (pamięć lokalna)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="preferencjeDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="preferences">
+                                        Personalizacja
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-preferences" tabindex="0" role="button" aria-expanded="false" aria-controls="details-preferences" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-preferences" class="details"><span>- _fbp, fr &mdash; personalizacja Facebook (do 90 dni)</span><br></div>
+                                </div>
+                                <br>
+                                <div id="marketingDiv" >
+                                    <label>
+                                        <input type="checkbox" class="ostylowanyCheckbox" name="cookies" value="marketing">
+                                        Marketing
+                                    </label>
+                                    <span class="toggle-icon wcag-klik" data-target="details-marketing" tabindex="0" role="button" aria-expanded="false" aria-controls="details-marketing" aria-label="Pokaż szczegóły kategorii"><i class="fa fa-chevron-down"></i></span>
+                                    <div id="details-marketing" class="details"><span>- _fbp, fr &mdash; Facebook Pixel (do 90 dni)</span><br></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="przyciskiZgod" style="flex: 0 0 auto;">
+                <div class="dostosujWybor" style="display:none;">
+                    <button type="button" class="cc-btn cc-btn-wybrane naSrodku przycisk-zgody" id="saveConsent">Zgoda na wybrane</button>
+                    <a class="cc-btn cc-btn-link naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieTrescZgody').focus();return false;">Pokaż treść zgody</a>
+                </div>
+                <a class="cc-btn cc-btn-glowny naSrodku btnZgodaNaWszystko przycisk-zgody" href="javascript:zgodaNaWszystko();">Zgadzam się na wszystkie ciasteczka</a>
+                <button type="button" class="cc-btn cc-btn-drugi naSrodku przycisk-zgody" id="odrzucOpcjonalne">Odrzuć wszystkie opcjonalne</button>
+                <a class="cc-btn cc-btn-link dostosujWybor naSrodku przycisk-zgody" href="#" onclick="$('.dostosujWybor').toggle();$('#cookieWybierzKategorie').focus();return false;">Dostosuj wybór</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="../../../assets/visit/js/vendor/waypoints.js"></script>
+    <script src="../../../assets/visit/js/bootstrap-bundle.js"></script>
+    <script src="../../../assets/visit/js/meanmenu.js"></script>
+    <script src="../../../assets/visit/js/swiper-bundle.js"></script>
+    <script src="../../../assets/visit/js/magnific-popup.js"></script>
+    <script src="../../../assets/visit/js/backtotop.js"></script>
+    <script src="../../../assets/visit/js/counterup.js"></script>
+    <script src="../../../assets/visit/js/wow.js"></script>
+    <script src="../../../assets/visit/js/isotope-pkgd.js"></script>
+    <script src="../../../assets/visit/js/imagesloaded-pkgd.js"></script>
+    <script src="../../../assets/visit/js/ajax-form.js"></script>
+    <script src="../../../cmsJS/main.js"></script>
+    <script src="../../../assets/n/js/popper.min.js"></script>
+    <script src="../../../assets/n/js/tippy.umd.min.js"></script>
+    <script src="../../../assets/mock/stub-forms.js"></script>
+    <script src="../../../assets/mock/mock.js"></script>
+    <script src="../../../assets/mock/datasprint.js"></script>
+</body>
+</html>

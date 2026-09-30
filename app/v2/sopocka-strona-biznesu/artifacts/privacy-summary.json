@@ -1,0 +1,130 @@
+{
+ "format": "sopot-privacy-summary/1",
+ "generated": "2026-09-30T02:58:33+00:00",
+ "command": "python3 scripts/privacy_report.py --src /Users/kulma/Downloads --out artifacts/privacy-report.json",
+ "note": "PUBLISHABLE SUMMARY — funnel counts only. The full per-cell audit is deliberately NOT published: it carries n_cards, n_merchants and exact top-1 shares for the very cells the gate suppresses, so publishing it would undo the suppression it documents. Regenerate it locally with scripts/privacy_report.py.",
+ "thresholds": {
+  "minCards": 30,
+  "minMerchants": 3,
+  "maxShare": "3/4",
+  "shareMetrics": [
+   "volume",
+   "cards"
+  ],
+  "requireDifferencing": false,
+  "thinBaseTransactions": 12,
+  "ruleVersion": "sopot-privacy-v1+datasprint-2026-09-30"
+ },
+ "thresholds_with_our_extra_gate": {
+  "minCards": 30,
+  "minMerchants": 3,
+  "maxShare": "3/4",
+  "shareMetrics": [
+   "volume",
+   "cards"
+  ],
+  "requireDifferencing": true,
+  "thinBaseTransactions": 12,
+  "ruleVersion": "sopot-privacy-v1+datasprint-2026-09-30+g4"
+ },
+ "source": {
+  "rows": 378212,
+  "sentinel_rows": 38443,
+  "local_day_rollover": 3974,
+  "local_month_differs": 152,
+  "no_postcode_rows": 6431,
+  "distinct_pc": 63,
+  "distinct_merchants": 347,
+  "distinct_cards": 160127,
+  "first_day": "2025-01-01",
+  "last_day": "2026-06-30",
+  "local_months": 19,
+  "prch_months": 18,
+  "mcc": [
+   "5812"
+  ],
+  "files": [
+   "mcc5812_transactions.part01.parquet",
+   "mcc5812_transactions.part02.parquet"
+  ],
+  "sha256": {
+   "mcc5812_transactions.part01.parquet": "9fc821633a1dabc61f02aecf047def8f1f2e236e3e721d3fece704adba081ae1",
+   "mcc5812_transactions.part02.parquet": "aecb77de2ee9c1922b3ce8a0e563cfde7275085b8b61de0f938107e6c9c9d2e9"
+  }
+ },
+ "grain_postcode": {
+  "cells": 62,
+  "transactions_total": 371781,
+  "g1_pass": 54,
+  "g2_pass": 25,
+  "g3_pass": 24,
+  "all_three_pass": 17,
+  "g4_pass": 11,
+  "all_four_pass": 11,
+  "volume_all_three": 334413,
+  "share_all_three_pct": 89.95,
+  "volume_all_four": 326050,
+  "share_all_four_pct": 87.7,
+  "g3_pass_volume_only": 25,
+  "all_three_pass_volume_only": 18,
+  "volume_all_three_volume_only": 337172,
+  "share_all_three_volume_only_pct": 90.69,
+  "reason_histogram": {
+   "g4_differencing": 6,
+   "lt_3_merchants": 7,
+   "multi": 75,
+   "ok": 28,
+   "top1_gt_75": 8
+  }
+ },
+ "grain_postcode_month_daypart": {
+  "cells": 2003,
+  "transactions_total": 333687,
+  "g1_pass": 867,
+  "g2_pass": 526,
+  "g3_pass": 644,
+  "all_three_pass": 393,
+  "g4_pass": 300,
+  "all_four_pass": 300,
+  "volume_all_three": 278435,
+  "share_all_three_pct": 83.44,
+  "volume_all_four": 267077,
+  "share_all_four_pct": 80.04,
+  "g3_pass_volume_only": 652,
+  "all_three_pass_volume_only": 393,
+  "volume_all_three_volume_only": 278435,
+  "share_all_three_volume_only_pct": 83.44,
+  "reason_histogram": {
+   "g4_differencing": 93,
+   "lt_30_cards": 69,
+   "lt_3_merchants": 79,
+   "multi": 3018,
+   "ok": 693,
+   "top1_gt_75": 54
+  }
+ },
+ "findings": [
+  {
+   "id": "F-G3-CARD-LEG",
+   "severity": "informational",
+   "statement": "The contract evaluates G3 on BOTH metrics and fails the cell if either exceeds the limit (compliance §2.3 R7, required by reference fixture F-11). The audit tables measured the volume metric only, so the conservative reading suppresses 1 further postcode cell(s) and the 18/90.7% figure becomes 17/89.95%.",
+   "cells": [
+    {
+     "pc": "81-740",
+     "n_cards": 1932,
+     "n_merchants": 3,
+     "top1_share_pct": 72.164,
+     "top1_card_share_pct": 78.468,
+     "verdict": "released on the volume metric; suppressed on the card metric"
+    }
+   ]
+  },
+  {
+   "id": "F-G4",
+   "severity": "informational",
+   "statement": "G4 (leave-one-out differencing, a voluntary strengthening beyond the letter of the rule) is evaluated on MEASURED residuals at both grains. Its de-facto effect is a 4-merchant floor: with three merchants, removing any one leaves two and the residual fails G2 by construction.",
+   "postcode_all_four_pass": 11,
+   "postcode_share_all_four_pct": 87.7
+  }
+ ]
+}

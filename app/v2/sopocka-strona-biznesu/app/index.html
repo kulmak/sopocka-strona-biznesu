@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Panel przedsiębiorcy · Sopot</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<style>
+  body { margin: 0; background: var(--color-bg); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 8px 24px 24px; }
+  .states { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 18px; }
+  .states a { display: inline-flex; flex-direction: column; gap: 2px; padding: 8px 12px; border: 1px solid var(--color-divider); background: var(--color-surface); color: var(--color-text); text-decoration: none; font-size: 13px; border-radius: var(--radius-md); }
+  .states a:hover { border-color: var(--color-accent); background: var(--color-accent-100); }
+  .states a b { font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; letter-spacing: .03em; }
+  .states a span { font-size: 11px; color: var(--color-text-muted); }
+  .panel-frame { display: block; width: 100%; border: 1px solid var(--color-divider); border-radius: var(--radius-lg); background: var(--color-bg); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="states" id="states"></div>
+    <iframe id="panel" class="panel-frame" title="Panel przedsiębiorcy · Sopot" src="panel.html" height="1500"></iframe>
+  </div>
+
+<script>
+  // State buttons are generated from app/states/*.json so the entry page and the URL-addressable
+  // demo states can never drift apart. Each link opens the same panel with a shareable query string.
+  (async function () {
+    const box = document.getElementById('states');
+    const frame = document.getElementById('panel');
+    const INDEX = ['molo', 'monciak', 'przystan'];
+    let states = [];
+    try {
+      states = await Promise.all(INDEX.map(async (id) => {
+        const r = await fetch(`states/${id}.json`, { cache: 'no-cache' });
+        if (!r.ok) throw new Error(`states/${id}.json → HTTP ${r.status}`);
+        return r.json();
+      }));
+    } catch (e) {
+      box.innerHTML = `<span style="font-size:12px;color:#5a1c18">Nie udało się wczytać stanów demonstracyjnych: ${e.message}</span>`;
+      return;
+    }
+    box.innerHTML = states.map(s =>
+      `<a href="panel.html?${s.query}" data-state="${s.id}"><b>${s.title}</b><span>${s.subtitle}</span></a>`
+    ).join('');
+    const q = location.search.replace(/^\?/, '');
+    if (q) frame.src = `panel.html?${q}`;
+    const fit = () => { try { const d = frame.contentDocument; if (d && d.body) frame.height = Math.max(1200, d.body.scrollHeight + 40); } catch (e) { } };
+    frame.addEventListener('load', fit);
+    setInterval(fit, 1500);
+  })();
+</script>
+</body>
+</html>
