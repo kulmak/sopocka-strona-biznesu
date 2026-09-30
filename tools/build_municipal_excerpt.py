@@ -86,7 +86,10 @@ def build() -> None:
     loader = OUT / "assets" / "mock" / "strona-biznesu.js"
     if loader.exists():
         js = loader.read_text(encoding="utf-8")
-        js = js.replace('var PANEL_URL = "/app/";', 'var PANEL_URL = "../../../app/";')
+        # Point straight at the panel, not at app/index.html: that wrapper renders municipal
+        # chrome and then iframes the panel itself, so the tab would nest two frames deep and
+        # show a landing rather than the data.
+        js = js.replace('var PANEL_URL = "/app/";', 'var PANEL_URL = "../../../app/panel.html";')
         js = js.replace('var PANEL_PROBE = "/app/index.html";',
                         'var PANEL_PROBE = "../../../app/index.html";')
         loader.write_text(js, encoding="utf-8")
