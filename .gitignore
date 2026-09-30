@@ -38,3 +38,9 @@ artifacts/*.bin
 
 # build output — published via the gh-pages branch, never tracked here
 _site/
+
+# The municipal replica is a 49 MB mirror of karta.sopot.pl. Republishing someone else's site
+# content is a copyright risk and dead weight; integrations/tools/build-all.sh regenerates it
+# from karta-mockup.zip, and integrations/NAV-DIFF.md records the exact edits we apply.
+integrations/municipal-site/
+artifacts/aggregate.fixture.json

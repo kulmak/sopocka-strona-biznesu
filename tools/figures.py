@@ -76,6 +76,15 @@ def hourly_with_sentinel(c: duckdb.DuckDBPyConnection) -> list[int]:
     return counts
 
 
+# An <img>-referenced SVG is an ISOLATED document: the page's @font-face never reaches it,
+# so without this block every label silently falls back to Times-Roman. Paths are relative to
+# the SVG's own location.
+FACE = """<style>
+@font-face{font-family:'Inter';src:url('../fonts/inter-0.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'Inter';src:url('../fonts/inter-1.woff2') format('woff2');font-weight:500}
+@font-face{font-family:'JetBrains Mono';src:url('../fonts/jetbrains-mono-0.woff2') format('woff2');font-weight:500}
+</style>"""
+
 # ---------------------------------------------------------------- drawing helpers
 
 def _scale(vals: list[float], lo: float, hi: float, out_lo: float, out_hi: float):
@@ -107,16 +116,17 @@ def profile_svg(counts: list[int], peak: int, lunch_share: float) -> str:
             f'<line x1="{x1:.1f}" y1="{T-14}" x2="{x1:.1f}" y2="{H-B}" stroke="{AMBER}" opacity="0.35"/>')
     ticks = "".join(
         f'<text x="{L + h*bw + bw/2:.1f}" y="{H-B+24}" fill="{DIM}" font-size="17" '
-        f'text-anchor="middle" font-family="mono">{h:02d}</text>' for h in range(0, 24, 2))
+        f'text-anchor="middle" font-family="JetBrains Mono">{h:02d}</text>' for h in range(0, 24, 2))
     grid = "".join(f'<line x1="{L}" y1="{H-B-(f)*(H-T-B)}" x2="{W-R}" y2="{H-B-(f)*(H-T-B)}" '
                    f'stroke="{LINE}" stroke-width="0.5"/>' for f in (0.25, 0.5, 0.75))
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">'
+            f'{FACE}'
             f'<rect width="{W}" height="{H}" fill="{GROUND}"/>{grid}{span}{"".join(bars)}{ticks}'
-            f'<text x="{L}" y="{T-20}" fill="{INK2}" font-size="18" font-family="sans">'
+            f'<text x="{L}" y="{T-20}" fill="{INK2}" font-size="18" font-family="Inter">'
             f'Transakcje MCC 5812 wg godziny (czas polski)</text>'
-            f'<text x="{x0+6:.1f}" y="{T-20}" fill="{AMBER}" font-size="17" font-family="mono">'
+            f'<text x="{x0+6:.1f}" y="{T-20}" fill="{AMBER}" font-size="17" font-family="JetBrains Mono">'
             f'{lunch_share:.1f}% w godz. 11-15</text>'
-            f'<text x="{W-R}" y="{T-20}" fill="{AMBER}" font-size="17" font-family="mono" '
+            f'<text x="{W-R}" y="{T-20}" fill="{AMBER}" font-size="17" font-family="JetBrains Mono" '
             f'text-anchor="end">szczyt {peak:02d}:00</text>'
             f'</svg>')
 
@@ -140,17 +150,18 @@ def sentinel_svg(excl: list[int], incl: list[int]) -> str:
     x = L + spike * bw
     callout = (f'<line x1="{x+bw/2:.1f}" y1="{T+6}" x2="{x+bw/2:.1f}" y2="{H-B-max(incl)/top*(H-T-B):.1f}" '
                f'stroke="{AMBER}" stroke-dasharray="4 3"/>'
-               f'<text x="{x+bw+12:.1f}" y="{T+22}" fill="{AMBER}" font-size="19" font-family="mono">'
+               f'<text x="{x+bw+12:.1f}" y="{T+22}" fill="{AMBER}" font-size="19" font-family="JetBrains Mono">'
                f'02:00 = {(100*max(incl)/sum(incl)):.0f}% wierszy bez znacznika czasu</text>')
     ticks = "".join(f'<text x="{L + h*bw + bw/2:.1f}" y="{H-B+26}" fill="{DIM}" font-size="17" '
-                    f'text-anchor="middle" font-family="mono">{h:02d}</text>' for h in range(0, 24, 2))
+                    f'text-anchor="middle" font-family="JetBrains Mono">{h:02d}</text>' for h in range(0, 24, 2))
     lg = (f'<rect x="{L}" y="{T-22}" width="14" height="14" fill="{DIM}" opacity="0.55"/>'
-          f'<text x="{L+22}" y="{T-10}" fill="{INK2}" font-size="17" font-family="sans">'
+          f'<text x="{L+22}" y="{T-10}" fill="{INK2}" font-size="17" font-family="Inter">'
           f'z znacznikiem 000000 (błędnie „valid")</text>'
           f'<rect x="{L+430}" y="{T-22}" width="14" height="14" fill="{TEAL}"/>'
-          f'<text x="{L+452}" y="{T-10}" fill="{INK2}" font-size="17" font-family="sans">'
+          f'<text x="{L+452}" y="{T-10}" fill="{INK2}" font-size="17" font-family="Inter">'
           f'po wyłączeniu — prawdziwy profil</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">'
+            f'{FACE}'
             f'<rect width="{W}" height="{H}" fill="{GROUND}"/>{lg}{"".join(out)}{callout}{ticks}</svg>')
 
 
@@ -163,23 +174,24 @@ def season_control_svg(raw_hi: float, raw_lo: float, ctl_hi: float, ctl_lo: floa
 
     def row(label, hi, lo, colour, yy):
         x_hi, x_lo = L + 260, L + 480
-        return (f'<text x="{L-24}" y="{yy+6}" fill="{INK2}" font-size="20" font-family="sans" '
+        return (f'<text x="{L-24}" y="{yy+6}" fill="{INK2}" font-size="20" font-family="Inter" '
                 f'text-anchor="end">{label}</text>'
                 f'<line x1="{x_hi}" y1="{y(hi):.1f}" x2="{x_lo}" y2="{y(lo):.1f}" stroke="{colour}" '
                 f'stroke-width="3"/>'
                 f'<circle cx="{x_hi}" cy="{y(hi):.1f}" r="9" fill="{colour}"/>'
                 f'<circle cx="{x_lo}" cy="{y(lo):.1f}" r="9" fill="{colour}"/>'
                 f'<text x="{x_lo+22}" y="{y(hi)+7:.1f}" fill="{colour}" font-size="22" '
-                f'font-family="mono">+{hi:.1f}%</text>'
+                f'font-family="JetBrains Mono">+{hi:.1f}%</text>'
                 f'<text x="{x_lo+22}" y="{y(lo)+7:.1f}" fill="{colour}" font-size="22" '
-                f'font-family="mono">{lo:.1f}%</text>')
+                f'font-family="JetBrains Mono">{lo:.1f}%</text>')
 
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">'
+            f'{FACE}'
             f'<rect width="{W}" height="{H}" fill="{GROUND}"/>'
             f'<line x1="{L+260}" y1="{zero}" x2="{W-R}" y2="{zero}" stroke="{LINE}"/>'
             f'{row("Dni z największą liczbą wydarzeń vs najmniejszą — bez kontroli", raw_hi, raw_lo, AMBER, 118)}'
             f'{row("To samo, po kontroli miesiąc × dzień tygodnia", ctl_hi, ctl_lo, TEAL, 232)}'
-            f'<text x="{L+260}" y="{H-14}" fill="{INK}" font-size="21" font-family="mono">'
+            f'<text x="{L+260}" y="{H-14}" fill="{INK}" font-size="21" font-family="JetBrains Mono">'
             f'rozstęp {(raw_hi-raw_lo):.1f} pp → {(ctl_hi-ctl_lo):.1f} pp</text>'
             f'</svg>')
 
@@ -199,14 +211,15 @@ def privacy_funnel_svg(total: int, g1: int, g2: int, all3: int, vol_share: float
         out.append(f'<rect x="{L}" y="{yy}" width="{w:.1f}" height="{BH}" fill="{colour}" '
                    f'opacity="{0.35 + 0.2*i:.2f}" rx="3"/>'
                    f'<text x="{L+14}" y="{yy+BH/2+8}" fill="{GROUND if i>1 else INK}" font-size="23" '
-                   f'font-family="sans" font-weight="600">{label}</text>'
+                   f'font-family="Inter" font-weight="600">{label}</text>'
                    f'<text x="{maxw+L+22}" y="{yy+BH/2+9}" fill="{colour}" font-size="27" '
-                   f'font-family="mono">{v} / {total}</text>')
-    out.append(f'<text x="{L}" y="{T-26}" fill="{AMBER}" font-size="26" font-family="mono">'
+                   f'font-family="JetBrains Mono">{v} / {total}</text>')
+    out.append(f'<text x="{L}" y="{T-26}" fill="{AMBER}" font-size="26" font-family="JetBrains Mono">'
                f'{vol_share:.1f}% wolumenu transakcji leży w obszarach, które przechodzą wszystkie trzy bramki</text>')
-    out.append(f'<text x="{L}" y="{H-26}" fill="{DIM}" font-size="19" font-family="sans">'
+    out.append(f'<text x="{L}" y="{H-26}" fill="{DIM}" font-size="19" font-family="Inter">'
                f'Bramki: ≥30 kart · ≥3 podmioty · żaden podmiot powyżej 75% grupy. Ciemne obszary są celowe, nie brakujące.</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">'
+            f'{FACE}'
             f'<rect width="{W}" height="{H}" fill="{GROUND}"/>{"".join(out)}</svg>')
 
 
@@ -307,7 +320,16 @@ def main() -> None:
     (FIGS / "privacy_funnel.svg").write_text(
         privacy_funnel_svg(m["privacy_total"], m["g1"], m["g2"], m["all3"], m["vol_share"]),
         encoding="utf-8")
-    print(f"wrote 4 figures to {(FIGS).relative_to(ROOT)}")
+    emitted = list(FIGS.glob("*.svg"))
+    generic = [f.name for f in emitted
+               if 'font-family="sans"' in f.read_text() or 'font-family="mono"' in f.read_text()]
+    if generic:
+        raise SystemExit(f"REFUSING: generic font families in {generic} — they render as Times")
+    missing_face = [f.name for f in emitted if "@font-face" not in f.read_text()]
+    if missing_face:
+        raise SystemExit(f"REFUSING: no embedded @font-face in {missing_face} — an <img> SVG "
+                         "cannot see the page's fonts and would fall back to a serif")
+    print(f"wrote {len(emitted)} figures to {(FIGS).relative_to(ROOT)} (fonts embedded)")
     if not from_artifact:
         print("WARNING: season_control.svg used audited fallback values — "
               "re-run after the pipeline writes artifacts/drivers.json")

@@ -192,22 +192,33 @@ tr.best td:first-child:before{content:'▸ '}
 <!-- ======================================================= 5 · FINDING 2 -->
 <section class="slide">
   <div class="eyebrow">Wniosek 2</div>
-  <h2>Deszcz zabiera ruch. Wydarzenia wyglądają na +60 pp — ale to sezon</h2>
-  <div class="sub">Jedna kontrola sezonowa przenosi wniosek o 51 punktów procentowych.
-    <span class="en">One seasonal control moves the headline by 51 percentage points. We publish the corrected number, not the flattering one.</span>
+  <h2>Deszcz działa w każdej specyfikacji. Wydarzenia zależą od tego, ile sezonu zabierzemy</h2>
+  <div class="sub">Bez kontroli dni z największą liczbą wydarzeń wypadają <b>+33 pp</b> powyżej średniej, a najspokojniejsze
+    <b>−27 pp</b>. Po usunięciu efektu miesiąca i dnia tygodnia różnica maleje z <b>59,8 pp do 8,8 pp</b>.
+    <span class="en">The event signal is real but an order of magnitude smaller than it first appears. We report the
+    whole specification curve rather than the one that flatters our own story — and the film's draft claimed +38%.</span>
   </div>
   <figure style="margin-top:26px"><img src="assets/figures/season_control.svg" alt="Kontrola sezonowa"></figure>
-  <div class="cols" style="margin-top:26px">
-    <div class="col card"><div class="eyebrow" style="font-size:19px">Po kontroli miesiąc × dzień tygodnia</div>
-      <div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:26px;line-height:1.7;color:var(--ink-2)">
-        deszcz β = −0,364 <span style="color:var(--accent)">t = −8,8</span><br>
-        temperatura β = +0,0063 <span style="color:var(--accent)">t = +4,5</span><br>
-        wydarzenia β = +0,0031 <span style="color:var(--pulse)">t = +1,9</span>
+  <div class="cols" style="margin-top:24px">
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Statystyka t w dwóch specyfikacjach</div>
+      <table style="margin-top:8px;font-size:25px">
+        <thead><tr><th>Czynnik</th><th class="n">z miesiącem</th><th class="n">bez miesiąca</th></tr></thead>
+        <tbody>
+          <tr class="best"><td>deszcz</td><td class="n">−9,7</td><td class="n">−8,5</td></tr>
+          <tr><td>temperatura</td><td class="n">+11,4</td><td class="n">+3,1</td></tr>
+          <tr><td>wydarzenia</td><td class="n">+5,1</td><td class="n">+2,8</td></tr>
+          <tr class="worst"><td>wiatr</td><td class="n">−1,4</td><td class="n">−2,0</td></tr>
+        </tbody>
+      </table></div>
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Co z tego wynika</div>
+      <div style="margin-top:12px;font-size:26px;line-height:1.5;color:var(--ink-2)">
+        <b>Deszcz</b> jest jedynym czynnikiem, który jest silny w <b>każdej</b> specyfikacji — więc to jego
+        pokazujemy jako sterowalny. <b>Wiatr</b> nie jest istotny, więc go nie twierdzimy.
+        <b>Wydarzenia</b> są realne, ale ich wielkość zależy od tego, ile sezonu pochłoną zmienne miesięczne —
+        i tak to pokazujemy.<br><br>
+        <span style="color:var(--dim);font-size:22px">Pełna krzywa specyfikacji jest w <b>docs/MODEL.md</b>;
+        każda liczba na tym slajdzie ma wiersz w <b>docs/claims.json</b> i przechodzi <b>make verify</b>.</span>
       </div></div>
-    <div class="col card"><div class="eyebrow" style="font-size:19px">Co to znaczy dla właścicielki</div>
-      <div style="margin-top:14px;font-size:27px;line-height:1.5;color:var(--ink-2)">
-        Deszcz to najsilniejszy krótkoterminowy czynnik. Kalendarz wydarzeń to <b>typ dnia</b>, nie prognoza wzrostu.
-        Produkt pokazuje <b>zwykły poziom</b> i <b>odchylenie</b>, a nie obiecuje cudu.</div></div>
   </div>
   <div class="footer"><span>Wniosek 2 · czynniki</span><span>Kryterium 1 · 2 · 4</span><span>5 / 10</span></div>
 </section>
@@ -215,23 +226,24 @@ tr.best td:first-child:before{content:'▸ '}
 <!-- ========================================================== 6 · MODEL -->
 <section class="slide">
   <div class="eyebrow">Model i test kroczący</div>
-  <h2>24,1% typowego błędu — i publikujemy to, czego nie poprawia</h2>
+  <h2>20,5% typowego błędu — i mówimy, co ten wynik poprawia</h2>
   <div class="sub">Test kroczący, 490 dni, wyłącznie z przeszłości, bez podglądania przyszłości.
-    <span class="en">Walk-forward, expanding window, past-only. We also report that our own extra drivers do NOT improve the day-ahead forecast.</span>
+    <span class="en">Walk-forward, expanding window, past-only. The same run also tells us what does NOT help.</span>
   </div>
   <table>
-    <thead><tr><th>Metoda bazowa</th><th class="n">MAPE</th><th class="n">MAE</th><th>Werdykt</th></tr></thead>
+    <thead><tr><th>Model</th><th class="n">MAPE</th><th class="n">MAE</th><th class="n">MASE</th><th class="n">PICP80</th><th>Werdykt</th></tr></thead>
     <tbody>
-      <tr class="best"><td>Średnia z ostatnich 4 takich samych dni tygodnia</td><td class="n">24,1%</td><td class="n">169,9</td><td>nasza baza / our baseline</td></tr>
-      <tr><td>Mediana z ostatnich 4 takich samych dni tygodnia</td><td class="n">{{MAPE_MEDIAN}}</td><td class="n">{{MAE_MEDIAN}}</td><td>—</td></tr>
-      <tr><td>Średnia z ostatnich 7 dni</td><td class="n">{{MAPE_LAST7}}</td><td class="n">{{MAE_LAST7}}</td><td>—</td></tr>
-      <tr class="worst"><td>„Mediana ostatnich piątków" — metoda z naszego scenariusza filmowego</td><td class="n">35,4%</td><td class="n">{{MAE_FRIDAY}}</td><td>najgorsza / worst of four</td></tr>
+      <tr class="best"><td>Baza + pogoda + wydarzenia</td><td class="n">20,5%</td><td class="n">145,2</td><td class="n">0,759</td><td class="n">80,6%</td><td>nasz model / shipped</td></tr>
+      <tr><td>Mediana z 4 takich samych dni — sama baza</td><td class="n">22,8%</td><td class="n">166,3</td><td class="n">0,869</td><td class="n">78,6%</td><td>najlepsza baza</td></tr>
+      <tr><td>Średnia z 4 takich samych dni</td><td class="n">24,1%</td><td class="n">169,9</td><td class="n">0,888</td><td class="n">78,2%</td><td>—</td></tr>
+      <tr class="worst"><td>Sezonowa naiwna (ta sama godzina, poprzedni tydzień)</td><td class="n">26,4%</td><td class="n">188,5</td><td class="n">0,986</td><td class="n">79,6%</td><td>najsłabsza</td></tr>
     </tbody>
   </table>
-  <div class="card" style="margin-top:30px;font-size:27px;line-height:1.5;color:var(--ink-2)">
-    Dołożenie pogody i wydarzeń do prognozy dziennej dla całego miasta <b>nie poprawia</b> wyniku
-    (29,2% / 29,5%). Dlatego ich nie mnożymy — pokazujemy je jako <b>czynniki</b>, nie jako mnożniki.
-    <span class="en">Adding weather and events makes the city-day forecast worse, so we report them as drivers and never multiply them into the point forecast. Przedział P10–P90 jest pokazany w panelu.</span>
+  <div class="card" style="margin-top:28px;font-size:27px;line-height:1.5;color:var(--ink-2)">
+    Czynniki poprawiają <b>naszą własną bazę o 2,3 pp</b> (24,1% → 20,5%) i sezonową naiwną o 5,8 pp.
+    Przedział 80% pokrywa <b>80,6%</b> dni — czyli jest skalibrowany, a nie tylko wąski.
+    <span class="en">The intervals are calibrated, not merely narrow: an 80% interval covers 80.6% of days.
+    Everything here is one command — <b>make data</b> — and re-checked by <b>make verify</b>.</span>
   </div>
   <div class="footer"><span>Model · backtest</span><span>Kryterium 1 · 4</span><span>6 / 10</span></div>
 </section>

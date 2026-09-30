@@ -1,0 +1,11 @@
+{
+  "id": "przystan",
+  "title": "Bar na plaży",
+  "subtitle": "81-777, drugi lokal w tej samej strefie · sobota 20.06.2026, 21:00",
+  "query": "stan=przystan&data=2026-06-20&g=21",
+  "code": "81-777",
+  "day": "2026-06-20",
+  "hour": 21,
+  "venue": "Bar na plaży",
+  "expect": { "laneMinDistinct": 8, "needsNumber": true }
+}

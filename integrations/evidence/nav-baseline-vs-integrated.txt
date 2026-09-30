@@ -1,0 +1,665 @@
+case                      items  wraps  font   marginR  sumW     lastRight  wrapAt
+source-7-items @1280      7      false  14px   12px     626.4    1000.7     -
+source-7-items @1366      7      false  14px   12px     626.4    1043.7     -
+source-7-items @1440      7      false  14px   12px     626.4    1080.7     -
+source-7-items @1920      7      false  16px   20px     713      1388       -
+integrated-8-items @1280  8      false  14px   12px     733.4    1048.7     -
+integrated-8-items @1366  8      false  14px   12px     733.4    1091.7     -
+integrated-8-items @1440  8      false  14px   12px     733.4    1128.7     -
+integrated-8-items @1920  8      false  16px   20px     835.3    1447.6     -
+
+full metrics:
+{
+ "source-7-items @1280": {
+  "items": 7,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "14px",
+  "itemMarginRight": "12px",
+  "menuPadding": "20px/20px",
+  "menuWidth": 761.4,
+  "navWidth": 721.4,
+  "sumWidths": 626.4,
+  "lastRight": 1000.7,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 83.7,
+    "left": 279.3,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 84.6,
+    "left": 378.8,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 68.8,
+    "left": 479.2,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 134.3,
+    "left": 563.8,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 52.4,
+    "left": 713.9,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 99.9,
+    "left": 782.2,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 102.8,
+    "left": 897.9,
+    "top": 85,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "source-7-items @1366": {
+  "items": 7,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "14px",
+  "itemMarginRight": "12px",
+  "menuPadding": "20px/20px",
+  "menuWidth": 761.4,
+  "navWidth": 721.4,
+  "sumWidths": 626.4,
+  "lastRight": 1043.7,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 83.7,
+    "left": 322.3,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 84.6,
+    "left": 421.8,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 68.8,
+    "left": 522.2,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 134.3,
+    "left": 606.8,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 52.4,
+    "left": 756.9,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 99.9,
+    "left": 825.2,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 102.8,
+    "left": 940.9,
+    "top": 85,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "source-7-items @1440": {
+  "items": 7,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "14px",
+  "itemMarginRight": "12px",
+  "menuPadding": "20px/20px",
+  "menuWidth": 761.4,
+  "navWidth": 721.4,
+  "sumWidths": 626.4,
+  "lastRight": 1080.7,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 83.7,
+    "left": 359.3,
+    "top": 95,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 84.6,
+    "left": 458.8,
+    "top": 95,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 68.8,
+    "left": 559.2,
+    "top": 95,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 134.3,
+    "left": 643.8,
+    "top": 95,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 52.4,
+    "left": 793.9,
+    "top": 95,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 99.9,
+    "left": 862.2,
+    "top": 95,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 102.8,
+    "left": 977.9,
+    "top": 90,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "source-7-items @1920": {
+  "items": 7,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "16px",
+  "itemMarginRight": "20px",
+  "menuPadding": "20px/20px",
+  "menuWidth": 896,
+  "navWidth": 856,
+  "sumWidths": 713,
+  "lastRight": 1388,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 95.6,
+    "left": 532,
+    "top": 95,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 96.7,
+    "left": 651.4,
+    "top": 95,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 78.6,
+    "left": 771.9,
+    "top": 95,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 153.5,
+    "left": 874.3,
+    "top": 95,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 59.9,
+    "left": 1051.6,
+    "top": 95,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 114.2,
+    "left": 1135.4,
+    "top": 95,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 114.6,
+    "left": 1273.4,
+    "top": 90,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "integrated-8-items @1280": {
+  "items": 8,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "14px",
+  "itemMarginRight": "12px",
+  "menuPadding": "0px/0px",
+  "menuWidth": 817.4,
+  "navWidth": 817.4,
+  "sumWidths": 733.4,
+  "lastRight": 1048.7,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 83.7,
+    "left": 231.3,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 84.6,
+    "left": 326.9,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 68.8,
+    "left": 423.5,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 134.3,
+    "left": 504.3,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 52.4,
+    "left": 650.6,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 99.9,
+    "left": 715,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 102.8,
+    "left": 826.9,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_900",
+    "label": "Strona Biznesu",
+    "w": 107,
+    "left": 941.7,
+    "top": 85,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "integrated-8-items @1366": {
+  "items": 8,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "14px",
+  "itemMarginRight": "12px",
+  "menuPadding": "0px/0px",
+  "menuWidth": 817.4,
+  "navWidth": 817.4,
+  "sumWidths": 733.4,
+  "lastRight": 1091.7,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 83.7,
+    "left": 274.3,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 84.6,
+    "left": 369.9,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 68.8,
+    "left": 466.5,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 134.3,
+    "left": 547.3,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 52.4,
+    "left": 693.6,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 99.9,
+    "left": 758,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 102.8,
+    "left": 869.9,
+    "top": 85,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_900",
+    "label": "Strona Biznesu",
+    "w": 107,
+    "left": 984.7,
+    "top": 85,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "integrated-8-items @1440": {
+  "items": 8,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "14px",
+  "itemMarginRight": "12px",
+  "menuPadding": "0px/0px",
+  "menuWidth": 817.4,
+  "navWidth": 817.4,
+  "sumWidths": 733.4,
+  "lastRight": 1128.7,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 83.7,
+    "left": 311.3,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 84.6,
+    "left": 406.9,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 68.8,
+    "left": 503.5,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 134.3,
+    "left": 584.3,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 52.4,
+    "left": 730.6,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 99.9,
+    "left": 795,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 102.8,
+    "left": 906.9,
+    "top": 90,
+    "mr": "12px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_900",
+    "label": "Strona Biznesu",
+    "w": 107,
+    "left": 1021.7,
+    "top": 90,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ },
+ "integrated-8-items @1920": {
+  "items": 8,
+  "wraps": false,
+  "wrapAt": null,
+  "font": "16px",
+  "itemMarginRight": "20px",
+  "menuPadding": "0px/0px",
+  "menuWidth": 975.3,
+  "navWidth": 975.3,
+  "sumWidths": 835.3,
+  "lastRight": 1447.6,
+  "rows": [
+   {
+    "id": "menuItem_590",
+    "label": "Aktualności",
+    "w": 95.6,
+    "left": 472.3,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_402",
+    "label": "Wydarzenia",
+    "w": 96.7,
+    "left": 587.9,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_407",
+    "label": "Partnerzy",
+    "w": 78.6,
+    "left": 704.6,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_5318689",
+    "label": "Konkurs punktowy",
+    "w": 153.5,
+    "left": 803.1,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_427",
+    "label": "Pakiety",
+    "w": 59.9,
+    "left": 976.6,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_417",
+    "label": "Punkt obsługi",
+    "w": 114.2,
+    "left": 1056.6,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_392",
+    "label": "Załóż konto",
+    "w": 114.6,
+    "left": 1190.7,
+    "top": 90,
+    "mr": "20px",
+    "ml": "0px"
+   },
+   {
+    "id": "menuItem_900",
+    "label": "Strona Biznesu",
+    "w": 122.3,
+    "left": 1325.3,
+    "top": 90,
+    "mr": "0px",
+    "ml": "0px"
+   }
+  ]
+ }
+}

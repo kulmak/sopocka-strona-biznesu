@@ -1,0 +1,126 @@
+{
+  "1280x800": {
+    "items": 8,
+    "wraps": false,
+    "wrapAt": null,
+    "tab": {
+      "label": "Strona Biznesu",
+      "left": 941.7,
+      "right": 1048.72,
+      "width": 107.02,
+      "height": 40,
+      "top": 85,
+      "class": " "
+    },
+    "ulWidth": 817.44,
+    "menuColumnWidth": 817.44,
+    "slackInColumn": 0,
+    "overflow": {
+      "pastNavRight": 0,
+      "pastHeaderRight": -231.28,
+      "pastMenuColumn": 0,
+      "pastViewport": -231.28
+    },
+    "clippedBy": [],
+    "lastItemRight": 1048.72,
+    "firstItemLeft": 231.28,
+    "font": {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "fontFamily": "Montserrat, sans-serif"
+    }
+  },
+  "1366x768": {
+    "items": 8,
+    "wraps": false,
+    "wrapAt": null,
+    "tab": {
+      "label": "Strona Biznesu",
+      "left": 984.69,
+      "right": 1091.7,
+      "width": 107.02,
+      "height": 40,
+      "top": 85,
+      "class": " "
+    },
+    "ulWidth": 817.44,
+    "menuColumnWidth": 817.44,
+    "slackInColumn": 0,
+    "overflow": {
+      "pastNavRight": 0,
+      "pastHeaderRight": -274.3,
+      "pastMenuColumn": 0,
+      "pastViewport": -274.3
+    },
+    "clippedBy": [],
+    "lastItemRight": 1091.7,
+    "firstItemLeft": 274.27,
+    "font": {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "fontFamily": "Montserrat, sans-serif"
+    }
+  },
+  "1440x900": {
+    "items": 8,
+    "wraps": false,
+    "wrapAt": null,
+    "tab": {
+      "label": "Strona Biznesu",
+      "left": 1021.7,
+      "right": 1128.72,
+      "width": 107.02,
+      "height": 40,
+      "top": 90,
+      "class": " "
+    },
+    "ulWidth": 817.44,
+    "menuColumnWidth": 817.44,
+    "slackInColumn": 0,
+    "overflow": {
+      "pastNavRight": 0,
+      "pastHeaderRight": -311.28,
+      "pastMenuColumn": 0,
+      "pastViewport": -311.28
+    },
+    "clippedBy": [],
+    "lastItemRight": 1128.72,
+    "firstItemLeft": 311.28,
+    "font": {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "fontFamily": "Montserrat, sans-serif"
+    }
+  },
+  "1920x1080": {
+    "items": 8,
+    "wraps": false,
+    "wrapAt": null,
+    "tab": {
+      "label": "Strona Biznesu",
+      "left": 1325.34,
+      "right": 1447.64,
+      "width": 122.3,
+      "height": 40,
+      "top": 90,
+      "class": " "
+    },
+    "ulWidth": 975.33,
+    "menuColumnWidth": 975.33,
+    "slackInColumn": 0,
+    "overflow": {
+      "pastNavRight": 0,
+      "pastHeaderRight": -472.36,
+      "pastMenuColumn": 0,
+      "pastViewport": -472.36
+    },
+    "clippedBy": [],
+    "lastItemRight": 1447.64,
+    "firstItemLeft": 472.31,
+    "font": {
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "fontFamily": "Montserrat, sans-serif"
+    }
+  }
+}

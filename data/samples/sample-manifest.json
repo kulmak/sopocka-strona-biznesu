@@ -1,0 +1,1138 @@
+{
+  "absent_by_construction": [
+    "pymt_crd_acct_num_raw",
+    "mrch_nm_raw",
+    "tran_id_raw",
+    "tran_id_gmt_tm",
+    "hour",
+    "any per-transaction record"
+  ],
+  "columns": [
+    "postcode",
+    "date",
+    "weekday_iso",
+    "month",
+    "transactions",
+    "transactions_dated",
+    "amount_pln",
+    "merchants",
+    "temperature_mean_c",
+    "rainy_fraction",
+    "wind_speed_mean_kmh",
+    "event_listings_count"
+  ],
+  "file": "sample.csv",
+  "gate_variants": {
+    "n_codes_considered": 54,
+    "note": "AGENTS.md records '18 of 62 postcodes pass all three gates' — that is the challenge brief's volume-only reading. Under the privacy harness's default share_metrics=('volume','cards') 17 pass; 81-740 holds 72.2 % of volume but 78.5 % of distinct cards in one merchant. The stricter reading is used.",
+    "passed_volume_and_cards": [
+      "81-704",
+      "81-706",
+      "81-717",
+      "81-718",
+      "81-720",
+      "81-731",
+      "81-737",
+      "81-745",
+      "81-759",
+      "81-767",
+      "81-769",
+      "81-771",
+      "81-777",
+      "81-805",
+      "81-816",
+      "81-824",
+      "81-855"
+    ],
+    "passed_volume_only": [
+      "81-704",
+      "81-706",
+      "81-717",
+      "81-718",
+      "81-720",
+      "81-731",
+      "81-737",
+      "81-740",
+      "81-745",
+      "81-759",
+      "81-767",
+      "81-769",
+      "81-771",
+      "81-777",
+      "81-805",
+      "81-816",
+      "81-824",
+      "81-855"
+    ],
+    "suppressed_only_by_card_share": [
+      "81-740"
+    ]
+  },
+  "gated_codes": [
+    "81-704",
+    "81-706",
+    "81-717",
+    "81-718",
+    "81-720",
+    "81-731",
+    "81-737",
+    "81-745",
+    "81-759",
+    "81-767",
+    "81-769",
+    "81-771",
+    "81-777",
+    "81-805",
+    "81-816",
+    "81-824",
+    "81-855"
+  ],
+  "gates_source": "contracts.privacy",
+  "grain": "postcode x day (aggregate, not a row sample)",
+  "n_gated_codes": 17,
+  "note": "Gated codes only; every published row has >= 3 transactions and >= 3 distinct merchants. Re-run `python3 -m pipeline.run` to regenerate from the source parquet. The raw parquet is never published.",
+  "per_code": {
+    "81-702": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 112,
+      "n_merchants": 1,
+      "n_transactions": 127,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-703": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 721,
+      "n_merchants": 1,
+      "n_transactions": 894,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-704": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 12853,
+      "n_merchants": 25,
+      "n_transactions": 17482,
+      "top1_card_share": 0.2638,
+      "top1_share": 0.2123
+    },
+    "81-706": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 1487,
+      "n_merchants": 6,
+      "n_transactions": 1978,
+      "top1_card_share": 0.5393,
+      "top1_share": 0.5854
+    },
+    "81-708": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 160,
+      "n_merchants": 2,
+      "n_transactions": 216,
+      "top1_card_share": 0.9437,
+      "top1_share": 0.9213
+    },
+    "81-711": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 881,
+      "n_merchants": 3,
+      "n_transactions": 1280,
+      "top1_card_share": 0.8513,
+      "top1_share": 0.8586
+    },
+    "81-712": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 3114,
+      "n_merchants": 3,
+      "n_transactions": 4903,
+      "top1_card_share": 0.9396,
+      "top1_share": 0.95
+    },
+    "81-713": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 930,
+      "n_merchants": 3,
+      "n_transactions": 1364,
+      "top1_card_share": 0.7796,
+      "top1_share": 0.7559
+    },
+    "81-715": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 173,
+      "n_merchants": 2,
+      "n_transactions": 241,
+      "top1_card_share": 0.948,
+      "top1_share": 0.9502
+    },
+    "81-717": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 580,
+      "n_merchants": 4,
+      "n_transactions": 753,
+      "top1_card_share": 0.5793,
+      "top1_share": 0.4728
+    },
+    "81-718": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 8194,
+      "n_merchants": 17,
+      "n_transactions": 11210,
+      "top1_card_share": 0.2524,
+      "top1_share": 0.207
+    },
+    "81-719": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 420,
+      "n_merchants": 1,
+      "n_transactions": 437,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-720": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 8642,
+      "n_merchants": 16,
+      "n_transactions": 9711,
+      "top1_card_share": 0.2166,
+      "top1_share": 0.212
+    },
+    "81-731": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 1696,
+      "n_merchants": 8,
+      "n_transactions": 2271,
+      "top1_card_share": 0.6562,
+      "top1_share": 0.6191
+    },
+    "81-737": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 510,
+      "n_merchants": 3,
+      "n_transactions": 571,
+      "top1_card_share": 0.5157,
+      "top1_share": 0.4851
+    },
+    "81-740": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 1932,
+      "n_merchants": 3,
+      "n_transactions": 2759,
+      "top1_card_share": 0.7847,
+      "top1_share": 0.7216
+    },
+    "81-741": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 1161,
+      "n_merchants": 1,
+      "n_transactions": 1269,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-742": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 244,
+      "n_merchants": 1,
+      "n_transactions": 355,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-743": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": true
+      },
+      "n_cards": 429,
+      "n_merchants": 2,
+      "n_transactions": 525,
+      "top1_card_share": 0.5431,
+      "top1_share": 0.5333
+    },
+    "81-745": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 775,
+      "n_merchants": 4,
+      "n_transactions": 1520,
+      "top1_card_share": 0.6439,
+      "top1_share": 0.6079
+    },
+    "81-750": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 104,
+      "n_merchants": 1,
+      "n_transactions": 131,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-753": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 668,
+      "n_merchants": 2,
+      "n_transactions": 866,
+      "top1_card_share": 0.753,
+      "top1_share": 0.7887
+    },
+    "81-754": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 668,
+      "n_merchants": 5,
+      "n_transactions": 758,
+      "top1_card_share": 0.8578,
+      "top1_share": 0.8615
+    },
+    "81-757": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": true
+      },
+      "n_cards": 609,
+      "n_merchants": 2,
+      "n_transactions": 677,
+      "top1_card_share": 0.6256,
+      "top1_share": 0.6056
+    },
+    "81-758": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 95,
+      "n_merchants": 2,
+      "n_transactions": 111,
+      "top1_card_share": 0.9579,
+      "top1_share": 0.964
+    },
+    "81-759": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 28610,
+      "n_merchants": 39,
+      "n_transactions": 35480,
+      "top1_card_share": 0.1486,
+      "top1_share": 0.1373
+    },
+    "81-760": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 110,
+      "n_merchants": 1,
+      "n_transactions": 137,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-762": {
+      "gates": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 16,
+      "n_merchants": 1,
+      "n_transactions": 17,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-764": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 306,
+      "n_merchants": 1,
+      "n_transactions": 408,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-765": {
+      "gates": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 29,
+      "n_merchants": 1,
+      "n_transactions": 29,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-767": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 14465,
+      "n_merchants": 21,
+      "n_transactions": 19241,
+      "top1_card_share": 0.2774,
+      "top1_share": 0.2858
+    },
+    "81-769": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 19152,
+      "n_merchants": 12,
+      "n_transactions": 28649,
+      "top1_card_share": 0.6546,
+      "top1_share": 0.6706
+    },
+    "81-771": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 1047,
+      "n_merchants": 4,
+      "n_transactions": 1322,
+      "top1_card_share": 0.4518,
+      "top1_share": 0.3956
+    },
+    "81-777": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 96817,
+      "n_merchants": 241,
+      "n_transactions": 193234,
+      "top1_card_share": 0.1413,
+      "top1_share": 0.1144
+    },
+    "81-796": {
+      "gates": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 8,
+      "n_merchants": 1,
+      "n_transactions": 8,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-805": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 4572,
+      "n_merchants": 12,
+      "n_transactions": 7245,
+      "top1_card_share": 0.3336,
+      "top1_share": 0.3337
+    },
+    "81-807": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 47,
+      "n_merchants": 2,
+      "n_transactions": 66,
+      "top1_card_share": 0.9149,
+      "top1_share": 0.9091
+    },
+    "81-814": {
+      "gates": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 1,
+      "n_merchants": 1,
+      "n_transactions": 1,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-816": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 159,
+      "n_merchants": 5,
+      "n_transactions": 205,
+      "top1_card_share": 0.5597,
+      "top1_share": 0.5122
+    },
+    "81-820": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 218,
+      "n_merchants": 1,
+      "n_transactions": 424,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-824": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 778,
+      "n_merchants": 4,
+      "n_transactions": 2748,
+      "top1_card_share": 0.509,
+      "top1_share": 0.5699
+    },
+    "81-826": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 1439,
+      "n_merchants": 1,
+      "n_transactions": 1960,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-827": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 287,
+      "n_merchants": 1,
+      "n_transactions": 633,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-829": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 480,
+      "n_merchants": 1,
+      "n_transactions": 583,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-831": {
+      "gates": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": false,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 4,
+      "n_merchants": 1,
+      "n_transactions": 5,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-836": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 207,
+      "n_merchants": 1,
+      "n_transactions": 374,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-838": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 1004,
+      "n_merchants": 3,
+      "n_transactions": 1703,
+      "top1_card_share": 0.8944,
+      "top1_share": 0.9225
+    },
+    "81-843": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 412,
+      "n_merchants": 1,
+      "n_transactions": 2191,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-849": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 309,
+      "n_merchants": 1,
+      "n_transactions": 579,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    },
+    "81-850": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 411,
+      "n_merchants": 2,
+      "n_transactions": 816,
+      "top1_card_share": 0.927,
+      "top1_share": 0.9081
+    },
+    "81-853": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 1874,
+      "n_merchants": 4,
+      "n_transactions": 2437,
+      "top1_card_share": 0.7807,
+      "top1_share": 0.7739
+    },
+    "81-855": {
+      "gates": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "gates_volume_only": {
+        "all": true,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": true
+      },
+      "n_cards": 620,
+      "n_merchants": 3,
+      "n_transactions": 793,
+      "top1_card_share": 0.6758,
+      "top1_share": 0.604
+    },
+    "81-861": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": true,
+        "g3_share": false
+      },
+      "n_cards": 3086,
+      "n_merchants": 4,
+      "n_transactions": 5170,
+      "top1_card_share": 0.919,
+      "top1_share": 0.8986
+    },
+    "81-881": {
+      "gates": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "gates_volume_only": {
+        "all": false,
+        "g1_cards": true,
+        "g2_merchants": false,
+        "g3_share": false
+      },
+      "n_cards": 174,
+      "n_merchants": 1,
+      "n_transactions": 387,
+      "top1_card_share": 1.0,
+      "top1_share": 1.0
+    }
+  },
+  "rows": 3610,
+  "sha256": "6731376affb7ccbdcf53b8d2c37a92ae874da648ffbea7e6291cc722025900b0",
+  "suppression": {
+    "code_day_pairs_in_gated_codes": 7068,
+    "code_day_pairs_in_non_gated_codes": 7878,
+    "published": 3610,
+    "suppressed_below_k": 3458
+  },
+  "thresholds": {
+    "max_top1_share": 0.75,
+    "min_cards": 30,
+    "min_merchants": 3,
+    "min_row_merchants": 3,
+    "min_row_transactions": 3
+  },
+  "timezone": "Europe/Warsaw"
+}

@@ -1,0 +1,47 @@
+# Non-vacuity evidence — perturbation proof for the privacy gates
+
+Command:  python3 -m pytest tests/privacy/test_nonvacuous.py -q -s
+Run:      2026-09-30T02:58:41Z  (UTC)
+Contract: contracts/privacy.py @ 71d2f7f835991e3b…
+
+Each block is one threshold: it is perturbed, the check that constrains it MUST fail, then the
+threshold is reverted and the same check MUST pass. A check that survives its own perturbation
+fails the suite as vacuous.
+
+```
+PERTURB min_cards 30→29: FAIL (as required) — 29 cards must not be released
+REVERT  min_cards 30→29: PASS (canonical thresholds restored)
+PERTURB min_merchants 3→2: FAIL (as required) — 2 merchants must not be released
+REVERT  min_merchants 3→2: PASS (canonical thresholds restored)
+PERTURB max_share 3/4→4/5: FAIL (as required) — 75.000025% must not be released
+REVERT  max_share 3/4→4/5: PASS (canonical thresholds restored)
+PERTURB max_share 3/4→3000001/4000000: FAIL (as required) — 75.000025% must not be released
+REVERT  max_share 3/4→3000001/4000000: PASS (canonical thresholds restored)
+PERTURB require_differencing True→False: FAIL (as required) — the residual after differencing must block this cell
+REVERT  require_differencing True→False: PASS (canonical thresholds restored)
+PERTURB share_metrics cards removed: F-11 ok False → True (as required)
+REVERT  share_metrics restored: F-11 suppressed again
+PERTURB cascade level 'fives': ValueError (as required)
+REVERT  cascade level names: cell/parent/city accepted
+PERTURB loosened {'minCards': 25, 'minMerchants': 2, 'maxShare': '4/5', 'requireDifferencing': False}: flips false→true: ['F-02', 'F-04', 'F-06', 'F-09', 'F-11', 'F-13']
+REVERT  resistant under loosening: ['F-01', 'F-03', 'F-05', 'F-07', 'F-08', 'F-10', 'F-12', 'F-14', 'F-15', 'F-16', 'F-17', 'F-18']
+PERTURB tightened {'minMerchants': 4, 'requireDifferencing': True}: flips true→false: ['F-01', 'F-03', 'F-05', 'F-08', 'F-12', 'F-14']
+REVERT  resistant under tightening: ['F-02', 'F-04', 'F-06', 'F-07', 'F-09', 'F-10', 'F-11', 'F-13', 'F-15', 'F-16', 'F-17', 'F-18']
+sensitive fixtures: 12 of 18 -> ['F-01', 'F-02', 'F-03', 'F-04', 'F-05', 'F-06', 'F-08', 'F-09', 'F-11', 'F-12', 'F-13', 'F-14']
+REVERT  canonical report byte-identical after 4 perturbed runs
+canonical-threshold firings: {'lt_30_cards': True, 'lt_3_merchants': True, 'top1_gt_75': True, 'g4_differencing': True}
+12 passed in 0.17s
+```
+
+Mirror parity (contracts/privacy.ts vs contracts/privacy.py, same fixtures):
+
+```
+mirror ok: 23 fixture cases and 7 guard checks agree with contracts/privacy.py, fingerprint identical
+```
+
+Full privacy suite:
+
+```
+...............................                                          [100%]
+31 passed in 0.48s
+```

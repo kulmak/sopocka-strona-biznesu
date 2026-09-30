@@ -1,0 +1,414 @@
+{
+  "format": "privacy-cell-fixture/2",
+  "_owner": "contracts/privacy.py (Python) and contracts/privacy.ts (browser mirror) — one file, both implementations",
+  "_source": "research/privacy-harness-spec.md §4.2 (the 18 validated reference cases), translated into the frozen interface of this repo: levels cell|parent|city, reason codes ok|lt_30_cards|lt_3_merchants|top1_gt_75|multi|all_levels_failed (+ g4_differencing, thin_base, no_data).",
+  "_semantics": {
+    "levels": "cards(R) is a UNION count over the cell's relation; `merchants` is the cell's OWN partition and MUST sum to n_transactions.",
+    "levels_key": "the cascade keys are cell -> parent -> city; the reference's code/fives/tens map positionally onto cell/parent/city. A case with ONE level is evaluated with gate(cell, level=<that key>); a case with several is evaluated with cascade().",
+    "reason": "ok when released; the single failing code when exactly one gate fails; 'multi' when several fail (the `failures` array then names all of them); 'all_levels_failed' when no cascade level passes; 'no_data'/'thin_base' are pre-gate reasons decided before any level is walked.",
+    "failures": "union of failing codes across every evaluated level, deduplicated, canonical order lt_30_cards -> lt_3_merchants -> top1_gt_75 -> g4_differencing.",
+    "trace_failures": "per evaluated level, the failing codes in that same canonical order.",
+    "exactness": "maxShare is the string '3/4'. A float can never enter this file. 75.000000% passes; 75.000025% fails.",
+    "ids": "'E1', 'E2', ... are opaque merchant ids. No name, street or venue is recorded anywhere."
+  },
+  "_edits_vs_reference": [
+    "Every case drops the reference's separately-declared `n_entities`: it is DERIVED from len(merchants), because F-08/F-12/F-13 declared more entities than they listed (reference invariant P-4 violated by the reference's own fixtures).",
+    "n_transactions is stated explicitly and equals sum(merchants.values()) in every case (the reference's per_entity sums already satisfied this; it is now checked).",
+    "The reference's per-entity card counts are carried as `merchant_cards`, which is what lets the conservative CARD-share leg of G3 (case F-11) be evaluated at all.",
+    "F-03 E1 cards 40 -> 36: 40 cards for 36 transactions is impossible.",
+    "F-04 cards 110/110 -> 100/100 (n_cards 200, title's 50% share preserved).",
+    "F-05 n_cards 120 -> 100 and cards 75/20/15/10 -> 75/15/5/5: 120 distinct cards from 100 transactions is impossible, and 20 cards from 15 transactions likewise. The tested property (exactly 75/100 = 75.0% passes) is unchanged.",
+    "F-08/F-09 code-level cards 30/8/6 -> 32/8/4: per-merchant card sets must union to at least the cell's 44 cards, and a merchant cannot hold more cards than transactions. Failing property (volume share 80%) unchanged.",
+    "F-16 is labelled g4_differencing: the reference reported the failing residual as 'G3_SHARE' even when the residual failed on its entity count. The code now names the gate that actually failed, with the sub-gates in `detail`."
+  ],
+  "rules": {
+    "minCards": 30,
+    "minMerchants": 3,
+    "maxShare": "3/4",
+    "shareMetrics": ["volume", "cards"],
+    "requireDifferencing": false,
+    "thinBaseTransactions": 12,
+    "ruleVersion": "sopot-privacy-v1+datasprint-2026-09-30"
+  },
+  "cases": [
+    {
+      "id": "F-01",
+      "title": "boundary: exactly 30 cards, exactly 3 merchants, top1 = 75.0% -> PASS",
+      "levels": {
+        "cell": {
+          "n_cards": 30, "n_transactions": 100,
+          "merchants": { "E1": 75, "E2": 15, "E3": 10 },
+          "merchant_cards": { "E1": 22, "E2": 5, "E3": 3 }
+        }
+      },
+      "expect": { "ok": true, "level": "cell", "reason": "ok", "escalated": false, "failures": [] }
+    },
+    {
+      "id": "F-02",
+      "title": "boundary: 29 cards -> FAIL lt_30_cards",
+      "levels": {
+        "cell": {
+          "n_cards": 29, "n_transactions": 100,
+          "merchants": { "E1": 40, "E2": 30, "E3": 30 },
+          "merchant_cards": { "E1": 12, "E2": 10, "E3": 9 }
+        }
+      },
+      "expect": { "ok": false, "level": "locked", "reason": "lt_30_cards", "failures": ["lt_30_cards"] }
+    },
+    {
+      "id": "F-03",
+      "title": "boundary: exactly 3 merchants, top1 = 40% -> PASS",
+      "levels": {
+        "cell": {
+          "n_cards": 90, "n_transactions": 90,
+          "merchants": { "E1": 36, "E2": 30, "E3": 24 },
+          "merchant_cards": { "E1": 36, "E2": 30, "E3": 24 }
+        }
+      },
+      "expect": { "ok": true, "level": "cell", "reason": "ok", "failures": [] }
+    },
+    {
+      "id": "F-04",
+      "title": "boundary: 2 merchants, 200 cards, top1 = 50% -> FAIL lt_3_merchants",
+      "levels": {
+        "cell": {
+          "n_cards": 200, "n_transactions": 200,
+          "merchants": { "E1": 100, "E2": 100 },
+          "merchant_cards": { "E1": 100, "E2": 100 }
+        }
+      },
+      "expect": { "ok": false, "level": "locked", "reason": "lt_3_merchants", "failures": ["lt_3_merchants"] }
+    },
+    {
+      "id": "F-05",
+      "title": "boundary: top1 = 75/100 = exactly 75.0% -> PASS (inclusive)",
+      "levels": {
+        "cell": {
+          "n_cards": 100, "n_transactions": 100,
+          "merchants": { "E1": 75, "E2": 15, "E3": 5, "E4": 5 },
+          "merchant_cards": { "E1": 75, "E2": 15, "E3": 5, "E4": 5 }
+        }
+      },
+      "expect": { "ok": true, "level": "cell", "reason": "ok", "failures": [] }
+    },
+    {
+      "id": "F-06",
+      "title": "boundary: top1 = 751/1000 = 75.1% -> FAIL top1_gt_75",
+      "levels": {
+        "cell": {
+          "n_cards": 300, "n_transactions": 1000,
+          "merchants": { "E1": 751, "E2": 149, "E3": 50, "E4": 50 },
+          "merchant_cards": { "E1": 200, "E2": 60, "E3": 30, "E4": 30 }
+        }
+      },
+      "expect": { "ok": false, "level": "locked", "reason": "top1_gt_75", "failures": ["top1_gt_75"] }
+    },
+    {
+      "id": "F-07",
+      "title": "all three gates fail at once on a single-merchant cell -> reason 'multi' names all of them",
+      "levels": {
+        "cell": {
+          "n_cards": 12, "n_transactions": 20,
+          "merchants": { "E1": 20 },
+          "merchant_cards": { "E1": 12 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "multi",
+        "failures": ["lt_30_cards", "lt_3_merchants", "top1_gt_75"],
+        "trace_failures": [["lt_30_cards", "lt_3_merchants", "top1_gt_75"]]
+      }
+    },
+    {
+      "id": "F-08",
+      "title": "cascade escalates: cell fails, parent fails, city passes -> the CITY value with escalated=true",
+      "level_note": "reference levels code/fives/tens map positionally onto cell/parent/city",
+      "levels": {
+        "cell": {
+          "n_cards": 44, "n_transactions": 60,
+          "merchants": { "E1": 48, "E2": 8, "E3": 4 },
+          "merchant_cards": { "E1": 32, "E2": 8, "E3": 4 }
+        },
+        "parent": {
+          "n_cards": 61, "n_transactions": 140,
+          "merchants": { "E1": 110, "E2": 20, "E3": 10 },
+          "merchant_cards": { "E1": 40, "E2": 12, "E3": 9 }
+        },
+        "city": {
+          "n_cards": 512, "n_transactions": 2400,
+          "merchants": { "E1": 900, "E2": 700, "E3": 800 },
+          "merchant_cards": { "E1": 180, "E2": 150, "E3": 182 }
+        }
+      },
+      "expect": {
+        "ok": true, "level": "city", "reason": "ok", "escalated": true, "failures": [],
+        "trace_failures": [["top1_gt_75"], ["top1_gt_75"], []]
+      }
+    },
+    {
+      "id": "F-09",
+      "title": "fails at every level -> all_levels_failed, level locked, full trace recorded",
+      "levels": {
+        "cell": {
+          "n_cards": 44, "n_transactions": 60,
+          "merchants": { "E1": 48, "E2": 8, "E3": 4 },
+          "merchant_cards": { "E1": 32, "E2": 8, "E3": 4 }
+        },
+        "parent": {
+          "n_cards": 61, "n_transactions": 140,
+          "merchants": { "E1": 110, "E2": 30 },
+          "merchant_cards": { "E1": 40, "E2": 21 }
+        },
+        "city": {
+          "n_cards": 28, "n_transactions": 240,
+          "merchants": { "E1": 240 },
+          "merchant_cards": { "E1": 28 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "all_levels_failed",
+        "failures": ["lt_30_cards", "lt_3_merchants", "top1_gt_75"],
+        "trace_failures": [
+          ["top1_gt_75"],
+          ["lt_3_merchants", "top1_gt_75"],
+          ["lt_30_cards", "lt_3_merchants", "top1_gt_75"]
+        ]
+      }
+    },
+    {
+      "id": "F-10",
+      "title": "single-merchant postcode, 5000 cards: G1 passes, G2+G3 must still block it (big is not anonymous)",
+      "levels": {
+        "cell": {
+          "n_cards": 5000, "n_transactions": 12000,
+          "merchants": { "E1": 12000 },
+          "merchant_cards": { "E1": 5000 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "multi",
+        "failures": ["lt_3_merchants", "top1_gt_75"],
+        "trace_failures": [["lt_3_merchants", "top1_gt_75"]]
+      }
+    },
+    {
+      "id": "F-11",
+      "title": "volume share passes (70%) but CARD share fails (76%) -> FAIL under the conservative rule",
+      "levels": {
+        "cell": {
+          "n_cards": 100, "n_transactions": 1000,
+          "merchants": { "E1": 700, "E2": 200, "E3": 100 },
+          "merchant_cards": { "E1": 76, "E2": 14, "E3": 10 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "top1_gt_75",
+        "failures": ["top1_gt_75"],
+        "note": "the volume leg passes; the card leg fails; either exceeding the limit fails the cell (compliance §2.3 R7)"
+      }
+    },
+    {
+      "id": "F-12",
+      "title": "float trap A: 3,000,000/4,000,000 = exactly 75% -> PASS",
+      "levels": {
+        "city": {
+          "n_cards": 500000, "n_transactions": 4000000,
+          "merchants": { "E1": 3000000, "E2": 600000, "E3": 400000 },
+          "merchant_cards": { "E1": 120000, "E2": 200000, "E3": 180000 }
+        }
+      },
+      "expect": { "ok": true, "level": "city", "reason": "ok", "failures": [] }
+    },
+    {
+      "id": "F-13",
+      "title": "float trap B: 3,000,001/4,000,000 = 75.000025% -> FAIL",
+      "levels": {
+        "city": {
+          "n_cards": 500000, "n_transactions": 4000000,
+          "merchants": { "E1": 3000001, "E2": 600000, "E3": 399999 },
+          "merchant_cards": { "E1": 120000, "E2": 200000, "E3": 180000 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "top1_gt_75", "failures": ["top1_gt_75"],
+        "note": "one part in four million above the limit. A float comparison is not guaranteed to keep F-12 and F-13 apart."
+      }
+    },
+    {
+      "id": "F-14",
+      "title": "non-additive children: the parent UNION has 30 cards while the children sum to 45 -> the union is authoritative",
+      "children_card_sum": 45,
+      "levels": {
+        "city": {
+          "n_cards": 30, "n_transactions": 60,
+          "merchants": { "E1": 25, "E2": 20, "E3": 15 },
+          "merchant_cards": { "E1": 14, "E2": 12, "E3": 10 }
+        }
+      },
+      "expect": {
+        "ok": true, "level": "city", "reason": "ok", "failures": [],
+        "note": "an implementation that SUMS child card counts obtains 45 and would gate a different cell than the one it releases"
+      }
+    },
+    {
+      "id": "F-15",
+      "title": "large cell that fails G1 despite 5 merchants -> FAIL lt_30_cards only",
+      "levels": {
+        "city": {
+          "n_cards": 22, "n_transactions": 800,
+          "merchants": { "E1": 200, "E2": 180, "E3": 170, "E4": 150, "E5": 100 },
+          "merchant_cards": { "E1": 6, "E2": 5, "E3": 5, "E4": 4, "E5": 2 }
+        }
+      },
+      "expect": { "ok": false, "level": "locked", "reason": "lt_30_cards", "failures": ["lt_30_cards"] }
+    },
+    {
+      "id": "F-16",
+      "title": "differencing (G4): the cell passes G1-G3 but every residual after removing one merchant has 2 merchants",
+      "rules_override": { "requireDifferencing": true },
+      "levels": {
+        "cell": {
+          "n_cards": 900, "n_transactions": 1000,
+          "merchants": { "E1": 700, "E2": 250, "E3": 50 },
+          "merchant_cards": { "E1": 600, "E2": 250, "E3": 50 },
+          "residual_n_cards": { "E1": 300, "E2": 650, "E3": 850 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "g4_differencing",
+        "failures": ["g4_differencing"],
+        "note": "G1-G3 pass. The residual after removing the largest merchant has 300 cards and 2 merchants; the reference labelled this 'G3_SHARE', this contract names the gate that actually failed and puts the sub-gates in `detail`."
+      }
+    },
+    {
+      "id": "F-17",
+      "title": "thin_base is distinct from the privacy gates: 5 transactions -> thin_base, not lt_30_cards",
+      "thin_base": true,
+      "levels": {
+        "cell": {
+          "n_cards": 5, "n_transactions": 5,
+          "merchants": { "E1": 5 },
+          "merchant_cards": { "E1": 5 }
+        }
+      },
+      "expect": { "ok": false, "level": "locked", "reason": "thin_base", "failures": [] },
+      "expect_without_thin_base": {
+        "ok": false, "level": "locked", "reason": "multi",
+        "failures": ["lt_30_cards", "lt_3_merchants", "top1_gt_75"],
+        "note": "the same cell with the display floor disabled is suppressed by the PRIVACY gates, which is why the two reasons must never be conflated in the UI"
+      }
+    },
+    {
+      "id": "F-18",
+      "title": "empty relation -> no_data, level locked, value null, no trace (an empty cell is never a pass)",
+      "levels": {
+        "cell": { "n_cards": 0, "n_transactions": 0, "merchants": {} }
+      },
+      "expect": { "ok": false, "level": "locked", "reason": "no_data", "failures": [], "trace_failures": [] }
+    }
+  ],
+  "cascade_cases": [
+    {
+      "id": "C-01",
+      "title": "fails at the cell level but passes at the parent level -> the PARENT value, level='parent', escalated=true",
+      "levels": {
+        "cell": {
+          "n_cards": 44, "n_transactions": 60,
+          "merchants": { "E1": 48, "E2": 8, "E3": 4 },
+          "merchant_cards": { "E1": 32, "E2": 8, "E3": 4 }
+        },
+        "parent": {
+          "n_cards": 512, "n_transactions": 2400,
+          "merchants": { "E1": 900, "E2": 700, "E3": 800 },
+          "merchant_cards": { "E1": 180, "E2": 150, "E3": 182 }
+        }
+      },
+      "expect": {
+        "ok": true, "level": "parent", "reason": "ok", "escalated": true, "failures": [],
+        "trace_failures": [["top1_gt_75"], []]
+      }
+    },
+    {
+      "id": "C-02",
+      "title": "a missing level is reported, never silently skipped: cell fails, city passes, 'parent' is absent",
+      "levels": {
+        "cell": {
+          "n_cards": 44, "n_transactions": 60,
+          "merchants": { "E1": 48, "E2": 8, "E3": 4 },
+          "merchant_cards": { "E1": 32, "E2": 8, "E3": 4 }
+        },
+        "city": {
+          "n_cards": 512, "n_transactions": 2400,
+          "merchants": { "E1": 900, "E2": 700, "E3": 800 },
+          "merchant_cards": { "E1": 180, "E2": 150, "E3": 182 }
+        }
+      },
+      "expect": {
+        "ok": true, "level": "city", "reason": "ok", "escalated": true, "failures": [],
+        "levels_missing": ["parent"]
+      }
+    }
+  ],
+  "g4_cases": [
+    {
+      "id": "G4-01",
+      "title": "G4: the raw cell passes G1-G3, but removing the largest merchant leaves 20 cards -> suppressed",
+      "rules_override": { "requireDifferencing": true },
+      "levels": {
+        "cell": {
+          "n_cards": 60, "n_transactions": 1000,
+          "merchants": { "E1": 500, "E2": 300, "E3": 100, "E4": 100 },
+          "merchant_cards": { "E1": 30, "E2": 18, "E3": 6, "E4": 6 },
+          "residual_n_cards": { "E1": 20, "E2": 55, "E3": 55, "E4": 55 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "g4_differencing", "failures": ["g4_differencing"],
+        "detail_contains": "lt_30_cards",
+        "note": "the merchant knows its own 500 transactions, subtracts them from the released cell, and holds a 20-card residual. G1-G3 alone cannot see this."
+      },
+      "expect_without_differencing": {
+        "ok": true, "level": "cell", "reason": "ok",
+        "note": "the control: the same cell IS released when G4 is off, which is what makes this test about G4 and not about the three gates"
+      }
+    },
+    {
+      "id": "G4-02",
+      "title": "G4 literal case: a two-merchant cell cannot be released however large it is",
+      "rules_override": { "requireDifferencing": true },
+      "levels": {
+        "cell": {
+          "n_cards": 360, "n_transactions": 1000,
+          "merchants": { "E1": 900, "E2": 100 },
+          "merchant_cards": { "E1": 260, "E2": 100 },
+          "residual_n_cards": { "E1": 100, "E2": 260 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "multi",
+        "failures": ["lt_3_merchants", "top1_gt_75", "g4_differencing"]
+      },
+      "expect_without_differencing": {
+        "ok": false, "level": "locked", "reason": "multi",
+        "failures": ["lt_3_merchants", "top1_gt_75"]
+      }
+    },
+    {
+      "id": "G4-03",
+      "title": "G4 bound mode: no measured residual supplied -> the sound lower bound is used and reported",
+      "rules_override": { "requireDifferencing": true },
+      "levels": {
+        "cell": {
+          "n_cards": 40, "n_transactions": 1000,
+          "merchants": { "E1": 500, "E2": 300, "E3": 100, "E4": 100 },
+          "merchant_cards": { "E1": 20, "E2": 14, "E3": 8, "E4": 8 }
+        }
+      },
+      "expect": {
+        "ok": false, "level": "locked", "reason": "g4_differencing", "failures": ["g4_differencing"],
+        "trace_differencing_evidence": "bound",
+        "note": "40 - 500 < 30, so the bound alone forces suppression; the trace says the evidence was a bound, not a measurement"
+      }
+    }
+  ]
+}

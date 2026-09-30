@@ -1,0 +1,11 @@
+{
+  "id": "molo",
+  "title": "Restauracja przy Molo",
+  "subtitle": "81-777 Emilii Plater · 241 podmiotów · 51,1% wolumenu · sobota 20.06.2026, 19:00",
+  "query": "stan=molo&data=2026-06-20&g=19",
+  "code": "81-777",
+  "day": "2026-06-20",
+  "hour": 19,
+  "venue": "Restauracja przy Molo",
+  "expect": { "laneMinDistinct": 8, "needsNumber": true }
+}
