@@ -9,7 +9,9 @@
      · DATA    = the film's instrument palette (rytm-miasta), applied by wrapping any analytical
                  region in `.data-surface`: night-navy ground #0B1220, amber #FFB84D = money,
                  teal #21C7B7 = the service, Inter Tight / Inter / JetBrains Mono.
-   The Industry design system's old steel-blue accent is RETIRED: it appears nowhere in app/.
+   The Industry design system is fully RETIRED: its steel-blue accent and its Barlow type family
+   appear nowhere in app/. One type system (Inter Tight / Inter / JetBrains Mono) is shared by
+   the panel, the deck and the film.
 
    Type: Barlow + Barlow Condensed (chrome, vendored woff2, latin + latin-ext = Polish glyphs),
    Inter Tight + Inter + JetBrains Mono (data layer, vendored woff2, same coverage). */
@@ -50,8 +52,8 @@
   --color-accent-800: #0e554e;
   --color-accent-900: #0b3f3a;
 
-  --font-heading: "Barlow Condensed", system-ui, sans-serif;
-  --font-body: "Barlow", system-ui, sans-serif;
+  --font-heading: "Inter Tight", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
   --font-data: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-heading-weight: 600;
 
