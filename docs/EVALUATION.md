@@ -8,7 +8,7 @@ single source of truth, and a number that is not in it is not published.
 ## 1. Reproduce
 
 ```sh
-python3 tools/verify_claims.py    # 197/197 claims verified, ~30 s
+python3 tools/verify_claims.py    # re-runs every ledger row; last line: `<n>/<n> claims verified`
 python3 -m pipeline.run --src /Users/kulma/Downloads --out artifacts   # rebuilds backtest.json/drivers.json
 ```
 

@@ -23,7 +23,7 @@ Organiser Data, never redistributed (challenge §7.2–7.4): `data/MANIFEST.sha2
 | Command | Produces | Measured |
 |---|---|---|
 | `make data` | `artifacts/{aggregate,baseline,backtest,drivers}.json` + `data/samples/` | ≈10 s |
-| `make check` | `62 passed` — pipeline, contract, models, privacy | 11 s |
+| `make check` | `64 passed` — pipeline, contract, models, privacy | 11 s |
 | `make verify` | `186/186 claims verified` — re-runs every row of `docs/claims.json` | 31 s |
 | `make demo-ready` | `3 presets · 39/39 assertions passed`; screenshots into `research/evidence/demo-ready/` | 6 s |
 

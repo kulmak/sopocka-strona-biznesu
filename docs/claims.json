@@ -1876,5 +1876,15 @@
     "used_in": [
       "docs/CLEANING.md"
     ]
+  },
+  {
+    "id": "tests_passed",
+    "value": "64 passed",
+    "statement": "Tests that actually execute on `make check`. A count this volatile is claimed rather than quoted freely, so a stale copy fails the ledger instead of drifting.",
+    "cmd": "python3 -m pytest tests -q 2>&1 | tail -2",
+    "used_in": [
+      "docs/RUN.md",
+      "docs/PRIVACY.md"
+    ]
   }
 ]

@@ -9,8 +9,9 @@ rules come verbatim from challenge §3 („Oczekiwany rezultat”); the gate liv
 
 ```sh
 python3 scripts/privacy_report.py --src /Users/kulma/Downloads --out artifacts/privacy-report.json
+
 # 62 cells · G1 54 · G2 25 · all three 18 (volume) / 17 (volume AND cards) · all four 11
-make check   # 62 passed, including the 31-test privacy suite
+make check                       # the full suite; the privacy leg is #privacy_suite_passed
 ```
 
 ## 2. The rules, verbatim
@@ -28,20 +29,19 @@ Challenge §7's §3 block, quoted in `contracts/PRIVACY-COPY.md` and in the gate
 > permit identification of individual users, cards, transactions or entities.
 
 **30 means 30 distinct cards** (`pymt_crd_acct_num_raw`) — never cardholders, never transactions. `≥` and `≤`
-are inclusive: 30 cards pass, 29 fail; 75.000000% passes and 75.000025% fails. Shares are therefore exact
-`fractions.Fraction`, formatted to a decimal only *after* the decision. 
+are inclusive: 30 cards pass, 29 fail; 75.000000% passes and 75.000025% fails. Shares are therefore exact `fractions.Fraction`, formatted to a decimal only *after* the decision.
+
 ## 3. The predicates
 
 For a cell `R`, with `cards`, `entities`, `vol`, and `top1` = the largest entity's transactions:
 
 ```
-G1  cards(R) >= 30                     G3  for m in {volume, cards}: 100*top1_m <= 75*total_m
-G2  entities(R) >= 3                   G4  for every e: G1,G2,G3 hold for R \ {e}
+G1  cards(R) >= 30                     G3  for m in {volume, cards}: 100*top1_m <= 75*total_m G2  entities(R) >= 3                   G4  for every e: G1,G2,G3 hold for R \ {e}
 ```
 
 `G3` is checked on **both** metrics and a cell fails if *either* exceeds the limit — the conservative reading
-of a rule that says „udział” without naming the metric, whose cost §7 measures. `G4` is **voluntary**: the
-challenge does not ask for it, and our copy labels it a strengthening. 
+of a rule that says „udział” without naming the metric, whose cost §7 measures. `G4` is **voluntary**: the challenge does not ask for it, and our copy labels it a strengthening.
+
 ## 4. How we enforce them
 
 | Rule | Enforced in | Test | Failure |
@@ -61,31 +61,28 @@ cards” when the cause was a thin window. A suppressed record cannot carry a va
 
 ```
   cell ──pass?──► release at "cell"     reason codes (9, no others): ok · lt_30_cards · top1_gt_75
-    │ fail                               · lt_3_merchants · multi · g4_differencing · thin_base
-    ▼                                    · no_data · all_levels_failed
+    │ fail                               · lt_3_merchants · multi · g4_differencing · thin_base ▼                                    · no_data · all_levels_failed
   parent ─pass?─► release at "parent"    escalated=true; the label names the ancestor │ fail ▼
-  city ──pass?──► release at "city"      „Dane dla obszaru {kod}, nie dla Twojego lokalu.” │ fail ▼
-  locked ─► no number: „Analiza zablokowana · żadna grupa nie spełnia progów: {reason}”
+  city ──pass?──► release at "city"      „Dane dla obszaru {kod}, nie dla Twojego lokalu.” │ fail ▼ locked ─► no number: „Analiza zablokowana · żadna grupa nie spełnia progów: {reason}”
 ```
 
 `cascade_order=(cell,parent,city)`; `locked` is terminal (`#privacy_cascade_order`,
 `#privacy_reason_codes`). Escalation is **not** an exemption: the ancestor must independently satisfy every
-gate. An unknown level key **raises** rather than being skipped, and missing levels are listed in
-`levels_missing` — so no view can claim a check it never ran. 
+gate. An unknown level key **raises** rather than being skipped, and missing levels are listed in `levels_missing` — so no view can claim a check it never ran.
+
 ## 6. G4 — the differencing test, and the attack it prevents
 
 **The attack.** The merchant reading the panel is *inside* every comparison cell we show her. Given a released
 area total and her own till she subtracts herself out and holds the complement. A cell with 3 entities and a
 74% top-1 share passes the letter of the rule and still leaks: the dominant merchant removes its own known
-volume and recovers the union of the other two as a 26% residual. With three merchants, removing any one
-leaves two — so **G4's de-facto effect is a four-merchant floor**. 
+volume and recovers the union of the other two as a 26% residual. With three merchants, removing any one leaves two — so **G4's de-facto effect is a four-merchant floor**.
 `residual_cell(cell, merchant)` builds `R \ {merchant}` and re-runs G1–G3; removing a non-member **raises**
 rather than producing a larger, more-compliant residual. Card counts use the measured leave-one-out union
 where available, else the sound lower bound `cards − volume`, which can only over-suppress. 
+
 ## 7. What we measured
 
-At the postcode grain, over the **62** cells of the audited universe — 54 Sopot `81-*` codes plus the 8
-out-of-town codes Sopot-labelled merchants carry (`#privacy_matches_audit`): 
+At the postcode grain, over the **62** cells of the audited universe — 54 Sopot `81-*` codes plus the 8 out-of-town codes Sopot-labelled merchants carry (`#privacy_matches_audit`):
 | Gate | Cells | Volume | Claim |
 |---|---:|---:|---|
 | G1 (≥30 cards) / G2 (≥3 entities) | **54** / **25** | — | `#gate_g1_cards`, `#gate_g2_merchants` |
@@ -104,6 +101,7 @@ carrying **33,197** transactions that stay inside the exact city series `cityCnt
 conservative reading and report 18 as the audit's. At postcode × month × daypart, **393 of 2,003** cells pass
 all three carrying **83.44%** of volume (`#privacy_daypart_pass`, `#privacy_daypart_share`); the 18 passing
 postcodes hold **19.0%** of Sopot's **3,767** address points (`#address_share_passing18`). 
+
 ## 8. The two planes, in the words the panel uses
 
 **Plane A** is the merchant's own acquirer/POS feed with consent: one subject, her own till, *not* a
@@ -119,14 +117,15 @@ own volume inside the panel is exactly the re-identification attempt the challen
 The Plane A disclosure (*„Twoje dane.”* … *„Możesz je w każdej chwili wyłączyć.”*), the EN rendering of both,
 and one sentence per reason code are in `contracts/PRIVACY-COPY.md` §4. Every Plane B number carries *„Dane
 dla obszaru **{kod}**, nie dla Twojego lokalu.”* in the same visual block as the number — not a footnote. 
+
 ## 9. Non-vacuity: the gate can fail, and we proved it
 
 `tests/privacy/test_nonvacuous.py` perturbs each threshold, requires the check constraining it to **fail**,
 reverts, and requires the check to **pass**: **31** tests in the privacy suite, **12** in the non-vacuity
 suite, **18** reference fixtures, and the TypeScript mirror agreeing with the Python gate on **23 fixture
 cases** (`#privacy_suite_passed`, `#privacy_nonvacuous_passed`, `#privacy_fixtures`, `#privacy_mirror_parity`).
-Loosening the thresholds flips exactly six fixtures; tightening them flips six others. Transcript:
-`tests/privacy/nonvacuous-evidence.txt`. 
+Loosening the thresholds flips exactly six fixtures; tightening them flips six others. Transcript: `tests/privacy/nonvacuous-evidence.txt`.
+
 ## 10. What this is not
 
 - **Not differential privacy.** k-anonymity bounds *one released cell*; DP bounds a *sequence of queries*
@@ -137,6 +136,7 @@ Loosening the thresholds flips exactly six fixtures; tightening them flips six o
   like; the gate governs what *we publish*, not what anyone else can compute.
 - **Not record-level anonymisation, and not a legal opinion.** There are no records to generalise, and
   compliance is a judgement for the Organiser, not for us. 
+
 ## 11. Known limitations
 
 - **G4 is off in the letter-of-the-rule profile and on in the shipped one.** `BASE_RULES` has
