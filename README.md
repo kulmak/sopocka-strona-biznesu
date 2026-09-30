@@ -12,7 +12,7 @@ Code — <https://github.com/kulmak/sopocka-strona-biznesu>
 Deck — <https://kulmak.github.io/sopocka-strona-biznesu/deck/deck.pdf>
 
 `make data` runs all eight stages and exits 0, producing `artifacts/aggregate.json` byte-identically on
-repeat runs. `make check` is green. `make verify` recomputes all 200 published numbers. The demo gate
+repeat runs. `make check` is green. `make verify` recomputes all 202 published numbers. The demo gate
 passes **39 of 39** assertions against the live URL: every preset prints a real number, draws a full
 venue lane, keeps every released cell inside the three privacy gates, and shows no fabricated value at
 any point in the load. First real number: ~2.5 s cold, ~0.17 s warm.
@@ -41,7 +41,7 @@ A ten-table restaurant on ul. Emila Platera has no analyst and no benchmark. The
 
 ## 3. What is proven
 
-Each row is a claim, its English rendering and the artifact that owns the number. **No value here travels without a command**, including the headline above: every figure is in `docs/claims.json` — 200 rows, each naming the command that prints it — or in the document cited beside it.
+Each row is a claim, its English rendering and the artifact that owns the number. **No value here travels without a command**, including the headline above: every figure is in `docs/claims.json` — 202 rows, each naming the command that prints it — or in the document cited beside it.
 
 | Claim — Polish | English | Verified by |
 | --- | --- | --- |
@@ -49,9 +49,9 @@ Each row is a claim, its English rendering and the artifact that owns the number
 | „38 443 wiersze (10,2 %) mają czas zastępczy `'000000'` i są oznaczone jako poprawne" | "38,443 rows (10.2 %) carry the sentinel time `'000000'` and are marked valid" | `docs/claims.json#zero_timecode` · R22 |
 | „18 z 62 kodów przechodzi wszystkie trzy bramki i niesie 90,7 % wolumenu" | "18 of 62 postcodes pass all three privacy gates and carry 90.7 % of volume" | `docs/claims.json#gate_all_three` · `contracts/privacy.py` |
 | „Pogoda nie różni się między kodami: 0 z 13 102 godzin" | "Weather does not vary by postcode: 0 of 13,102 hourly timestamps" | `docs/claims.json#weather_spatial_variation` · R12 |
-| „Efekt wydarzeń 59,8 pp → 9,0 pp po kontroli miesiąc × dzień tygodnia" | "The event effect collapses from 59.8 pp to 9.0 pp under month × weekday control" | R27 · `docs/adr/0003` |
-| „Deszcz, nie wydarzenia: β = −0,364 (t = −8,8)" | "Rain, not events, is the robust driver: β = −0.364 (t = −8.8)" | `docs/claims.json#driver_rain_t` · `docs/claims.json#driver_events_t` |
-| „Backtest: MAPE 24,1 % — najlepsza z pięciu metod" | "Backtest: MAPE 24.1 %, the best of five candidate methods" | `docs/claims.json#backtest_mape_base` |
+| „Efekt wydarzeń 59,8 pp → 8,8 pp po kontroli miesiąc × dzień tygodnia" | "The event effect collapses from 59.8 pp to 8.8 pp under month × weekday control" | `docs/claims.json#event_spread_raw` · `#event_spread_controlled` · `docs/adr/0003` |
+| „Deszcz, nie wydarzenia: w każdej specyfikacji t ≤ −8,5, a w naszej głównej −9,7" | "Rain, not events, is the robust driver: t ≤ −8.5 in every specification, −9.7 in our primary one" | `docs/claims.json#driver_rain_t_primary` · `#driver_rain_t_auditspec` |
+| „Backtest: nasz model 20,5 %, najlepsza baza 22,8 %" | "Backtest: our model 20.5 % MAPE, the best baseline 22.8 %" | `docs/claims.json#forecast_mape_full` · `#forecast_mape_baseline_only` |
 | „Granice obszarów są modelowane, nie oficjalne; 12 z 151 ekstrapolowanych" | "Area boundaries are modelled, not official; 12 of 151 are extrapolated" | R11 · `docs/ARCHITECTURE.md` §8 |
 
 *R-numbers are entries in `docs/ROADMAP.md`.* Two structural proofs matter more than any single figure: **the claims are reproducible** (`docs/claims.json` binds each one to the command that prints it), and **the failures are on the record** (`docs/ROADMAP.md` carries 30 four-beat entries, including the ones where we were wrong).
@@ -86,7 +86,7 @@ Challenge §5 requires this split. It is the same table as `docs/ARCHITECTURE.md
 ## 5. What we do NOT claim
 
 - **We do not claim to count restaurants.** The GIS package carries no commercial-POI layer, so we can say "90.7 % of card volume sits in 18 postcodes" and never "X % of restaurants in this area" (R14).
-- **We do not claim our model beats a naive forecast.** Adding weather and events to a same-weekday baseline made the forecast *worse* (29.2 % / 29.5 % vs 24.1 % MAPE). What we give the owner is the baseline she cannot compute, plus the drivers that explain the deviation — see `docs/adr/0003`.
+- **We do not claim the model beats every alternative.** The drivers improve our own best baseline (24,1 % → 20,5 % MAPE) and the seasonal naive (29,2 % → 24,7 %), but an expanding OLS on log counts reaches **16,13 %** — better, and we do not ship it, because it is less explainable to the owner it is for. Both numbers are in `docs/EVALUATION.md`. What we give her is the baseline she cannot compute, plus the drivers that explain the deviation — see `docs/adr/0003`.
 - **We do not claim the event effect** — the table above is the honest reading of it.
 - **We do not claim official geography.** The sectors are a model, Sopot has no official district names, and every district label in the UI is our own toponym (R11, R13).
 - **We do not claim the film's numbers.** It states 475,000 transactions and five MCCs absent from the data; the deck carries the correction (R26).
