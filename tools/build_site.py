@@ -167,10 +167,10 @@ def check() -> None:
     if not (SITE / "artifacts" / "aggregate.json").exists():
         sys.exit("FAIL: the gated aggregate is missing — the demo would not load")
     agg = json.loads((SITE / "artifacts" / "aggregate.json").read_text())
-    if agg.get("ver") != 4:
-        sys.exit(f"FAIL: aggregate ver={agg.get('ver')}, expected 4")
+    if agg.get("ver") != 5:
+        sys.exit(f"FAIL: aggregate ver={agg.get('ver')}, expected 5")
     total = sum(f.stat().st_size for f in SITE.rglob("*") if f.is_file())
-    print(f"_site/ ok  {total/1e6:.1f} MB  aggregate ver=4  rows={agg.get('rows')}  "
+    print(f"_site/ ok  {total/1e6:.1f} MB  aggregate ver=5  rows={agg.get('rows')}  "
           f"0 forbidden files")
 
 

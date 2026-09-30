@@ -69,13 +69,28 @@ def main() -> None:
             failures.append(f"{c['id']}: command timed out")
             print(f"FAIL  {c['id']:24s} (timeout)")
             continue
-        haystack = normalise(proc.stdout + proc.stderr)
-        if c.get("artifact"):
+        # WHOLE-TOKEN match, not a substring. A plain `in` test let a doctored "1378212"
+        # satisfy the claim "378212", and let "0" be satisfied by "10" — the harness could
+        # certify a wrong number, which is worse than having no harness. The value must appear
+        # not adjacent to another digit or a decimal point, so it works inside labelled output
+        # like `rows=189106` while refusing `1378212`.
+        haystack = normalise(proc.stdout + "\n" + proc.stderr)
+        needle = normalise(str(c["value"]))
+        # Guard only the ENDS THAT ARE DIGITS. A labelled value like `share=83.44%` sits flush
+        # against the previous label (`pass=393share=...`), so an unconditional lookbehind would
+        # reject it; the guard exists to stop `0` matching `10`, which only needs to apply when
+        # the needle itself begins or ends with a digit.
+        left = r"(?<![\d.])" if needle[:1].isdigit() else ""
+        right = r"(?![\d])" if needle[-1:].isdigit() else ""
+        pattern = re.compile(left + re.escape(needle) + right)
+        matched = bool(pattern.search(haystack))
+        if not matched and c.get("artifact"):
             art = ROOT / c["artifact"]
             if art.exists() and art.stat().st_size < 40_000_000:
-                haystack += normalise(art.read_text(encoding="utf-8", errors="ignore"))
-        needle = normalise(str(c["value"]))
-        if needle in haystack:
+                blob = art.read_text(encoding="utf-8", errors="ignore")
+                matched = bool(pattern.search(normalise(blob))) or \
+                          ('"' + str(c["value"]) + '"') in blob
+        if matched:
             print(f"PASS  {c['id']:24s} {c['value']}")
         else:
             failures.append(f"{c['id']}: expected {c['value']!r}, not found — cmd: {c['cmd'][:90]}")

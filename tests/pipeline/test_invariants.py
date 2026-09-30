@@ -57,10 +57,11 @@ def agg() -> dict:
 # ======================================================================================
 
 def test_contract_version_and_top_level_keys(agg):
-    """`ver` must be 4 and the key set must be exactly the contract's (schema says
-    `additionalProperties: false`)."""
+    """`ver` must be 5 and the key set must be exactly the contract's (schema says
+    `additionalProperties: false`). v5 is the release-gate version: suppressed cells carry no
+    series and no counts, and the exact city totals travel separately in `cityCnt`/`cityAmt`."""
     from pipeline.aggregate import validate_against_schema
-    assert agg["ver"] == 4
+    assert agg["ver"] == 5
     problems = validate_against_schema(agg, REPO / "contracts" / "aggregate.schema.json")
     assert not problems, "aggregate.json violates contracts/aggregate.schema.json: " + \
                          "; ".join(problems[:10])
@@ -99,11 +100,54 @@ def test_indexing_is_exact(agg):
 
 
 def test_row_and_nat_reconciliation(agg):
-    """Invariants 1 and 4: every row lands exactly once in `cnt` and once in `nat`."""
+    """Invariants 1 and 4, in the form the release gate forces.
+
+    The released series can no longer sum to `rows`: a suppressed cell carries no series. The
+    reconciliation therefore keeps the suppressed volume IN the equation. Dropping it — which is
+    what "just relax the assertion" would do — would hide exactly the mass we chose not to show.
+    `nat` is city-wide and unaffected, so it must still equal `rows` exactly.
+    """
     cnt = np.frombuffer(base64.b64decode(agg["cnt"]), dtype=np.uint16)
     nat = np.frombuffer(base64.b64decode(agg["nat"]), dtype=np.uint32)
-    assert int(cnt.sum()) == agg["rows"] == 378_212
+    supp = agg["released"]["suppressedVolume"]
+    assert supp > 0, "the gate must actually suppress something, or this test is vacuous"
+    assert int(cnt.sum()) + supp == agg["rows"] == 378_212
     assert int(nat.sum()) == agg["rows"]
+
+
+def test_no_suppressed_cell_is_released(agg):
+    """The release gate itself. Every code with non-zero published volume must pass all gates.
+
+    This is the assertion whose absence let 37 non-compliant cells ship. It is also the one a
+    juror would run first by decoding `cnt`.
+    """
+    cnt = np.frombuffer(base64.b64decode(agg["cnt"]), dtype=np.uint16)
+    blocks = agg["days"] * agg["hours"]
+    released = 0
+    for i, code in enumerate(agg["codes"]):
+        if i == 0:
+            continue
+        vol = int(cnt[i * blocks:(i + 1) * blocks].sum())
+        gated = agg["codeMeta"][code]["gates"]["all"]
+        if vol > 0:
+            assert gated, f"{code} publishes {vol} transactions but fails its own gates"
+            released += 1
+    assert released == agg["released"]["codes"], (
+        f"{released} codes publish volume, artifact says {agg['released']['codes']}")
+
+
+def test_suppressed_cells_carry_no_identifying_counts(agg):
+    """A suppressed cell must not publish the numbers behind its verdict.
+
+    `81-814: 1 transakcja, 1 karta, 1 podmiot` IS the identification the rule forbids, whether or
+    not anything is drawn from it.
+    """
+    for code, meta in agg["codeMeta"].items():
+        if meta["gates"]["all"]:
+            continue
+        for k in ("merchants", "transactions", "nCards", "top1Share"):
+            assert k not in meta or meta[k] is None, (
+                f"suppressed cell {code} still publishes {k}={meta.get(k)}")
 
 
 def test_uint16_safety(agg):
@@ -122,14 +166,17 @@ def test_codemetax_covers_every_code_once(agg):
     assert agg["codes"][0] == "—", "index 0 must be the EXCLUDED bucket"
     assert set(agg["codeMeta"]) == set(agg["codes"][1:])
     for code, meta in agg["codeMeta"].items():
-        assert {"name", "merchants", "transactions", "polygonConfidence", "gates"} <= set(meta)
+        # v5: the identity fields are required for everyone; the STATS only for released cells,
+        # because a suppressed cell must not publish the counts behind its verdict.
+        assert {"name", "polygonConfidence", "gates"} <= set(meta)
         assert meta["polygonConfidence"] in ("observed", "inferred", "extrapolated", "none")
         g = meta["gates"]
         assert set(g) == {"g1_cards", "g2_merchants", "g3_share", "all"}
         assert g["all"] == (g["g1_cards"] and g["g2_merchants"] and g["g3_share"])
-        # Invariant 8's precondition: a code with no card count can never pass G1.
-        if not g["g1_cards"]:
-            assert meta["nCards"] < 30
+        if g["all"]:
+            assert {"merchants", "transactions"} <= set(meta)
+        else:
+            assert "merchants" not in meta and "transactions" not in meta
 
 
 def test_excluded_counts_match_the_audit(agg):
@@ -195,8 +242,11 @@ def test_d2_phantom_0200_spike_is_gone_from_published_curves(agg):
     share_including = including[2] / including.sum()
     assert share_including > 0.05, f"the sentinel does not dominate 02:00 ({share_including})"
     assert share_published < 0.01, f"02:00 still spiky after the D2 routing ({share_published})"
-    assert published.sum() == agg["rows"] - 47_052
-    assert including.sum() == agg["rows"]
+    # v5: the published curve covers the released cells only. The suppressed volume is still
+    # accounted for, in the city series and in the reconciliation — not dropped.
+    supp = agg["released"]["suppressedVolume"]
+    assert published.sum() + supp == agg["rows"] - 47_052
+    assert int(including.sum()) + supp == agg["rows"]
 
 
 def test_d1_weekday_index_is_data_derived(agg):
@@ -208,11 +258,17 @@ def test_d1_weekday_index_is_data_derived(agg):
     direction backwards would still "change the number".
     """
     from pipeline import baseline
+    # The weekday shape is a CITY fact, so it is read from the exact city series, not from the
+    # released subset: 37 suppressed cells would otherwise make this a rhythm of the areas we
+    # are permitted to show.
     cnt = np.frombuffer(base64.b64decode(agg["cnt"]), dtype=np.uint16)
-    idx = baseline.weekday_index_from_cube(cnt, agg["days"])
+    city = np.frombuffer(base64.b64decode(agg["cityCnt"]), dtype=np.uint16).reshape(agg["days"], agg["hours"])
+    idx = baseline.weekday_index_from_cube(city.ravel(), agg["days"])
     assert abs(idx[6] - 1.514) <= 0.01, f"Saturday index {idx[6]}"
     assert abs(idx[1] - 0.724) <= 0.01, f"Monday index {idx[1]}"
-    assert abs(sum(idx.values()) - 7.0) < 1e-6, "the seven weekday indices must sum to 7"
+    # `weekday_index_from_cube` rounds each index to 6 dp, so the sum lands within 7*5e-7 of 7;
+    # the tolerance is set just above that rounding floor rather than to a round number.
+    assert abs(sum(idx.values()) - 7.0) < 1e-5, "the seven weekday indices must sum to 7"
 
     # Use the busiest code and its own busiest hour: a thin code has zeros at 19:00 and the
     # comparison would be vacuous.

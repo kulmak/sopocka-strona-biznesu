@@ -133,14 +133,25 @@ def daily_series(con: duckdb.DuckDBPyConnection, view: str = "tx_raw") -> dict:
             "month": np.array(cols[9], dtype=np.int64)}
 
 
-def assert_reconciles(daily: dict, agg_rows: int, cube_daily: np.ndarray | None = None) -> dict:
-    """The daily series must sum to the artifact's `rows` — a drift means the axis moved."""
+def assert_reconciles(daily: dict, agg_rows: int, cube_daily: np.ndarray | None = None,
+                      cube_rows: int | None = None) -> dict:
+    """The daily series must sum to `rows` — a drift means the axis moved.
+
+    The cube leg is expected to sum to `cube_rows`, NOT to `agg_rows`: since the release gate
+    landed, the per-code cube omits the suppressed cells by design, while `daily` is the parquet's
+    full daily series. Comparing the two to the same total would either fail or, worse, tempt
+    someone to re-release the suppressed volume to make the numbers match. `cityCnt` is the
+    series that must equal the city's own total exactly, and that is asserted separately.
+    """
     total = int(daily["n"].sum())
     assert total == agg_rows, f"daily series sums to {total}, aggregate says {agg_rows}"
     out = {"daily_total": total, "agg_rows": agg_rows}
     if cube_daily is not None:
         out["cube_daily_total"] = int(cube_daily.sum())
-        assert out["cube_daily_total"] == agg_rows
+        expected = agg_rows if cube_rows is None else cube_rows
+        out["cube_rows"] = expected
+        assert out["cube_daily_total"] == expected, (
+            f"cube daily total {out['cube_daily_total']} != expected {expected}")
     return out
 
 
@@ -712,9 +723,10 @@ def drivers(daily: dict) -> dict:
 # Assembly
 # --------------------------------------------------------------------------------------
 
-def build(daily: dict, agg_rows: int, cube_daily: np.ndarray | None = None) -> tuple[dict, dict]:
+def build(daily: dict, agg_rows: int, cube_daily: np.ndarray | None = None,
+          cube_rows: int | None = None) -> tuple[dict, dict]:
     """Run the whole evaluation and return `(backtest_doc, drivers_doc)`."""
-    recon = assert_reconciles(daily, agg_rows, cube_daily)
+    recon = assert_reconciles(daily, agg_rows, cube_daily, cube_rows)
     candidates = run_candidates(daily)
     experiment = weather_events_experiment(daily)
     best = min(candidates, key=lambda k: candidates[k]["metrics"]["MAPE"])

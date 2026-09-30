@@ -275,9 +275,16 @@ def weekday_index(con: duckdb.DuckDBPyConnection, view: str = "tx_raw") -> dict[
     The scale of that error is exactly this index: a Saturday is ~1.52× a mean day and a Monday
     ~0.72×, i.e. the weekday-blind baseline is wrong by ~±30 % twice a week before any real signal.
     """
+    # Scoped to exactly the population `cityCnt` covers: Sopot postcodes, sentinel-time rows
+    # excluded. Comparing a city-only cube against an all-rows index produces a mismatch that
+    # looks like a timezone bug and is really a population mismatch (measured: 0.7214 vs 0.7232).
     rows = con.execute(f"""
         SELECT isodow(({local_ts_sql()})::DATE) AS dw, count(*) AS n
-        FROM {view} GROUP BY 1 ORDER BY 1""").fetchall()
+        FROM {view}
+        WHERE merchant_postal_code_normalized IS NOT NULL
+          AND merchant_postal_code_normalized LIKE '81-%'
+          AND tran_id_gmt_tm <> '000000'
+        GROUP BY 1 ORDER BY 1""").fetchall()
     total = sum(int(n) for _d, n in rows)
     return {int(dw): round(int(n) * 7.0 / total, 6) for dw, n in rows}
 

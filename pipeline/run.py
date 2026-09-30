@@ -196,7 +196,20 @@ def main(argv: list[str] | None = None) -> int:
 
     # -------------------------------------------------------------- 7 BASELINE
     parquet_idx = enr.weekday_index(con)
+    # The weekday rhythm is a CITY fact, so it must be measured on the exact city series
+    # (`cityCnt`), not on the released subset: suppressing 37 thin cells removes 8.8% of volume,
+    # and a rhythm measured on the remainder would be a rhythm of the areas we happen to be
+    # allowed to show. Falls back to `cnt` only if an older artifact has no city series.
+    # `cityCnt` arrives as (days, hours); the baseline machinery indexes a flat per-code cube, so
+    # it is presented as a one-code cube. The D1 diagnostic then measures the CITY's Saturday-vs-
+    # mean gap, which is the right population for it: the gap is a property of the city's week,
+    # not of the subset of areas we are permitted to show.
+    city = None
+    if art.get("cityCnt") is not None:
+        city = np.frombuffer(base64.b64decode(art["cityCnt"]), dtype=np.uint16).astype(np.uint32)
+        city = city.reshape(agg_mod.DAYS, agg_mod.HOURS)
     base_doc, base_report = base_mod.build(repo_root, art, cnt, parquet_idx,
+                                           rhythm=city,
                                            off_axis_rows=enr.clamped_rows(con))
     wi = base_report["weekday_index"]
     _say("7/8 BASELINE", _kv(index=" ".join(f"{d}:{wi['index'][d]:.3f}" for d in range(1, 8))))
@@ -214,8 +227,10 @@ def main(argv: list[str] | None = None) -> int:
     # -------------------------------------------------------------- 8 EVALUATE
     if not args.skip_backtest:
         daily = bt_mod.daily_series(con)
-        cube_daily = base_mod.daily_totals(cnt, art["days"])
-        bt_doc, drv_doc = bt_mod.build(daily, art["rows"], cube_daily)
+        # The forecast is about the CITY's trade, so it is driven by the exact city series.
+        cube_daily = base_mod.daily_totals(city if city is not None else cnt, art["days"])
+        bt_doc, drv_doc = bt_mod.build(daily, art["rows"], cube_daily,
+                                       cube_rows=int(city.sum()) if city is not None else None)
         sizes = bt_mod.write((bt_doc, drv_doc), out_dir)
         for name, m in bt_doc["candidates"].items():
             _say("8/8 EVALUATE", _kv(candidate=name, **m["metrics"]))

@@ -6,13 +6,13 @@
  * app/sopot-model.js already knows how to consume.
  *
  * Hard rules this file exists to enforce:
- *   - ver must be 4. Any other version is refused.
+ *   - ver must be 5. Any other version is refused.
  *   - Any validation or decode failure sets status='error' and publishes the reason.
  *   - There is NO simulated fallback: no parquet fetch, no browser-side decompression, no
  *     IndexedDB cache. If the file is missing or wrong the panel shows an error, never a number.
  */
 (function () {
-  if (window.SopotData && window.SopotData.ver === 4) return;   // helmet scripts may run twice
+  if (window.SopotData && window.SopotData.ver === 5) return;   // helmet scripts may run twice
   const ENDPOINT = '../artifacts/aggregate.json';
   // The pipeline agent owns artifacts/aggregate.json. Until it lands, tools/make_fixture_aggregate.py
   // writes artifacts/aggregate.fixture.json with the same contract and obviously invented numbers.
@@ -20,7 +20,7 @@
   // "Dane testowe (fixture)" instead of "Dane rzeczywiste", and a banner explains why.
   const FIXTURE = '../artifacts/aggregate.fixture.json';
   const OVERRIDE = new URLSearchParams(location.search).get('agg');   // ?agg=… for the gate
-  const CONTRACT = 4;
+  const CONTRACT = 5;
 
   const SD = (window.SopotData = {
     ver: CONTRACT,
@@ -48,6 +48,7 @@
   const CONFIDENCE = ['observed', 'inferred', 'extrapolated', 'none'];
 
   const TOP_KEYS = ['ver', 'generated', 'source', 'start', 'days', 'hours', 'codes', 'codeMeta',
+                    'cityCnt', 'cityAmt', 'cityAmtScale', 'released',
     'cnt', 'amt', 'amtScale', 'nat', 'eventsByDay', 'rows', 'excluded', 'presets'];
 
   /* Mirrors contracts/aggregate.schema.json. Returns a list of human-readable violations. */
@@ -71,6 +72,12 @@
     if (!Array.isArray(o.codes) || !o.codes.length || !o.codes.every(isStr)) bad.push('codes must be a non-empty array of strings');
     if (!isObj(o.codeMeta)) bad.push('codeMeta must be an object');
     if (!isStr(o.cnt) || !isStr(o.amt) || !isStr(o.nat)) bad.push('cnt, amt and nat must be base64 strings');
+    if (!isStr(o.cityCnt) || !isStr(o.cityAmt)) bad.push('cityCnt and cityAmt must be base64 strings');
+    if (!isNum(o.cityAmtScale) || o.cityAmtScale <= 0) bad.push('cityAmtScale must be a number > 0');
+    if (!isObj(o.released) || !isInt(o.released.codes) || !isInt(o.released.suppressed)
+        || !isInt(o.released.suppressedVolume)) {
+      bad.push('released must carry integer codes, suppressed and suppressedVolume');
+    }
     if (!isNum(o.amtScale) || o.amtScale <= 0) bad.push('amtScale must be a number > 0');
     if (!isInt(o.rows) || o.rows < 0) bad.push('rows must be an integer >= 0');
     if (!isObj(o.eventsByDay)) bad.push('eventsByDay must be an object');
@@ -89,8 +96,21 @@
       const c = o.codes[i], m = o.codeMeta[c];
       if (!m) { bad.push(`codeMeta["${c}"] is missing (contract invariant 7)`); continue; }
       if (!isStr(m.name)) bad.push(`codeMeta["${c}"].name must be a string`);
-      if (!isInt(m.merchants) || m.merchants < 0) bad.push(`codeMeta["${c}"].merchants must be an integer >= 0`);
-      if (!isInt(m.transactions) || m.transactions < 0) bad.push(`codeMeta["${c}"].transactions must be an integer >= 0`);
+      // A SUPPRESSED cell carries no counts by design — the release gate strips them, because
+      // "81-814: 1 transakcja, 1 karta, 1 podmiot" is the identification the rule forbids. The
+      // contract therefore requires the stats only when gates.all is true, and requires their
+      // ABSENCE when it is false: counts appearing on a suppressed cell is a contract violation,
+      // not a nicety, and the loader refuses the whole file if it sees one.
+      const suppressed = m.gates && m.gates.all === false;
+      const statKeys = ['merchants', 'transactions', 'nCards', 'top1Share'];
+      const present = statKeys.filter((k) => m[k] != null);
+      if (suppressed && present.length) {
+        bad.push(`codeMeta["${c}"] is suppressed but still carries ${present.join(', ')} — the release gate must strip these`);
+      }
+      if (!suppressed) {
+        if (!isInt(m.merchants) || m.merchants < 0) bad.push(`codeMeta["${c}"].merchants must be an integer >= 0`);
+        if (!isInt(m.transactions) || m.transactions < 0) bad.push(`codeMeta["${c}"].transactions must be an integer >= 0`);
+      }
       if (!CONFIDENCE.includes(m.polygonConfidence)) bad.push(`codeMeta["${c}"].polygonConfidence must be one of ${CONFIDENCE.join('|')}`);
       if (m.centroid != null && !(Array.isArray(m.centroid) && m.centroid.length === 2 && m.centroid.every(isNum))) bad.push(`codeMeta["${c}"].centroid must be [lat, lng]`);
       if (m.nCards != null && (!isInt(m.nCards) || m.nCards < 0)) bad.push(`codeMeta["${c}"].nCards must be an integer >= 0`);

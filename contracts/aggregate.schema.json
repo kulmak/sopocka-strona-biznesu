@@ -3,67 +3,208 @@
   "$id": "https://sopocka-strona-biznesu/contracts/aggregate.schema.json",
   "title": "aggregate.json v4",
   "type": "object",
-  "required": ["ver", "generated", "source", "start", "days", "hours", "codes", "codeMeta",
-               "cnt", "amt", "amtScale", "nat", "eventsByDay", "rows", "excluded", "presets"],
+  "required": [
+    "ver",
+    "generated",
+    "source",
+    "start",
+    "days",
+    "hours",
+    "codes",
+    "codeMeta",
+    "cnt",
+    "amt",
+    "amtScale",
+    "nat",
+    "eventsByDay",
+    "rows",
+    "excluded",
+    "presets",
+    "cityCnt",
+    "cityAmt",
+    "cityAmtScale",
+    "released"
+  ],
   "additionalProperties": false,
   "properties": {
-    "ver": { "const": 4 },
-    "generated": { "type": "string" },
+    "ver": {
+      "const": 5
+    },
+    "generated": {
+      "type": "string"
+    },
     "source": {
       "type": "object",
-      "required": ["files", "sha256", "rule_version"],
+      "required": [
+        "files",
+        "sha256",
+        "rule_version"
+      ],
       "properties": {
-        "files": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-        "sha256": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-        "rule_version": { "type": "string" }
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "sha256": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "rule_version": {
+          "type": "string"
+        }
       }
     },
-    "start": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-    "days": { "type": "integer", "minimum": 1 },
-    "hours": { "const": 24 },
-    "codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "start": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "days": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "hours": {
+      "const": 24
+    },
+    "codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
     "codeMeta": {
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["name", "merchants", "transactions", "polygonConfidence", "gates"],
+        "required": [
+          "name",
+          "polygonConfidence",
+          "gates"
+        ],
         "properties": {
-          "name": { "type": "string" },
-          "merchants": { "type": "integer", "minimum": 0 },
-          "transactions": { "type": "integer", "minimum": 0 },
-          "centroid": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
-          "polygonConfidence": { "enum": ["observed", "inferred", "extrapolated", "none"] },
-          "nCards": { "type": "integer", "minimum": 0 },
-          "top1Share": { "type": "number", "minimum": 0, "maximum": 1 },
+          "name": {
+            "type": "string"
+          },
+          "merchants": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "transactions": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "centroid": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "polygonConfidence": {
+            "enum": [
+              "observed",
+              "inferred",
+              "extrapolated",
+              "none"
+            ]
+          },
+          "nCards": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "top1Share": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
           "gates": {
             "type": "object",
-            "required": ["g1_cards", "g2_merchants", "g3_share", "all"],
+            "required": [
+              "g1_cards",
+              "g2_merchants",
+              "g3_share",
+              "all"
+            ],
             "properties": {
-              "g1_cards": { "type": "boolean" },
-              "g2_merchants": { "type": "boolean" },
-              "g3_share": { "type": "boolean" },
-              "all": { "type": "boolean" }
+              "g1_cards": {
+                "type": "boolean"
+              },
+              "g2_merchants": {
+                "type": "boolean"
+              },
+              "g3_share": {
+                "type": "boolean"
+              },
+              "all": {
+                "type": "boolean"
+              }
             }
+          },
+          "suppressed": {
+            "type": "boolean"
+          },
+          "why": {
+            "type": "string"
           }
         }
       }
     },
-    "cnt": { "type": "string", "contentEncoding": "base64" },
-    "amt": { "type": "string", "contentEncoding": "base64" },
-    "amtScale": { "type": "number", "exclusiveMinimum": 0 },
-    "nat": { "type": "string", "contentEncoding": "base64" },
+    "cnt": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "amt": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "amtScale": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "nat": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
     "eventsByDay": {
       "type": "object",
-      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
     },
-    "rows": { "type": "integer", "minimum": 0 },
+    "rows": {
+      "type": "integer",
+      "minimum": 0
+    },
     "excluded": {
       "type": "object",
-      "required": ["zeroTimecode", "nonSopotPostcode", "noPostcode"],
+      "required": [
+        "zeroTimecode",
+        "nonSopotPostcode",
+        "noPostcode"
+      ],
       "properties": {
-        "zeroTimecode": { "type": "integer", "minimum": 0 },
-        "nonSopotPostcode": { "type": "integer", "minimum": 0 },
-        "noPostcode": { "type": "integer", "minimum": 0 }
+        "zeroTimecode": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nonSopotPostcode": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "noPostcode": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "presets": {
@@ -71,14 +212,70 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "code", "name", "lat", "lng"],
+        "required": [
+          "id",
+          "code",
+          "name",
+          "lat",
+          "lng"
+        ],
         "properties": {
-          "id": { "type": "string" },
-          "code": { "type": "string" },
-          "name": { "type": "string" },
-          "lat": { "type": "number" },
-          "lng": { "type": "number" },
-          "why": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "why": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cityCnt": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "cityAmt": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "cityAmtScale": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "released": {
+      "type": "object",
+      "required": [
+        "codes",
+        "suppressed",
+        "codesInAxis",
+        "suppressedVolume"
+      ],
+      "properties": {
+        "codes": {
+          "type": "integer"
+        },
+        "suppressed": {
+          "type": "integer"
+        },
+        "codesInAxis": {
+          "type": "integer"
+        },
+        "suppressedVolume": {
+          "type": "integer"
+        },
+        "note": {
+          "type": "string"
         }
       }
     }

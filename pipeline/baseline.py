@@ -176,7 +176,8 @@ def baseline_table(cnt: np.ndarray, codes: Sequence[str], days: int = DAYS,
 
 
 def assert_weekday_index(cnt: np.ndarray, parquet_index: dict[int, float] | None = None,
-                         days: int = DAYS, off_axis_rows: int = 0) -> dict:
+                         days: int = DAYS, off_axis_rows: int = 0,
+                         rhythm: np.ndarray | None = None) -> dict:
     """Assert the Sat/Mon extremes against the contract, and cube-vs-parquet agreement.
 
     The cube is keyed by *local* day; the parquet column is keyed by `purchase_date`. They differ
@@ -184,7 +185,10 @@ def assert_weekday_index(cnt: np.ndarray, parquet_index: dict[int, float] | None
     the agreement tolerance is `7 * off_axis_rows / total` rather than zero — an exact-equality
     test here would be a test of the clamp, not of the timezone conversion.
     """
-    idx = weekday_index_from_cube(cnt, days)
+    # `rhythm` is the exact CITY series when the released cube has suppressed cells removed.
+    # The weekday shape is a city fact; measuring it on the released subset would describe the
+    # areas we are allowed to show rather than the city.
+    idx = weekday_index_from_cube(rhythm if rhythm is not None else cnt, days)
     sat, mon = idx[6], idx[1]
     assert abs(sat - EXPECTED_INDEX["saturday"]) <= INDEX_TOLERANCE, (
         f"Saturday index {sat} is not within ±{INDEX_TOLERANCE} of "
@@ -192,7 +196,7 @@ def assert_weekday_index(cnt: np.ndarray, parquet_index: dict[int, float] | None
     assert abs(mon - EXPECTED_INDEX["monday"]) <= INDEX_TOLERANCE, (
         f"Monday index {mon} is not within ±{INDEX_TOLERANCE} of {EXPECTED_INDEX['monday']}")
     if parquet_index is not None:
-        total = float(cnt.sum())
+        total = float((rhythm if rhythm is not None else cnt).sum())
         tol = 7.0 * off_axis_rows / total + 1e-6 if off_axis_rows else 1e-6
         for w in range(1, 8):
             assert abs(parquet_index[w] - idx[w]) <= tol, (
@@ -207,10 +211,10 @@ def assert_weekday_index(cnt: np.ndarray, parquet_index: dict[int, float] | None
 
 def build(repo_root: str | Path, agg: dict, cnt: np.ndarray,
           parquet_index: dict[int, float] | None = None,
-          off_axis_rows: int = 0) -> tuple[dict, dict]:
+          off_axis_rows: int = 0, rhythm: np.ndarray | None = None) -> tuple[dict, dict]:
     """Assemble `artifacts/baseline.json` and the console report."""
     codes = agg["codes"]
-    check = assert_weekday_index(cnt, parquet_index, off_axis_rows=off_axis_rows)
+    check = assert_weekday_index(cnt, parquet_index, off_axis_rows=off_axis_rows, rhythm=rhythm)
     gap = measure_d1_gap(cnt, codes)
     doc = {
         "ver": 1,

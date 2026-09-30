@@ -71,7 +71,7 @@ from pipeline.enrich import DAYS, HOURS, NAT_BUCKETS, NAT_OTHER_INDEX, START
 EXCLUDED_LABEL = "—"
 
 #: Contract version. The app refuses anything else.
-VER = 4
+VER = 5
 
 #: Presets, exactly as `contracts/AGGREGATE.md` specifies them: the codes, the ids, the display
 #: names and the `why` strings are the contract's. Only `lat`/`lng` are recomputed — see
@@ -190,9 +190,54 @@ def build_artifact(con: duckdb.DuckDBPyConnection, sectors: dict[str, dict],
     """Build the artifact dict plus a report of every invariant it satisfied."""
     codes = code_axis(con, view)
     cnt, zl, nat = build_arrays(con, codes, view)
-    amt, amt_scale = whole_zloty(zl)
 
     meta_all = enrich.code_meta(con, sectors, codes[1:], view)
+
+    # ---------------------------------------------------------------------------------------
+    # THE RELEASE GATE. Everything above computes; this is the only place that decides what
+    # leaves the machine, and it is deliberately the last step before the artifact is built.
+    #
+    # The challenge's binding rule is per-cell: an analysis or a presentation of a result may
+    # only be made on a group covering >=30 distinct cards, with >=3 entities and no entity
+    # above 75% of the group. A per-postcode hourly series IS a presentation of that cell's
+    # result, so a cell that fails the gates must not carry one — and must not carry the
+    # counts either, because "81-814: 1 transakcja, 1 karta, 1 podmiot" is exactly the
+    # identification the rule forbids, whether or not a chart is drawn from it.
+    #
+    # What survives for a suppressed cell: its code, its name, its polygon provenance and WHICH
+    # gate failed, so the map can render it honestly dark with a reason. What does not survive:
+    # the hourly series, the amount series, and every count or share behind the verdict.
+    # ---------------------------------------------------------------------------------------
+    gated = {c for c, e in meta_all.items()
+             if c != "_gates_source" and isinstance(e, dict) and e.get("gates", {}).get("all")}
+    suppressed = [c for c in codes[1:] if c not in gated]
+
+    # City totals are computed BEFORE suppression: the city as a whole is a single group of
+    # 371k transactions, 347 entities and a 5.7% top-1 share, so it passes the gates and its
+    # totals are publishable. Keeping them separate is what lets us suppress the parts without
+    # lying about the whole.
+    blocks = DAYS * HOURS
+    city_cnt = cnt.reshape(len(codes), blocks)[1:].sum(axis=0).astype(np.uint32)
+    city_amt = zl.reshape(len(codes), blocks)[1:].sum(axis=0)
+
+    idx = {c: i for i, c in enumerate(codes)}
+    suppressed_volume = int(sum(int(cnt[idx[c] * blocks:(idx[c] + 1) * blocks].sum())
+                               for c in suppressed))
+    for c in suppressed:
+        i = idx[c]
+        cnt[i * blocks:(i + 1) * blocks] = 0
+        zl[i * blocks:(i + 1) * blocks] = 0.0
+
+    # amt is derived AFTER zeroing so the scale is computed on what actually ships.
+    amt, amt_scale = whole_zloty(zl)
+
+    for c in suppressed:
+        e = meta_all[c]
+        for k in ("merchants", "transactions", "nCards", "top1Share"):
+            e.pop(k, None)
+        e["suppressed"] = True
+        e["why"] = e.get("gates", {}).get("reason") or "gates"
+
     gates_source = meta_all.pop("_gates_source")
     code_meta = {k: v for k, v in meta_all.items() if k in set(codes)}
     presets = presets_with_real_points(sectors)
@@ -210,6 +255,18 @@ def build_artifact(con: duckdb.DuckDBPyConnection, sectors: dict[str, dict],
         "amt": b64(amt),
         "amtScale": amt_scale,
         "nat": b64(nat),
+        # Exact city totals, INCLUDING the suppressed cells. Without these the app could only
+        # sum the released codes and would silently under-report the city by the suppressed
+        # volume — the kind of quiet wrongness this artifact exists to avoid.
+        "cityCnt": b64(city_cnt.astype(np.uint16) if city_cnt.max() < 65535 else city_cnt),
+        "cityAmt": b64(city_amt.astype(np.uint16) if city_amt.max() < 65535 else city_amt),
+        "cityAmtScale": amt_scale,
+        "released": {"codes": len(gated), "suppressed": len(suppressed),
+                     "codesInAxis": len(codes) - 1,
+                     "suppressedVolume": suppressed_volume,
+                     "note": ("Suppressed cells carry no series and no counts. `cityCnt` still "
+                              "includes them, so the city total stays exact while the parts stay "
+                              "unidentifiable. sum(cnt) + suppressedVolume == rows.")},
         "eventsByDay": enrich.events_by_day(con, view),
         "rows": int(rows),
         "excluded": excluded,
@@ -220,6 +277,7 @@ def build_artifact(con: duckdb.DuckDBPyConnection, sectors: dict[str, dict],
         "cells": int(cnt.size),
         "max_cnt": int(cnt.max(initial=0)),
         "max_amt_zl": float(zl.max(initial=0.0)),
+        "suppressed_volume": int(art.get("released", {}).get("suppressedVolume", 0)),
         "amt_scale": amt_scale,
         "gates_source": gates_source,
         "array_bytes": {"cnt": int(cnt.nbytes), "amt": int(amt.nbytes), "nat": int(nat.nbytes)},
@@ -244,7 +302,13 @@ def assert_invariants(art: dict, cnt: np.ndarray | None = None,
     checks: dict[str, object] = {}
     # 1. every row lands exactly once, excluded rows in index 0
     checks["1_sum_cnt_eq_rows"] = int(c.sum())
-    assert int(c.sum()) == rows, f"sum(cnt)={int(c.sum())} != rows={rows}"
+    # The released series cannot sum to `rows` any more: the suppressed cells carry no series
+    # by design. The honest form of the reconciliation keeps the suppressed volume in the
+    # equation instead of quietly dropping it, and `cityCnt` carries the exact whole.
+    supp = int(art.get("released", {}).get("suppressedVolume", 0))
+    assert int(c.sum()) + supp == rows, (
+        f"sum(cnt)={int(c.sum())} + suppressed={supp} != rows={rows} — the released series and "
+        "the suppressed volume must together account for every row")
     # 2. array lengths
     assert len(c) == len(a) == len(codes) * days * hours, "cnt/amt length mismatch"
     checks["2_len_cnt_amt"] = len(c)

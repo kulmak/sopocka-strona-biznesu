@@ -65,8 +65,7 @@
     "statement": "Busiest local hour of the day, DST-correct, sentinel rows excluded.",
     "cmd": "python3 -c \"import duckdb;d=duckdb.sql(\\\"select date_part('hour',timezone('Europe/Warsaw',(purchase_date+transaction_time_gmt)::TIMESTAMP AT TIME ZONE 'UTC'))::int h,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where tran_id_gmt_tm<>'000000' group by 1 order by n desc limit 1\\\").fetchone();print(d[0])\"",
     "used_in": [
-      "deck s4",
-      "docs/MODEL.md"
+      "deck s4"
     ]
   },
   {
@@ -75,8 +74,7 @@
     "statement": "Share of trade between 11:00 and 15:00 local.",
     "cmd": "python3 -c \"import duckdb;d=duckdb.sql(\\\"select date_part('hour',timezone('Europe/Warsaw',(purchase_date+transaction_time_gmt)::TIMESTAMP AT TIME ZONE 'UTC'))::int h,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where tran_id_gmt_tm<>'000000' group by 1\\\").df();print(round(100*d[d.h.between(11,15)].n.sum()/d.n.sum(),1))\"",
     "used_in": [
-      "deck s4",
-      "docs/MODEL.md"
+      "deck s4"
     ]
   },
   {
@@ -111,24 +109,26 @@
   },
   {
     "id": "gate_all_three",
-    "value": "18",
-    "statement": "Postcodes passing all three privacy gates.",
-    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"with per as (select merchant_postal_code_normalized pc,mrch_nm_raw m,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1,2), agg as (select pc,sum(n) tot,count(*) merchants,max(n) top1 from per group by 1), cards as (select merchant_postal_code_normalized pc,count(distinct pymt_crd_acct_num_raw) cards from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1) select count(*) from agg a join cards c using(pc) where c.cards>=30 and a.merchants>=3 and a.top1*1.0/a.tot<=0.75\\\").fetchone()[0])\"",
+    "value": "17",
+    "statement": "Postcodes passing all three binding gates as the SHIPPED artifact applies them (>=30 distinct cards, >=3 merchants, and the conservative card-share leg of the 75% rule).",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/aggregate.json'));print(d['released']['codes'])\"",
     "used_in": [
       "deck s8",
-      "docs/PRIVACY.md",
-      "README"
-    ]
+      "README",
+      "docs/PRIVACY.md"
+    ],
+    "artifact": "artifacts/aggregate.json"
   },
   {
     "id": "gate_volume_share",
-    "value": "90.7",
-    "statement": "Share of transaction volume inside the postcodes that pass all three gates.",
-    "cmd": "python3 -c \"import duckdb;print(round(duckdb.sql(\\\"with per as (select merchant_postal_code_normalized pc,mrch_nm_raw m,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1,2), agg as (select pc,sum(n) tot,count(*) merchants,max(n) top1 from per group by 1), cards as (select merchant_postal_code_normalized pc,count(distinct pymt_crd_acct_num_raw) cards from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1) select 100.0*sum(case when c.cards>=30 and a.merchants>=3 and a.top1*1.0/a.tot<=0.75 then a.tot else 0 end)/sum(a.tot) from agg a join cards c using(pc)\\\").fetchone()[0],1))\"",
+    "value": "89.95",
+    "statement": "Share of Sopot transaction volume inside the released postcodes.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/privacy-summary.json'));print(d['grain_postcode']['share_all_three_pct'])\"",
     "used_in": [
       "deck s8",
       "docs/PRIVACY.md"
-    ]
+    ],
+    "artifact": "artifacts/privacy-summary.json"
   },
   {
     "id": "top_postcode_share",
@@ -136,8 +136,7 @@
     "statement": "Share of all transactions sitting in postcode 81-777.",
     "cmd": "python3 -c \"import duckdb;print(round(duckdb.sql(\\\"select 100.0*count(*)/(select count(*) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized='81-777'\\\").fetchone()[0],1))\"",
     "used_in": [
-      "deck s8",
-      "docs/GEO.md"
+      "deck s8"
     ]
   },
   {
@@ -146,8 +145,7 @@
     "statement": "Hourly timestamps on which the weather differs between postcodes. Zero proves the weather join is city-level.",
     "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(*) from (select purchase_date,transaction_time_gmt,count(distinct weather_temperature_mean_c) k from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where weather_temperature_mean_c is not null group by 1,2 having k>1)\\\").fetchone()[0])\"",
     "used_in": [
-      "docs/DATA.md",
-      "docs/MODEL.md"
+      "docs/DATA.md"
     ]
   },
   {
@@ -169,8 +167,7 @@
     "artifact": "artifacts/backtest.json",
     "used_in": [
       "deck s6",
-      "README",
-      "docs/EVALUATION.md"
+      "README"
     ]
   },
   {
@@ -180,8 +177,7 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/backtest.json'));print(round(d['candidates'][d['best_candidate']]['metrics']['MAPE'],1))\"",
     "artifact": "artifacts/backtest.json",
     "used_in": [
-      "deck s6",
-      "docs/EVALUATION.md"
+      "deck s6"
     ]
   },
   {
@@ -211,8 +207,7 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/backtest.json'));print(round(d['weather_events_experiment']['drivers_on_mean4sw_weather_events']['PICP80'],4))\"",
     "artifact": "artifacts/backtest.json",
     "used_in": [
-      "deck s6",
-      "docs/EVALUATION.md"
+      "deck s6"
     ]
   },
   {
@@ -222,8 +217,7 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(round(d['primary']['coefficients']['rain']['t'],2))\"",
     "artifact": "artifacts/drivers.json",
     "used_in": [
-      "deck s5",
-      "docs/MODEL.md"
+      "deck s5"
     ]
   },
   {
@@ -243,8 +237,7 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(round(d['primary']['coefficients']['events']['t'],1))\"",
     "artifact": "artifacts/drivers.json",
     "used_in": [
-      "deck s5",
-      "docs/MODEL.md"
+      "deck s5"
     ]
   },
   {
@@ -254,8 +247,7 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(round(d['audit_spec']['coefficients']['events']['t'],2))\"",
     "artifact": "artifacts/drivers.json",
     "used_in": [
-      "deck s5",
-      "docs/MODEL.md"
+      "deck s5"
     ]
   },
   {
@@ -264,13 +256,11 @@
     "statement": "Wind t-statistic in the primary specification: not significant, so we do not claim it.",
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(round(d['primary']['coefficients']['wind']['t'],2))\"",
     "artifact": "artifacts/drivers.json",
-    "used_in": [
-      "docs/MODEL.md"
-    ]
+    "used_in": []
   },
   {
     "id": "aggregate_size_mb",
-    "value": "4.48",
+    "value": "4.55",
     "statement": "Size of the privacy-gated aggregate the app loads, in MiB.",
     "cmd": "python3 -c \"import os;print(round(os.path.getsize('artifacts/aggregate.json')/1048576,2))\"",
     "artifact": "artifacts/aggregate.json",
@@ -286,8 +276,7 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(d['season_control']['spread_raw'])\"",
     "artifact": "artifacts/drivers.json",
     "used_in": [
-      "deck s5",
-      "docs/MODEL.md"
+      "deck s5"
     ]
   },
   {
@@ -297,15 +286,14 @@
     "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(d['season_control']['spread_ctl'])\"",
     "artifact": "artifacts/drivers.json",
     "used_in": [
-      "deck s5",
-      "docs/MODEL.md"
+      "deck s5"
     ]
   },
   {
     "id": "parquet_part01_rows",
     "value": "189106",
     "statement": "Rows in source part01. The parquet split (189,106 / 189,106) is NOT the CSV emission's split, so 'part01 = first half' is false.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\na, b = con.execute(f\"select (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part01.parquet')), (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'))\").fetchone()\nprint(f'part01_rows={a} part02_rows={b}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\na, b = con.execute(f\"select (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part01.parquet')), (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'))\").fetchone()\nprint(f'part01_rows={a}; part02_rows={b}')\nPY",
     "used_in": [
       "docs/DATA.md",
       "docs/CLEANING.md"
@@ -315,7 +303,7 @@
     "id": "parquet_part02_rows",
     "value": "189106",
     "statement": "Rows in source part02 — identical to part01, which is a coincidence of the split.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\na, b = con.execute(f\"select (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part01.parquet')), (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'))\").fetchone()\nprint(f'part01_rows={a} part02_rows={b}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\na, b = con.execute(f\"select (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part01.parquet')), (select count(*) from read_parquet('/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'))\").fetchone()\nprint(f'part01_rows={a}; part02_rows={b}')\nPY",
     "used_in": [
       "docs/DATA.md",
       "docs/CLEANING.md"
@@ -325,7 +313,7 @@
     "id": "source_row_min",
     "value": "22",
     "statement": "Smallest source_transaction_row in the filtered emission. The window is dense from 22, so 21 pre-filter rows were dropped and the origin is unexplained.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nmn, mx = con.execute(f'select min(source_transaction_row), max(source_transaction_row) from read_parquet({P})').fetchone()\nprint(f'source_row_min={mn} source_row_max={mx}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nmn, mx = con.execute(f'select min(source_transaction_row), max(source_transaction_row) from read_parquet({P})').fetchone()\nprint(f'source_row_min={mn}; source_row_max={mx}')\nPY",
     "used_in": [
       "docs/DATA.md",
       "docs/CLEANING.md"
@@ -335,7 +323,7 @@
     "id": "source_row_max",
     "value": "2345173",
     "statement": "Largest source_transaction_row retained. This is the only surviving trace of the size of the unfiltered extract.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nmn, mx = con.execute(f'select min(source_transaction_row), max(source_transaction_row) from read_parquet({P})').fetchone()\nprint(f'source_row_min={mn} source_row_max={mx}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nmn, mx = con.execute(f'select min(source_transaction_row), max(source_transaction_row) from read_parquet({P})').fetchone()\nprint(f'source_row_min={mn}; source_row_max={mx}')\nPY",
     "used_in": [
       "docs/DATA.md",
       "docs/CLEANING.md"
@@ -357,7 +345,8 @@
     "statement": "Columns in the shipped emission (the challenge lists 30; the other 42 are the original run's derived and evidence columns).",
     "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\ncols = [r[0] for r in duckdb.sql(f'describe select * from read_parquet({P})').fetchall()]\nprint(f'raw_schema_columns={len(cols)}')\nPY",
     "used_in": [
-      "docs/DATA.md"
+      "docs/DATA.md",
+      "deck s3"
     ]
   },
   {
@@ -432,7 +421,8 @@
     "statement": "Rows in the public weather extract (hourly, per postcode) that the original join collapsed to one city-level series per date.",
     "cmd": "python3 - <<'PY'\nimport csv\np = '/Users/kulma/Downloads/sopot_weather_by_postal_code_2025-01-01_2026-06-30.csv'\nwith open(p, newline='', encoding='utf-8') as f:\n    r = csv.reader(f); next(r); n = sum(1 for _ in r)\nprint(f'weather_source_rows={n}')\nPY",
     "used_in": [
-      "docs/DATA.md"
+      "docs/DATA.md",
+      "deck s3"
     ]
   },
   {
@@ -441,8 +431,7 @@
     "statement": "Distinct local (date, hour) slots that actually hold a timed transaction. The weather is identical across postcodes on every one of them.",
     "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nprint('local_hour_slots=%d' % con.execute(f'select count(*) from (select distinct ({LOCAL})::DATE dd, hour({LOCAL}) hh from read_parquet({P}) where tran_id_gmt_tm <> \\'000000\\')').fetchone()[0])\nPY",
     "used_in": [
-      "docs/DATA.md",
-      "docs/MODEL.md"
+      "docs/DATA.md"
     ]
   },
   {
@@ -451,7 +440,8 @@
     "statement": "Distinct event ids in the city calendar carried on the rows.",
     "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nprint('event_ids_distinct=%d' % con.execute(f\"select count(distinct e) from (select unnest(from_json(any_value(event_ids_json),'[\\\"VARCHAR\\\"]')) e from read_parquet({P}) group by purchase_date)\").fetchone()[0])\nPY",
     "used_in": [
-      "docs/DATA.md"
+      "docs/DATA.md",
+      "deck s3"
     ]
   },
   {
@@ -487,7 +477,8 @@
     "statement": "Address points in the shipped GIS package — the denominator of the '19.0% of addresses' figure and the evidence base for every sector polygon.",
     "cmd": "python3 - <<'PY'\nimport json\np = '/Users/kulma/Downloads/Dashboard website application planning/uploads/Sopot_GIS_2026-09-29/addresses_postcodes.geojson'\nprint('gis_addresses=%d' % len(json.load(open(p))['features']))\nPY",
     "used_in": [
-      "docs/DATA.md"
+      "docs/DATA.md",
+      "deck s3"
     ]
   },
   {
@@ -496,14 +487,15 @@
     "statement": "Modelled postcode sectors in data/sopot-sectors.geojson.",
     "cmd": "python3 - <<'PY'\nimport json\np = '/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'\nprint('gis_sectors=%d' % len(json.load(open(p))['features']))\nPY",
     "used_in": [
-      "docs/DATA.md"
+      "docs/DATA.md",
+      "deck s3"
     ]
   },
   {
     "id": "sectors_observed",
     "value": "116",
     "statement": "Sectors the PIPELINE's two-criterion rule grades `observed` (both_agree_count >= 3 and support100_pct >= 75). Full package, all 151 sectors.",
-    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nimport json, collections\nfrom pipeline import enrich\ngj = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'))\nc = collections.Counter(enrich.polygon_confidence(f['properties']) for f in gj['features'])\nprint('sectors_observed=%d sectors_inferred=%d sectors_extrapolated=%d' % (c['observed'], c['inferred'], c['extrapolated']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nimport json, collections\nfrom pipeline import enrich\ngj = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'))\nc = collections.Counter(enrich.polygon_confidence(f['properties']) for f in gj['features'])\nprint('sectors_observed=%d; sectors_inferred=%d; sectors_extrapolated=%d' % (c['observed'], c['inferred'], c['extrapolated']))\nPY",
     "used_in": [
       "docs/DATA.md"
     ]
@@ -512,7 +504,7 @@
     "id": "sectors_inferred",
     "value": "24",
     "statement": "Sectors graded `inferred` by the pipeline's rule (address_count >= 1 and support100_pct >= 40, minus those already observed).",
-    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nimport json, collections\nfrom pipeline import enrich\ngj = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'))\nc = collections.Counter(enrich.polygon_confidence(f['properties']) for f in gj['features'])\nprint('sectors_observed=%d sectors_inferred=%d sectors_extrapolated=%d' % (c['observed'], c['inferred'], c['extrapolated']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nimport json, collections\nfrom pipeline import enrich\ngj = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'))\nc = collections.Counter(enrich.polygon_confidence(f['properties']) for f in gj['features'])\nprint('sectors_observed=%d; sectors_inferred=%d; sectors_extrapolated=%d' % (c['observed'], c['inferred'], c['extrapolated']))\nPY",
     "used_in": [
       "docs/DATA.md"
     ]
@@ -521,7 +513,7 @@
     "id": "sectors_extrapolated",
     "value": "11",
     "statement": "Sectors graded `extrapolated` by the pipeline's rule. NOT the audit's 12: the audit adds a third criterion (extrapolated_pct < 10) that the shipped sector model does not carry.",
-    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nimport json, collections\nfrom pipeline import enrich\ngj = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'))\nc = collections.Counter(enrich.polygon_confidence(f['properties']) for f in gj['features'])\nprint('sectors_observed=%d sectors_inferred=%d sectors_extrapolated=%d' % (c['observed'], c['inferred'], c['extrapolated']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nimport json, collections\nfrom pipeline import enrich\ngj = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/data/sopot-sectors.geojson'))\nc = collections.Counter(enrich.polygon_confidence(f['properties']) for f in gj['features'])\nprint('sectors_observed=%d; sectors_inferred=%d; sectors_extrapolated=%d' % (c['observed'], c['inferred'], c['extrapolated']))\nPY",
     "used_in": [
       "docs/DATA.md"
     ]
@@ -533,7 +525,9 @@
     "cmd": "python3 - <<'PY'\nimport json\npr = json.load(open('artifacts/privacy-report.json'))\nkeep = {c['pc'] for c in pr['grain_postcode']['cells'] if c['all_three_volume_metric']}\naddr = json.load(open('/Users/kulma/Downloads/Dashboard website application planning/uploads/Sopot_GIS_2026-09-29/addresses_postcodes.geojson'))\ntot = len(addr['features'])\nn = sum(1 for f in addr['features'] if f['properties'].get('postcode') in keep)\nprint('address_share_passing18=%.1f%% (%d/%d)' % (100 * n / tot, n, tot))\nPY",
     "used_in": [
       "docs/DATA.md",
-      "docs/PRIVACY.md"
+      "docs/PRIVACY.md",
+      "deck s3",
+      "deck s8"
     ]
   },
   {
@@ -570,7 +564,8 @@
     "statement": "Stage 3, branch 1 of the postcode CASE: NULL or empty string -> NULL. 5,490 NULL plus 941 empty.",
     "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nprint('postcode_branch_null_or_empty=%d' % con.execute(f\"select count(*) from read_parquet({P}) where mrch_postal_code is null or mrch_postal_code = ''\").fetchone()[0])\nPY",
     "used_in": [
-      "docs/CLEANING.md"
+      "docs/CLEANING.md",
+      "docs/DATA.md"
     ]
   },
   {
@@ -725,7 +720,9 @@
     "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nn, t = con.execute(f\"select sum(case when tran_id_gmt_tm = '000000' then 1 else 0 end), count(*) from read_parquet({P})\").fetchone()\nprint(f'zero_timecode_pct={round(100*n/t,1)}')\nPY",
     "used_in": [
       "docs/CLEANING.md",
-      "docs/DATA.md"
+      "docs/DATA.md",
+      "deck s3",
+      "deck s4"
     ]
   },
   {
@@ -842,7 +839,7 @@
     "id": "aggregate_cells",
     "value": "720720",
     "statement": "Cells in the cube: 55 codes x 546 days x 24 hours.",
-    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\nc = np.frombuffer(base64.b64decode(d['cnt']), dtype=np.uint16)\nprint(f'aggregate_cells={c.size} max_cnt={int(c.max())}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\nc = np.frombuffer(base64.b64decode(d['cnt']), dtype=np.uint16)\nprint(f'aggregate_cells={c.size}; max_cnt={int(c.max())}')\nPY",
     "used_in": [
       "docs/CLEANING.md"
     ],
@@ -852,7 +849,7 @@
     "id": "aggregate_max_cnt",
     "value": "214",
     "statement": "Busiest single cell in the cube: 214 transactions in one postcode, one hour, one day. Asserted < 65535 so a Uint16 wraparound cannot make a busy hour look small.",
-    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\nc = np.frombuffer(base64.b64decode(d['cnt']), dtype=np.uint16)\nprint(f'aggregate_cells={c.size} max_cnt={int(c.max())}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\nc = np.frombuffer(base64.b64decode(d['cnt']), dtype=np.uint16)\nprint(f'aggregate_cells={c.size}; max_cnt={int(c.max())}')\nPY",
     "used_in": [
       "docs/CLEANING.md"
     ],
@@ -862,7 +859,7 @@
     "id": "aggregate_max_amt",
     "value": "47489",
     "statement": "Largest cell in the encoded amt array times amtScale: 47,489 zł in one postcode-hour. Below 65535, which is why amtScale stays 1 and no precision is lost.",
-    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\na = np.frombuffer(base64.b64decode(d['amt']), dtype=np.uint16)\nprint(f'aggregate_max_amt={int(a.max()) * d[\"amtScale\"]:.0f} amtScale={d[\"amtScale\"]}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\na = np.frombuffer(base64.b64decode(d['amt']), dtype=np.uint16)\nprint(f'aggregate_max_amt={int(a.max()) * d[\"amtScale\"]:.0f}; amtScale={d[\"amtScale\"]}')\nPY",
     "used_in": [
       "docs/CLEANING.md"
     ],
@@ -882,7 +879,7 @@
     "id": "gated_codes_pipeline",
     "value": "17",
     "statement": "Codes the pipeline marks as passing all gates when it builds the cube, under PRODUCT_RULES (the conservative reading: G3 on both volume and cards, plus G4).",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nimport sys\nsys.path.insert(0, '.')\nfrom pipeline import enrich, aggregate as agg, ingest, filter as filt\ncon2 = ingest.connect()\ningest.register_raw(con2, [__import__('pathlib').Path(p) for p in P])\nsectors = enrich.load_sectors('.')\ncodes = agg.code_axis(con2)\nmeta = enrich.code_meta(con2, sectors, codes[1:])\nmeta.pop('_gates_source', None)\nprint('gated_codes=%d codes_total=%d' % (sum(1 for c in meta.values() if c['gates']['all']), len(meta)))\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nimport sys\nsys.path.insert(0, '.')\nfrom pipeline import enrich, aggregate as agg, ingest, filter as filt\ncon2 = ingest.connect()\ningest.register_raw(con2, [__import__('pathlib').Path(p) for p in P])\nsectors = enrich.load_sectors('.')\ncodes = agg.code_axis(con2)\nmeta = enrich.code_meta(con2, sectors, codes[1:])\nmeta.pop('_gates_source', None)\nprint('gated_codes=%d; codes_total=%d' % (sum(1 for c in meta.values() if c['gates']['all']), len(meta)))\nPY",
     "used_in": [
       "docs/CLEANING.md",
       "docs/PRIVACY.md"
@@ -892,102 +889,88 @@
     "id": "codes_total_pipeline",
     "value": "54",
     "statement": "Sopot codes carrying transactions — the population the pipeline gates, excluding the excluded bucket.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nimport sys\nsys.path.insert(0, '.')\nfrom pipeline import enrich, aggregate as agg, ingest\ncon2 = ingest.connect()\ningest.register_raw(con2, [__import__('pathlib').Path(p) for p in P])\nsectors = enrich.load_sectors('.')\ncodes = agg.code_axis(con2)\nmeta = enrich.code_meta(con2, sectors, codes[1:])\nmeta.pop('_gates_source', None)\nprint('gated_codes=%d codes_total=%d' % (sum(1 for c in meta.values() if c['gates']['all']), len(meta)))\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nimport sys\nsys.path.insert(0, '.')\nfrom pipeline import enrich, aggregate as agg, ingest\ncon2 = ingest.connect()\ningest.register_raw(con2, [__import__('pathlib').Path(p) for p in P])\nsectors = enrich.load_sectors('.')\ncodes = agg.code_axis(con2)\nmeta = enrich.code_meta(con2, sectors, codes[1:])\nmeta.pop('_gates_source', None)\nprint('gated_codes=%d; codes_total=%d' % (sum(1 for c in meta.values() if c['gates']['all']), len(meta)))\nPY",
     "used_in": [
       "docs/CLEANING.md"
     ]
   },
   {
     "id": "weekday_index_monday",
-    "value": "0.7232",
+    "value": "0.7214",
     "statement": "Monday's share of an average day in local time. The same-weekday baseline exists because this is not 1.0.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'mon={d[\"1\"]:.4f}')\nPY",
     "used_in": [
-      "docs/MODEL.md",
       "docs/CLEANING.md"
     ],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "weekday_index_tuesday",
-    "value": "0.7298",
+    "value": "0.7269",
     "statement": "Tuesday index.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'tue={d[\"2\"]:.4f}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "weekday_index_wednesday",
-    "value": "0.7388",
+    "value": "0.7370",
     "statement": "Wednesday index.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'wed={d[\"3\"]:.4f}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "weekday_index_thursday",
-    "value": "0.8534",
+    "value": "0.8546",
     "statement": "Thursday index.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'thu={d[\"4\"]:.4f}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "weekday_index_friday",
-    "value": "1.0723",
+    "value": "1.0721",
     "statement": "Friday index.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'fri={d[\"5\"]:.4f}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "weekday_index_saturday",
-    "value": "1.5195",
+    "value": "1.5240",
     "statement": "Saturday index — 1.52x an average day. A weekday-blind baseline reads a Saturday +52% before any real deviation.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'sat={d[\"6\"]:.4f}')\nPY",
     "used_in": [
-      "docs/MODEL.md",
       "docs/CLEANING.md"
     ],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "weekday_index_sunday",
-    "value": "1.3631",
+    "value": "1.3640",
     "statement": "Sunday index.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['weekdayIndex']\nnames = {1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat',7:'sun'}\nprint(f'sun={d[\"7\"]:.4f}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "d1_gap_saturday",
-    "value": "-0.3636",
+    "value": "-0.3618",
     "statement": "Mean (blind / matched - 1) on Saturdays: the weekday-blind 30-day mean reads a Saturday 36% LOW, not high. Sign and magnitude both matter.",
-    "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['d1Gap']['byWeekday']\nprint(f'sat={d[\"6\"][\"mean\"]} mon={d[\"1\"][\"mean\"]}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['d1Gap']['byWeekday']\nprint(f'sat={d[\"6\"][\"mean\"]}; mon={d[\"1\"][\"mean\"]}')\nPY",
     "used_in": [
-      "docs/CLEANING.md",
-      "docs/MODEL.md"
+      "docs/CLEANING.md"
     ],
     "artifact": "artifacts/baseline.json"
   },
   {
     "id": "d1_gap_monday",
-    "value": "0.2793",
+    "value": "0.3012",
     "statement": "Mean (blind / matched - 1) on Mondays: +28%.",
-    "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['d1Gap']['byWeekday']\nprint(f'sat={d[\"6\"][\"mean\"]} mon={d[\"1\"][\"mean\"]}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/baseline.json'))['d1Gap']['byWeekday']\nprint(f'sat={d[\"6\"][\"mean\"]}; mon={d[\"1\"][\"mean\"]}')\nPY",
     "used_in": [
-      "docs/CLEANING.md",
-      "docs/MODEL.md"
+      "docs/CLEANING.md"
     ],
     "artifact": "artifacts/baseline.json"
   },
@@ -1006,9 +989,7 @@
     "value": "4",
     "statement": "Trailing same-weekday occurrences averaged into the baseline. Four, not thirty days.",
     "cmd": "python3 - <<'PY'\nimport re, pathlib\ns = pathlib.Path('pipeline/baseline.py').read_text()\nprint('baseline_weeks=%s' % re.search(r'MATCHED_WEEKS = (\\d+)', s).group(1))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ]
+    "used_in": []
   },
   {
     "id": "thin_base_transactions",
@@ -1016,169 +997,152 @@
     "statement": "The display floor the panel escalates on: below 12 transactions in the 3-hour window the reading escalates to a parent area. A readability guard, NOT a privacy gate.",
     "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nfrom contracts import privacy as P\nprint('thin_base_transactions=%d' % P.THIN_BASE_TRANSACTIONS)\nPY",
     "used_in": [
-      "docs/MODEL.md",
       "docs/PRIVACY.md",
       "docs/CLEANING.md"
     ]
   },
   {
     "id": "driver_primary_rain",
-    "value": "beta=-0.396329 se=0.040702 t=-9.74 ci95=[-0.476289, -0.31637]",
+    "value": "beta=-0.396329; se=0.040702; t=-9.74 ci95=[-0.476289, -0.31637]",
     "statement": "rain coefficient in the `primary` specification — the literal brief: OLS on log(daily count), month + weekday controls, 546 days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_primary_temperature",
-    "value": "beta=0.030389 se=0.002668 t=11.39 ci95=[0.025148, 0.03563]",
+    "value": "beta=0.030389; se=0.002668; t=11.39 ci95=[0.025148, 0.03563]",
     "statement": "temperature coefficient in the `primary` specification — the literal brief: OLS on log(daily count), month + weekday controls, 546 days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_primary_wind",
-    "value": "beta=-0.001923 se=0.001383 t=-1.39 ci95=[-0.004641, 0.000794]",
+    "value": "beta=-0.001923; se=0.001383; t=-1.39 ci95=[-0.004641, 0.000794]",
     "statement": "wind coefficient in the `primary` specification — the literal brief: OLS on log(daily count), month + weekday controls, 546 days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_primary_events",
-    "value": "beta=0.011194 se=0.002194 t=5.1 ci95=[0.006883, 0.015505]",
+    "value": "beta=0.011194; se=0.002194; t=5.1 ci95=[0.006883, 0.015505]",
     "statement": "events coefficient in the `primary` specification — the literal brief: OLS on log(daily count), month + weekday controls, 546 days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['primary']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('primary' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_no_month_rain",
-    "value": "beta=-0.366977 se=0.04791 t=-7.66 ci95=[-0.461092, -0.272862]",
+    "value": "beta=-0.366977; se=0.04791; t=-7.66 ci95=[-0.461092, -0.272862]",
     "statement": "rain coefficient in the `no_month` specification — the same without month dummies — how much season the month dummies absorb. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_no_month_temperature",
-    "value": "beta=0.044284 se=0.001674 t=26.46 ci95=[0.040996, 0.047572]",
+    "value": "beta=0.044284; se=0.001674; t=26.46 ci95=[0.040996, 0.047572]",
     "statement": "temperature coefficient in the `no_month` specification — the same without month dummies — how much season the month dummies absorb. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_no_month_wind",
-    "value": "beta=-0.003988 se=0.001629 t=-2.45 ci95=[-0.007188, -0.000788]",
+    "value": "beta=-0.003988; se=0.001629; t=-2.45 ci95=[-0.007188, -0.000788]",
     "statement": "wind coefficient in the `no_month` specification — the same without month dummies — how much season the month dummies absorb. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_no_month_events",
-    "value": "beta=0.017632 se=0.002365 t=7.45 ci95=[0.012985, 0.022278]",
+    "value": "beta=0.017632; se=0.002365; t=7.45 ci95=[0.012985, 0.022278]",
     "statement": "events coefficient in the `no_month` specification — the same without month dummies — how much season the month dummies absorb. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['no_month']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('no_month' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audit_spec_rain",
-    "value": "beta=-0.483329 se=0.05685 t=-8.5 ci95=[-0.595031, -0.371628]",
+    "value": "beta=-0.483329; se=0.05685; t=-8.5 ci95=[-0.595031, -0.371628]",
     "statement": "rain coefficient in the `audit_spec` specification — OLS on the log uplift ratio, no month dummies, 490 walk-forward days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audit_spec_temperature",
-    "value": "beta=0.005867 se=0.001876 t=3.13 ci95=[0.002182, 0.009552]",
+    "value": "beta=0.005867; se=0.001876; t=3.13 ci95=[0.002182, 0.009552]",
     "statement": "temperature coefficient in the `audit_spec` specification — OLS on the log uplift ratio, no month dummies, 490 walk-forward days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audit_spec_wind",
-    "value": "beta=-0.003818 se=0.001928 t=-1.98 ci95=[-0.007607, -2.9e-05]",
+    "value": "beta=-0.003818; se=0.001928; t=-1.98 ci95=[-0.007607, -2.9e-05]",
     "statement": "wind coefficient in the `audit_spec` specification — OLS on the log uplift ratio, no month dummies, 490 walk-forward days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audit_spec_events",
-    "value": "beta=0.006071 se=0.002159 t=2.81 ci95=[0.00183, 0.010313]",
+    "value": "beta=0.006071; se=0.002159; t=2.81 ci95=[0.00183, 0.010313]",
     "statement": "events coefficient in the `audit_spec` specification — OLS on the log uplift ratio, no month dummies, 490 walk-forward days. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['audit_spec']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('audit_spec' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_nb2_glm_rain",
-    "value": "beta=-0.394074 se=0.039267 t=-10.04",
+    "value": "beta=-0.394074; se=0.039267; t=-10.04",
     "statement": "rain coefficient in the `nb2_glm` specification — negative binomial (NB2) on counts, same design as primary. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['rain']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'rain' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_nb2_glm_temperature",
-    "value": "beta=0.030641 se=0.002581 t=11.87",
+    "value": "beta=0.030641; se=0.002581; t=11.87",
     "statement": "temperature coefficient in the `nb2_glm` specification — negative binomial (NB2) on counts, same design as primary. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['temperature']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'temperature' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_nb2_glm_wind",
-    "value": "beta=-0.001907 se=0.001335 t=-1.43",
+    "value": "beta=-0.001907; se=0.001335; t=-1.43",
     "statement": "wind coefficient in the `nb2_glm` specification — negative binomial (NB2) on counts, same design as primary. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['wind']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'wind' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_nb2_glm_events",
-    "value": "beta=0.011973 se=0.002109 t=5.68",
+    "value": "beta=0.011973; se=0.002109; t=5.68",
     "statement": "events coefficient in the `nb2_glm` specification — negative binomial (NB2) on counts, same design as primary. Value carries beta, standard error, t-statistic and the 95% interval.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s se=%s t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nc = json.load(open('artifacts/drivers.json'))['nb2_glm']['coefficients']['events']\nci = c.get('ci95')\nrow = 'beta=%s; se=%s; t=%s' % (c['beta'], c['se'], c['t'])\nprint('nb2_glm' + ' ' + 'events' + ' ' + row + (' ci95=%s' % ci if ci else ''))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
@@ -1186,9 +1150,7 @@
     "value": "n=546 k=22 r2=0.8731 sigma=0.1986",
     "statement": "Fit statistics of the `primary` specification: sample size, regressors, R-squared and the dispersion/deviance diagnostics.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/drivers.json'))['primary']\nks = ['n', 'k', 'r2', 'sigma', 'alpha', 'deviance', 'iterations']\nprint('primary' + ' ' + ' '.join('%s=%s' % (k, d[k]) for k in ks if k in d))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
@@ -1196,9 +1158,7 @@
     "value": "n=546 k=11 r2=0.8078",
     "statement": "Fit statistics of the `no_month` specification: sample size, regressors, R-squared and the dispersion/deviance diagnostics.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/drivers.json'))['no_month']\nks = ['n', 'k', 'r2', 'sigma', 'alpha', 'deviance', 'iterations']\nprint('no_month' + ' ' + ' '.join('%s=%s' % (k, d[k]) for k in ks if k in d))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
@@ -1206,9 +1166,7 @@
     "value": "n=490 k=5 r2=0.176",
     "statement": "Fit statistics of the `audit_spec` specification: sample size, regressors, R-squared and the dispersion/deviance diagnostics.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/drivers.json'))['audit_spec']\nks = ['n', 'k', 'r2', 'sigma', 'alpha', 'deviance', 'iterations']\nprint('audit_spec' + ' ' + ' '.join('%s=%s' % (k, d[k]) for k in ks if k in d))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
@@ -1216,48 +1174,40 @@
     "value": "n=546 k=22 alpha=0.034827 deviance=14007.4 iterations=19",
     "statement": "Fit statistics of the `nb2_glm` specification: sample size, regressors, R-squared and the dispersion/deviance diagnostics.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/drivers.json'))['nb2_glm']\nks = ['n', 'k', 'r2', 'sigma', 'alpha', 'deviance', 'iterations']\nprint('nb2_glm' + ' ' + ' '.join('%s=%s' % (k, d[k]) for k in ks if k in d))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audited_rain",
-    "value": "beta=-0.364 t=-8.8",
+    "value": "beta=-0.364; t=-8.8",
     "statement": "The AUDITED rain coefficient, carried in drivers.json for the side-by-side. Not reproduced by the literal specification.",
-    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/drivers.json'))['audited']\nprint('rain beta=%s t=%s' % tuple(a['rain']))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/drivers.json'))['audited']\nprint('rain beta=%s; t=%s' % tuple(a['rain']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audited_temperature",
-    "value": "beta=0.0063 t=4.5",
+    "value": "beta=0.0063; t=4.5",
     "statement": "The AUDITED temperature coefficient.",
-    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/drivers.json'))['audited']\nprint('temperature beta=%s t=%s' % tuple(a['temperature']))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/drivers.json'))['audited']\nprint('temperature beta=%s; t=%s' % tuple(a['temperature']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "driver_audited_events",
-    "value": "beta=0.0031 t=1.9",
+    "value": "beta=0.0031; t=1.9",
     "statement": "The AUDITED event-listings coefficient.",
-    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/drivers.json'))['audited']\nprint('events beta=%s t=%s' % tuple(a['events']))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/drivers.json'))['audited']\nprint('events beta=%s; t=%s' % tuple(a['events']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "season_raw_hi",
     "value": "32.9",
     "statement": "Days in the top 123 by event_listings_count sit +32.9 pp above the global same-weekday mean before any control.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]} raw_lo={s[\"raw_lo\"]} ctl_hi={s[\"ctl_hi\"]} ctl_lo={s[\"ctl_lo\"]}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]}; raw_lo={s[\"raw_lo\"]}; ctl_hi={s[\"ctl_hi\"]}; ctl_lo={s[\"ctl_lo\"]}')\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
@@ -1265,9 +1215,9 @@
     "id": "season_raw_lo",
     "value": "-26.9",
     "statement": "Days in the bottom 140 by event_listings_count sit -26.9 pp below the global same-weekday mean before any control.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]} raw_lo={s[\"raw_lo\"]} ctl_hi={s[\"ctl_hi\"]} ctl_lo={s[\"ctl_lo\"]}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]}; raw_lo={s[\"raw_lo\"]}; ctl_hi={s[\"ctl_hi\"]}; ctl_lo={s[\"ctl_lo\"]}')\nPY",
     "used_in": [
-      "docs/MODEL.md"
+      "deck s5"
     ],
     "artifact": "artifacts/drivers.json"
   },
@@ -1275,40 +1225,32 @@
     "id": "season_ctl_hi",
     "value": "4.1",
     "statement": "The same top-123 days after residualising on month x weekday: +4.1 pp. Two thirds of the apparent effect was the season.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]} raw_lo={s[\"raw_lo\"]} ctl_hi={s[\"ctl_hi\"]} ctl_lo={s[\"ctl_lo\"]}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]}; raw_lo={s[\"raw_lo\"]}; ctl_hi={s[\"ctl_hi\"]}; ctl_lo={s[\"ctl_lo\"]}')\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "season_ctl_lo",
     "value": "-4.8",
     "statement": "The same bottom-140 days after the month x weekday control: -4.8 pp.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]} raw_lo={s[\"raw_lo\"]} ctl_hi={s[\"ctl_hi\"]} ctl_lo={s[\"ctl_lo\"]}')\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint(f'raw_hi={s[\"raw_hi\"]}; raw_lo={s[\"raw_lo\"]}; ctl_hi={s[\"ctl_hi\"]}; ctl_lo={s[\"ctl_lo\"]}')\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "season_split_days",
     "value": "140/123",
     "statement": "The event split is the bottom 140 and top 123 days by event_listings_count — NOT equal quartiles of 546. Equal quartiles (144/144) move the raw high side from +32.9 to +31.1.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint('split=%d/%d q1_max_listings=%d q4_min_listings=%d' % (s['n_days_q1'], s['n_days_q4'], s['q1_event_listings_max'], s['q4_event_listings_min']))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/drivers.json'))['season_control']\nprint('split=%d/%d; q1_max_listings=%d; q4_min_listings=%d' % (s['n_days_q1'], s['n_days_q4'], s['q1_event_listings_max'], s['q4_event_listings_min']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "season_audit_unreproduced",
-    "value": "raw=130.4 ctl=13.9",
+    "value": "raw=130.4; ctl=13.9",
     "statement": "The event spread a draft of our own deck quoted (130.4 pp -> 13.9 pp). NOT REPRODUCED under any split tried; recorded so the number is retracted on the record, not quietly dropped.",
-    "cmd": "python3 - <<'PY'\nimport json\nu = json.load(open('artifacts/drivers.json'))['season_control']['audited_unreproduced']\nprint('raw=%s ctl=%s' % (u['spread_raw'], u['spread_ctl']))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\nu = json.load(open('artifacts/drivers.json'))['season_control']['audited_unreproduced']\nprint('raw=%s; ctl=%s' % (u['spread_raw'], u['spread_ctl']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
@@ -1316,52 +1258,46 @@
     "value": "rain_range=-0.483..-0.367 min_abs_t=7.66",
     "statement": "The range of the rain coefficient across all four specifications, and the smallest absolute t. We report the range, not the flattering end.",
     "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/drivers.json'))\nv = [d[s]['coefficients']['rain']['beta'] for s in ('primary','no_month','audit_spec','nb2_glm')]\nt = [abs(d[s]['coefficients']['rain']['t']) for s in ('primary','no_month','audit_spec','nb2_glm')]\nprint('rain_range=%.3f..%.3f min_abs_t=%.2f' % (min(v), max(v), min(t)))\nPY",
-    "used_in": [
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/drivers.json"
   },
   {
     "id": "backtest_candidate_a_mean4sw",
-    "value": "MAPE=24.07 MAE=169.9 WAPE=23.61 MASE=0.888 PICP80=0.7816 bias=-0.0291",
+    "value": "MAPE=24.07; MAE=169.9; WAPE=23.61; MASE=0.888; PICP80=0.7816; bias=-0.0291",
     "statement": "Walk-forward metrics for the mean of the last 4 same-weekday observations — mean of the last 4 same-weekday observations.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['a_mean4sw']['metrics']\nprint('MAPE=%s MAE=%s WAPE=%s MASE=%s PICP80=%s bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['a_mean4sw']['metrics']\nprint('MAPE=%s; MAE=%s; WAPE=%s; MASE=%s; PICP80=%s; bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
     "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "backtest_candidate_b_median4sw",
-    "value": "MAPE=22.8 MAE=166.3 WAPE=23.11 MASE=0.869 PICP80=0.7857 bias=-0.0552",
+    "value": "MAPE=22.8; MAE=166.3; WAPE=23.11; MASE=0.869; PICP80=0.7857; bias=-0.0552",
     "statement": "Walk-forward metrics for the median of the last 4 same-weekday observations — the BEST candidate — median of the last 4 same-weekday observations — the BEST candidate.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['b_median4sw']['metrics']\nprint('MAPE=%s MAE=%s WAPE=%s MASE=%s PICP80=%s bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['b_median4sw']['metrics']\nprint('MAPE=%s; MAE=%s; WAPE=%s; MASE=%s; PICP80=%s; bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
     "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "backtest_candidate_c_mean7",
-    "value": "MAPE=36.91 MAE=232.9 WAPE=32.36 MASE=1.218 PICP80=0.7959 bias=-0.0086",
+    "value": "MAPE=36.91; MAE=232.9; WAPE=32.36; MASE=1.218; PICP80=0.7959; bias=-0.0086",
     "statement": "Walk-forward metrics for the mean of the last 7 days (the weekday-blind control) — mean of the last 7 days (the weekday-blind control).",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['c_mean7']['metrics']\nprint('MAPE=%s MAE=%s WAPE=%s MASE=%s PICP80=%s bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['c_mean7']['metrics']\nprint('MAPE=%s; MAE=%s; WAPE=%s; MASE=%s; PICP80=%s; bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
     "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "backtest_candidate_d_snaive",
-    "value": "MAPE=26.4 MAE=188.5 WAPE=26.2 MASE=0.986 PICP80=0.7959 bias=-0.015",
+    "value": "MAPE=26.4; MAE=188.5; WAPE=26.2; MASE=0.986; PICP80=0.7959; bias=-0.015",
     "statement": "Walk-forward metrics for the seasonal naive: the same weekday one week earlier — seasonal naive: the same weekday one week earlier.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['d_snaive']['metrics']\nprint('MAPE=%s MAE=%s WAPE=%s MASE=%s PICP80=%s bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['candidates']['d_snaive']['metrics']\nprint('MAPE=%s; MAE=%s; WAPE=%s; MASE=%s; PICP80=%s; bias=%s' % (m['MAPE'], m['MAE'], m['WAPE'], m['MASE'], m['PICP80'], m['bias']))\nPY",
     "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
@@ -1370,10 +1306,7 @@
     "value": "MAPE=24.66 MAE=177.7 WAPE=24.7 MASE=0.929 PICP80=0.8041 bias=-0.025",
     "statement": "Walk-forward metrics for the driver-augmented variant: seasonal naive x exp(beta . weather).",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_snaive_weather']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'PICP80', 'bias']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
@@ -1381,10 +1314,7 @@
     "value": "MAPE=25.39 MAE=181.9 WAPE=25.28 MASE=0.951 PICP80=0.8082 bias=0.0211",
     "statement": "Walk-forward metrics for the driver-augmented variant: seasonal naive x exp(beta . weather + events).",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_snaive_weather_events']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'PICP80', 'bias']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
@@ -1392,10 +1322,7 @@
     "value": "MAPE=20.86 MAE=151.1 WAPE=21.0 MASE=0.79 PICP80=0.7918 bias=-0.0817",
     "statement": "Walk-forward metrics for the driver-augmented variant: mean-of-4 x exp(beta . weather).",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'PICP80', 'bias']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
@@ -1404,8 +1331,7 @@
     "statement": "Walk-forward metrics for the driver-augmented variant: mean-of-4 x exp(beta . weather + events) — our shipped model.",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'PICP80', 'bias']))\nPY",
     "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
@@ -1414,10 +1340,7 @@
     "value": "MAPE=21.46 MAE=156.0 WAPE=21.68 MASE=0.816 bias=-0.0221",
     "statement": "Walk-forward metrics for the driver-augmented variant: expanding-window OLS on log(count), no weather.",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['ols_logcount_no_weather']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'bias']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
@@ -1425,10 +1348,7 @@
     "value": "MAPE=16.44 MAE=119.9 WAPE=16.66 MASE=0.627 PICP80=0.8327 bias=-0.0106",
     "statement": "Walk-forward metrics for the driver-augmented variant: expanding-window OLS on log(count) + weather.",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['ols_logcount_weather']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'PICP80', 'bias']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
@@ -1436,72 +1356,56 @@
     "value": "MAPE=16.13 MAE=115.7 WAPE=16.08 MASE=0.605 PICP80=0.8204 bias=-0.0028",
     "statement": "Walk-forward metrics for the driver-augmented variant: expanding-window OLS on log(count) + weather + events.",
     "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['ols_logcount_weather_events']\nprint(' '.join('%s=%s' % (k, m.get(k)) for k in ['MAPE', 'MAE', 'WAPE', 'MASE', 'PICP80', 'bias']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md",
-      "docs/MODEL.md"
-    ],
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "audited_snaive_weather",
-    "value": "MAPE=29.2 MAE=206.9",
+    "value": "MAPE=29.2; MAE=206.9",
     "statement": "The AUDITED 'seasonal naive + weather' result. NOT REPRODUCED: we measure 24.66/177.7, an IMPROVEMENT on the 26.4/188.5 base, where the audit reported a degradation.",
-    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/backtest.json'))['audited_values']\nprint('MAPE=%s MAE=%s' % (a['snaive_weather']['mape'], a['snaive_weather']['mae']))\nPY",
-    "used_in": [
-      "docs/MODEL.md",
-      "docs/EVALUATION.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/backtest.json'))['audited_values']\nprint('MAPE=%s; MAE=%s' % (a['snaive_weather']['mape'], a['snaive_weather']['mae']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "audited_snaive_weather_events",
-    "value": "MAPE=29.5 MAE=210.6",
+    "value": "MAPE=29.5; MAE=210.6",
     "statement": "The AUDITED 'seasonal naive + weather + events' result. NOT REPRODUCED: we measure 25.39/181.9.",
-    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/backtest.json'))['audited_values']\nprint('MAPE=%s MAE=%s' % (a['snaive_weather_events']['mape'], a['snaive_weather_events']['mae']))\nPY",
-    "used_in": [
-      "docs/MODEL.md",
-      "docs/EVALUATION.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/backtest.json'))['audited_values']\nprint('MAPE=%s; MAE=%s' % (a['snaive_weather_events']['mape'], a['snaive_weather_events']['mae']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "backtest_forecast_days",
     "value": "490",
     "statement": "Forecast days in the walk-forward backtest: day indices 56..545.",
-    "cmd": "python3 - <<'PY'\nimport json\np = json.load(open('artifacts/backtest.json'))['protocol']\nprint('forecast_days=%d first=%s last=%s seasonal_period=%d' % (p['forecast_days'], p['first_forecast_day'], p['last_forecast_day'], p['seasonal_period_for_mase']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\np = json.load(open('artifacts/backtest.json'))['protocol']\nprint('forecast_days=%d; first=%s; last=%s; seasonal_period=%d' % (p['forecast_days'], p['first_forecast_day'], p['last_forecast_day'], p['seasonal_period_for_mase']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "backtest_first_day",
     "value": "2025-02-26",
     "statement": "First day forecast out of sample — the first origin with a full 8 weeks of history.",
-    "cmd": "python3 - <<'PY'\nimport json\np = json.load(open('artifacts/backtest.json'))['protocol']\nprint('forecast_days=%d first=%s last=%s seasonal_period=%d' % (p['forecast_days'], p['first_forecast_day'], p['last_forecast_day'], p['seasonal_period_for_mase']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\np = json.load(open('artifacts/backtest.json'))['protocol']\nprint('forecast_days=%d; first=%s; last=%s; seasonal_period=%d' % (p['forecast_days'], p['first_forecast_day'], p['last_forecast_day'], p['seasonal_period_for_mase']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "backtest_seasonal_period",
     "value": "7",
     "statement": "Seasonal period used by MASE, in days.",
-    "cmd": "python3 - <<'PY'\nimport json\np = json.load(open('artifacts/backtest.json'))['protocol']\nprint('forecast_days=%d first=%s last=%s seasonal_period=%d' % (p['forecast_days'], p['first_forecast_day'], p['last_forecast_day'], p['seasonal_period_for_mase']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\np = json.load(open('artifacts/backtest.json'))['protocol']\nprint('forecast_days=%d; first=%s; last=%s; seasonal_period=%d' % (p['forecast_days'], p['first_forecast_day'], p['last_forecast_day'], p['seasonal_period_for_mase']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "forecast_mae_full",
     "value": "145.2",
     "statement": "Mean absolute error of the shipped model, in transactions per day.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s WAPE=%s MASE=%s bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s; WAPE=%s; MASE=%s; bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
     "used_in": [
-      "docs/MODEL.md",
-      "docs/EVALUATION.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
@@ -1509,10 +1413,9 @@
     "id": "forecast_wape_full",
     "value": "20.18",
     "statement": "Weighted absolute percentage error of the shipped model — the headline '±X %'.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s WAPE=%s MASE=%s bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s; WAPE=%s; MASE=%s; bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
     "used_in": [
-      "docs/MODEL.md",
-      "docs/EVALUATION.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
@@ -1520,10 +1423,9 @@
     "id": "forecast_mase_full",
     "value": "0.759",
     "statement": "MASE of the shipped model. Below 1.0 means it beats the seasonal-naive benchmark.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s WAPE=%s MASE=%s bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s; WAPE=%s; MASE=%s; bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
     "used_in": [
-      "docs/MODEL.md",
-      "docs/EVALUATION.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
@@ -1531,27 +1433,28 @@
     "id": "forecast_bias_full",
     "value": "-0.0344",
     "statement": "Mean (forecast - actual) / mean(actual) for the shipped model: -3.4%, so it is mildly conservative rather than optimistic.",
-    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s WAPE=%s MASE=%s bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nm = json.load(open('artifacts/backtest.json'))['weather_events_experiment']['drivers_on_mean4sw_weather_events']\nprint('MAE=%s; WAPE=%s; MASE=%s; bias=%s' % (m['MAE'], m['WAPE'], m['MASE'], m['bias']))\nPY",
     "used_in": [
-      "docs/MODEL.md",
-      "docs/EVALUATION.md"
+      "deck s6"
     ],
     "artifact": "artifacts/backtest.json"
   },
   {
     "id": "privacy_thresholds",
-    "value": "minCards=30 minMerchants=3 maxShare=3/4",
+    "value": "minCards=30; minMerchants=3; maxShare=3/4",
     "statement": "The three thresholds, read from the one module that owns them. Compared as exact integers/Fractions, never as floats.",
-    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nfrom contracts import privacy as P\nr = P.PRODUCT_RULES\nprint('minCards=%d minMerchants=%d maxShare=%s/%s shareMetrics=%s differencing=%s' % (r.min_cards, r.min_merchants, r.max_share.numerator, r.max_share.denominator, '+'.join(r.share_metrics), r.require_differencing))\nPY",
+    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nfrom contracts import privacy as P\nr = P.PRODUCT_RULES\nprint('minCards=%d; minMerchants=%d; maxShare=%s/%s; shareMetrics=%s; differencing=%s' % (r.min_cards, r.min_merchants, r.max_share.numerator, r.max_share.denominator, '+'.join(r.share_metrics), r.require_differencing))\nPY",
     "used_in": [
-      "docs/PRIVACY.md"
+      "docs/PRIVACY.md",
+      "deck s8",
+      "panel"
     ]
   },
   {
     "id": "privacy_g3_volume_only",
     "value": "g3_share_volume_only=25",
     "statement": "Postcode cells passing G3 on the VOLUME metric alone — the reading the audit tables used.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('g3_share_volume_only=%d g3_pass_both=%d' % (s['g3_pass_volume_only'], s['g3_pass']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('g3_share_volume_only=%d; g3_pass_both=%d' % (s['g3_pass_volume_only'], s['g3_pass']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1561,7 +1464,7 @@
     "id": "privacy_g3_both_metrics",
     "value": "g3_pass_both=24",
     "statement": "Postcode cells passing G3 when the card-share leg is also enforced: 24, one fewer.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('g3_share_volume_only=%d g3_pass_both=%d' % (s['g3_pass_volume_only'], s['g3_pass']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('g3_share_volume_only=%d; g3_pass_both=%d' % (s['g3_pass_volume_only'], s['g3_pass']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1571,7 +1474,7 @@
     "id": "privacy_all_three_strict",
     "value": "all_three_strict=17",
     "statement": "Postcode cells passing all three gates under the CONSERVATIVE reading (G3 on both volume and cards). The 18 becomes 17.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_three_strict=%d share_strict=%.2f%% all_three_volume=%d share_volume=%.2f%%' % (s['all_three_pass'], s['share_all_three_pct'], s['all_three_pass_volume_only'], s['share_all_three_volume_only_pct']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_three_strict=%d; share_strict=%.2f%% all_three_volume=%d; share_volume=%.2f%%' % (s['all_three_pass'], s['share_all_three_pct'], s['all_three_pass_volume_only'], s['share_all_three_volume_only_pct']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1581,7 +1484,7 @@
     "id": "privacy_share_strict",
     "value": "share_strict=89.95%",
     "statement": "Volume share carried by the 17 strictly-passing cells.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_three_strict=%d share_strict=%.2f%% all_three_volume=%d share_volume=%.2f%%' % (s['all_three_pass'], s['share_all_three_pct'], s['all_three_pass_volume_only'], s['share_all_three_volume_only_pct']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_three_strict=%d; share_strict=%.2f%% all_three_volume=%d; share_volume=%.2f%%' % (s['all_three_pass'], s['share_all_three_pct'], s['all_three_pass_volume_only'], s['share_all_three_volume_only_pct']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1591,7 +1494,7 @@
     "id": "privacy_single_difference",
     "value": "81-740",
     "statement": "The ONE cell the conservative card leg removes: 81-740, released on 72.164% volume share but suppressed on 78.468% card share.",
-    "cmd": "python3 - <<'PY'\nimport json\nc = [x for x in json.load(open('artifacts/privacy-report.json'))['grain_postcode']['cells'] if x['all_three_volume_metric'] and not x['all_three']]\nfor x in c:\n    print('pc=%s volume=%.3f%% cards=%.3f%% nCards=%d nMerchants=%d' % (x['pc'], x['top1_share_pct'], x['top1_card_share_pct'], x['n_cards'], x['n_merchants']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nc = [x for x in json.load(open('artifacts/privacy-report.json'))['grain_postcode']['cells'] if x['all_three_volume_metric'] and not x['all_three']]\nfor x in c:\n    print('pc=%s; volume=%.3f%% cards=%.3f%% nCards=%d; nMerchants=%d' % (x['pc'], x['top1_share_pct'], x['top1_card_share_pct'], x['n_cards'], x['n_merchants']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1601,7 +1504,7 @@
     "id": "privacy_g4_pass",
     "value": "all_four_pass=11",
     "statement": "Postcode cells passing all FOUR gates (G1-G3 plus the G4 leave-one-out test). G4's de-facto effect is a four-merchant floor.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_four_pass=%d share_all_four=%.1f%%' % (s['all_four_pass'], s['share_all_four_pct']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_four_pass=%d; share_all_four=%.1f%%' % (s['all_four_pass'], s['share_all_four_pct']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1611,7 +1514,7 @@
     "id": "privacy_share_all_four",
     "value": "share_all_four=87.7%",
     "statement": "Volume share carried by the 11 cells passing all four gates.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_four_pass=%d share_all_four=%.1f%%' % (s['all_four_pass'], s['share_all_four_pct']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode']['summary']\nprint('all_four_pass=%d; share_all_four=%.1f%%' % (s['all_four_pass'], s['share_all_four_pct']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1621,7 +1524,7 @@
     "id": "privacy_daypart_cells",
     "value": "2003",
     "statement": "Cells at the postcode x local-month x daypart grain — the grain the panel's area readings actually live at.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode_month_daypart']['summary']\nprint('cells=%d pass=%d share=%.2f%% g4_pass=%d' % (s['cells'], s['all_three_pass'], s['share_all_three_pct'], s['all_four_pass']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode_month_daypart']['summary']\nprint('cells=%d; pass=%d; share=%.2f%% g4_pass=%d' % (s['cells'], s['all_three_pass'], s['share_all_three_pct'], s['all_four_pass']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1631,7 +1534,7 @@
     "id": "privacy_daypart_pass",
     "value": "pass=393",
     "statement": "Cells at that grain passing all three gates: 393 of 2,003.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode_month_daypart']['summary']\nprint('cells=%d pass=%d share=%.2f%% g4_pass=%d' % (s['cells'], s['all_three_pass'], s['share_all_three_pct'], s['all_four_pass']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode_month_daypart']['summary']\nprint('cells=%d; pass=%d; share=%.2f%% g4_pass=%d' % (s['cells'], s['all_three_pass'], s['share_all_three_pct'], s['all_four_pass']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1641,7 +1544,7 @@
     "id": "privacy_daypart_share",
     "value": "share=83.44%",
     "statement": "Share of that grain's volume inside the passing cells.",
-    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode_month_daypart']['summary']\nprint('cells=%d pass=%d share=%.2f%% g4_pass=%d' % (s['cells'], s['all_three_pass'], s['share_all_three_pct'], s['all_four_pass']))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\ns = json.load(open('artifacts/privacy-report.json'))['grain_postcode_month_daypart']['summary']\nprint('cells=%d; pass=%d; share=%.2f%% g4_pass=%d' % (s['cells'], s['all_three_pass'], s['share_all_three_pct'], s['all_four_pass']))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1660,7 +1563,7 @@
     "id": "privacy_cascade_order",
     "value": "cascade=cell,parent,city",
     "statement": "The cascade the app walks before it locks: the requested cell, its parent area, then the whole city.",
-    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nfrom contracts import privacy as P\nprint('cascade=%s locked=%s' % (','.join(P.CASCADE_ORDER), P.L_LOCKED))\nPY",
+    "cmd": "python3 - <<'PY'\nimport sys\nsys.path.insert(0, '.')\nfrom contracts import privacy as P\nprint('cascade=%s; locked=%s' % (','.join(P.CASCADE_ORDER), P.L_LOCKED))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ]
@@ -1669,7 +1572,7 @@
     "id": "privacy_matches_audit",
     "value": "matches_expected=True",
     "statement": "The measured privacy report reproduces AGENTS.md's 'Measured facts' under the volume-only reading of G3.",
-    "cmd": "python3 - <<'PY'\nimport json\nprint('matches_expected=%s compared=%s' % tuple(json.load(open('artifacts/privacy-report.json'))['matches_expected'][k] for k in ('ok', 'compared')))\nPY",
+    "cmd": "python3 - <<'PY'\nimport json\nprint('matches_expected=%s; compared=%s' % tuple(json.load(open('artifacts/privacy-report.json'))['matches_expected'][k] for k in ('ok', 'compared')))\nPY",
     "used_in": [
       "docs/PRIVACY.md"
     ],
@@ -1681,7 +1584,8 @@
     "statement": "Reference fixtures in tests/privacy/fixtures.json that the gate is checked against.",
     "cmd": "python3 - <<'PY'\nimport json\nf = json.load(open('tests/privacy/fixtures.json'))\ncases = f['cases'] if isinstance(f, dict) and 'cases' in f else f\nprint('fixtures=%d' % len(cases))\nPY",
     "used_in": [
-      "docs/PRIVACY.md"
+      "docs/PRIVACY.md",
+      "deck s9"
     ]
   },
   {
@@ -1690,7 +1594,8 @@
     "statement": "Tests in the privacy suite that actually execute.",
     "cmd": "python3 -m pytest tests/privacy -q 2>&1 | tail -3",
     "used_in": [
-      "docs/PRIVACY.md"
+      "docs/PRIVACY.md",
+      "deck s9"
     ]
   },
   {
@@ -1726,7 +1631,8 @@
     "statement": "The pipeline runs on the standard library plus duckdb and numpy. scipy is absent, which is why the t-quantile is implemented inline; jsonschema is absent, which is why the schema check is hand-written.",
     "cmd": "python3 - <<'PY'\nmods = []\nfor m in ('duckdb', 'numpy', 'jsonschema'):\n    try:\n        __import__(m); mods.append(m + '=ok')\n    except ImportError:\n        mods.append(m + '=absent')\nprint(' '.join(mods) + ' scipy=absent')\nPY",
     "used_in": [
-      "docs/RUN.md"
+      "docs/RUN.md",
+      "README"
     ]
   },
   {
@@ -1741,21 +1647,10 @@
   },
   {
     "id": "aggregate_sha256",
-    "value": "131f1cddda98cb834d73932d4bc3a4257c8724091eb1bbbc253e9eae940b21ea",
+    "value": "48dc0270f52a8a257f23a354e8ea33101eacec00d5bc7eaf53227808a37c9ce7",
     "statement": "SHA-256 of artifacts/aggregate.json. A fresh `python3 -m pipeline.run` reproduces this byte for byte, which is the determinism claim.",
-    "cmd": "shasum -a 256 artifacts/aggregate.json",
+    "cmd": "python3 -c \"import json,hashlib,pathlib;print(hashlib.sha256(pathlib.Path('artifacts/aggregate.json').read_bytes()).hexdigest())\"",
     "used_in": [
-      "docs/RUN.md",
-      "docs/EVALUATION.md"
-    ]
-  },
-  {
-    "id": "verify_claims_total",
-    "value": "claims verified",
-    "statement": "The ledger's own self-check, on one row (never the whole ledger: a row that re-runs every row would recurse). Every other row is checked the same way by the same script.",
-    "cmd": "python3 tools/verify_claims.py --only rows 2>&1 | tail -2",
-    "used_in": [
-      "docs/EVALUATION.md",
       "docs/RUN.md"
     ]
   },
@@ -1763,7 +1658,7 @@
     "id": "unknown_bucket_merchants",
     "value": "179",
     "statement": "Distinct merchants in the NULL-postcode bucket. The bucket passes the gate thresholds in most months, which is why it must be excluded by name and never demoed.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nm, c = con.execute(f'select count(distinct mrch_nm_raw), count(distinct pymt_crd_acct_num_raw) from read_parquet({P}) where merchant_postal_code_normalized is null').fetchone()\nprint(f'unknown_bucket_merchants={m} unknown_bucket_cards={c}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nm, c = con.execute(f'select count(distinct mrch_nm_raw), count(distinct pymt_crd_acct_num_raw) from read_parquet({P}) where merchant_postal_code_normalized is null').fetchone()\nprint(f'unknown_bucket_merchants={m}; unknown_bucket_cards={c}')\nPY",
     "used_in": [
       "docs/CLEANING.md",
       "docs/DATA.md"
@@ -1773,7 +1668,7 @@
     "id": "unknown_bucket_cards",
     "value": "5505",
     "statement": "Distinct cards in the NULL-postcode bucket.",
-    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nm, c = con.execute(f'select count(distinct mrch_nm_raw), count(distinct pymt_crd_acct_num_raw) from read_parquet({P}) where merchant_postal_code_normalized is null').fetchone()\nprint(f'unknown_bucket_merchants={m} unknown_bucket_cards={c}')\nPY",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nm, c = con.execute(f'select count(distinct mrch_nm_raw), count(distinct pymt_crd_acct_num_raw) from read_parquet({P}) where merchant_postal_code_normalized is null').fetchone()\nprint(f'unknown_bucket_merchants={m}; unknown_bucket_cards={c}')\nPY",
     "used_in": [
       "docs/CLEANING.md",
       "docs/DATA.md"
@@ -1785,7 +1680,6 @@
     "statement": "Fewest event listings on any date. No date has zero, so there is NO event-free baseline in this city calendar — which is why the event effect is identified off a seasonal contrast.",
     "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet', '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect(); con.execute('SET threads=4')\nLOCAL = (\"timezone('Europe/Warsaw', (purchase_date + \"\n         \"CAST(strptime(lpad(tran_id_gmt_tm,6,'%H%M%S'),'%H%M%S') AS TIME))\"\n         \" AT TIME ZONE 'UTC')\")\nprint('event_listings_min=%d' % con.execute(f'select min(c) from (select any_value(event_listings_count) c from read_parquet({P}) group by purchase_date)').fetchone()[0])\nPY",
     "used_in": [
-      "docs/MODEL.md",
       "docs/DATA.md"
     ]
   },
@@ -1800,23 +1694,11 @@
     ]
   },
   {
-    "id": "weather_dual_temperature",
-    "value": "7.9 8.1",
-    "statement": "The one weather timestamp with two temperatures: 2025-10-26 02:00, the fall-back hour. Two occurrences of the same local hour were averaged into one bucket. It is the single date on which the city-level weather join is not a pure duplication.",
-    "cmd": "python3 - <<'PY'\nimport csv, collections\np = '/Users/kulma/Downloads/sopot_weather_by_postal_code_2025-01-01_2026-06-30.csv'\nseen = collections.defaultdict(set)\nwith open(p, newline='', encoding='utf-8') as f:\n    for row in csv.DictReader(f):\n        if row['datetime'].startswith('2025-10-26 02:00'):\n            seen[row['datetime']].add(row['temperature'])\nfor k, v in seen.items():\n    print(k, ' '.join(sorted(v)))\nPY",
-    "used_in": [
-      "docs/DATA.md",
-      "docs/CLEANING.md"
-    ]
-  },
-  {
     "id": "audited_b_median4sw",
-    "value": "mape=35.4 mae=270.0",
+    "value": "mape=35.4; mae=270.0",
     "statement": "The AUDITED 'median of recent Fridays' row. NOT the same estimator as our b_median4sw (median of the last 4 SAME-WEEKDAY observations, 22.8/166.3), so the two must never be compared as if they were one method.",
-    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/backtest.json'))['audited_values']['b_median4sw']\nprint('mape=%s mae=%s note=%s' % (a['mape'], a['mae'], a['note']))\nPY",
-    "used_in": [
-      "docs/EVALUATION.md"
-    ],
+    "cmd": "python3 - <<'PY'\nimport json\na = json.load(open('artifacts/backtest.json'))['audited_values']['b_median4sw']\nprint('mape=%s; mae=%s; note=%s' % (a['mape'], a['mae'], a['note']))\nPY",
+    "used_in": [],
     "artifact": "artifacts/backtest.json"
   },
   {
@@ -1824,17 +1706,175 @@
     "value": "26 origins",
     "statement": "What the audit DOCUMENT specifies for a backtest: 26 weekly origins with a 7-day horizon in 2026. We deviate — 490 daily origins, horizon 1 — and say so. This row quotes the audit; it is not a measurement.",
     "cmd": "python3 - <<'PY'\nimport re, pathlib\ns = pathlib.Path('/Users/kulma/Documents/Projects/Hackathon/research/model-audit.md').read_text(encoding='utf-8')\nm = re.search(r'forecast origins at every Monday[^.]*\\.', s)\nprint(m.group(0) if m else 'not found')\nPY",
-    "used_in": [
-      "docs/EVALUATION.md"
-    ]
+    "used_in": []
   },
   {
     "id": "audit_protocol_picp",
     "value": "0.80 ± 0.05",
     "statement": "The audit's acceptance band for interval calibration: an 80% interval must cover 0.80 ± 0.05. Our shipped model covers 0.8061, inside the band. This row quotes the audit.",
     "cmd": "python3 - <<'PY'\nimport pathlib\ns = pathlib.Path('/Users/kulma/Documents/Projects/Hackathon/research/model-audit.md').read_text(encoding='utf-8')\nfor line in s.splitlines():\n    if 'must be' in line and '0.80' in line:\n        print(line.strip())\nPY",
+    "used_in": []
+  },
+  {
+    "id": "manifest_verified",
+    "value": "manifest_files=5; ok=5; failed=0",
+    "statement": "Every checksum in data/MANIFEST.sha256 re-derives: both parquet parts, the challenge document, the GIS archive and the weather extract.",
+    "cmd": "python3 - <<'PY'\nimport subprocess\np = subprocess.run(['shasum', '-a', '256', '-c', 'data/MANIFEST.sha256'],\n                   capture_output=True, text=True)\nlines = [l for l in p.stdout.splitlines() if l.strip()]\nok = sum(1 for l in lines if l.endswith(': OK'))\nprint('manifest_files=%d; ok=%d; failed=%d; rc=%d' % (len(lines), ok, len(lines) - ok,\n      p.returncode))\nPY",
+    "used_in": [
+      "docs/DATA.md"
+    ]
+  },
+  {
+    "id": "overlap_tran_id",
+    "value": "overlap_tran_id=0",
+    "statement": "Transactions shared by the two parquet parts. Zero, which is what makes UNION ALL correct and a dedupe wrong.",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet',\n     '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ncon = duckdb.connect()\ni, r = con.execute(f'''select\n  (select count(*) from (select tran_id_raw from read_parquet('{P[0]}') intersect\n   select tran_id_raw from read_parquet('{P[1]}'))),\n  (select count(*) from (select source_transaction_row from read_parquet('{P[0]}') intersect\n   select source_transaction_row from read_parquet('{P[1]}')))''').fetchone()\nprint(f'overlap_tran_id={i}; overlap_source_row={r}')\nPY",
+    "used_in": [
+      "docs/CLEANING.md"
+    ]
+  },
+  {
+    "id": "band_z",
+    "value": "1.96",
+    "statement": "The Poisson band the panel prints when a reading escalates: rel +/- 1.96/sqrt(base), floored at +/-150%. A 95% band, NOT the P10-P90 the deck's sentence template names.",
+    "cmd": "python3 - <<'PY'\nimport pathlib, re\ns = pathlib.Path('app/sopot-model.js').read_text(encoding='utf-8')\nm = re.search(r'Math\\.min\\(([0-9.]+), ([0-9.]+) / Math\\.sqrt', s)\nprint('band_z=%s; cap=%s' % (m.group(2), m.group(1)))\nPY",
+    "used_in": [
+      "deck s7",
+      "panel"
+    ]
+  },
+  {
+    "id": "released_codes",
+    "value": "17",
+    "statement": "Postcodes the shipped artifact releases.",
+    "cmd": "python3 -c \"import json;print(json.load(open('artifacts/aggregate.json'))['released']['codes'])\"",
+    "artifact": "artifacts/aggregate.json",
+    "used_in": [
+      "deck s8",
+      "docs/PRIVACY.md",
+      "README"
+    ]
+  },
+  {
+    "id": "suppressed_codes",
+    "value": "37",
+    "statement": "Postcodes the gate suppresses: no series, no counts.",
+    "cmd": "python3 -c \"import json;print(json.load(open('artifacts/aggregate.json'))['released']['suppressed'])\"",
+    "artifact": "artifacts/aggregate.json",
+    "used_in": [
+      "deck s8",
+      "docs/PRIVACY.md"
+    ]
+  },
+  {
+    "id": "suppressed_volume",
+    "value": "33197",
+    "statement": "Transactions removed from the per-area series by the gate; still inside the exact city series and the row reconciliation.",
+    "cmd": "python3 -c \"import json;print(json.load(open('artifacts/aggregate.json'))['released']['suppressedVolume'])\"",
+    "artifact": "artifacts/aggregate.json",
+    "used_in": [
+      "deck s8",
+      "docs/PRIVACY.md",
+      "docs/EVALUATION.md"
+    ]
+  },
+  {
+    "id": "released_volume",
+    "value": "345015",
+    "statement": "sum(cnt) over the released series.",
+    "cmd": "python3 -c \"import json,base64,numpy as np;d=json.load(open('artifacts/aggregate.json'));print(int(np.frombuffer(base64.b64decode(d['cnt']),dtype=np.uint16).sum()))\"",
+    "artifact": "artifacts/aggregate.json",
     "used_in": [
       "docs/EVALUATION.md"
+    ]
+  },
+  {
+    "id": "reconciliation",
+    "value": "378212",
+    "statement": "sum(cnt) + suppressedVolume — the release gate's reconciliation, which must equal rows.",
+    "cmd": "python3 -c \"import json,base64,numpy as np;d=json.load(open('artifacts/aggregate.json'));print(int(np.frombuffer(base64.b64decode(d['cnt']),dtype=np.uint16).sum())+d['released']['suppressedVolume'])\"",
+    "artifact": "artifacts/aggregate.json",
+    "used_in": [
+      "docs/EVALUATION.md",
+      "docs/PRIVACY.md"
+    ]
+  },
+  {
+    "id": "forecast_mape_best_ols",
+    "value": "16.13",
+    "statement": "MAPE of the OLS log-count model with weather and events — the best number in our own backtest. We ship the simpler model; this row exists so the choice is visible rather than hidden.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/backtest.json'));print(round(d['weather_events_experiment']['ols_logcount_weather_events']['MAPE'],2))\"",
+    "artifact": "artifacts/backtest.json",
+    "used_in": [
+      "docs/EVALUATION.md",
+      "docs/MODEL.md"
+    ]
+  },
+  {
+    "id": "aggregate_ver",
+    "value": "5",
+    "statement": "Contract version of the shipped cube: v5 adds the release gate.",
+    "cmd": "python3 - <<'PY'\nimport json\nd = json.load(open('artifacts/aggregate.json'))\nprint(f'aggregate_ver={d[\"ver\"]}')\nPY",
+    "used_in": [
+      "docs/CLEANING.md",
+      "docs/DATA.md"
+    ]
+  },
+  {
+    "id": "cube_sum_cnt",
+    "value": "sum_cnt=345015",
+    "statement": "sum(cnt) after the release gate: rows in released cells only. Invariant 1 is now `sum(cnt) + suppressedVolume == rows`.",
+    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\nc = np.frombuffer(base64.b64decode(d['cnt']), dtype=np.uint16)\nprint(f'sum_cnt={int(c.sum())}; rows={d[\"rows\"]}; plus_suppressed={int(c.sum()) + d[\"released\"][\"suppressedVolume\"]}')\nPY",
+    "used_in": [
+      "docs/CLEANING.md"
+    ]
+  },
+  {
+    "id": "city_cnt_sum",
+    "value": "sum_cityCnt=331160",
+    "statement": "sum(cityCnt): the exact city series, which still includes the suppressed cells so no total is quietly short.",
+    "cmd": "python3 - <<'PY'\nimport json, base64, numpy as np\nd = json.load(open('artifacts/aggregate.json'))\nc = np.frombuffer(base64.b64decode(d['cityCnt']), dtype=np.uint16)\nprint(f'sum_cityCnt={int(c.sum())}')\nPY",
+    "used_in": [
+      "docs/CLEANING.md",
+      "docs/DATA.md"
+    ]
+  },
+  {
+    "id": "weekday_index_population",
+    "value": "scope=81-%",
+    "statement": "The population the city series and the weekday index both cover: Sopot postcodes with a real timecode. Matching the two is why the index reads 0.7214 and not 0.7232.",
+    "cmd": "python3 - <<'PY'\nimport re, pathlib\ns = pathlib.Path('pipeline/enrich.py').read_text(encoding='utf-8')\ni = s.index('def weekday_index')\nj = s.index('GROUP BY 1', i)\nblk = s[i:j]\nprint('scope=' + re.search(r\"LIKE '(81-%)'\", blk).group(1))\nPY",
+    "used_in": [
+      "docs/MODEL.md"
+    ]
+  },
+  {
+    "id": "verify_claims_total",
+    "value": "claims verified",
+    "statement": "The ledger's own self-check, on one row (never the whole ledger: a row that re-runs every row would recurse). Every other row is checked the same way by the same script.",
+    "cmd": "python3 tools/verify_claims.py --only rows 2>&1 | tail -2",
+    "used_in": [
+      "docs/EVALUATION.md",
+      "docs/RUN.md"
+    ]
+  },
+  {
+    "id": "weather_dual_temperature",
+    "value": "temps=7.9/8.1",
+    "statement": "The one weather timestamp with two temperatures: 2025-10-26 02:00, the fall-back hour. Two occurrences of the same local hour were averaged into one bucket. It is the single date on which the city-level weather join is not a pure duplication.",
+    "cmd": "python3 - <<'PY'\nimport csv, collections\np = '/Users/kulma/Downloads/sopot_weather_by_postal_code_2025-01-01_2026-06-30.csv'\nseen = collections.defaultdict(set)\nwith open(p, newline='', encoding='utf-8') as f:\n    for row in csv.DictReader(f):\n        if row['datetime'].startswith('2025-10-26 02:00'):\n            seen[row['datetime']].add(row['temperature'])\nfor k, v in seen.items():\n    print(k + ' temps=' + '/'.join(sorted(v)))\nPY",
+    "used_in": [
+      "docs/DATA.md",
+      "docs/CLEANING.md"
+    ]
+  },
+  {
+    "id": "overlap_source_row",
+    "value": "overlap_source_row=0",
+    "statement": "Source-row indices shared by the two parquet parts — the audit key checked beside the business key.",
+    "cmd": "python3 - <<'PY'\nimport duckdb\nP = ['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet',\n     '/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']\ni, r = duckdb.connect().execute(f'''select\n  (select count(*) from (select tran_id_raw from read_parquet('{P[0]}') intersect\n   select tran_id_raw from read_parquet('{P[1]}'))),\n  (select count(*) from (select source_transaction_row from read_parquet('{P[0]}') intersect\n   select source_transaction_row from read_parquet('{P[1]}')))''').fetchone()\nprint(f'overlap_tran_id={i}; overlap_source_row={r}')\nPY",
+    "used_in": [
+      "docs/CLEANING.md"
     ]
   }
 ]

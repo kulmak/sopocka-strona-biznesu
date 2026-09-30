@@ -215,9 +215,10 @@ def privacy_funnel_svg(total: int, g1: int, g2: int, all3: int, vol_share: float
                    f'<text x="{maxw+L+22}" y="{yy+BH/2+9}" fill="{colour}" font-size="27" '
                    f'font-family="JetBrains Mono">{v} / {total}</text>')
     out.append(f'<text x="{L}" y="{T-26}" fill="{AMBER}" font-size="26" font-family="JetBrains Mono">'
-               f'{vol_share:.1f}% wolumenu transakcji leży w obszarach, które przechodzą wszystkie trzy bramki</text>')
+               f"{vol_share:.2f}% wolumenu le\u017cy w obszarach, kt\u00f3re przechodz\u0105 wszystkie trzy bramki</text>")
     out.append(f'<text x="{L}" y="{H-26}" fill="{DIM}" font-size="19" font-family="Inter">'
-               f'Bramki: ≥30 kart · ≥3 podmioty · żaden podmiot powyżej 75% grupy. Ciemne obszary są celowe, nie brakujące.</text>')
+               f'Bramki: ≥30 kart · ≥3 podmioty · żaden podmiot powyżej 75% grupy (liczona także udziałem kart). '
+               f'Ciemne obszary są celowe, nie brakujące.</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">'
             f'{FACE}'
             f'<rect width="{W}" height="{H}" fill="{GROUND}"/>{"".join(out)}</svg>')
@@ -256,6 +257,18 @@ def measure(c: duckdb.DuckDBPyConnection) -> dict:
     """
     t, g1, g2, all3, vol = c.execute(per).fetchone()
     out.update(privacy_total=int(t), g1=int(g1), g2=int(g2), all3=int(all3), vol_share=float(vol))
+
+    # The funnel must show what the SHIPPED gate releases, not what a volume-only reading of the
+    # rule would release. Those differ by one code (81-740 passes on volume but its top merchant
+    # holds 78.5% of the cards), and the whole point of the artifact is that the stricter leg is
+    # the one that ships. `artifacts/privacy-summary.json` is the authority.
+    import json as _json
+    summ = ROOT / "artifacts" / "privacy-summary.json"
+    if summ.exists():
+        g = _json.loads(summ.read_text())["grain_postcode"]
+        out.update(privacy_total=int(g["cells"]), g1=int(g["g1_pass"]), g2=int(g["g2_pass"]),
+                   all3=int(g["all_three_pass"]), vol_share=float(g["share_all_three_pct"]),
+                   authoritative=True)
 
     # dominant postcode
     out["top_code"], out["top_code_n"], out["top_share"] = c.execute(f"""

@@ -37,7 +37,11 @@ block must change with it in the same commit.
 > Czas GMT przeliczony na czas polski (Europe/Warsaw, z uwzględnieniem zmiany czasu). „Zwykle” = średnia
 > z 30 poprzednich dni dla tej samej godziny. **Wszystkie prezentowane liczby są agregatami i przechodzą
 > trzy progi anonimizacji: ≥ 30 unikalnych kart, ≥ 3 podmioty w grupie porównawczej oraz udział żadnego
-> podmiotu ≤ 75% grupy.** Dodatkowo stosujemy **test różnicowy**: publikujemy tylko takie grupy, które
+> podmiotu ≤ 75% grupy.** Dodatkowo mamy zaimplementowany i przetestowany **test różnicowy** (grupa
+> musi spełniać progi także po odjęciu jednego podmiotu). **W tym wydaniu publikujemy 17 obszarów,
+> które spełniają trzy bramki regulaminowe**, a nie 11, które przeszłyby również test różnicowy —
+> próg dodatkowy jest zaimplementowany, ale nie jest włączony do ścieżki publikacji. Mówimy o tym
+> wprost, zamiast przypisywać sobie ostrzejszą regułę, której nie stosujemy. Publikujemy tylko takie grupy, które
 > spełniają te progi także po odjęciu dowolnego jednego podmiotu z grupy. Grupy, które nie spełniają
 > progów, nie są publikowane — pokazujemy wtedy wartość większego obszaru, który progi spełnia, i wyraźnie
 > to oznaczamy („wartość większego obszaru: …”), albo nie pokazujemy nic. Liczby kart i podmiotów liczymy
@@ -53,7 +57,11 @@ block must change with it in the same commit.
 > converted to Polish time (Europe/Warsaw, DST-aware). "Usually" = the mean of the 30 preceding days for the
 > same hour. **All published figures are aggregates and pass three anonymisation thresholds: ≥ 30 unique
 > cards, ≥ 3 entities in the comparison group, and no entity exceeding a 75% share of the group.** We
-> additionally apply a **differencing test**: we publish only groups that still meet those thresholds after
+> We have also implemented and tested a **differencing test** (a group must still meet the thresholds
+> with any one member removed). **In this release we publish the 17 areas that meet the three
+> regulatory gates**, not the 11 that would also pass the differencing test: the extra gate is
+> implemented but is not on the publication path, and we say so rather than claim a stricter rule
+> than we apply. We publish only groups that still meet those thresholds after
 > removing any single entity from the group. Groups that fail are never published; instead we show the value
 > of a larger area that does pass, clearly attributed ("value of a larger area: …"), or nothing at all. Card
 > and entity counts are computed over the transaction set, never by summing subsets (a single card may pay
@@ -75,7 +83,7 @@ block must change with it in the same commit.
 | `lt_3_merchants` | fewer than 3 merchants | „Ukryte: w tym obszarze i o tej porze działa mniej niż 3 podmioty (wymagane ≥ 3) — grupa porównawcza jest zbyt mała.” | "Hidden: fewer than 3 entities active in this area and time window (≥ 3 required) — the comparison group is too small." |
 | `top1_gt_75` | one merchant dominates | „Ukryte: udział jednego podmiotu w tej grupie przekracza 75% — nie pokazujemy grupy zdominowanej przez jednego gracza.” | "Hidden: one entity holds more than 75% of this group — we do not publish a group dominated by a single player." |
 | `multi` | several gates fail at once | „Ukryte: grupa nie spełnia kilku progów jednocześnie ({failures}).” | "Hidden: the group fails several thresholds at once ({failures})." |
-| `g4_differencing` | the group collapses when one member is removed | „Ukryte: po odjęciu jednego podmiotu grupa przestaje spełniać progi anonimizacji (test różnicowy).” | "Hidden: once a single entity is removed the group no longer meets the anonymisation thresholds (differencing test)." |
+| `g4_differencing` | the group collapses when one member is removed (gate implemented and tested; not on this release's publication path) | „Ukryte: po odjęciu jednego podmiotu grupa przestaje spełniać progi anonimizacji (test różnicowy).” | "Hidden: once a single entity is removed the group no longer meets the anonymisation thresholds (differencing test)." |
 | `all_levels_failed` | no level passes | „Analiza zablokowana — żadna grupa (ten obszar, obszar nadrzędny, całe miasto) nie spełnia progów anonimizacji.” | "Analysis blocked — no group (this area, its parent area, the whole city) meets the anonymisation thresholds." |
 | `thin_base` | too few transactions in the window (display floor, **not** a privacy gate) | „Za mało danych w tym oknie czasowym, aby porównać — to nie jest ukrycie ze względów prywatności.” | "Too little data in this time window to compare — this is not a privacy suppression." |
 | `no_data` | no transactions at all | „Brak danych dla tego obszaru i okresu.” | "No data for this area and period." |
@@ -143,7 +151,7 @@ the panel" is exactly the re-identification attempt the challenge forbids (§1.5
 |---|---|---|
 | Source | the merchant's own acquirer/POS feed, with consent | the anonymised card-transaction panel |
 | Subjects | one (the merchant itself) | many |
-| Rule | not a k-anonymity group — it is your own till | **gated: ≥ 30 cards, ≥ 3 entities, ≤ 75%, plus the differencing test** |
+| Rule | not a k-anonymity group — it is your own till | **gated: ≥ 30 cards, ≥ 3 entities, ≤ 75%** (the differencing test is implemented and tested but not enabled for this release) |
 | If it cannot be shown | show the gap, ask for the feed | escalate to the smallest passing ancestor, or suppress |
 
 ### Plane A disclosure

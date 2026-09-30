@@ -168,7 +168,7 @@ tr.best td:first-child:before{content:'▸ '}
       <div style="margin-top:18px;font-size:25px;color:var(--ink-2)">Temperatura, wiatr, deszcz, słońce.<br><b>Uwaga:</b> identyczna dla wszystkich kodów — pogoda jest <b>miejska</b>, nie dzielnicowa.</div></div>
     <div class="col card"><div class="eyebrow" style="font-size:19px">Miasto</div>
       <div class="stat num" style="margin-top:16px">2 819<small>wydarzeń w kalendarzu</small></div>
-      <div style="margin-top:18px;font-size:25px;color:var(--ink-2)">151 sektorów kodów (105 obserwowanych, 34 wnioskowane, 12 ekstrapolowanych)<br>3 767 adresów</div></div>
+      <div style="margin-top:18px;font-size:25px;color:var(--ink-2)">151 sektorów kodów — granice <b>wnioskowane z adresów, nie urzędowe</b><br>w artefakcie: 41 obserwowanych · 7 wnioskowanych · 5 ekstrapolowanych</div></div>
   </div>
   <div class="card" style="margin-top:34px;font-size:26px;color:var(--ink-2)">
     Dane zanonimizowane i syntetyczne, udostępnione przez Organizatora wyłącznie na potrzeby wyzwania.
@@ -240,7 +240,7 @@ tr.best td:first-child:before{content:'▸ '}
     </tbody>
   </table>
   <div class="card" style="margin-top:28px;font-size:27px;line-height:1.5;color:var(--ink-2)">
-    Czynniki poprawiają <b>naszą własną bazę o 2,3 pp</b> (24,1% → 20,5%) i sezonową naiwną o 5,8 pp.
+    Czynniki poprawiają <b>naszą własną bazę o 3,6 pp</b> (24,1% → 20,5%) i sezonową naiwną o 5,8 pp.
     Przedział 80% pokrywa <b>80,6%</b> dni — czyli jest skalibrowany, a nie tylko wąski.
     <span class="en">The intervals are calibrated, not merely narrow: an 80% interval covers 80.6% of days.
     Everything here is one command — <b>make data</b> — and re-checked by <b>make verify</b>.</span>
@@ -279,16 +279,17 @@ tr.best td:first-child:before{content:'▸ '}
 <!-- ======================================================== 8 · PRIVACY -->
 <section class="slide">
   <div class="eyebrow">Prywatność</div>
-  <h2>18 z 62 obszarów przechodzi bramkę — reszta jest celowo wygaszona</h2>
+  <h2>17 z 62 obszarów przechodzi bramkę — reszta jest celowo wygaszona</h2>
   <div class="sub">30 kart · 3 podmioty · żaden powyżej 75% grupy — dokładnie jak w §3 regulaminu.
     <span class="en">The gate is not a limitation we hide; it is a rule we implement, measure and show.</span>
   </div>
   <figure style="margin-top:34px"><img src="assets/figures/privacy_funnel.svg" alt="Kaskada prywatności"></figure>
   <div class="cols" style="margin-top:30px">
     <div class="col card" style="font-size:26px;line-height:1.5;color:var(--ink-2)">
-      <b style="color:var(--pulse)">Bramka prawie nic nie kosztuje.</b> Obszary, które ją przechodzą, obejmują
-      19,0% adresów Sopotu, ale <b>90,7% wolumenu transakcji</b>. Wyłączamy dokładnie te cienkie obszary,
-      w których możliwa byłaby identyfikacja pojedynczego lokalu.
+      <b style="color:var(--pulse)">Bramka prawie nic nie kosztuje.</b> 17 obszarów, które ją przechodzą,
+      obejmuje <b>89,95% wolumenu transakcji</b>; 37 cienkich obszarów jest wygaszonych, a ich wolumen
+      (33 197 transakcji) pozostaje w sumie miejskiej i w uzgodnieniu wierszy, ale nie jest już
+      przypisany do żadnego obszaru. Publikujemy <b>17</b>, nie „około 20”.
     </div>
     <div class="col card" style="font-size:26px;line-height:1.5;color:var(--ink-2)">
       <b style="color:var(--accent)">Dwie płaszczyzny, nigdy razem.</b> Własne dane lokalu (za zgodą, jeden podmiot)
