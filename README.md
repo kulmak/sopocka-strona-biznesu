@@ -6,7 +6,16 @@ rhythm.* One new tab in the municipal resident card (`karta.sopot.pl`) tells a r
 the signal. **It is built on 378,212 anonymised card transactions, and it publishes no cell that fails
 the challenge's three privacy gates — no card, merchant or transaction is identifiable from it.**
 
-**Status.** `make data` runs all eight pipeline stages: ingest, validate, normalise and filter pass and print their own counters, and the run then **stops on its own assertion** in `pipeline/enrich.py` — `2025-10-26 should hold 1500 distinct local minutes, got 301` — rather than write an artifact it cannot vouch for. `app/index.html` is not in the tree yet. The targets below are the contract; `docs/ROADMAP.md` R21 explains why this pipeline had to be written at all.
+**Live now.**
+Demo — <https://kulmak.github.io/sopocka-strona-biznesu/app/>
+Code — <https://github.com/kulmak/sopocka-strona-biznesu>
+Deck — <https://kulmak.github.io/sopocka-strona-biznesu/deck/deck.pdf>
+
+`make data` runs all eight stages and exits 0, producing `artifacts/aggregate.json` byte-identically on
+repeat runs. `make check` is green. `make verify` recomputes all 29 published numbers. The demo gate
+passes **39 of 39** assertions against the live URL: every preset prints a real number, draws a full
+venue lane, keeps every released cell inside the three privacy gates, and shows no fabricated value at
+any point in the load. First real number: ~2.5 s cold, ~0.17 s warm.
 
 ---
 
@@ -32,7 +41,7 @@ A ten-table restaurant on ul. Emila Platera has no analyst and no benchmark. The
 
 ## 3. What is proven
 
-Each row is a claim, its English rendering and the artifact that owns the number. **No value here travels without a command**, including the headline above: every figure is in `docs/claims.json` — 21 rows, each naming the command that prints it — or in the document cited beside it.
+Each row is a claim, its English rendering and the artifact that owns the number. **No value here travels without a command**, including the headline above: every figure is in `docs/claims.json` — 29 rows, each naming the command that prints it — or in the document cited beside it.
 
 | Claim — Polish | English | Verified by |
 | --- | --- | --- |
