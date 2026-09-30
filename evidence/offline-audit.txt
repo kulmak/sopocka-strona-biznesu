@@ -1,0 +1,52 @@
+== off-origin REQUESTS (must be 0) ==
+  (^|[^-a-zA-Z0-9_])src="https?://   0
+  (^|[^-a-zA-Z0-9_])src='https?://   0
+  url\((https?:)?//                  0
+  @import[^;]*https?://              0
+  data-background="https?://         0
+  TOTAL REQUESTS: 0
+
+== the one known non-request marker ==
+data-mock-embed-src="https://youtube.com/embed/AW_Osu4N-m0?si=Fzm0Wr9YO41gsbTm"
+  (a data- attribute on a local placeholder div; nothing fetches it)
+
+== links and text naming an off-origin URL (informational) ==
+  href="http(s)://..."   : 817
+  bare URLs in body text : 80
+  in JS string literals  : 52
+  xmlns / schema (not a URL fetch): 8
+
+== distinct off-origin hosts named anywhere ==
+ 606 https://www.facebook.com
+ 588 https://www.instagram.com
+ 512 https://www.youtube.com
+ 332 https://play.google.com
+ 332 https://apps.apple.com
+ 166 https://qb.com.pl
+ 133 https://www.google.pl
+ 112 https://www.google.com
+  56 https://cdnjs.cloudflare.com
+  28 http://www.w3.org
+  18 https://sopockiepamiatki.pl
+  17 https://github.com
+  16 https://bart.sopot.pl
+  11 https://kooperacjasopot.org.pl
+  11 http://www.karta.sopot.pl
+  10 https://selfiezone.pl
+   9 https://kartcenter.pl
+   9 https://karta.sopot.pl
+   8 https://fundacjanaszprzyjaznydom.pl
+   6 https://engine9031.idobooking.com
+
+== local placeholder assets (replacements for what was off-origin) ==
+total 16
+drwxr-xr-x@  4 kulma  staff  128 Sep 30 05:10 .
+drwxr-xr-x@ 11 kulma  staff  352 Sep 30 05:10 ..
+-rw-r--r--@  1 kulma  staff  532 Sep 30 05:10 photo-placeholder.svg
+-rw-r--r--@  1 kulma  staff  278 Sep 30 05:10 pin-red.svg
+
+== the mandated OpenStreetMap exception ==
+integrations/municipal-site/pl/punkty-obslugi/index.html:629:                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+integrations/municipal-site/pl/punkty-obslugi/index.html:630:                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyrig
+
+PASS: no request in integrations/municipal-site can leave 127.0.0.1

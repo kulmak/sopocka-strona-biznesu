@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Mock-only styling for the karta.sopot.pl design-mockup replica.
+
+   Everything here is additive: it styles the stand-ins that replace
+   integrations which cannot be self-hosted. It never overrides site layout.
+   ========================================================================== */
+
+.embed-placeholder {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    padding: 28px 24px;
+    min-height: 320px;
+    background: repeating-linear-gradient(
+        45deg,
+        #f4f7fa,
+        #f4f7fa 12px,
+        #eaf0f6 12px,
+        #eaf0f6 24px
+    );
+    border: 1px dashed #b9c6d4;
+    border-radius: 8px;
+    color: #46536b;
+    font-family: Montserrat, sans-serif;
+}
+
+.embed-placeholder strong {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2b3d;
+}
+
+.embed-placeholder span {
+    font-size: 13px;
+    max-width: 46ch;
+    line-height: 1.5;
+}
+
+.embed-placeholder a {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0563c1;
+    text-decoration: underline;
+}
+
+.embed-placeholder code {
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid #d6dee8;
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: #0563c1;
+}
+
+/* Google Maps widget on /pl/partnerzy/ (collapsed by default). */
+#collapseMap .embed-placeholder {
+    min-height: 360px;
+}
+
+/* Inline stand-in for a form that would POST to the CMS backend. */
+.mock-form-note {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-left: 4px solid #178fd3;
+    background: #eef6fd;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: #1f2b3d;
+}
+
+.mock-form-note strong {
+    font-weight: 600;
+}

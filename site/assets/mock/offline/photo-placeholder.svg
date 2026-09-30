@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Zdjęcie niedostępne w wersji offline">
+  <rect width="640" height="360" fill="#eceff2"/>
+  <g fill="none" stroke="#9aa5b1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="196" y="140" width="248" height="164" rx="18"/>
+    <circle cx="320" cy="222" r="42"/>
+    <path d="M262 140l20-32h76l20 32"/>
+  </g>
+  <rect x="0" y="330" width="640" height="30" fill="#178fd3" opacity="0.85"/>
+</svg>

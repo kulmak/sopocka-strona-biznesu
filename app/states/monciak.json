@@ -1,0 +1,11 @@
+{
+  "id": "monciak",
+  "title": "Bistro na Monciaku",
+  "subtitle": "81-759 Bohaterów Monte Cassino · 39 podmiotów · pełne 18 miesięcy · sobota 20.06.2026, 19:00",
+  "query": "stan=monciak&data=2026-06-20&g=19",
+  "code": "81-759",
+  "day": "2026-06-20",
+  "hour": 19,
+  "venue": "Bistro na Monciaku",
+  "expect": { "laneMinDistinct": 8, "needsNumber": true }
+}

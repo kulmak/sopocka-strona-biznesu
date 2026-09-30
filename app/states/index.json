@@ -1,0 +1,9 @@
+{
+  "generated_by": "tools/demo_ready.mjs writes nothing here; this file only lists the demo states.",
+  "states": [
+    { "id": "molo", "file": "molo.json", "url": "app/panel.html?stan=molo&data=2026-06-20&g=19" },
+    { "id": "monciak", "file": "monciak.json", "url": "app/panel.html?stan=monciak&data=2026-06-20&g=19" },
+    { "id": "przystan", "file": "przystan.json", "url": "app/panel.html?stan=przystan&data=2026-06-20&g=21" }
+  ],
+  "notes": "Each state is a plain query string on app/panel.html. ?kod=81-777 also works and focuses that postcode. ?data=YYYY-MM-DD, ?g=0..23, ?ev=<event id>, ?zakres=<unit key>."
+}

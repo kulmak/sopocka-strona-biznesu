@@ -1,0 +1,210 @@
+/* tokens.css — ONE reconciled token set for the whole panel. Replaces
+   _ds/industry-…/styles.css (the Industry steel-blue design system).
+
+   Two layers, deliberately:
+     · CHROME  = the light municipal surface palette of the resident card, taken from
+                 rytm-miasta/frame.md §"Supporting surface palette" (pale teals #d8efeb #d2dcde
+                 #e7f0ed #b6cfcb #bfd3cf #d7e9e2 #f2f0e7; dark teal ink #11685f #106e64 #334c51
+                 #243a40; muted #91a1a1 #8d9994 #88959b).
+     · DATA    = the film's instrument palette (rytm-miasta), applied by wrapping any analytical
+                 region in `.data-surface`: night-navy ground #0B1220, amber #FFB84D = money,
+                 teal #21C7B7 = the service, Inter Tight / Inter / JetBrains Mono.
+   The Industry design system is fully RETIRED: its steel-blue accent and its Barlow type family
+   appear nowhere in app/. One type system (Inter Tight / Inter / JetBrains Mono) is shared by
+   the panel, the deck and the film.
+
+   Type: Barlow + Barlow Condensed (chrome, vendored woff2, latin + latin-ext = Polish glyphs),
+   Inter Tight + Inter + JetBrains Mono (data layer, vendored woff2, same coverage). */
+
+/* ─────────────────────────────────────────────────────────── CHROME (light municipal) */
+:root {
+  --color-bg: #f2f0e7;              /* frame.md surface */
+  --color-surface: #e7f0ed;
+  --color-surface-2: #d7e9e2;
+  --color-text: #101b24;            /* near-black matte */
+  --color-text-muted: #334c51;
+  --color-text-faint: #88959b;
+  --color-divider: color-mix(in srgb, #11685f 22%, transparent);
+  --color-accent: #106e64;          /* municipal teal — the chrome's own accent */
+  --color-accent-2: #11685f;
+  --color-warn: #533e24;            /* frame.md amber comparison span */
+  --color-warn-bg: #f6ecd8;
+
+  /* Neutral ramp: cool pale teals → municipal ink. */
+  --color-neutral-100: #f2f0e7;
+  --color-neutral-200: #e7f0ed;
+  --color-neutral-300: #d2dcde;
+  --color-neutral-400: #bfd3cf;
+  --color-neutral-500: #91a1a1;
+  --color-neutral-600: #8d9994;
+  --color-neutral-700: #334c51;
+  --color-neutral-800: #243a40;
+  --color-neutral-900: #101b24;
+
+  /* Chrome accent ramp (municipal teal). */
+  --color-accent-100: #e2f1ed;
+  --color-accent-200: #c9e6df;
+  --color-accent-300: #a9d5cb;
+  --color-accent-400: #7fbfb2;
+  --color-accent-500: #4ea596;
+  --color-accent-600: #2a8b7c;
+  --color-accent-700: #11685f;
+  --color-accent-800: #0e554e;
+  --color-accent-900: #0b3f3a;
+
+  --font-heading: "Inter Tight", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-data: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading-weight: 600;
+
+  --space-1: 3.4px; --space-2: 6.8px; --space-3: 10.2px; --space-4: 13.6px;
+  --space-6: 20.4px; --space-8: 27.2px;
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 7px;
+
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #101b24 10%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #101b24 14%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #101b24 18%, transparent);
+}
+
+/* ─────────────────────────────────────────────────────────── DATA (night instrument panel)
+   Any region wrapped in .data-surface re-maps the same token names, so the panel's existing
+   var(--color-*) references light up correctly without touching the markup's styling.       */
+.data-surface {
+  --color-bg: #0B1220;              /* film ground — night navy */
+  --color-surface: #111E30;
+  --color-surface-2: #16263C;
+  --color-text: #E9F1F4;
+  --color-text-muted: #9FB3C0;
+  --color-text-faint: #6D8397;
+  --color-divider: color-mix(in srgb, #9FB3C0 26%, transparent);
+
+  --color-accent: #21C7B7;          /* teal = the service (transactions) */
+  --color-accent-2: #4FD8C9;
+
+  --color-neutral-100: #16263C;
+  --color-neutral-200: #1C2E46;
+  --color-neutral-300: #2A3F5A;
+  --color-neutral-400: #3E5673;
+  --color-neutral-500: #6D8397;
+  --color-neutral-600: #8AA0B2;
+  --color-neutral-700: #A9BCC9;
+  --color-neutral-800: #C9D8E1;
+  --color-neutral-900: #E9F1F4;
+
+  --color-accent-100: #123A3C;      /* tint behind "czas wydarzenia" */
+  --color-accent-200: #16494B;
+  --color-accent-300: #1B6A69;      /* filled area "ten dzień" */
+  --color-accent-400: #1E938C;
+  --color-accent-500: #21C7B7;
+  --color-accent-600: #35D6C6;
+  --color-accent-700: #6FE4D8;
+  --color-accent-800: #A6EFE7;
+  --color-accent-900: #D6FAF5;      /* the line + the printed number */
+
+  --font-heading: "Inter Tight", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-data: "JetBrains Mono", ui-monospace, monospace;
+  --font-heading-weight: 600;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* Amber = money. The metric toggle sets data-metric on the wrapper; in "Kwota" the whole data
+   layer turns amber so the presenter can see at a glance which quantity is on screen. */
+.data-surface[data-metric="zl"] {
+  --color-accent: #FFB84D;
+  --color-accent-100: #3A2B12;
+  --color-accent-200: #553D14;
+  --color-accent-300: #7A5617;
+  --color-accent-400: #B07F22;
+  --color-accent-500: #FFB84D;
+  --color-accent-600: #FFC972;
+  --color-accent-700: #FFD79A;
+  --color-accent-800: #FFE6C0;
+  --color-accent-900: #FFF3E0;
+}
+.money { color: #FFB84D; }
+.data-surface .mono, .num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+
+/* ─────────────────────────────────────────────────────────── base */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400;
+  background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);
+}
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2); }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent-700); text-underline-offset: 3px; }
+a:hover { color: var(--color-accent-900); }
+.text-muted { color: var(--color-text-muted); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+.hr { height: 1px; border: 0; margin: var(--space-4) 0; background: var(--color-divider); }
+
+/* ─────────────────────────────────────────────────────────── blueprint frame
+   The wireframe-object look of the original design system, kept. */
+.blueprint { position: relative; border: 1px solid var(--color-divider); border-radius: 0; }
+.blueprint > .corner { position: absolute; width: 11px; height: 11px; color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+.blueprint > .corner::before, .blueprint > .corner::after { content: ""; position: absolute; background: currentColor; }
+.blueprint > .corner::before { left: 5px; top: 0; width: 1px; height: 100%; }
+.blueprint > .corner::after { top: 5px; left: 0; width: 100%; height: 1px; }
+.blueprint > .corner.tl { top: -6px; left: -6px; }
+.blueprint > .corner.tr { top: -6px; right: -6px; }
+.blueprint > .corner.bl { bottom: -6px; left: -6px; }
+.blueprint > .corner.br { bottom: -6px; right: -6px; }
+
+/* ─────────────────────────────────────────────────────────── components */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;
+  text-decoration: none; font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); background: transparent;
+  border: 1px solid var(--color-divider); padding: var(--space-2) calc(var(--space-3) * 1.2); border-radius: 0;
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); border-color: var(--color-accent); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-ghost { color: var(--color-accent); border-color: transparent; padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit; font-size: 14px;
+  color: var(--color-text); caret-color: var(--color-accent); background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: 0;
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+.seg { display: inline-flex; overflow: hidden; border: 1px solid var(--color-divider); border-radius: 0; }
+.seg-opt { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; font-size: 13px; cursor: pointer; }
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { background: var(--color-accent); color: var(--color-bg); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+.tag { display: inline-flex; align-items: center; font-size: 11px; letter-spacing: .02em; padding: 3px 10px; border-radius: 0; }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+.tag-neutral { background: var(--color-neutral-200); color: var(--color-neutral-800); }
+.nav { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3) var(--space-4); }
+
+/* ─────────────────────────────────────────────────────────── honesty surfaces
+   Every degraded or disclosed state is visible, never a quiet tooltip. */
+.notice {
+  display: flex; align-items: flex-start; gap: 8px; font-size: 12px; line-height: 1.45;
+  padding: 7px 10px; border-left: 3px solid var(--color-warn); background: var(--color-warn-bg); color: #3a2c18;
+}
+.data-surface .notice { border-left-color: #FFB84D; background: #2A2114; color: #F6E4C8; }
+.notice-error { border-left-color: #a33; background: #f7e6e4; color: #5a1c18; }
+.splash {
+  position: fixed; inset: 0; z-index: 4000; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px; text-align: center;
+  background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);
+}
+.splash h2 { font-family: var(--font-heading); font-size: 30px; text-transform: uppercase; letter-spacing: .03em; margin: 0; }
+.splash p { max-width: 46ch; font-size: 13px; opacity: .8; }
+
+/* Leaflet, tuned to the data layer. */
+.leaflet-container { background: var(--color-bg); font-family: var(--font-body); }
+.leaflet-bar a { border-radius: 0 !important; }
+.leaflet-control-attribution { font-size: 10px; opacity: .75; }

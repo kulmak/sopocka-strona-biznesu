@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Sopocka Strona Biznesu — Panel przedsiębiorcy</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<style>
+  body { background: var(--color-bg); }
+  .karta-bar { background: #123b3d; color: #d7e9e2; font-size: 12px; letter-spacing: .02em; }
+  .karta-bar .in { max-width: 1280px; margin: 0 auto; padding: 7px 24px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .karta-bar a { color: #d7e9e2; text-decoration: none; }
+  .karta-bar a[aria-current] { color: #ffffff; font-weight: 600; border-bottom: 2px solid #21C7B7; padding-bottom: 2px; }
+  .hero { max-width: 1280px; margin: 0 auto; padding: 26px 24px 8px; }
+  .hero h1 { font-family: var(--font-heading); font-size: 44px; text-transform: uppercase; letter-spacing: .02em; margin: 0 0 6px; color: #0b3f3a; }
+  .hero p { max-width: 74ch; font-size: 14px; color: #243a40; margin: 0 0 4px; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 8px 24px 40px; }
+  .panel-frame { display: block; width: 100%; border: 1px solid var(--color-divider); background: #f2f0e7; }
+  .states { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 18px; }
+  .states a { display: inline-flex; flex-direction: column; gap: 2px; padding: 8px 12px; border: 1px solid var(--color-divider); background: #e7f0ed; color: #0b3f3a; text-decoration: none; font-size: 13px; }
+  .states a:hover { border-color: var(--color-accent); background: #d7e9e2; }
+  .states a b { font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; letter-spacing: .03em; }
+  .states a span { font-size: 11px; color: #334c51; }
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 18px; }
+  .split > div { border: 1px solid var(--color-divider); padding: 12px 14px; background: #e7f0ed; }
+  .split h3 { font-family: var(--font-heading); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 6px; color: #11685f; }
+  .split p { font-size: 12.5px; margin: 0; color: #243a40; }
+</style>
+</head>
+<body>
+  <div class="karta-bar">
+    <div class="in">
+      <a href="#">karta.sopot.pl</a>
+      <a href="#">Mieszkańcy</a>
+      <a href="#">Turystyka</a>
+      <a href="#" aria-current="page">Strona Biznesu</a>
+      <a href="#">Kontakt</a>
+      <span style="margin-left:auto;opacity:.75">Sopot · dane kartowe MCC 5812 · 2025-01-01 → 2026-06-30</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <h1>Panel przedsiębiorcy</h1>
+    <p>Nowa zakładka w Sopockiej Karcie Mieszkańca dla lokali gastronomicznych. Pokazuje, co jest
+      <b>normalne</b> dla Twojej ulicy o tej godzinie i w tym dniu tygodnia, jak bardzo odbiega od tego
+      dzisiejszy dzień i które wydarzenie w mieście niesie sygnał.</p>
+    <p style="color:#334c51">Panel czyta <b>jeden</b> wstępnie policzony plik
+      (<code>artifacts/aggregate.json</code>, kontrakt v4) i działa bez internetu. Nie ma trybu
+      zastępczego: dopóki plik się nie wczyta, na ekranie nie ma ani jednej liczby.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="states" id="states"></div>
+    <iframe id="panel" class="panel-frame" title="Panel przedsiębiorcy · Sopot" src="panel.html" height="1500"></iframe>
+
+    <div class="split">
+      <div>
+        <h3>Trzy bramki prywatności</h3>
+        <p>Min. 3 podmioty · min. 30 kart · żaden podmiot powyżej 75% udziału — liczone dla każdego
+          obszaru osobno. Obszar poniżej progu pokazuje wartość większego obszaru albo pozostaje
+          niewybarwiony. Bramki są zaimplementowane raz, w <code>contracts/privacy.py</code>,
+          i odzwierciedlone w aplikacji.</p>
+      </div>
+      <div>
+        <h3>Dzień tygodnia, nie średnia</h3>
+        <p>„Zwykle” to średnia z 4 poprzednich tygodni dla <b>tego samego dnia tygodnia</b>
+          i tej samej godziny. Bez tego dopasowania sobota bez żadnego wydarzenia czytała +75%.</p>
+      </div>
+      <div>
+        <h3>Bez znacznika czasu</h3>
+        <p>10,2% wierszy ma czas <code>000000</code>. Nie wchodzą do żadnej krzywej godzinowej ani do
+          żadnej średniej — panel pokazuje ich udział wprost nad wykresem.</p>
+      </div>
+      <div>
+        <h3>Nigdy nie rysujemy i nie ukrywamy</h3>
+        <p>Gdy w oknie 3 godzin jest za mało transakcji, odczyt eskaluje do większego obszaru,
+          a w ostateczności do całego miasta — i jest drukowany z przedziałem 95%. Nie ma stanu,
+          w którym krzywa jest narysowana, a liczby nie ma.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // The state buttons are generated from app/states/*.json so the entry page and the URL-addressable
+  // demo states can never drift apart. Each link opens the same panel with a shareable query string.
+  (async function () {
+    const box = document.getElementById('states');
+    const frame = document.getElementById('panel');
+    const INDEX = ['molo', 'monciak', 'przystan'];
+    let states = [];
+    try {
+      states = await Promise.all(INDEX.map(async (id) => {
+        const r = await fetch(`states/${id}.json`, { cache: 'no-cache' });
+        if (!r.ok) throw new Error(`states/${id}.json → HTTP ${r.status}`);
+        return r.json();
+      }));
+    } catch (e) {
+      box.innerHTML = `<span style="font-size:12px;color:#5a1c18">Nie udało się wczytać stanów demonstracyjnych: ${e.message}</span>`;
+      return;
+    }
+    box.innerHTML = states.map(s =>
+      `<a href="panel.html?${s.query}" data-state="${s.id}"><b>${s.title}</b><span>${s.subtitle}</span></a>`
+    ).join('');
+    // keep the embedded panel in step with the query string of the entry page
+    const q = location.search.replace(/^\?/, '');
+    if (q) frame.src = `panel.html?${q}`;
+    const fit = () => { try { const d = frame.contentDocument; if (d && d.body) frame.height = Math.max(1200, d.body.scrollHeight + 40); } catch (e) { } };
+    frame.addEventListener('load', fit);
+    setInterval(fit, 1500);
+  })();
+</script>
+</body>
+</html>

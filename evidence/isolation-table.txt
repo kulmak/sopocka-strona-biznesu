@@ -1,0 +1,36 @@
+{
+  "embeddedAt1280": {
+    "host": {
+      "themePrimary": "#178fd3",
+      "fontBody": "Montserrat, sans-serif",
+      "bodyBg": "rgb(255, 255, 255)",
+      "focusRing": "solid 3px",
+      "htmlOverflow": "visible",
+      "boxSizingOnHostEl": "border-box"
+    },
+    "panel": {
+      "fontBody": "Barlow, system-ui, sans-serif",
+      "bodyBg": "rgb(242, 240, 231)",
+      "bodyMargin": "0px",
+      "htmlHeight": "2946.3px"
+    },
+    "panelTokenCount": 45,
+    "tokensThatWouldCollide": [],
+    "leakedCount": 0,
+    "frame": {
+      "x": 82,
+      "y": 663,
+      "width": 1116,
+      "height": 2978
+    }
+  },
+  "directVisit": {
+    "title": "Sopocka Strona Biznesu — Panel przedsiębiorcy",
+    "bg": "rgb(242, 240, 231)",
+    "font": "Barlow, system-ui, sans-serif"
+  },
+  "offOrigin": [],
+  "console": [
+    "INFO [SopotData] aggregate v4: 378 212 wierszy, 54 kodów, 17 obszarów po wszystkich bramkach, 4.47 MB, 89 ms"
+  ]
+}

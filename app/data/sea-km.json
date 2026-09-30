@@ -1,0 +1,1261 @@
+{
+ "generated": "2026-09-30T02:48:08.353Z",
+ "what": "Per-postcode distance to the Sopot shoreline, recomputed from the shipped GIS polygons (step 9 of the panel rebase).",
+ "method": "Shoreline = land-footprint boundary (data/sopot-land.geojson) segments with water on one side: a point offset 20 m along the segment normal lies inside the municipal polygon (data/sopot-city.geojson, which includes marine territory) but outside the land polygon. 209 of 833 land-boundary segments qualify; 0 segments remain unexplained relative to the municipal border within 15 m, and the derived coast is 4.35 km long (research/geo-enrichment.md §1.3 measures 4.30 km by the same rule). sea_km = minimum perpendicular distance from the sector address samples (sopot-sectors.geojson properties.samples) to that polyline; equirectangular at 54.44 deg with 64.73 / 111.2 km-per-degree.",
+ "projection_caveat": "The shipped sea_km was computed in EPSG:2180; this recomputation uses an equirectangular approximation (±0.5 percent over 4 km).",
+ "sectors": 151,
+ "shoreline_segments": 209,
+ "vs_shipped": {
+  "within_50m": 74,
+  "of": 151,
+  "median_abs_km": 0.052000000000000046,
+  "max_abs_km": 1.609,
+  "worst": [
+   {
+    "postcode": "81-820",
+    "shipped_km": 2.56,
+    "recomputed_km": 0.951
+   },
+   {
+    "postcode": "81-856",
+    "shipped_km": 0.33,
+    "recomputed_km": 1.712
+   },
+   {
+    "postcode": "81-855",
+    "shipped_km": 0.18,
+    "recomputed_km": 1.416
+   },
+   {
+    "postcode": "81-877",
+    "shipped_km": 0.54,
+    "recomputed_km": 1.676
+   },
+   {
+    "postcode": "81-745",
+    "shipped_km": 0.24,
+    "recomputed_km": 1.092
+   },
+   {
+    "postcode": "81-881",
+    "shipped_km": 2.19,
+    "recomputed_km": 1.402
+   }
+  ]
+ },
+ "beach_strip_codes": {
+  "within_300m": 23,
+  "within_450m": 40,
+  "within_600m": 63
+ },
+ "codes": {
+  "81-702": {
+   "sea_km": 0.624,
+   "label_km": 0.721,
+   "centroid_km": 0.744,
+   "min_sample_km": 0.624,
+   "shipped_km": 0.73,
+   "n_samples": 6
+  },
+  "81-703": {
+   "sea_km": 0.684,
+   "label_km": 0.664,
+   "centroid_km": 0.789,
+   "min_sample_km": 0.684,
+   "shipped_km": 0.66,
+   "n_samples": 4
+  },
+  "81-704": {
+   "sea_km": 0.732,
+   "label_km": 0.922,
+   "centroid_km": 0.843,
+   "min_sample_km": 0.732,
+   "shipped_km": 0.92,
+   "n_samples": 9
+  },
+  "81-706": {
+   "sea_km": 0.584,
+   "label_km": 0.703,
+   "centroid_km": 0.653,
+   "min_sample_km": 0.584,
+   "shipped_km": 0.71,
+   "n_samples": 7
+  },
+  "81-707": {
+   "sea_km": 0.512,
+   "label_km": 0.489,
+   "centroid_km": 0.512,
+   "min_sample_km": 0.512,
+   "shipped_km": 0.49,
+   "n_samples": 1
+  },
+  "81-708": {
+   "sea_km": 0.506,
+   "label_km": 0.511,
+   "centroid_km": 0.506,
+   "min_sample_km": 0.506,
+   "shipped_km": 0.52,
+   "n_samples": 1
+  },
+  "81-709": {
+   "sea_km": 0.554,
+   "label_km": 0.554,
+   "centroid_km": 0.554,
+   "min_sample_km": 0.554,
+   "shipped_km": 0.56,
+   "n_samples": 1
+  },
+  "81-710": {
+   "sea_km": 0.561,
+   "label_km": 0.546,
+   "centroid_km": 0.561,
+   "min_sample_km": 0.561,
+   "shipped_km": 0.56,
+   "n_samples": 1
+  },
+  "81-711": {
+   "sea_km": 0.147,
+   "label_km": 0.216,
+   "centroid_km": 0.238,
+   "min_sample_km": 0.147,
+   "shipped_km": 0.23,
+   "n_samples": 7
+  },
+  "81-712": {
+   "sea_km": 0.025,
+   "label_km": 0.132,
+   "centroid_km": 0.124,
+   "min_sample_km": 0.025,
+   "shipped_km": 0.13,
+   "n_samples": 15
+  },
+  "81-713": {
+   "sea_km": 0.094,
+   "label_km": 0.227,
+   "centroid_km": 0.304,
+   "min_sample_km": 0.094,
+   "shipped_km": 0.24,
+   "n_samples": 25
+  },
+  "81-714": {
+   "sea_km": 0.575,
+   "label_km": 0.505,
+   "centroid_km": 0.575,
+   "min_sample_km": 0.575,
+   "shipped_km": 0.51,
+   "n_samples": 1
+  },
+  "81-715": {
+   "sea_km": 0.256,
+   "label_km": 0.381,
+   "centroid_km": 0.391,
+   "min_sample_km": 0.256,
+   "shipped_km": 0.39,
+   "n_samples": 17
+  },
+  "81-716": {
+   "sea_km": 0.504,
+   "label_km": 0.539,
+   "centroid_km": 0.543,
+   "min_sample_km": 0.504,
+   "shipped_km": 0.54,
+   "n_samples": 4
+  },
+  "81-717": {
+   "sea_km": 0.39,
+   "label_km": 0.44,
+   "centroid_km": 0.479,
+   "min_sample_km": 0.39,
+   "shipped_km": 0.46,
+   "n_samples": 4
+  },
+  "81-718": {
+   "sea_km": 0.028,
+   "label_km": 0.148,
+   "centroid_km": 0.159,
+   "min_sample_km": 0.028,
+   "shipped_km": 0.16,
+   "n_samples": 17
+  },
+  "81-719": {
+   "sea_km": 0.346,
+   "label_km": 0.389,
+   "centroid_km": 0.346,
+   "min_sample_km": 0.346,
+   "shipped_km": 0.39,
+   "n_samples": 1
+  },
+  "81-720": {
+   "sea_km": 0.036,
+   "label_km": 0.089,
+   "centroid_km": 0.142,
+   "min_sample_km": 0.036,
+   "shipped_km": 0.14,
+   "n_samples": 6
+  },
+  "81-721": {
+   "sea_km": 0.587,
+   "label_km": 0.593,
+   "centroid_km": 0.587,
+   "min_sample_km": 0.587,
+   "shipped_km": 0.6,
+   "n_samples": 1
+  },
+  "81-722": {
+   "sea_km": 0.027,
+   "label_km": 0.133,
+   "centroid_km": 0.103,
+   "min_sample_km": 0.027,
+   "shipped_km": 0.16,
+   "n_samples": 4
+  },
+  "81-723": {
+   "sea_km": 0.021,
+   "label_km": 0.12,
+   "centroid_km": 0.096,
+   "min_sample_km": 0.021,
+   "shipped_km": 0.15,
+   "n_samples": 2
+  },
+  "81-724": {
+   "sea_km": 0.045,
+   "label_km": 0.118,
+   "centroid_km": 0.116,
+   "min_sample_km": 0.045,
+   "shipped_km": 0.14,
+   "n_samples": 3
+  },
+  "81-725": {
+   "sea_km": 0.251,
+   "label_km": 0.251,
+   "centroid_km": 0.251,
+   "min_sample_km": 0.251,
+   "shipped_km": 0.27,
+   "n_samples": 1
+  },
+  "81-726": {
+   "sea_km": 0.097,
+   "label_km": 0.131,
+   "centroid_km": 0.151,
+   "min_sample_km": 0.097,
+   "shipped_km": 0.13,
+   "n_samples": 2
+  },
+  "81-727": {
+   "sea_km": 0.197,
+   "label_km": 0.216,
+   "centroid_km": 0.225,
+   "min_sample_km": 0.197,
+   "shipped_km": 0.22,
+   "n_samples": 2
+  },
+  "81-728": {
+   "sea_km": 0.502,
+   "label_km": 0.502,
+   "centroid_km": 0.502,
+   "min_sample_km": 0.502,
+   "shipped_km": 0.5,
+   "n_samples": 1
+  },
+  "81-729": {
+   "sea_km": 0.386,
+   "label_km": 0.366,
+   "centroid_km": 0.386,
+   "min_sample_km": 0.386,
+   "shipped_km": 0.37,
+   "n_samples": 1
+  },
+  "81-730": {
+   "sea_km": 0.317,
+   "label_km": 0.282,
+   "centroid_km": 0.329,
+   "min_sample_km": 0.317,
+   "shipped_km": 0.29,
+   "n_samples": 2
+  },
+  "81-731": {
+   "sea_km": 0.024,
+   "label_km": 0.282,
+   "centroid_km": 0.419,
+   "min_sample_km": 0.024,
+   "shipped_km": 0.3,
+   "n_samples": 51
+  },
+  "81-732": {
+   "sea_km": 0.41,
+   "label_km": 0.432,
+   "centroid_km": 0.423,
+   "min_sample_km": 0.41,
+   "shipped_km": 0.43,
+   "n_samples": 2
+  },
+  "81-733": {
+   "sea_km": 0.499,
+   "label_km": 0.47,
+   "centroid_km": 0.499,
+   "min_sample_km": 0.499,
+   "shipped_km": 0.48,
+   "n_samples": 1
+  },
+  "81-734": {
+   "sea_km": 0.287,
+   "label_km": 0.266,
+   "centroid_km": 0.287,
+   "min_sample_km": 0.287,
+   "shipped_km": 0.27,
+   "n_samples": 1
+  },
+  "81-735": {
+   "sea_km": 0.657,
+   "label_km": 0.724,
+   "centroid_km": 0.873,
+   "min_sample_km": 0.657,
+   "shipped_km": 0.73,
+   "n_samples": 6
+  },
+  "81-736": {
+   "sea_km": 0.524,
+   "label_km": 0.966,
+   "centroid_km": 0.895,
+   "min_sample_km": 0.524,
+   "shipped_km": 0.63,
+   "n_samples": 31
+  },
+  "81-737": {
+   "sea_km": 0.891,
+   "label_km": 0.967,
+   "centroid_km": 0.935,
+   "min_sample_km": 0.891,
+   "shipped_km": 0.97,
+   "n_samples": 2
+  },
+  "81-738": {
+   "sea_km": 0.743,
+   "label_km": 0.683,
+   "centroid_km": 0.743,
+   "min_sample_km": 0.743,
+   "shipped_km": 0.69,
+   "n_samples": 1
+  },
+  "81-739": {
+   "sea_km": 0.932,
+   "label_km": 1.018,
+   "centroid_km": 0.976,
+   "min_sample_km": 0.932,
+   "shipped_km": 0.83,
+   "n_samples": 2
+  },
+  "81-740": {
+   "sea_km": 0.402,
+   "label_km": 0.516,
+   "centroid_km": 0.574,
+   "min_sample_km": 0.402,
+   "shipped_km": 0.52,
+   "n_samples": 5
+  },
+  "81-741": {
+   "sea_km": 1.037,
+   "label_km": 1.031,
+   "centroid_km": 1.118,
+   "min_sample_km": 1.037,
+   "shipped_km": 1.03,
+   "n_samples": 3
+  },
+  "81-742": {
+   "sea_km": 0.853,
+   "label_km": 0.857,
+   "centroid_km": 0.853,
+   "min_sample_km": 0.853,
+   "shipped_km": 0.86,
+   "n_samples": 1
+  },
+  "81-743": {
+   "sea_km": 0.66,
+   "label_km": 0.914,
+   "centroid_km": 0.846,
+   "min_sample_km": 0.66,
+   "shipped_km": 0.91,
+   "n_samples": 8
+  },
+  "81-744": {
+   "sea_km": 1.087,
+   "label_km": 1.065,
+   "centroid_km": 1.087,
+   "min_sample_km": 1.087,
+   "shipped_km": 0.93,
+   "n_samples": 1
+  },
+  "81-745": {
+   "sea_km": 1.092,
+   "label_km": 1.39,
+   "centroid_km": 1.345,
+   "min_sample_km": 1.092,
+   "shipped_km": 0.24,
+   "n_samples": 27
+  },
+  "81-746": {
+   "sea_km": 0.893,
+   "label_km": 1.188,
+   "centroid_km": 1.046,
+   "min_sample_km": 0.893,
+   "shipped_km": 0.98,
+   "n_samples": 3
+  },
+  "81-747": {
+   "sea_km": 0.524,
+   "label_km": 0.581,
+   "centroid_km": 0.556,
+   "min_sample_km": 0.524,
+   "shipped_km": 0.58,
+   "n_samples": 3
+  },
+  "81-748": {
+   "sea_km": 0.443,
+   "label_km": 0.443,
+   "centroid_km": 0.443,
+   "min_sample_km": 0.443,
+   "shipped_km": 0.45,
+   "n_samples": 1
+  },
+  "81-749": {
+   "sea_km": 0.525,
+   "label_km": 0.561,
+   "centroid_km": 0.571,
+   "min_sample_km": 0.525,
+   "shipped_km": 0.56,
+   "n_samples": 2
+  },
+  "81-750": {
+   "sea_km": 0.691,
+   "label_km": 0.684,
+   "centroid_km": 0.691,
+   "min_sample_km": 0.691,
+   "shipped_km": 0.69,
+   "n_samples": 1
+  },
+  "81-751": {
+   "sea_km": 0.621,
+   "label_km": 0.609,
+   "centroid_km": 0.621,
+   "min_sample_km": 0.621,
+   "shipped_km": 0.61,
+   "n_samples": 1
+  },
+  "81-752": {
+   "sea_km": 0.698,
+   "label_km": 0.685,
+   "centroid_km": 0.698,
+   "min_sample_km": 0.698,
+   "shipped_km": 0.68,
+   "n_samples": 1
+  },
+  "81-753": {
+   "sea_km": 0.46,
+   "label_km": 0.46,
+   "centroid_km": 0.46,
+   "min_sample_km": 0.46,
+   "shipped_km": 0.46,
+   "n_samples": 1
+  },
+  "81-754": {
+   "sea_km": 0.241,
+   "label_km": 0.299,
+   "centroid_km": 0.29,
+   "min_sample_km": 0.241,
+   "shipped_km": 0.3,
+   "n_samples": 2
+  },
+  "81-755": {
+   "sea_km": 0.641,
+   "label_km": 0.641,
+   "centroid_km": 0.641,
+   "min_sample_km": 0.641,
+   "shipped_km": 0.64,
+   "n_samples": 1
+  },
+  "81-756": {
+   "sea_km": 0.424,
+   "label_km": 0.42,
+   "centroid_km": 0.424,
+   "min_sample_km": 0.424,
+   "shipped_km": 0.42,
+   "n_samples": 1
+  },
+  "81-757": {
+   "sea_km": 0.544,
+   "label_km": 0.518,
+   "centroid_km": 0.544,
+   "min_sample_km": 0.544,
+   "shipped_km": 0.52,
+   "n_samples": 1
+  },
+  "81-758": {
+   "sea_km": 0.287,
+   "label_km": 0.285,
+   "centroid_km": 0.287,
+   "min_sample_km": 0.287,
+   "shipped_km": 0.29,
+   "n_samples": 1
+  },
+  "81-759": {
+   "sea_km": 0.311,
+   "label_km": 0.313,
+   "centroid_km": 0.454,
+   "min_sample_km": 0.311,
+   "shipped_km": 0.31,
+   "n_samples": 5
+  },
+  "81-760": {
+   "sea_km": 0.554,
+   "label_km": 0.527,
+   "centroid_km": 0.554,
+   "min_sample_km": 0.554,
+   "shipped_km": 0.54,
+   "n_samples": 1
+  },
+  "81-761": {
+   "sea_km": 0.607,
+   "label_km": 0.623,
+   "centroid_km": 0.607,
+   "min_sample_km": 0.607,
+   "shipped_km": 0.63,
+   "n_samples": 1
+  },
+  "81-762": {
+   "sea_km": 0.427,
+   "label_km": 0.403,
+   "centroid_km": 0.427,
+   "min_sample_km": 0.427,
+   "shipped_km": 0.41,
+   "n_samples": 1
+  },
+  "81-763": {
+   "sea_km": 0.531,
+   "label_km": 0.531,
+   "centroid_km": 0.531,
+   "min_sample_km": 0.531,
+   "shipped_km": 0.53,
+   "n_samples": 1
+  },
+  "81-764": {
+   "sea_km": 0.387,
+   "label_km": 0.353,
+   "centroid_km": 0.387,
+   "min_sample_km": 0.387,
+   "shipped_km": 0.35,
+   "n_samples": 1
+  },
+  "81-765": {
+   "sea_km": 0.399,
+   "label_km": 0.405,
+   "centroid_km": 0.399,
+   "min_sample_km": 0.399,
+   "shipped_km": 0.41,
+   "n_samples": 1
+  },
+  "81-767": {
+   "sea_km": 0.654,
+   "label_km": 0.708,
+   "centroid_km": 0.654,
+   "min_sample_km": 0.654,
+   "shipped_km": 0.71,
+   "n_samples": 1
+  },
+  "81-769": {
+   "sea_km": 0.028,
+   "label_km": 0.067,
+   "centroid_km": 0.056,
+   "min_sample_km": 0.028,
+   "shipped_km": 0.1,
+   "n_samples": 4
+  },
+  "81-770": {
+   "sea_km": 0.241,
+   "label_km": 0.246,
+   "centroid_km": 0.241,
+   "min_sample_km": 0.241,
+   "shipped_km": 0.25,
+   "n_samples": 1
+  },
+  "81-771": {
+   "sea_km": 0.277,
+   "label_km": 0.273,
+   "centroid_km": 0.284,
+   "min_sample_km": 0.277,
+   "shipped_km": 0.28,
+   "n_samples": 3
+  },
+  "81-773": {
+   "sea_km": 0.328,
+   "label_km": 0.358,
+   "centroid_km": 0.328,
+   "min_sample_km": 0.328,
+   "shipped_km": 0.36,
+   "n_samples": 1
+  },
+  "81-775": {
+   "sea_km": 0.274,
+   "label_km": 0.34,
+   "centroid_km": 0.345,
+   "min_sample_km": 0.274,
+   "shipped_km": 0.34,
+   "n_samples": 3
+  },
+  "81-776": {
+   "sea_km": 0.208,
+   "label_km": 0.208,
+   "centroid_km": 0.208,
+   "min_sample_km": 0.208,
+   "shipped_km": 0.21,
+   "n_samples": 1
+  },
+  "81-777": {
+   "sea_km": 0.026,
+   "label_km": 0.125,
+   "centroid_km": 0.15,
+   "min_sample_km": 0.026,
+   "shipped_km": 0.14,
+   "n_samples": 7
+  },
+  "81-778": {
+   "sea_km": 0.478,
+   "label_km": 0.478,
+   "centroid_km": 0.478,
+   "min_sample_km": 0.478,
+   "shipped_km": 0.48,
+   "n_samples": 1
+  },
+  "81-779": {
+   "sea_km": 0.366,
+   "label_km": 0.394,
+   "centroid_km": 0.366,
+   "min_sample_km": 0.366,
+   "shipped_km": 0.4,
+   "n_samples": 1
+  },
+  "81-780": {
+   "sea_km": 0.458,
+   "label_km": 0.458,
+   "centroid_km": 0.458,
+   "min_sample_km": 0.458,
+   "shipped_km": 0.46,
+   "n_samples": 1
+  },
+  "81-781": {
+   "sea_km": 0.57,
+   "label_km": 0.599,
+   "centroid_km": 0.594,
+   "min_sample_km": 0.57,
+   "shipped_km": 0.6,
+   "n_samples": 2
+  },
+  "81-782": {
+   "sea_km": 0.512,
+   "label_km": 0.509,
+   "centroid_km": 0.532,
+   "min_sample_km": 0.512,
+   "shipped_km": 0.51,
+   "n_samples": 2
+  },
+  "81-783": {
+   "sea_km": 0.432,
+   "label_km": 0.564,
+   "centroid_km": 0.507,
+   "min_sample_km": 0.432,
+   "shipped_km": 0.57,
+   "n_samples": 2
+  },
+  "81-784": {
+   "sea_km": 0.448,
+   "label_km": 0.445,
+   "centroid_km": 0.448,
+   "min_sample_km": 0.448,
+   "shipped_km": 0.45,
+   "n_samples": 1
+  },
+  "81-785": {
+   "sea_km": 0.489,
+   "label_km": 0.489,
+   "centroid_km": 0.489,
+   "min_sample_km": 0.489,
+   "shipped_km": 0.49,
+   "n_samples": 1
+  },
+  "81-786": {
+   "sea_km": 0.4,
+   "label_km": 0.394,
+   "centroid_km": 0.4,
+   "min_sample_km": 0.4,
+   "shipped_km": 0.39,
+   "n_samples": 1
+  },
+  "81-805": {
+   "sea_km": 0.772,
+   "label_km": 0.904,
+   "centroid_km": 0.852,
+   "min_sample_km": 0.772,
+   "shipped_km": 0.91,
+   "n_samples": 5
+  },
+  "81-807": {
+   "sea_km": 1.024,
+   "label_km": 0.999,
+   "centroid_km": 1.024,
+   "min_sample_km": 1.024,
+   "shipped_km": 1,
+   "n_samples": 1
+  },
+  "81-808": {
+   "sea_km": 0.853,
+   "label_km": 0.841,
+   "centroid_km": 0.9,
+   "min_sample_km": 0.853,
+   "shipped_km": 0.85,
+   "n_samples": 2
+  },
+  "81-809": {
+   "sea_km": 0.966,
+   "label_km": 0.946,
+   "centroid_km": 0.966,
+   "min_sample_km": 0.966,
+   "shipped_km": 0.96,
+   "n_samples": 1
+  },
+  "81-810": {
+   "sea_km": 0.704,
+   "label_km": 0.775,
+   "centroid_km": 0.765,
+   "min_sample_km": 0.704,
+   "shipped_km": 0.79,
+   "n_samples": 4
+  },
+  "81-811": {
+   "sea_km": 0.787,
+   "label_km": 0.86,
+   "centroid_km": 0.905,
+   "min_sample_km": 0.787,
+   "shipped_km": 0.86,
+   "n_samples": 8
+  },
+  "81-812": {
+   "sea_km": 0.735,
+   "label_km": 1.316,
+   "centroid_km": 1.135,
+   "min_sample_km": 0.735,
+   "shipped_km": 1.32,
+   "n_samples": 9
+  },
+  "81-813": {
+   "sea_km": 0.691,
+   "label_km": 0.919,
+   "centroid_km": 0.91,
+   "min_sample_km": 0.691,
+   "shipped_km": 0.93,
+   "n_samples": 8
+  },
+  "81-814": {
+   "sea_km": 0.617,
+   "label_km": 0.64,
+   "centroid_km": 0.67,
+   "min_sample_km": 0.617,
+   "shipped_km": 0.64,
+   "n_samples": 4
+  },
+  "81-815": {
+   "sea_km": 0.799,
+   "label_km": 1.169,
+   "centroid_km": 1.092,
+   "min_sample_km": 0.799,
+   "shipped_km": 1.18,
+   "n_samples": 11
+  },
+  "81-816": {
+   "sea_km": 0.742,
+   "label_km": 0.759,
+   "centroid_km": 0.742,
+   "min_sample_km": 0.742,
+   "shipped_km": 0.76,
+   "n_samples": 1
+  },
+  "81-817": {
+   "sea_km": 0.862,
+   "label_km": 1.63,
+   "centroid_km": 1.452,
+   "min_sample_km": 0.862,
+   "shipped_km": 1.64,
+   "n_samples": 34
+  },
+  "81-818": {
+   "sea_km": 0.978,
+   "label_km": 0.966,
+   "centroid_km": 0.978,
+   "min_sample_km": 0.978,
+   "shipped_km": 0.97,
+   "n_samples": 1
+  },
+  "81-819": {
+   "sea_km": 1.085,
+   "label_km": 1.07,
+   "centroid_km": 1.085,
+   "min_sample_km": 1.085,
+   "shipped_km": 1.07,
+   "n_samples": 1
+  },
+  "81-820": {
+   "sea_km": 0.951,
+   "label_km": 2.558,
+   "centroid_km": 2.406,
+   "min_sample_km": 0.951,
+   "shipped_km": 2.56,
+   "n_samples": 182
+  },
+  "81-821": {
+   "sea_km": 1.132,
+   "label_km": 1.089,
+   "centroid_km": 1.132,
+   "min_sample_km": 1.132,
+   "shipped_km": 1.09,
+   "n_samples": 1
+  },
+  "81-822": {
+   "sea_km": 0.889,
+   "label_km": 1.012,
+   "centroid_km": 0.986,
+   "min_sample_km": 0.889,
+   "shipped_km": 1.02,
+   "n_samples": 6
+  },
+  "81-823": {
+   "sea_km": 1.228,
+   "label_km": 1.321,
+   "centroid_km": 1.367,
+   "min_sample_km": 1.228,
+   "shipped_km": 1.32,
+   "n_samples": 6
+  },
+  "81-824": {
+   "sea_km": 0.092,
+   "label_km": 0.821,
+   "centroid_km": 0.917,
+   "min_sample_km": 0.092,
+   "shipped_km": 0.82,
+   "n_samples": 11
+  },
+  "81-825": {
+   "sea_km": 1.161,
+   "label_km": 1.464,
+   "centroid_km": 1.388,
+   "min_sample_km": 1.161,
+   "shipped_km": 1.47,
+   "n_samples": 5
+  },
+  "81-826": {
+   "sea_km": 1.516,
+   "label_km": 2.075,
+   "centroid_km": 2.148,
+   "min_sample_km": 1.516,
+   "shipped_km": 2.08,
+   "n_samples": 40
+  },
+  "81-827": {
+   "sea_km": 1.012,
+   "label_km": 1.091,
+   "centroid_km": 1.065,
+   "min_sample_km": 1.012,
+   "shipped_km": 1.1,
+   "n_samples": 3
+  },
+  "81-828": {
+   "sea_km": 0.984,
+   "label_km": 1.205,
+   "centroid_km": 1.181,
+   "min_sample_km": 0.984,
+   "shipped_km": 1.21,
+   "n_samples": 4
+  },
+  "81-829": {
+   "sea_km": 1.296,
+   "label_km": 1.58,
+   "centroid_km": 1.538,
+   "min_sample_km": 1.296,
+   "shipped_km": 1.58,
+   "n_samples": 18
+  },
+  "81-830": {
+   "sea_km": 1.3,
+   "label_km": 1.3,
+   "centroid_km": 1.3,
+   "min_sample_km": 1.3,
+   "shipped_km": 1.3,
+   "n_samples": 1
+  },
+  "81-831": {
+   "sea_km": 1.049,
+   "label_km": 1.411,
+   "centroid_km": 1.287,
+   "min_sample_km": 1.049,
+   "shipped_km": 1.42,
+   "n_samples": 6
+  },
+  "81-832": {
+   "sea_km": 1.397,
+   "label_km": 1.45,
+   "centroid_km": 1.451,
+   "min_sample_km": 1.397,
+   "shipped_km": 1.45,
+   "n_samples": 3
+  },
+  "81-833": {
+   "sea_km": 1.595,
+   "label_km": 1.978,
+   "centroid_km": 1.884,
+   "min_sample_km": 1.595,
+   "shipped_km": 1.69,
+   "n_samples": 11
+  },
+  "81-834": {
+   "sea_km": 1.283,
+   "label_km": 1.275,
+   "centroid_km": 1.283,
+   "min_sample_km": 1.283,
+   "shipped_km": 1.28,
+   "n_samples": 1
+  },
+  "81-835": {
+   "sea_km": 0.878,
+   "label_km": 0.934,
+   "centroid_km": 0.916,
+   "min_sample_km": 0.878,
+   "shipped_km": 0.93,
+   "n_samples": 3
+  },
+  "81-836": {
+   "sea_km": 1.178,
+   "label_km": 1.181,
+   "centroid_km": 1.178,
+   "min_sample_km": 1.178,
+   "shipped_km": 1.18,
+   "n_samples": 1
+  },
+  "81-837": {
+   "sea_km": 1.066,
+   "label_km": 1.091,
+   "centroid_km": 1.066,
+   "min_sample_km": 1.066,
+   "shipped_km": 1.09,
+   "n_samples": 1
+  },
+  "81-838": {
+   "sea_km": 0.941,
+   "label_km": 0.948,
+   "centroid_km": 0.98,
+   "min_sample_km": 0.941,
+   "shipped_km": 0.95,
+   "n_samples": 3
+  },
+  "81-839": {
+   "sea_km": 1.092,
+   "label_km": 1.039,
+   "centroid_km": 1.092,
+   "min_sample_km": 1.092,
+   "shipped_km": 1.04,
+   "n_samples": 1
+  },
+  "81-840": {
+   "sea_km": 0.984,
+   "label_km": 1.065,
+   "centroid_km": 1.085,
+   "min_sample_km": 0.984,
+   "shipped_km": 1.07,
+   "n_samples": 5
+  },
+  "81-841": {
+   "sea_km": 1.155,
+   "label_km": 1.155,
+   "centroid_km": 1.155,
+   "min_sample_km": 1.155,
+   "shipped_km": 1.16,
+   "n_samples": 1
+  },
+  "81-842": {
+   "sea_km": 1.175,
+   "label_km": 1.829,
+   "centroid_km": 1.609,
+   "min_sample_km": 1.175,
+   "shipped_km": 1.51,
+   "n_samples": 11
+  },
+  "81-843": {
+   "sea_km": 1.276,
+   "label_km": 1.263,
+   "centroid_km": 1.295,
+   "min_sample_km": 1.276,
+   "shipped_km": 1.26,
+   "n_samples": 2
+  },
+  "81-844": {
+   "sea_km": 1.218,
+   "label_km": 1.259,
+   "centroid_km": 1.238,
+   "min_sample_km": 1.218,
+   "shipped_km": 1.26,
+   "n_samples": 2
+  },
+  "81-845": {
+   "sea_km": 1.531,
+   "label_km": 1.503,
+   "centroid_km": 1.531,
+   "min_sample_km": 1.531,
+   "shipped_km": 1.5,
+   "n_samples": 1
+  },
+  "81-846": {
+   "sea_km": 1.466,
+   "label_km": 1.479,
+   "centroid_km": 1.466,
+   "min_sample_km": 1.466,
+   "shipped_km": 1.48,
+   "n_samples": 1
+  },
+  "81-847": {
+   "sea_km": 1.419,
+   "label_km": 1.525,
+   "centroid_km": 1.529,
+   "min_sample_km": 1.419,
+   "shipped_km": 1.48,
+   "n_samples": 5
+  },
+  "81-848": {
+   "sea_km": 1.485,
+   "label_km": 1.485,
+   "centroid_km": 1.485,
+   "min_sample_km": 1.485,
+   "shipped_km": 1.17,
+   "n_samples": 1
+  },
+  "81-849": {
+   "sea_km": 1.514,
+   "label_km": 1.501,
+   "centroid_km": 1.514,
+   "min_sample_km": 1.514,
+   "shipped_km": 1.09,
+   "n_samples": 1
+  },
+  "81-850": {
+   "sea_km": 1.021,
+   "label_km": 1.12,
+   "centroid_km": 1.252,
+   "min_sample_km": 1.021,
+   "shipped_km": 1.12,
+   "n_samples": 10
+  },
+  "81-851": {
+   "sea_km": 1.207,
+   "label_km": 1.207,
+   "centroid_km": 1.207,
+   "min_sample_km": 1.207,
+   "shipped_km": 1.21,
+   "n_samples": 1
+  },
+  "81-852": {
+   "sea_km": 1.556,
+   "label_km": 1.642,
+   "centroid_km": 1.689,
+   "min_sample_km": 1.556,
+   "shipped_km": 1.23,
+   "n_samples": 5
+  },
+  "81-853": {
+   "sea_km": 1.219,
+   "label_km": 1.303,
+   "centroid_km": 1.33,
+   "min_sample_km": 1.219,
+   "shipped_km": 1.28,
+   "n_samples": 5
+  },
+  "81-854": {
+   "sea_km": 1.42,
+   "label_km": 1.384,
+   "centroid_km": 1.451,
+   "min_sample_km": 1.42,
+   "shipped_km": 1.06,
+   "n_samples": 2
+  },
+  "81-855": {
+   "sea_km": 1.416,
+   "label_km": 2.371,
+   "centroid_km": 1.965,
+   "min_sample_km": 1.416,
+   "shipped_km": 0.18,
+   "n_samples": 29
+  },
+  "81-856": {
+   "sea_km": 1.712,
+   "label_km": 1.669,
+   "centroid_km": 1.712,
+   "min_sample_km": 1.712,
+   "shipped_km": 0.33,
+   "n_samples": 1
+  },
+  "81-857": {
+   "sea_km": 1.255,
+   "label_km": 1.248,
+   "centroid_km": 1.255,
+   "min_sample_km": 1.255,
+   "shipped_km": 1.25,
+   "n_samples": 1
+  },
+  "81-859": {
+   "sea_km": 1.262,
+   "label_km": 1.29,
+   "centroid_km": 1.324,
+   "min_sample_km": 1.262,
+   "shipped_km": 1.04,
+   "n_samples": 5
+  },
+  "81-860": {
+   "sea_km": 0.628,
+   "label_km": 0.662,
+   "centroid_km": 0.652,
+   "min_sample_km": 0.628,
+   "shipped_km": 0.67,
+   "n_samples": 2
+  },
+  "81-861": {
+   "sea_km": 0.475,
+   "label_km": 0.549,
+   "centroid_km": 0.587,
+   "min_sample_km": 0.475,
+   "shipped_km": 0.55,
+   "n_samples": 18
+  },
+  "81-862": {
+   "sea_km": 0.65,
+   "label_km": 0.807,
+   "centroid_km": 0.964,
+   "min_sample_km": 0.65,
+   "shipped_km": 0.81,
+   "n_samples": 21
+  },
+  "81-864": {
+   "sea_km": 1.136,
+   "label_km": 1.207,
+   "centroid_km": 1.203,
+   "min_sample_km": 1.136,
+   "shipped_km": 1.21,
+   "n_samples": 3
+  },
+  "81-865": {
+   "sea_km": 0.971,
+   "label_km": 0.991,
+   "centroid_km": 0.971,
+   "min_sample_km": 0.971,
+   "shipped_km": 0.99,
+   "n_samples": 1
+  },
+  "81-866": {
+   "sea_km": 1.726,
+   "label_km": 2.526,
+   "centroid_km": 2.481,
+   "min_sample_km": 1.726,
+   "shipped_km": 2.14,
+   "n_samples": 55
+  },
+  "81-867": {
+   "sea_km": 1.148,
+   "label_km": 1.182,
+   "centroid_km": 1.148,
+   "min_sample_km": 1.148,
+   "shipped_km": 1.18,
+   "n_samples": 1
+  },
+  "81-868": {
+   "sea_km": 1.009,
+   "label_km": 1.025,
+   "centroid_km": 1.029,
+   "min_sample_km": 1.009,
+   "shipped_km": 1.03,
+   "n_samples": 2
+  },
+  "81-869": {
+   "sea_km": 1.086,
+   "label_km": 1.1,
+   "centroid_km": 1.086,
+   "min_sample_km": 1.086,
+   "shipped_km": 1.1,
+   "n_samples": 1
+  },
+  "81-870": {
+   "sea_km": 1.36,
+   "label_km": 1.419,
+   "centroid_km": 1.36,
+   "min_sample_km": 1.36,
+   "shipped_km": 1.28,
+   "n_samples": 1
+  },
+  "81-871": {
+   "sea_km": 1.488,
+   "label_km": 1.5,
+   "centroid_km": 1.488,
+   "min_sample_km": 1.488,
+   "shipped_km": 1.24,
+   "n_samples": 1
+  },
+  "81-872": {
+   "sea_km": 1.546,
+   "label_km": 1.619,
+   "centroid_km": 1.578,
+   "min_sample_km": 1.546,
+   "shipped_km": 1.04,
+   "n_samples": 2
+  },
+  "81-873": {
+   "sea_km": 1.682,
+   "label_km": 1.722,
+   "centroid_km": 1.713,
+   "min_sample_km": 1.682,
+   "shipped_km": 1.05,
+   "n_samples": 2
+  },
+  "81-874": {
+   "sea_km": 1.601,
+   "label_km": 3.04,
+   "centroid_km": 2.82,
+   "min_sample_km": 1.601,
+   "shipped_km": 1.61,
+   "n_samples": 166
+  },
+  "81-875": {
+   "sea_km": 2.913,
+   "label_km": 3.796,
+   "centroid_km": 3.794,
+   "min_sample_km": 2.913,
+   "shipped_km": 2.75,
+   "n_samples": 240
+  },
+  "81-876": {
+   "sea_km": 1.365,
+   "label_km": 1.688,
+   "centroid_km": 1.607,
+   "min_sample_km": 1.365,
+   "shipped_km": 0.83,
+   "n_samples": 4
+  },
+  "81-877": {
+   "sea_km": 1.676,
+   "label_km": 2.395,
+   "centroid_km": 2.272,
+   "min_sample_km": 1.676,
+   "shipped_km": 0.54,
+   "n_samples": 48
+  },
+  "81-881": {
+   "sea_km": 1.402,
+   "label_km": 2.18,
+   "centroid_km": 2.112,
+   "min_sample_km": 1.402,
+   "shipped_km": 2.19,
+   "n_samples": 67
+  }
+ }
+}

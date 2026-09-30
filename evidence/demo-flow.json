@@ -1,0 +1,230 @@
+{
+  "step1-homepage-1280x800": {
+    "url": "http://127.0.0.1:8097/integrations/municipal-site/",
+    "nav": {
+      "itemCount": 8,
+      "wraps": false,
+      "wrapAt": null,
+      "tabLabel": "Strona Biznesu",
+      "tabHref": "pl/strona-biznesu",
+      "tabClass": " ",
+      "tabWidth": 107.02,
+      "tabRight": 1048.72,
+      "tabColor": "rgb(0, 0, 0)",
+      "underline": "rgba(0, 0, 0, 0)",
+      "underlineWidth": "auto",
+      "viewport": {
+        "w": 1280,
+        "h": 800
+      }
+    }
+  },
+  "step2-tab-1280x800": {
+    "url": "http://127.0.0.1:8097/integrations/municipal-site/pl/strona-biznesu/",
+    "nav": {
+      "itemCount": 8,
+      "wraps": false,
+      "wrapAt": null,
+      "tabLabel": "Strona Biznesu",
+      "tabHref": "../../pl/strona-biznesu",
+      "tabClass": "menu-wybrane",
+      "tabWidth": 107.02,
+      "tabRight": 1048.72,
+      "tabColor": "rgb(23, 143, 211)",
+      "underline": "rgb(23, 143, 211)",
+      "underlineWidth": "20px",
+      "viewport": {
+        "w": 1280,
+        "h": 800
+      }
+    },
+    "frame": {
+      "src": "/app/",
+      "width": 1116,
+      "height": 2978,
+      "border": "0px",
+      "display": "block",
+      "minHeight": "820px",
+      "sameOrigin": true,
+      "inner": {
+        "title": "Sopocka Strona Biznesu — Panel przedsiębiorcy",
+        "h1": "Panel przedsiębiorcy",
+        "bodyText": "karta.sopot.pl Mieszkańcy Turystyka Strona Biznesu Kontakt Sopot · dane kartowe MCC 5812 · 2025-01-01 → 2026-06-30 PANEL PRZEDSIĘBIORCY Nowa zakładka w Sopockiej Karcie Mieszkańca dla lokali gastronomicznych. Pokazuje, co jest normalne dla Twojej ulicy o tej godzinie i w tym dniu tygodnia, jak bardzo odbiega od tego dzisiejszy dzień i które wydarzenie w mieście niesie sygnał. Panel czyta jeden wstępnie policzony plik",
+        "scrollHeight": 2978,
+        "hasErrorBox": false,
+        "scripts": 0,
+        "externalScripts": [],
+        "bodyFont": "Barlow, system-ui, sans-serif",
+        "bodyBg": "rgb(242, 240, 231)",
+        "rootTokens": 1262
+      }
+    }
+  },
+  "step3-panel-1280x800": {
+    "frame": {
+      "src": "/app/",
+      "width": 1116,
+      "height": 3008,
+      "border": "0px",
+      "display": "block",
+      "minHeight": "820px",
+      "sameOrigin": true,
+      "inner": {
+        "title": "Sopocka Strona Biznesu — Panel przedsiębiorcy",
+        "h1": "Panel przedsiębiorcy",
+        "bodyText": "karta.sopot.pl Mieszkańcy Turystyka Strona Biznesu Kontakt Sopot · dane kartowe MCC 5812 · 2025-01-01 → 2026-06-30 PANEL PRZEDSIĘBIORCY Nowa zakładka w Sopockiej Karcie Mieszkańca dla lokali gastronomicznych. Pokazuje, co jest normalne dla Twojej ulicy o tej godzinie i w tym dniu tygodnia, jak bardzo odbiega od tego dzisiejszy dzień i które wydarzenie w mieście niesie sygnał. Panel czyta jeden wstępnie policzony plik",
+        "scrollHeight": 3008,
+        "hasErrorBox": false,
+        "scripts": 0,
+        "externalScripts": [],
+        "bodyFont": "Barlow, system-ui, sans-serif",
+        "bodyBg": "rgb(242, 240, 231)",
+        "rootTokens": 1262
+      }
+    },
+    "host": {
+      "title": "Sopocka Strona Biznesu — Karta Sopocka",
+      "breadcrumb": [
+        "Home",
+        "Sopocka Strona Biznesu"
+      ],
+      "heroTitle": "Sopocka Strona Biznesu",
+      "kicker": "Panel przedsiębiorcy",
+      "strap": "Strona Biznesu jest częścią programu Karty Sopockiej: pokazujemy sopockim przedsiębiorcom, jak kształtują się płatności kartą w ich okolicy.",
+      "themePrimary": "#178fd3",
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyFont": "Montserrat, sans-serif",
+      "focusOutline": "",
+      "hasFooter": true,
+      "footerBusinessLink": "Jak zostać partnerem karty"
+    },
+    "scrolledTo": 553
+  },
+  "step4-back-1280x800": {
+    "url": "http://127.0.0.1:8097/integrations/municipal-site/pl/home/",
+    "isHomepage": true,
+    "hasNewTab": true
+  },
+  "requests-1280x800": {
+    "total": 158,
+    "offOrigin": [],
+    "origin": "http://127.0.0.1:8097"
+  },
+  "console-1280x800": [
+    "INFO [SopotData] aggregate v4: 378 212 wierszy, 54 kodów, 17 obszarów po wszystkich bramkach, 4.47 MB, 145 ms"
+  ],
+  "step1-homepage-1920x1080": {
+    "url": "http://127.0.0.1:8097/integrations/municipal-site/",
+    "nav": {
+      "itemCount": 8,
+      "wraps": false,
+      "wrapAt": null,
+      "tabLabel": "Strona Biznesu",
+      "tabHref": "pl/strona-biznesu",
+      "tabClass": " ",
+      "tabWidth": 122.3,
+      "tabRight": 1447.64,
+      "tabColor": "rgb(0, 0, 0)",
+      "underline": "rgba(0, 0, 0, 0)",
+      "underlineWidth": "auto",
+      "viewport": {
+        "w": 1920,
+        "h": 1080
+      }
+    }
+  },
+  "step2-tab-1920x1080": {
+    "url": "http://127.0.0.1:8097/integrations/municipal-site/pl/strona-biznesu/",
+    "nav": {
+      "itemCount": 8,
+      "wraps": false,
+      "wrapAt": null,
+      "tabLabel": "Strona Biznesu",
+      "tabHref": "../../pl/strona-biznesu",
+      "tabClass": "menu-wybrane",
+      "tabWidth": 122.3,
+      "tabRight": 1447.64,
+      "tabColor": "rgb(23, 143, 211)",
+      "underline": "rgb(23, 143, 211)",
+      "underlineWidth": "20px",
+      "viewport": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame": {
+      "src": "/app/",
+      "width": 1296,
+      "height": 2639,
+      "border": "0px",
+      "display": "block",
+      "minHeight": "820px",
+      "sameOrigin": true,
+      "inner": {
+        "title": "Sopocka Strona Biznesu — Panel przedsiębiorcy",
+        "h1": "Panel przedsiębiorcy",
+        "bodyText": "karta.sopot.pl Mieszkańcy Turystyka Strona Biznesu Kontakt Sopot · dane kartowe MCC 5812 · 2025-01-01 → 2026-06-30 PANEL PRZEDSIĘBIORCY Nowa zakładka w Sopockiej Karcie Mieszkańca dla lokali gastronomicznych. Pokazuje, co jest normalne dla Twojej ulicy o tej godzinie i w tym dniu tygodnia, jak bardzo odbiega od tego dzisiejszy dzień i które wydarzenie w mieście niesie sygnał. Panel czyta jeden wstępnie policzony plik",
+        "scrollHeight": 2639,
+        "hasErrorBox": false,
+        "scripts": 0,
+        "externalScripts": [],
+        "bodyFont": "Barlow, system-ui, sans-serif",
+        "bodyBg": "rgb(242, 240, 231)",
+        "rootTokens": 1262
+      }
+    }
+  },
+  "step3-panel-1920x1080": {
+    "frame": {
+      "src": "/app/",
+      "width": 1296,
+      "height": 2669,
+      "border": "0px",
+      "display": "block",
+      "minHeight": "820px",
+      "sameOrigin": true,
+      "inner": {
+        "title": "Sopocka Strona Biznesu — Panel przedsiębiorcy",
+        "h1": "Panel przedsiębiorcy",
+        "bodyText": "karta.sopot.pl Mieszkańcy Turystyka Strona Biznesu Kontakt Sopot · dane kartowe MCC 5812 · 2025-01-01 → 2026-06-30 PANEL PRZEDSIĘBIORCY Nowa zakładka w Sopockiej Karcie Mieszkańca dla lokali gastronomicznych. Pokazuje, co jest normalne dla Twojej ulicy o tej godzinie i w tym dniu tygodnia, jak bardzo odbiega od tego dzisiejszy dzień i które wydarzenie w mieście niesie sygnał. Panel czyta jeden wstępnie policzony plik",
+        "scrollHeight": 2669,
+        "hasErrorBox": false,
+        "scripts": 0,
+        "externalScripts": [],
+        "bodyFont": "Barlow, system-ui, sans-serif",
+        "bodyBg": "rgb(242, 240, 231)",
+        "rootTokens": 1262
+      }
+    },
+    "host": {
+      "title": "Sopocka Strona Biznesu — Karta Sopocka",
+      "breadcrumb": [
+        "Home",
+        "Sopocka Strona Biznesu"
+      ],
+      "heroTitle": "Sopocka Strona Biznesu",
+      "kicker": "Panel przedsiębiorcy",
+      "strap": "Strona Biznesu jest częścią programu Karty Sopockiej: pokazujemy sopockim przedsiębiorcom, jak kształtują się płatności kartą w ich okolicy.",
+      "themePrimary": "#178fd3",
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyFont": "Montserrat, sans-serif",
+      "focusOutline": "",
+      "hasFooter": true,
+      "footerBusinessLink": "Jak zostać partnerem karty"
+    },
+    "scrolledTo": 527
+  },
+  "step4-back-1920x1080": {
+    "url": "http://127.0.0.1:8097/integrations/municipal-site/pl/home/",
+    "isHomepage": true,
+    "hasNewTab": true
+  },
+  "requests-1920x1080": {
+    "total": 157,
+    "offOrigin": [],
+    "origin": "http://127.0.0.1:8097"
+  },
+  "console-1920x1080": [
+    "INFO [SopotData] aggregate v4: 378 212 wierszy, 54 kodów, 17 obszarów po wszystkich bramkach, 4.47 MB, 98 ms"
+  ]
+}

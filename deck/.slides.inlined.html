@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Sopocka Strona Biznesu — prezentacja</title>
+<style>
+/* ===========================================================================
+   ONE reconciled token set — shared with the panel and the film.
+   Amber = money moving. Teal = the service. No third hue in the data layer.
+   Grounds: dark for data slides, light for product slides (the municipal UI).
+   =========================================================================== */
+@font-face{font-family:'Inter Tight';src:url('assets/fonts/inter-tight-0.woff2') format('woff2');font-weight:600;font-display:block}
+@font-face{font-family:'Inter';src:url('assets/fonts/inter-0.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Inter';src:url('assets/fonts/inter-1.woff2') format('woff2');font-weight:500;font-display:block}
+@font-face{font-family:'JetBrains Mono';src:url('assets/fonts/jetbrains-mono-0.woff2') format('woff2');font-weight:500;font-display:block}
+
+:root{
+  --ground:#0B1220; --pulse:#FFB84D; --accent:#21C7B7;
+  --ink:#F5F3EE; --ink-2:#B9C0CC; --dim:#55637A;
+  --line:rgba(245,243,238,0.22);
+  --light:#F2F0E7; --light-2:#D8EFEB; --teal-ink:#11685F; --near-black:#101B24;
+}
+@page{ size:508mm 285.75mm; margin:0 }   /* 1920x1080 px @96dpi */
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;padding:0;background:#000}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+     -webkit-font-smoothing:antialiased}
+
+.slide{
+  position:relative; width:1920px; height:1080px; overflow:hidden;
+  background:var(--ground); page-break-after:always; break-after:page;
+  padding:88px 104px 96px;
+}
+.slide:last-child{page-break-after:auto}
+.slide.light{background:var(--light); color:var(--near-black)}
+
+/* ---- shared furniture ---- */
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:.14em;
+         text-transform:uppercase;color:var(--pulse)}
+.slide.light .eyebrow{color:var(--teal-ink)}
+h1{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:104px;line-height:1.02;
+   margin:26px 0 0;letter-spacing:-.02em}
+h2{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:76px;line-height:1.06;
+   margin:22px 0 0;letter-spacing:-.015em;max-width:1560px}
+.sub{font-size:34px;line-height:1.42;color:var(--ink-2);margin-top:26px;max-width:1420px}
+.slide.light .sub{color:#3B4A50}
+.en{display:block;font-size:26px;color:var(--dim);margin-top:10px;font-weight:400}
+.slide.light .en{color:#6C7C82}
+.footer{position:absolute;left:104px;right:104px;bottom:44px;display:flex;
+        justify-content:space-between;align-items:baseline;
+        font-family:'JetBrains Mono',monospace;font-size:19px;color:var(--dim);
+        border-top:1px solid var(--line);padding-top:16px}
+.slide.light .footer{border-color:rgba(16,27,36,.16);color:#6C7C82}
+.num{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+.rule{height:1px;background:var(--line);margin:34px 0}
+
+/* ---- layout ---- */
+.cols{display:flex;gap:72px;margin-top:44px}
+.col{flex:1;min-width:0}
+.stat{font-family:'JetBrains Mono',monospace;font-size:60px;color:var(--pulse);line-height:1}
+.stat small{display:block;font-family:'Inter';font-size:24px;color:var(--ink-2);margin-top:12px;
+            letter-spacing:0}
+.card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:12px;
+      padding:30px 34px}
+.slide.light .card{background:#fff;border-color:rgba(16,27,36,.12)}
+.bullets{margin:30px 0 0;padding:0;list-style:none}
+.bullets li{font-size:31px;line-height:1.5;color:var(--ink);margin-bottom:20px;padding-left:38px;
+            position:relative;max-width:1560px}
+.bullets li:before{content:'';position:absolute;left:0;top:17px;width:16px;height:2px;
+                   background:var(--accent)}
+.slide.light .bullets li:before{background:var(--teal-ink)}
+.bullets li span.k{font-family:'JetBrains Mono',monospace;color:var(--pulse)}
+.slide.light .bullets li span.k{color:var(--teal-ink)}
+figure{margin:0}
+figure img{width:100%;display:block;border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:27px;margin-top:26px}
+th,td{text-align:left;padding:17px 22px;border-bottom:1px solid var(--line)}
+th{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.08em;
+   text-transform:uppercase;color:var(--dim)}
+td.n{font-family:'JetBrains Mono',monospace;text-align:right}
+tr.best td{color:var(--accent);font-weight:500}
+tr.worst td{color:var(--pulse)}
+tr.best td:first-child:before{content:'▸ '}
+.status{display:flex;gap:56px;margin-top:40px}
+.status>div{flex:1}
+.status h3{font-family:'JetBrains Mono',monospace;font-size:23px;letter-spacing:.1em;
+           text-transform:uppercase;margin:0 0 20px;color:var(--ink-2)}
+.status ul{margin:0;padding:0;list-style:none;font-size:28px;line-height:1.48}
+.status li{margin-bottom:15px;padding-left:28px;position:relative}
+.status li:before{content:'—';position:absolute;left:0;color:var(--dim)}
+.pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:21px;
+      border:1px solid var(--line);border-radius:8px;padding:9px 18px;margin:0 12px 12px 0;
+      color:var(--ink-2)}
+.ok:before{content:'✓ ';color:var(--accent)}
+.no:before{content:'✕ ';color:var(--pulse)}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ 1 · COVER -->
+<section class="slide">
+  <div style="display:flex;flex-direction:column;height:100%;justify-content:center">
+    <div class="eyebrow">Visa Data Sprint · Public Challenge · Sopot</div>
+    <h1>Miasto i firmy oddychają<br>tym samym rytmem</h1>
+    <div class="sub">The city and its businesses breathe to the same rhythm.
+      <span class="en">Sopocka Strona Biznesu — a new tab in the resident card, for businesses registered in the city.</span>
+    </div>
+    <div style="margin-top:56px">
+      <span class="pill ok">bez nowej aplikacji / no new app</span>
+      <span class="pill ok">bez zbierania sprzedaży firmy / without collecting a firm's own sales</span>
+      <span class="pill ok">tylko MCC 5812, tylko Sopot / one trade, one city</span>
+    </div>
+    <div style="margin-top:64px;display:flex;gap:96px">
+      <div class="stat num">378 212<small>transakcji kartą / card transactions</small></div>
+      <div class="stat num">62<small>kody pocztowe / postcodes</small></div>
+      <div class="stat num">347<small>podmiotów / merchant IDs</small></div>
+      <div class="stat num">546<small>dni / days</small></div>
+    </div>
+  </div>
+  <div class="footer"><span>2026-09-30</span><span>MCC 5812 · Sopot · 2025-01-01 – 2026-06-30</span><span>1 / 10</span></div>
+</section>
+
+<!-- ================================================= 2 · PROBLEM & USER -->
+<section class="slide">
+  <div class="eyebrow">Problem i użytkownik</div>
+  <h2>Właścicielka dziesięciu stolików nigdy nie zatrudni analityka</h2>
+  <div class="sub">The owner of ten tables will never hire an analyst.
+    <span class="en">Our user: a restaurant in Sopot, MCC 5812, one postcode, no analyst, no CRM, no BI tool.</span>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <ul class="bullets">
+        <li>Dane o ruchu w mieście <span class="k">istnieją</span> — ale nie dla niej.</li>
+        <li>Nie kupi danych i nie zapłaci za raport.</li>
+        <li>Ma już aplikację miasta w telefonie. Nie chce nowej.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="eyebrow" style="font-size:19px">Trzy pytania, na które chce odpowiedzi</div>
+        <ul class="bullets" style="margin-top:22px">
+          <li style="font-size:30px">Kiedy obsadzić zmianę?</li>
+          <li style="font-size:30px">Co promować w tym tygodniu?</li>
+          <li style="font-size:30px">Czy ten piątek będzie inny?</li>
+        </ul>
+      </div>
+      <div style="margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--dim)">
+        347 podmiotów · mediana rachunku 81,33 (waluta fikcyjna)
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Problem · użytkownik</span><span>Kryterium 2 · 3</span><span>2 / 10</span></div>
+</section>
+
+<!-- ============================================================= 3 · DATA -->
+<section class="slide">
+  <div class="eyebrow">Dane</div>
+  <h2>378 212 transakcji — policzone dla jednej branży, o każdej godzinie</h2>
+  <div class="sub">Co dokładnie wykorzystaliśmy i skąd.
+    <span class="en">Everything below is reproducible from `make data`; every input is checksummed in data/MANIFEST.sha256.</span>
+  </div>
+  <div class="cols" style="margin-top:38px">
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Transakcje</div>
+      <div class="stat num" style="margin-top:16px">378 212<small>wierszy, 72 kolumny</small></div>
+      <div style="margin-top:18px;font-size:25px;color:var(--ink-2)">160 127 kart · 347 podmiotów<br>MCC 5812 — restauracje, wyłącznie<br>2025-01-01 → 2026-06-30 (546 dni)</div></div>
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Pogoda</div>
+      <div class="stat num" style="margin-top:16px">2,03 mln<small>wierszy godzinowych</small></div>
+      <div style="margin-top:18px;font-size:25px;color:var(--ink-2)">Temperatura, wiatr, deszcz, słońce.<br><b>Uwaga:</b> identyczna dla wszystkich kodów — pogoda jest <b>miejska</b>, nie dzielnicowa.</div></div>
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Miasto</div>
+      <div class="stat num" style="margin-top:16px">2 819<small>wydarzeń w kalendarzu</small></div>
+      <div style="margin-top:18px;font-size:25px;color:var(--ink-2)">151 sektorów kodów — granice <b>wnioskowane z adresów, nie urzędowe</b> (w samym artefakcie 41 obserwowanych · 7 wnioskowanych · 5 ekstrapolowanych)</div></div>
+  </div>
+  <div class="card" style="margin-top:34px;font-size:26px;color:var(--ink-2)">
+    Dane zanonimizowane i syntetyczne, udostępnione przez Organizatora wyłącznie na potrzeby wyzwania.
+    Numery kart <b>nie są czytane</b> przez nasz pipeline — w artefakcie publicznym istnieją wyłącznie jako liczność na obszar, na potrzeby bramki 30 kart.
+  </div>
+  <div class="footer"><span>Dane</span><span>Kryterium 1 (30%)</span><span>3 / 10</span></div>
+</section>
+
+<!-- ======================================================= 4 · FINDING 1 -->
+<section class="slide">
+  <div class="eyebrow">Wniosek 1</div>
+  <h2>Szczyt to lunch o 14:00 — 45,8% ruchu w godz. 11–15</h2>
+  <div class="sub">Zmierzony profil dobowy kontra założenie w naszym własnym scenariuszu.
+    <span class="en">The measured rhythm is a lunch trade, not a dinner one — and 10.2% of rows have no usable timestamp at all.</span>
+  </div>
+  <figure style="margin-top:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 430" width="1180" height="430"><rect width="1180" height="430" fill="#0B1220"/><line x1="64" y1="289.0" x2="1156" y2="289.0" stroke="rgba(245,243,238,0.28)" stroke-width="0.5"/><line x1="64" y1="206.0" x2="1156" y2="206.0" stroke="rgba(245,243,238,0.28)" stroke-width="0.5"/><line x1="64" y1="123.0" x2="1156" y2="123.0" stroke="rgba(245,243,238,0.28)" stroke-width="0.5"/><rect x="564.5" y="26" width="227.5" height="346.0" fill="#FFB84D" opacity="0.07"/><line x1="564.5" y1="26" x2="564.5" y2="372" stroke="#FFB84D" opacity="0.35"/><line x1="792.0" y1="26" x2="792.0" y2="372" stroke="#FFB84D" opacity="0.35"/><rect x="65.5" y="347.6" width="42.5" height="24.4" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="111.0" y="356.1" width="42.5" height="15.9" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="156.5" y="361.3" width="42.5" height="10.7" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="202.0" y="367.4" width="42.5" height="4.6" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="247.5" y="369.6" width="42.5" height="2.4" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="293.0" y="370.9" width="42.5" height="1.1" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="338.5" y="371.5" width="42.5" height="0.5" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="384.0" y="366.4" width="42.5" height="5.6" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="429.5" y="353.4" width="42.5" height="18.6" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="475.0" y="315.8" width="42.5" height="56.2" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="520.5" y="275.9" width="42.5" height="96.1" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="566.0" y="191.4" width="42.5" height="180.6" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="611.5" y="125.0" width="42.5" height="247.0" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="657.0" y="64.8" width="42.5" height="307.2" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="702.5" y="40.0" width="42.5" height="332.0" fill="#FFB84D" opacity="1" rx="1.5"/><rect x="748.0" y="50.3" width="42.5" height="321.7" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="793.5" y="74.7" width="42.5" height="297.3" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="839.0" y="110.7" width="42.5" height="261.3" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="884.5" y="142.0" width="42.5" height="230.0" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="930.0" y="169.1" width="42.5" height="202.9" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="975.5" y="202.6" width="42.5" height="169.4" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="1021.0" y="244.7" width="42.5" height="127.3" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="1066.5" y="294.2" width="42.5" height="77.8" fill="#21C7B7" opacity="0.55" rx="1.5"/><rect x="1112.0" y="329.9" width="42.5" height="42.1" fill="#21C7B7" opacity="0.55" rx="1.5"/><text x="86.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">00</text><text x="177.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">02</text><text x="268.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">04</text><text x="359.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">06</text><text x="450.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">08</text><text x="541.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">10</text><text x="632.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">12</text><text x="723.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">14</text><text x="814.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">16</text><text x="905.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">18</text><text x="996.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">20</text><text x="1087.8" y="396" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">22</text><text x="64" y="20" fill="#B9C0CC" font-size="18" font-family="Inter">Transakcje MCC 5812 wg godziny (czas polski)</text><text x="570.5" y="20" fill="#FFB84D" font-size="17" font-family="JetBrains Mono">45.8% w godz. 11-15</text><text x="1156" y="20" fill="#FFB84D" font-size="17" font-family="JetBrains Mono" text-anchor="end">szczyt 14:00</text></svg></figure>
+  <figure style="margin-top:18px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 360" width="1180" height="360"><rect width="1180" height="360" fill="#0B1220"/><rect x="64" y="24" width="14" height="14" fill="#55637A" opacity="0.55"/><text x="86" y="36" fill="#B9C0CC" font-size="17" font-family="Inter">z znacznikiem 000000 (błędnie „valid")</text><rect x="494" y="24" width="14" height="14" fill="#21C7B7"/><text x="516" y="36" fill="#B9C0CC" font-size="17" font-family="Inter">po wyłączeniu — prawdziwy profil</text><rect x="66.0" y="288.7" width="20.8" height="19.3" fill="#55637A" opacity="0.55" rx="1"/><rect x="66.0" y="288.7" width="20.8" height="19.3" fill="#21C7B7" opacity="1" rx="1"/><rect x="86.8" y="288.7" width="20.8" height="19.3" fill="#21C7B7" rx="1"/><rect x="111.5" y="209.7" width="20.8" height="98.3" fill="#55637A" opacity="0.55" rx="1"/><rect x="111.5" y="295.4" width="20.8" height="12.6" fill="#21C7B7" opacity="1" rx="1"/><rect x="132.2" y="295.4" width="20.8" height="12.6" fill="#21C7B7" rx="1"/><rect x="157.0" y="114.4" width="20.8" height="193.6" fill="#55637A" opacity="0.55" rx="1"/><rect x="157.0" y="299.5" width="20.8" height="8.5" fill="#21C7B7" opacity="1" rx="1"/><rect x="177.8" y="299.5" width="20.8" height="8.5" fill="#21C7B7" rx="1"/><rect x="202.5" y="304.4" width="20.8" height="3.6" fill="#55637A" opacity="0.55" rx="1"/><rect x="202.5" y="304.4" width="20.8" height="3.6" fill="#21C7B7" opacity="1" rx="1"/><rect x="223.2" y="304.4" width="20.8" height="3.6" fill="#21C7B7" rx="1"/><rect x="248.0" y="306.1" width="20.8" height="1.9" fill="#55637A" opacity="0.55" rx="1"/><rect x="248.0" y="306.1" width="20.8" height="1.9" fill="#21C7B7" opacity="1" rx="1"/><rect x="268.8" y="306.1" width="20.8" height="1.9" fill="#21C7B7" rx="1"/><rect x="293.5" y="307.2" width="20.8" height="0.8" fill="#55637A" opacity="0.55" rx="1"/><rect x="293.5" y="307.2" width="20.8" height="0.8" fill="#21C7B7" opacity="1" rx="1"/><rect x="314.2" y="307.2" width="20.8" height="0.8" fill="#21C7B7" rx="1"/><rect x="339.0" y="307.6" width="20.8" height="0.4" fill="#55637A" opacity="0.55" rx="1"/><rect x="339.0" y="307.6" width="20.8" height="0.4" fill="#21C7B7" opacity="1" rx="1"/><rect x="359.8" y="307.6" width="20.8" height="0.4" fill="#21C7B7" rx="1"/><rect x="384.5" y="303.6" width="20.8" height="4.4" fill="#55637A" opacity="0.55" rx="1"/><rect x="384.5" y="303.6" width="20.8" height="4.4" fill="#21C7B7" opacity="1" rx="1"/><rect x="405.2" y="303.6" width="20.8" height="4.4" fill="#21C7B7" rx="1"/><rect x="430.0" y="293.3" width="20.8" height="14.7" fill="#55637A" opacity="0.55" rx="1"/><rect x="430.0" y="293.3" width="20.8" height="14.7" fill="#21C7B7" opacity="1" rx="1"/><rect x="450.8" y="293.3" width="20.8" height="14.7" fill="#21C7B7" rx="1"/><rect x="475.5" y="263.6" width="20.8" height="44.4" fill="#55637A" opacity="0.55" rx="1"/><rect x="475.5" y="263.6" width="20.8" height="44.4" fill="#21C7B7" opacity="1" rx="1"/><rect x="496.2" y="263.6" width="20.8" height="44.4" fill="#21C7B7" rx="1"/><rect x="521.0" y="232.2" width="20.8" height="75.8" fill="#55637A" opacity="0.55" rx="1"/><rect x="521.0" y="232.2" width="20.8" height="75.8" fill="#21C7B7" opacity="1" rx="1"/><rect x="541.8" y="232.2" width="20.8" height="75.8" fill="#21C7B7" rx="1"/><rect x="566.5" y="165.5" width="20.8" height="142.5" fill="#55637A" opacity="0.55" rx="1"/><rect x="566.5" y="165.5" width="20.8" height="142.5" fill="#21C7B7" opacity="1" rx="1"/><rect x="587.2" y="165.5" width="20.8" height="142.5" fill="#21C7B7" rx="1"/><rect x="612.0" y="113.0" width="20.8" height="195.0" fill="#55637A" opacity="0.55" rx="1"/><rect x="612.0" y="113.0" width="20.8" height="195.0" fill="#21C7B7" opacity="1" rx="1"/><rect x="632.8" y="113.0" width="20.8" height="195.0" fill="#21C7B7" rx="1"/><rect x="657.5" y="65.6" width="20.8" height="242.4" fill="#55637A" opacity="0.55" rx="1"/><rect x="657.5" y="65.6" width="20.8" height="242.4" fill="#21C7B7" opacity="1" rx="1"/><rect x="678.2" y="65.6" width="20.8" height="242.4" fill="#21C7B7" rx="1"/><rect x="703.0" y="46.0" width="20.8" height="262.0" fill="#55637A" opacity="0.55" rx="1"/><rect x="703.0" y="46.0" width="20.8" height="262.0" fill="#21C7B7" opacity="1" rx="1"/><rect x="723.8" y="46.0" width="20.8" height="262.0" fill="#21C7B7" rx="1"/><rect x="748.5" y="54.2" width="20.8" height="253.8" fill="#55637A" opacity="0.55" rx="1"/><rect x="748.5" y="54.2" width="20.8" height="253.8" fill="#21C7B7" opacity="1" rx="1"/><rect x="769.2" y="54.2" width="20.8" height="253.8" fill="#21C7B7" rx="1"/><rect x="794.0" y="73.4" width="20.8" height="234.6" fill="#55637A" opacity="0.55" rx="1"/><rect x="794.0" y="73.4" width="20.8" height="234.6" fill="#21C7B7" opacity="1" rx="1"/><rect x="814.8" y="73.4" width="20.8" height="234.6" fill="#21C7B7" rx="1"/><rect x="839.5" y="101.8" width="20.8" height="206.2" fill="#55637A" opacity="0.55" rx="1"/><rect x="839.5" y="101.8" width="20.8" height="206.2" fill="#21C7B7" opacity="1" rx="1"/><rect x="860.2" y="101.8" width="20.8" height="206.2" fill="#21C7B7" rx="1"/><rect x="885.0" y="126.5" width="20.8" height="181.5" fill="#55637A" opacity="0.55" rx="1"/><rect x="885.0" y="126.5" width="20.8" height="181.5" fill="#21C7B7" opacity="1" rx="1"/><rect x="905.8" y="126.5" width="20.8" height="181.5" fill="#21C7B7" rx="1"/><rect x="930.5" y="147.9" width="20.8" height="160.1" fill="#55637A" opacity="0.55" rx="1"/><rect x="930.5" y="147.9" width="20.8" height="160.1" fill="#21C7B7" opacity="1" rx="1"/><rect x="951.2" y="147.9" width="20.8" height="160.1" fill="#21C7B7" rx="1"/><rect x="976.0" y="174.3" width="20.8" height="133.7" fill="#55637A" opacity="0.55" rx="1"/><rect x="976.0" y="174.3" width="20.8" height="133.7" fill="#21C7B7" opacity="1" rx="1"/><rect x="996.8" y="174.3" width="20.8" height="133.7" fill="#21C7B7" rx="1"/><rect x="1021.5" y="207.5" width="20.8" height="100.5" fill="#55637A" opacity="0.55" rx="1"/><rect x="1021.5" y="207.5" width="20.8" height="100.5" fill="#21C7B7" opacity="1" rx="1"/><rect x="1042.2" y="207.5" width="20.8" height="100.5" fill="#21C7B7" rx="1"/><rect x="1067.0" y="246.6" width="20.8" height="61.4" fill="#55637A" opacity="0.55" rx="1"/><rect x="1067.0" y="246.6" width="20.8" height="61.4" fill="#21C7B7" opacity="1" rx="1"/><rect x="1087.8" y="246.6" width="20.8" height="61.4" fill="#21C7B7" rx="1"/><rect x="1112.5" y="274.8" width="20.8" height="33.2" fill="#55637A" opacity="0.55" rx="1"/><rect x="1112.5" y="274.8" width="20.8" height="33.2" fill="#21C7B7" opacity="1" rx="1"/><rect x="1133.2" y="274.8" width="20.8" height="33.2" fill="#21C7B7" rx="1"/><line x1="723.8" y1="52" x2="723.8" y2="46.0" stroke="#FFB84D" stroke-dasharray="4 3"/><text x="758.5" y="68" fill="#FFB84D" font-size="19" font-family="JetBrains Mono">02:00 = 10% wierszy bez znacznika czasu</text><text x="86.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">00</text><text x="177.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">02</text><text x="268.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">04</text><text x="359.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">06</text><text x="450.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">08</text><text x="541.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">10</text><text x="632.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">12</text><text x="723.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">14</text><text x="814.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">16</text><text x="905.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">18</text><text x="996.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">20</text><text x="1087.8" y="334" fill="#55637A" font-size="17" text-anchor="middle" font-family="JetBrains Mono">22</text></svg></figure>
+  <div class="footer"><span>Wniosek 1 · rytm dobowy</span><span>Kryterium 1 · 2 · 5</span><span>4 / 10</span></div>
+</section>
+
+<!-- ======================================================= 5 · FINDING 2 -->
+<section class="slide">
+  <div class="eyebrow">Wniosek 2</div>
+  <h2>Deszcz działa w każdej specyfikacji. Wydarzenia zależą od tego, ile sezonu zabierzemy</h2>
+  <div class="sub">Bez kontroli dni z największą liczbą wydarzeń wypadają <b>+33 pp</b> powyżej średniej, a najspokojniejsze
+    <b>−27 pp</b>. Po usunięciu efektu miesiąca i dnia tygodnia różnica maleje z <b>59,8 pp do 8,8 pp</b>.
+    <span class="en">The event signal is real but an order of magnitude smaller than it first appears. We report the
+    whole specification curve rather than the one that flatters our own story — and the film's draft claimed +38%.</span>
+  </div>
+  <figure style="margin-top:26px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 330" width="1180" height="330"><rect width="1180" height="330" fill="#0B1220"/><line x1="450" y1="165.0" x2="1030" y2="165.0" stroke="rgba(245,243,238,0.28)"/><text x="166" y="124" fill="#B9C0CC" font-size="20" font-family="Inter" text-anchor="end">Dni z największą liczbą wydarzeń vs najmniejszą — bez kontroli</text><line x1="450" y1="70.2" x2="670" y2="242.5" stroke="#FFB84D" stroke-width="3"/><circle cx="450" cy="70.2" r="9" fill="#FFB84D"/><circle cx="670" cy="242.5" r="9" fill="#FFB84D"/><text x="692" y="77.2" fill="#FFB84D" font-size="22" font-family="JetBrains Mono">+32.9%</text><text x="692" y="249.5" fill="#FFB84D" font-size="22" font-family="JetBrains Mono">-26.9%</text><text x="166" y="238" fill="#B9C0CC" font-size="20" font-family="Inter" text-anchor="end">To samo, po kontroli miesiąc × dzień tygodnia</text><line x1="450" y1="153.2" x2="670" y2="178.8" stroke="#21C7B7" stroke-width="3"/><circle cx="450" cy="153.2" r="9" fill="#21C7B7"/><circle cx="670" cy="178.8" r="9" fill="#21C7B7"/><text x="692" y="160.2" fill="#21C7B7" font-size="22" font-family="JetBrains Mono">+4.1%</text><text x="692" y="185.8" fill="#21C7B7" font-size="22" font-family="JetBrains Mono">-4.8%</text><text x="450" y="316" fill="#F5F3EE" font-size="21" font-family="JetBrains Mono">rozstęp 59.8 pp → 8.9 pp</text></svg></figure>
+  <div class="cols" style="margin-top:24px">
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Statystyka t w dwóch specyfikacjach</div>
+      <table style="margin-top:8px;font-size:25px">
+        <thead><tr><th>Czynnik</th><th class="n">z miesiącem</th><th class="n">bez miesiąca</th></tr></thead>
+        <tbody>
+          <tr class="best"><td>deszcz</td><td class="n">−9,7</td><td class="n">−8,5</td></tr>
+          <tr><td>temperatura</td><td class="n">+11,4</td><td class="n">+3,1</td></tr>
+          <tr><td>wydarzenia</td><td class="n">+5,1</td><td class="n">+2,8</td></tr>
+          <tr class="worst"><td>wiatr</td><td class="n">−1,4</td><td class="n">−2,0</td></tr>
+        </tbody>
+      </table></div>
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Co z tego wynika</div>
+      <div style="margin-top:12px;font-size:26px;line-height:1.5;color:var(--ink-2)">
+        <b>Deszcz</b> jest jedynym czynnikiem, który jest silny w <b>każdej</b> specyfikacji — więc to jego
+        pokazujemy jako sterowalny. <b>Wiatr</b> nie jest istotny, więc go nie twierdzimy.
+        <b>Wydarzenia</b> są realne, ale ich wielkość zależy od tego, ile sezonu pochłoną zmienne miesięczne —
+        i tak to pokazujemy.<br><br>
+        <span style="color:var(--dim);font-size:22px">Pełna krzywa specyfikacji jest w <b>docs/MODEL.md</b>;
+        każda liczba na tym slajdzie ma wiersz w <b>docs/claims.json</b> i przechodzi <b>make verify</b>.</span>
+      </div></div>
+  </div>
+  <div class="footer"><span>Wniosek 2 · czynniki</span><span>Kryterium 1 · 2 · 4</span><span>5 / 10</span></div>
+</section>
+
+<!-- ========================================================== 6 · MODEL -->
+<section class="slide">
+  <div class="eyebrow">Model i test kroczący</div>
+  <h2>20,5% typowego błędu — i mówimy, co ten wynik poprawia</h2>
+  <div class="sub">Test kroczący, 490 dni, wyłącznie z przeszłości, bez podglądania przyszłości.
+    <span class="en">Walk-forward, expanding window, past-only. The same run also tells us what does NOT help.</span>
+  </div>
+  <table>
+    <thead><tr><th>Model</th><th class="n">MAPE</th><th class="n">MAE</th><th class="n">MASE</th><th class="n">PICP80</th><th>Werdykt</th></tr></thead>
+    <tbody>
+      <tr class="best"><td>Baza + pogoda + wydarzenia</td><td class="n">20,5%</td><td class="n">145,2</td><td class="n">0,759</td><td class="n">80,6%</td><td>nasz model / shipped</td></tr>
+      <tr><td>Mediana z 4 takich samych dni — sama baza</td><td class="n">22,8%</td><td class="n">166,3</td><td class="n">0,869</td><td class="n">78,6%</td><td>najlepsza baza</td></tr>
+      <tr><td>Średnia z 4 takich samych dni</td><td class="n">24,1%</td><td class="n">169,9</td><td class="n">0,888</td><td class="n">78,2%</td><td>—</td></tr>
+      <tr class="worst"><td>Sezonowa naiwna (ta sama godzina, poprzedni tydzień)</td><td class="n">26,4%</td><td class="n">188,5</td><td class="n">0,986</td><td class="n">79,6%</td><td>najsłabsza</td></tr>
+    </tbody>
+  </table>
+  <div class="card" style="margin-top:28px;font-size:27px;line-height:1.5;color:var(--ink-2)">
+    Czynniki poprawiają <b>naszą własną bazę o 3,6 pp</b> (24,1% → 20,5%) i sezonową naiwną o 5,8 pp.
+    Przedział 80% pokrywa <b>80,6%</b> dni — czyli jest skalibrowany, a nie tylko wąski.
+    <span class="en">The intervals are calibrated, not merely narrow: an 80% interval covers 80.6% of days.
+    Everything here is one command — <b>make data</b> — and re-checked by <b>make verify</b>.</span>
+  </div>
+  <div class="footer"><span>Model · backtest</span><span>Kryterium 1 · 4</span><span>6 / 10</span></div>
+</section>
+
+<!-- ======================================================== 7 · PRODUCT -->
+<section class="slide light">
+  <div class="eyebrow">Produkt</div>
+  <h2>Cztery zdania, które zmieniają tydzień właścicielki</h2>
+  <div class="sub">Kalendarz · Mapa · Godzina po godzinie · Obsada.
+    <span class="en">Not a dashboard: a recommendation. Every number below is computed, none is written by a language model.</span>
+  </div>
+  <div class="cols" style="margin-top:34px">
+    <div class="col" style="flex:1.35">
+      <figure><img src="assets/figures/panel.png" alt="Panel przedsiębiorcy"></figure>
+    </div>
+    <div class="col">
+      <div class="card" style="padding:34px 38px">
+        <div style="font-size:29px;line-height:1.75">
+          <div style="margin-bottom:20px"><span class="num" style="color:var(--teal-ink)">1.</span> Dziś spodziewaj się <b>~X transakcji</b> (P10–P90: Y–Z).</div>
+          <div style="margin-bottom:20px"><span class="num" style="color:var(--teal-ink)">2.</span> To o <b>N%</b> więcej niż typowa <b>sobota w czerwcu</b>.</div>
+          <div style="margin-bottom:20px"><span class="num" style="color:var(--teal-ink)">3.</span> Główny czynnik: <b>deszcz</b> — wkład <b>±N pp</b>.</div>
+          <div><span class="num" style="color:var(--teal-ink)">4.</span> Obsada: <b>zmiana wzmocniona</b>. Promocja: <b>tak</b>.</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;font-size:26px;color:#3B4A50">
+        Nowa zakładka <b>„Strona Biznesu”</b> w Karcie Sopockiej — ten sam serwis, którego miasto już używa.
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Produkt</span><span>Kryterium 3 · 5</span><span>7 / 10</span></div>
+</section>
+
+<!-- ======================================================== 8 · PRIVACY -->
+<section class="slide">
+  <div class="eyebrow">Prywatność</div>
+  <h2>17 z 62 obszarów przechodzi bramkę — reszta jest celowo wygaszona</h2>
+  <div class="sub">30 kart · 3 podmioty · żaden powyżej 75% grupy — dokładnie jak w §3 regulaminu.
+    <span class="en">The gate is not a limitation we hide; it is a rule we implement, measure and show.</span>
+  </div>
+  <figure style="margin-top:34px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 400" width="1180" height="400"><rect width="1180" height="400" fill="#0B1220"/><rect x="60" y="74" width="780.0" height="54" fill="#55637A" opacity="0.35" rx="3"/><text x="74" y="109.0" fill="#F5F3EE" font-size="23" font-family="Inter" font-weight="600">Wszystkie kody pocztowe Sopotu</text><text x="862" y="110.0" fill="#55637A" font-size="27" font-family="JetBrains Mono">62 / 62</text><rect x="60" y="150" width="679.4" height="54" fill="#B9C0CC" opacity="0.55" rx="3"/><text x="74" y="185.0" fill="#F5F3EE" font-size="23" font-family="Inter" font-weight="600">≥ 30 kart</text><text x="862" y="186.0" fill="#B9C0CC" font-size="27" font-family="JetBrains Mono">54 / 62</text><rect x="60" y="226" width="314.5" height="54" fill="#21C7B7" opacity="0.75" rx="3"/><text x="74" y="261.0" fill="#0B1220" font-size="23" font-family="Inter" font-weight="600">≥ 3 podmioty</text><text x="862" y="262.0" fill="#21C7B7" font-size="27" font-family="JetBrains Mono">25 / 62</text><rect x="60" y="302" width="213.9" height="54" fill="#FFB84D" opacity="0.95" rx="3"/><text x="74" y="337.0" fill="#0B1220" font-size="23" font-family="Inter" font-weight="600">wszystkie trzy bramki</text><text x="862" y="338.0" fill="#FFB84D" font-size="27" font-family="JetBrains Mono">17 / 62</text><text x="60" y="48" fill="#FFB84D" font-size="26" font-family="JetBrains Mono">89.95% wolumenu leży w obszarach, które przechodzą wszystkie trzy bramki</text><text x="60" y="374" fill="#55637A" font-size="19" font-family="Inter">Bramki: ≥30 kart · ≥3 podmioty · żaden podmiot powyżej 75% grupy (liczona także udziałem kart). Ciemne obszary są celowe, nie brakujące.</text></svg></figure>
+  <div class="cols" style="margin-top:30px">
+    <div class="col card" style="font-size:26px;line-height:1.5;color:var(--ink-2)">
+      <b style="color:var(--pulse)">Bramka prawie nic nie kosztuje.</b> 17 obszarów, które ją przechodzą,
+      obejmuje <b>89,95% wolumenu transakcji</b>; 37 cienkich obszarów jest wygaszonych, a ich wolumen
+      (33 197 transakcji) pozostaje w sumie miejskiej i w uzgodnieniu wierszy, ale nie jest już
+      przypisany do żadnego obszaru. Publikujemy <b>17</b>, nie „około 20”.
+    </div>
+    <div class="col card" style="font-size:26px;line-height:1.5;color:var(--ink-2)">
+      <b style="color:var(--accent)">Dwie płaszczyzny, nigdy razem.</b> Własne dane lokalu (za zgodą, jeden podmiot)
+      oraz porównanie zbiorcze (pula, musi przejść wszystkie bramki). Panel zawsze mówi:
+      <i>„Dane dla obszaru 81-777, nie dla Twojego lokalu.”</i>
+      <span class="en">Plus a leave-one-out gate: the merchant is inside every comparison cell and must not be able to difference themselves out.</span>
+    </div>
+  </div>
+  <div class="footer"><span>Prywatność · zgodność</span><span>Kryterium 3 · 4</span><span>8 / 10</span></div>
+</section>
+
+<!-- =================================================== 9 · ARCHITECTURE -->
+<section class="slide">
+  <div class="eyebrow">Architektura i rola AI</div>
+  <h2>Potok jest wykonywalny — a AI nie liczy żadnej liczby</h2>
+  <div class="sub">Eight stages, one command, zero external requests in the running demo.
+    <span class="en">AI built and analysed this project. It is not in the decision path.</span>
+  </div>
+  <div style="margin-top:40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:23px">
+    <span class="pill">Parquet 378 212</span><span style="color:var(--dim)">→</span>
+    <span class="pill">walidacja</span><span style="color:var(--dim)">→</span>
+    <span class="pill">normalizacja kodów</span><span style="color:var(--dim)">→</span>
+    <span class="pill">filtr Sopot</span><span style="color:var(--dim)">→</span>
+    <span class="pill">pogoda + kalendarz</span><span style="color:var(--dim)">→</span>
+    <span class="pill" style="border-color:var(--accent);color:var(--accent)">bramka prywatności</span><span style="color:var(--dim)">→</span>
+    <span class="pill">baseline + model</span><span style="color:var(--dim)">→</span>
+    <span class="pill" style="border-color:var(--pulse);color:var(--pulse)">aggregate.json</span>
+  </div>
+  <div class="cols" style="margin-top:44px">
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Co działa (prototyp gotowy)</div>
+      <ul class="bullets" style="margin-top:16px">
+        <li style="font-size:27px">Potok danych: <span class="k">make data</span>, powtarzalny, z asercjami</li>
+        <li style="font-size:27px">Bramka prywatności: 31 testów, 18 przypadków, dowód niepustości</li>
+        <li style="font-size:27px">Panel na realnych danych, offline, bez CDN-ów</li>
+        <li style="font-size:27px">Backtest kroczący z przedziałami</li>
+      </ul></div>
+    <div class="col card"><div class="eyebrow" style="font-size:19px">Co wymaga pracy przed wdrożeniem</div>
+      <ul class="bullets" style="margin-top:16px">
+        <li style="font-size:27px">Warstwa GIS: 12 z 151 granic <b>ekstrapolowanych</b></li>
+        <li style="font-size:27px">Brak rejestru lokali — nie twierdzimy „X% restauracji w obszarze”</li>
+        <li style="font-size:27px">Integracja z CMS miasta (u nas replika)</li>
+        <li style="font-size:27px">Pogoda miejska, nie dzielnicowa</li>
+      </ul></div>
+    <div class="col card" style="border-color:var(--pulse)"><div class="eyebrow" style="font-size:19px">Granica AI</div>
+      <div style="margin-top:16px;font-size:27px;line-height:1.5;color:var(--ink-2)">
+        AI użyte do <b>budowy, analizy i dokumentacji</b>. W ścieżce decyzyjnej <b>nie ma modelu językowego</b>:
+        prognoza to jawny wzór, możliwy do audytu i przeliczenia.<br>
+        <span style="color:var(--dim);font-size:23px">Ujawnienie użycia AI — wymagane przez Organizatora — w docs/EVIDENCE.md.</span>
+      </div></div>
+  </div>
+  <div class="footer"><span>Architektura · AI</span><span>Kryterium 4 (15%)</span><span>9 / 10</span></div>
+</section>
+
+<!-- ============================================================ 10 · END -->
+<section class="slide">
+  <div class="eyebrow">Bilans</div>
+  <h2>Co jest gotowe, co jest prototypem, a czego nie twierdzimy</h2>
+  <div class="status">
+    <div>
+      <h3 style="color:var(--accent)">Gotowe</h3>
+      <ul>
+        <li>Panel na 378 212 realnych transakcjach</li>
+        <li>Kaskada prywatności z mierzonym wynikiem</li>
+        <li>Backtest kroczący i uczciwy błąd 24,1%</li>
+        <li>Potok odtwarzalny jedną komendą</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--pulse)">Prototyp</h3>
+      <ul>
+        <li>Model prognozy i warstwa obsady</li>
+        <li>Granice kodów: model, nie urzędowe</li>
+        <li>Integracja z Kartą Sopocką</li>
+        <li>Kalendarz wydarzeń bez godzin i miejsc</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--dim)">Nie twierdzimy</h3>
+      <ul>
+        <li>że wydarzenia <i>powodują</i> wzrost — kontrola sezonowa</li>
+        <li>że mamy dane z innych kategorii niż MCC 5812</li>
+        <li>że pogoda różni się między dzielnicami</li>
+        <li>że liczby z filmu są zweryfikowane — są robocze</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:52px">
+    <div class="eyebrow" style="font-size:19px">Droga do pilotażu</div>
+    <div style="margin-top:18px;display:flex;gap:40px;font-size:27px;color:var(--ink-2);font-family:'JetBrains Mono',monospace">
+      <span>1 · zgoda miasta</span><span style="color:var(--dim)">→</span>
+      <span>2 · rejestr lokali</span><span style="color:var(--dim)">→</span>
+      <span>3 · 3 miesiące A/B</span><span style="color:var(--dim)">→</span>
+      <span style="color:var(--accent)">4 · zakładka dla firm w Karcie Sopockiej</span>
+    </div>
+  </div>
+  <div class="footer"><span>Sopocka Strona Biznesu</span><span>Kryterium 2 · 3 · 5</span><span>10 / 10</span></div>
+</section>
+
+</body>
+</html>
