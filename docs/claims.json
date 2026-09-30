@@ -1752,8 +1752,8 @@
   {
     "id": "verify_claims_total",
     "value": "claims verified",
-    "statement": "The ledger's own self-check: every row re-runs its command and the value must be found.",
-    "cmd": "python3 tools/verify_claims.py 2>&1 | tail -2",
+    "statement": "The ledger's own self-check, on one row (never the whole ledger: a row that re-runs every row would recurse). Every other row is checked the same way by the same script.",
+    "cmd": "python3 tools/verify_claims.py --only rows 2>&1 | tail -2",
     "used_in": [
       "docs/EVALUATION.md",
       "docs/RUN.md"

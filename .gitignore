@@ -44,3 +44,13 @@ _site/
 # from karta-mockup.zip, and integrations/NAV-DIFF.md records the exact edits we apply.
 integrations/municipal-site/
 artifacts/aggregate.fixture.json
+
+# The full per-cell privacy audit is INTERNAL. It carries n_cards, n_merchants and exact top-1
+# shares for the cells the gate suppresses — publishing it would undo the suppression it proves.
+# artifacts/privacy-summary.json carries the funnel counts and is safe to publish.
+artifacts/privacy-report.json
+
+# The adversarial review is an internal document: it names the specific non-gated cells and their
+# card counts in order to prove they were being released. That is the evidence, and publishing it
+# would republish the leak. It lives at ../research/adversarial-review.md (outside the repo).
+docs/REVIEW.md
