@@ -84,6 +84,19 @@ def build() -> None:
     shots = ROOT / "integrations" / "evidence"
     if shots.exists():
         copy_tree(shots, SITE / "evidence", "integration screenshots")
+    # The chrome-only excerpt of the municipal replica: our tab page plus the minimum theme
+    # assets for the header/nav/footer to render truthfully. Built by its own tool so the
+    # exclusion rules live in one place.
+    sys.path.insert(0, str(ROOT / "tools"))
+    try:
+        import build_municipal_excerpt as bx
+        if bx.TAB.exists():
+            bx.build()
+        else:
+            print(f"  skip  {'municipal tab page':28s} (not built; run integrations/tools/build-all.sh)")
+    except Exception as e:  # never let the excerpt break the deploy
+        print(f"  WARN  municipal excerpt failed: {e}")
+
     if WITH_REPLICA:
         for cand in (ROOT / "integrations" / "municipal-site", ROOT / "integrations" / "site"):
             if cand.exists():
