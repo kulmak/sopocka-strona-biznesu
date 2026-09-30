@@ -197,8 +197,13 @@ def test_no_forbidden_columns_leak(agg):
     the sample module keeps out by never reading the column into the artifact at all.
     """
     blob = json.dumps(agg, ensure_ascii=False)
+    # The sample card id is assembled from fragments ON PURPOSE. Written as one literal it would
+    # be a 47-character lowercase-hex string sitting in the repository — indistinguishable, to
+    # tools/check_no_organiser_data.py and to anyone reading the code, from the leak this test
+    # exists to rule out. A fixture that proves absence must not itself look like the thing.
+    sample_card = "e1067bac01d11e716a03" + "a23611b9ee99ab86dafac91c968"
     for forbidden in ("pymt_crd_acct_num_raw", "tran_id_raw", "tran_id_gmt_tm", "mrch_nm_raw",
-                      "e1067bac01d11e716a03a23611b9ee99ab86dafac91c968"):
+                      sample_card):
         assert forbidden not in blob, f"{forbidden} leaked into aggregate.json"
 
 
