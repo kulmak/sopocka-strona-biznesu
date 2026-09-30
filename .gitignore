@@ -35,3 +35,6 @@ artifacts/backtest.json
 artifacts/drivers.json
 artifacts/*.bin
 !artifacts/figures/
+
+# build output — published via the gh-pages branch, never tracked here
+_site/
