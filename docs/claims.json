@@ -1,0 +1,155 @@
+[
+  {
+    "id": "rows",
+    "value": "378212",
+    "statement": "Rows in the cleaned MCC 5812 Sopot dataset.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(*) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])\\\").fetchone()[0])\"",
+    "used_in": ["deck s1", "deck s3", "README", "docs/DATA.md"]
+  },
+  {
+    "id": "postcodes",
+    "value": "62",
+    "statement": "Distinct Sopot merchant postcodes with transactions.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(distinct merchant_postal_code_normalized) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null\\\").fetchone()[0])\"",
+    "used_in": ["deck s1", "deck s8"]
+  },
+  {
+    "id": "merchants",
+    "value": "347",
+    "statement": "Distinct merchant descriptors in the dataset.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(distinct mrch_nm_raw) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])\\\").fetchone()[0])\"",
+    "used_in": ["deck s1", "deck s2"]
+  },
+  {
+    "id": "cards",
+    "value": "160127",
+    "statement": "Distinct anonymised cards (the unit the 30-card gate counts).",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(distinct pymt_crd_acct_num_raw) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])\\\").fetchone()[0])\"",
+    "used_in": ["deck s3", "docs/DATA.md"]
+  },
+  {
+    "id": "days",
+    "value": "546",
+    "statement": "Calendar days covered, 2025-01-01 to 2026-06-30 inclusive.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(distinct purchase_date) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])\\\").fetchone()[0])\"",
+    "used_in": ["deck s1"]
+  },
+  {
+    "id": "median_ticket",
+    "value": "81.33",
+    "statement": "Median transaction amount (fictional PLN).",
+    "cmd": "python3 -c \"import duckdb;print(round(duckdb.sql(\\\"select median(transaction_amount) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])\\\").fetchone()[0],2))\"",
+    "used_in": ["deck s2"]
+  },
+  {
+    "id": "peak_hour",
+    "value": "14",
+    "statement": "Busiest local hour of the day, DST-correct, sentinel rows excluded.",
+    "cmd": "python3 -c \"import duckdb;d=duckdb.sql(\\\"select date_part('hour',timezone('Europe/Warsaw',(purchase_date+transaction_time_gmt)::TIMESTAMP AT TIME ZONE 'UTC'))::int h,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where tran_id_gmt_tm<>'000000' group by 1 order by n desc limit 1\\\").fetchone();print(d[0])\"",
+    "used_in": ["deck s4", "docs/MODEL.md"]
+  },
+  {
+    "id": "lunch_share",
+    "value": "45.8",
+    "statement": "Share of trade between 11:00 and 15:00 local.",
+    "cmd": "python3 -c \"import duckdb;d=duckdb.sql(\\\"select date_part('hour',timezone('Europe/Warsaw',(purchase_date+transaction_time_gmt)::TIMESTAMP AT TIME ZONE 'UTC'))::int h,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where tran_id_gmt_tm<>'000000' group by 1\\\").df();print(round(100*d[d.h.between(11,15)].n.sum()/d.n.sum(),1))\"",
+    "used_in": ["deck s4", "docs/MODEL.md"]
+  },
+  {
+    "id": "zero_timecode",
+    "value": "38443",
+    "statement": "Rows carrying the '000000' sentinel time (defect D2).",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(*) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where tran_id_gmt_tm='000000'\\\").fetchone()[0])\"",
+    "used_in": ["deck s4", "docs/CLEANING.md"]
+  },
+  {
+    "id": "gate_g1_cards",
+    "value": "54",
+    "statement": "Postcodes passing the >=30 distinct cards gate.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(*) from (select merchant_postal_code_normalized pc,count(distinct pymt_crd_acct_num_raw) c from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1) where c>=30\\\").fetchone()[0])\"",
+    "used_in": ["deck s8", "docs/PRIVACY.md"]
+  },
+  {
+    "id": "gate_g2_merchants",
+    "value": "25",
+    "statement": "Postcodes passing the >=3 merchants gate.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(*) from (select merchant_postal_code_normalized pc,count(distinct mrch_nm_raw) m from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1) where m>=3\\\").fetchone()[0])\"",
+    "used_in": ["deck s8", "docs/PRIVACY.md"]
+  },
+  {
+    "id": "gate_all_three",
+    "value": "18",
+    "statement": "Postcodes passing all three privacy gates.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"with per as (select merchant_postal_code_normalized pc,mrch_nm_raw m,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1,2), agg as (select pc,sum(n) tot,count(*) merchants,max(n) top1 from per group by 1), cards as (select merchant_postal_code_normalized pc,count(distinct pymt_crd_acct_num_raw) cards from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1) select count(*) from agg a join cards c using(pc) where c.cards>=30 and a.merchants>=3 and a.top1*1.0/a.tot<=0.75\\\").fetchone()[0])\"",
+    "used_in": ["deck s8", "docs/PRIVACY.md", "README"]
+  },
+  {
+    "id": "gate_volume_share",
+    "value": "90.7",
+    "statement": "Share of transaction volume inside the postcodes that pass all three gates.",
+    "cmd": "python3 -c \"import duckdb;print(round(duckdb.sql(\\\"with per as (select merchant_postal_code_normalized pc,mrch_nm_raw m,count(*) n from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1,2), agg as (select pc,sum(n) tot,count(*) merchants,max(n) top1 from per group by 1), cards as (select merchant_postal_code_normalized pc,count(distinct pymt_crd_acct_num_raw) cards from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized is not null group by 1) select 100.0*sum(case when c.cards>=30 and a.merchants>=3 and a.top1*1.0/a.tot<=0.75 then a.tot else 0 end)/sum(a.tot) from agg a join cards c using(pc)\\\").fetchone()[0],1))\"",
+    "used_in": ["deck s8", "docs/PRIVACY.md"]
+  },
+  {
+    "id": "top_postcode_share",
+    "value": "51.1",
+    "statement": "Share of all transactions sitting in postcode 81-777.",
+    "cmd": "python3 -c \"import duckdb;print(round(duckdb.sql(\\\"select 100.0*count(*)/(select count(*) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet'])) from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where merchant_postal_code_normalized='81-777'\\\").fetchone()[0],1))\"",
+    "used_in": ["deck s8", "docs/GEO.md"]
+  },
+  {
+    "id": "weather_spatial_variation",
+    "value": "0",
+    "statement": "Hourly timestamps on which the weather differs between postcodes. Zero proves the weather join is city-level.",
+    "cmd": "python3 -c \"import duckdb;print(duckdb.sql(\\\"select count(*) from (select purchase_date,transaction_time_gmt,count(distinct weather_temperature_mean_c) k from read_parquet(['/Users/kulma/Downloads/mcc5812_transactions.part01.parquet','/Users/kulma/Downloads/mcc5812_transactions.part02.parquet']) where weather_temperature_mean_c is not null group by 1,2 having k>1)\\\").fetchone()[0])\"",
+    "used_in": ["docs/DATA.md", "docs/MODEL.md"]
+  },
+  {
+    "id": "backtest_mape_base",
+    "value": "24.1",
+    "statement": "Walk-forward MAPE of the weekday-matched mean baseline.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/backtest.json'));print(d['baselines'][0]['mape'])\"",
+    "artifact": "artifacts/backtest.json",
+    "used_in": ["deck s6", "docs/EVALUATION.md", "README"]
+  },
+  {
+    "id": "backtest_mae_base",
+    "value": "169.9",
+    "statement": "Walk-forward MAE of the weekday-matched mean baseline.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/backtest.json'));print(d['baselines'][0]['mae'])\"",
+    "artifact": "artifacts/backtest.json",
+    "used_in": ["deck s6", "docs/EVALUATION.md"]
+  },
+  {
+    "id": "driver_rain_t",
+    "value": "-8.8",
+    "statement": "Rain coefficient t-statistic: the strongest short-run driver.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(d['coefficients']['rain']['t'])\"",
+    "artifact": "artifacts/drivers.json",
+    "used_in": ["deck s5", "docs/MODEL.md"]
+  },
+  {
+    "id": "driver_events_t",
+    "value": "1.9",
+    "statement": "Event-listings coefficient t-statistic: weak once season is controlled.",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/drivers.json'));print(d['coefficients']['events']['t'])\"",
+    "artifact": "artifacts/drivers.json",
+    "used_in": ["deck s5", "docs/MODEL.md"]
+  },
+  {
+    "id": "aggregate_size_mb",
+    "value": "1.98",
+    "statement": "Size of the privacy-gated aggregate the app loads, versus 26 MB of parquet.",
+    "cmd": "python3 -c \"import os;print(round(os.path.getsize('artifacts/aggregate.json')/1048576,2))\"",
+    "artifact": "artifacts/aggregate.json",
+    "used_in": ["deck s9", "docs/ARCHITECTURE.md"]
+  },
+  {
+    "id": "aggregate_rows",
+    "value": "378212",
+    "statement": "Rows accounted for inside the aggregate cube (every row lands exactly once).",
+    "cmd": "python3 -c \"import json;d=json.load(open('artifacts/aggregate.json'));print(d['rows'])\"",
+    "artifact": "artifacts/aggregate.json",
+    "used_in": ["deck s9", "docs/ARCHITECTURE.md"]
+  }
+]
